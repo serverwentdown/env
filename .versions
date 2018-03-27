@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export NEOVIM_VERSION=0.2.2
+
 export GOLANG_VERSION=1.10
 
 export NODE_VERSION=9.9.0
