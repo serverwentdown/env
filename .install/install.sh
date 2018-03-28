@@ -15,8 +15,6 @@ for f in $BASE_DIR/*; do
 	echo 
 	echo "Running $BASE_NAME..."
 
-	echo "$PWD"
 	$f
-	echo "$PWD"
 
 done
