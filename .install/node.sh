@@ -18,7 +18,8 @@ apk add --no-cache --virtual .build-deps \
 	libgcc \
 	linux-headers \
 	make \
-	python
+	python \
+	xz
 
 for key in \
 	94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
