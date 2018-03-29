@@ -8,8 +8,6 @@ COPY . .
 
 # Install tools from source
 
-RUN source ./.version
-
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
 RUN ./.install/golang.sh
