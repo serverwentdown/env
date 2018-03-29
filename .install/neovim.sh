@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-source .version
+source .versions
 
 echo
 echo "Installing neovim..."
