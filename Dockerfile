@@ -1,11 +1,13 @@
 FROM alpine:latest
 
+# Install dotfiles
+
+WORKDIR /home/ambrose
+
+COPY . .
+
 # Install tools from source
 
-WORKDIR /
-
-COPY .versions .versions
-COPY .install/* .install/
 RUN ./.install/install.sh
 
 # Create user
@@ -13,9 +15,6 @@ RUN ./.install/install.sh
 RUN adduser -s /bin/zsh -D ambrose
 USER ambrose
 
-# Install dotfiles
+# Open shell by default
 
-WORKDIR /home/ambrose
-
-COPY . .
-
+CMD ["/bin/zsh"]

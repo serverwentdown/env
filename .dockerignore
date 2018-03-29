@@ -1,3 +1,7 @@
-Dockerfile
-README.md
 .git
+
+Dockerfile
+.dockerignore
+.drone.yml
+
+README.md

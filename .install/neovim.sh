@@ -17,3 +17,6 @@ apk add --no-cache --virtual .build-deps \
 #rm nvim-linux64.tar.gz
 wget "https://github.com/neovim/neovim/releases/download/v$NEOVIM_VERSION/nvim.appimage"
 mv nvim.appimage /usr/local/bin/nvim
+chmod +x /usr/local/bin/nvim
+
+apk del .build-deps
