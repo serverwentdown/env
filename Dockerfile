@@ -8,11 +8,14 @@ COPY . .
 
 # Install tools from source
 
+RUN ./.install/core.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
 RUN ./.install/golang.sh
 RUN ./.install/node.sh
 RUN ./.install/python.sh
+
+RUN ./.install/caddy.sh
 
 # Create user
 
@@ -22,6 +25,7 @@ USER ambrose
 # Install user tools
 
 RUN ./.install/vgo.sh
+RUN ./.install/packr.sh
 
 # Open shell by default
 

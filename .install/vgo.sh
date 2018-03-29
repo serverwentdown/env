@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-source .versions
+source ./.versions
 
 echo
 echo "Installing vgo..."

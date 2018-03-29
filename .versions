@@ -7,3 +7,5 @@ export GOLANG_VERSION=1.10
 export NODE_VERSION=9.9.0
 export YARN_VERSION=1.5.1
 
+export CADDY_VERSION=0.10.12
+

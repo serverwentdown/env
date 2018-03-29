@@ -4,9 +4,10 @@ set -e
 source ./.versions
 
 echo
-echo Installing zsh with apk..."
+echo "Installing system utilities..."
 echo
 
 apk add --no-cache \
-	zsh
+	sudo \
+	nano
 

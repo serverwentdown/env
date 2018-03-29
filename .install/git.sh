@@ -4,9 +4,9 @@ set -e
 source ./.versions
 
 echo
-echo Installing zsh with apk..."
+echo "Installing Git..."
 echo
 
 apk add --no-cache \
-	zsh
+	git
 
