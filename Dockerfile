@@ -9,6 +9,7 @@ COPY . .
 # Install tools from source
 
 RUN ./.install/core.sh
+RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
 RUN ./.install/golang.sh
