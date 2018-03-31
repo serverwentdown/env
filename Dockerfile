@@ -13,7 +13,7 @@ RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
 RUN ./.install/golang.sh
-#RUN ./.install/node.sh
+RUN ./.install/node.sh
 RUN ./.install/python.sh
 
 RUN ./.install/caddy.sh
