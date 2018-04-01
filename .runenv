@@ -2,13 +2,26 @@
 
 OPTIND=1
 
-# Options
 delete=""
 name=""
 ports=""
 volumes=""
 
-while getopts "xn:p:v:" opt; do
+show_help() {
+cat << EOF
+Usage: ${0##*/} [-hx] [-n NAME] [-p PORT]... [-v LIST]... [CMD]...
+Starts an env Docker container. If CMD is specified, starts CMD 
+instead of a shell.
+
+   -h       display this help and exit
+   -x       delete Docker container after exit. will loose data
+   -p PORT  forward host PORT to container PORT
+   -v LIST  mount volume LIST. specify as LOCAL:MOUNT
+
+EOF
+}
+
+while getopts "hxn:p:v:" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
@@ -22,12 +35,18 @@ while getopts "xn:p:v:" opt; do
 	v)
 		volumes="$volumes\n\t-v $OPTARG "
 		;;
+	h)
+		show_help
+		exit 0
+		;;
 	:)
 		echo "Option -$OPTARG requires an argument." >&2
+		show_help
 		exit 1
 		;;
 	\?)
 		echo "Invalid option: -$OPTARG" >&2
+		show_help
 		exit 1
 		;;
 	esac
