@@ -19,6 +19,7 @@ apk add --no-cache --virtual .build-deps \
 	unibilium-dev \
 	libtermkey-dev \
 	libvterm-dev \
+	python3-dev \
 	python3
 
 git clone https://github.com/neovim/neovim.git
