@@ -12,9 +12,4 @@ apk add --no-cache \
 	nano \
 	curl \
 	wget \
-	openssh-client \
-	unzip \
-	zip \
-	tar \
-	xz
-
+	openssh-client
