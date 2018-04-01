@@ -7,7 +7,7 @@ echo
 echo "Installing Caddy $CADDY_VERSION..."
 echo
 
-source /etc/profile
+source /etc/profile # add Go to PATH
 
 git clone https://github.com/mholt/caddy -b "v$CADDY_VERSION" $(go env GOPATH)/src/github.com/mholt/caddy
 cd $(go env GOPATH)/src/github.com/mholt/caddy/caddy
