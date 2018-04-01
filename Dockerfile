@@ -1,34 +1,36 @@
 FROM alpine:latest
 
-# Install dotfiles
+# install dotfiles
 
 WORKDIR /home/ambrose
 COPY . .
 
-# Install tools from source
+# install tools from source
 
-# System
+# system
 RUN ./.install/core.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
-# Languages
+# languages
 RUN ./.install/golang.sh
 RUN ./.install/node.sh
 RUN ./.install/python.sh
-# Setup global PATH
+# setup global PATH
 ENV PATH=/usr/local/go/bin:$PATH
 
-# Create user
+# create user
 
 RUN adduser -s /bin/zsh -D ambrose
 USER ambrose
 
-# Install user programs
+# install user programs
+
+RUN ./.install/plug.sh
 RUN ./.install/vgo.sh
 RUN ./.install/caddy.sh
 RUN ./.install/packr.sh
 
-# Open shell by default
+# open shell by default
 
-CMD ["/bin/zsh"]
+ENTRYPOINT ["/bin/zsh"]

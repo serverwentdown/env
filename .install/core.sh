@@ -9,5 +9,12 @@ echo
 
 apk add --no-cache \
 	sudo \
-	nano
+	nano \
+	curl \
+	wget \
+	ssh \
+	unzip \
+	zip \
+	tar \
+	xz
 
