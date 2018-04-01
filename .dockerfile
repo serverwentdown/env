@@ -1,9 +1,13 @@
 FROM alpine:latest
 
+# create user
+
+RUN adduser -s /bin/zsh -D ambrose
+
 # install dotfiles
 
 WORKDIR /home/ambrose
-COPY . .
+COPY --chown=ambrose:ambrose . .
 
 # install tools from source
 
@@ -26,9 +30,8 @@ RUN ./.install/kubectl.sh
 
 ENV PATH=/usr/local/go/bin:$PATH
 
-# create user
+# switch to user
 
-RUN adduser -s /bin/zsh -D ambrose
 USER ambrose
 
 # install user programs
