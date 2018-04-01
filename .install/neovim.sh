@@ -7,6 +7,12 @@ echo
 echo "Installing neovim $NEOVIM_VERSION..."
 echo
 
+apk add --no-cache \
+	unibilium \
+	libtermkey \
+	libvterm \
+	python3
+
 apk add --no-cache --virtual .build-deps \
 	curl \
 	git \
