@@ -9,9 +9,12 @@ COPY . .
 
 # system
 RUN ./.install/core.sh
+RUN ./.install/archival.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
+# dotfiles
+RUN ./.install/yadm.sh
 # languages
 RUN ./.install/golang.sh
 RUN ./.install/node.sh
@@ -26,10 +29,11 @@ USER ambrose
 
 # install user programs
 
+RUN ./.install/zsh-pure.sh
 RUN ./.install/plug.sh
 RUN ./.install/vgo.sh
-RUN ./.install/caddy.sh
 RUN ./.install/packr.sh
+RUN ./.install/caddy.sh
 
 # open shell by default
 
