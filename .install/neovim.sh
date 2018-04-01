@@ -16,7 +16,9 @@ apk add --no-cache --virtual .build-deps \
 	automake \
 	cmake \
 	libtool \
-	unibilium-dev
+	unibilium-dev \
+	libtermkey-dev \
+	libvterm-dev
 
 git clone https://github.com/neovim/neovim.git
 cd neovim
