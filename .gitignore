@@ -1,0 +1,3 @@
+.ssh/known_hosts
+.kube/cache
+.kube/http-cache

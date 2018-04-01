@@ -19,7 +19,11 @@ RUN ./.install/yadm.sh
 RUN ./.install/golang.sh
 RUN ./.install/node.sh
 RUN ./.install/python.sh
-# setup global PATH for system programs
+# tools
+RUN ./.install/kubectl.sh
+
+# setup global PATH for system tools
+
 ENV PATH=/usr/local/go/bin:$PATH
 
 # create user
@@ -29,8 +33,10 @@ USER ambrose
 
 # install user programs
 
+# shell, editor
 RUN ./.install/zsh-pure.sh
 RUN ./.install/plug.sh
+# tools
 RUN ./.install/vgo.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh

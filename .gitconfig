@@ -3,3 +3,5 @@
 [user]
 	name = Ambrose Chua
 	useConfigOnly = true
+[core]
+	editor = nvim
