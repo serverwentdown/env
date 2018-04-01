@@ -1,0 +1,4 @@
+#!/bin/sh
+
+docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src -v $HOME/.ssh:/home/ambrose/.ssh registry.labs.0x.no/env $@
+

@@ -3,5 +3,6 @@
 Dockerfile
 .dockerignore
 .drone.yml
+.runenv
 
 README.md
