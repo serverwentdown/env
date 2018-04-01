@@ -1,0 +1,5 @@
+[push]
+	default = simple
+[user]
+	name = Ambrose Chua
+	useConfigOnly = true
