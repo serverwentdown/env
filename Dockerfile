@@ -16,7 +16,7 @@ RUN ./.install/neovim.sh
 RUN ./.install/golang.sh
 RUN ./.install/node.sh
 RUN ./.install/python.sh
-# setup global PATH
+# setup global PATH for system programs
 ENV PATH=/usr/local/go/bin:$PATH
 
 # create user

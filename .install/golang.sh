@@ -27,5 +27,6 @@ tar -C /usr/local -xzf go.tgz
 rm go.tgz
 cd /usr/local/go/src
 ./make.bash
+
 apk del .build-deps
 

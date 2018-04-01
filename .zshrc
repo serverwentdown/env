@@ -3,7 +3,7 @@
 setopt appendhistory
 setopt autocd
 setopt extendedglob
-export TERM=xterm256-color
+export TERM=xterm-256color
 
 # golang
 export PATH="$(go env GOPATH)/bin:$PATH"
