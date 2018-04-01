@@ -21,5 +21,6 @@ Which, is also packed as a script:
 
 ```sh
 $ curl -fLo ~/.bin/runenv https://raw.githubusercontent.com/serverwentdown/env/master/.runenv
+$ chmod +x ~/.bin/runenv
 $ runenv
 ```
