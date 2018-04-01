@@ -1,4 +1,55 @@
 #!/bin/sh
 
-docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src -v $HOME/.ssh:/home/ambrose/.ssh registry.labs.0x.no/env $@
+OPTIND=1
+
+# Options
+delete=""
+name=""
+ports=""
+volumes=""
+
+while getopts "xn:p:v:" opt; do
+	case "$opt" in
+	x)
+		delete="--rm "
+		;;
+	n)
+		name="--name $OPTARG "
+		;;
+	p)
+		ports="-p $OPTARG:$OPTARG $ports"
+		;;
+	v)
+		volumes="$volumes\n\t-v $OPTARG "
+		;;
+	:)
+		echo "Option -$OPTARG requires an argument." >&2
+		exit 1
+		;;
+	\?)
+		echo "Invalid option: -$OPTARG" >&2
+		exit 1
+		;;
+	esac
+done
+
+shift $((OPTIND-1))
+[ "$1" = "--" ] && shift
+
+docker pull registry.labs.0x.no/env
+
+cmd="\n\
+docker run -it $delete$name\n\
+	$ports$volumes\n\
+	-v $PWD:/home/ambrose/src \n\
+	-v $HOME/.ssh:/home/ambrose/.ssh \n\
+	registry.labs.0x.no/env \n\
+	$@\
+"
+
+echo
+echo "Running: $cmd"
+echo
+
+`echo $cmd`
 
