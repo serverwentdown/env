@@ -29,5 +29,3 @@ cd /usr/local/go/src
 ./make.bash
 apk del .build-deps
 
-echo 'export GOPATH="$HOME/go"' >> /etc/profile.d/golang.sh
-echo 'export PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"' >> /etc/profile.d/golang.sh
