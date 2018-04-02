@@ -44,4 +44,5 @@ pipeline:
     image: alpine:latest
     commands:
       - ./.install/jdk.sh
+      - export PATH=/usr/local/jdk/bin:$PATH
       - java -version

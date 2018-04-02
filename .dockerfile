@@ -31,6 +31,7 @@ RUN ./.install/kubectl.sh
 # setup global PATH for system tools
 
 ENV PATH=/usr/local/go/bin:$PATH
+ENV PATH=/usr/local/jdk/bin:$PATH
 
 # switch to user
 
