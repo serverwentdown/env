@@ -24,3 +24,9 @@ $ curl -fLo ~/.bin/runenv https://raw.githubusercontent.com/serverwentdown/env/m
 $ chmod +x ~/.bin/runenv
 $ runenv
 ```
+
+## Additional features
+
+```
+./.install/jdk.sh
+```
