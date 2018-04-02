@@ -28,11 +28,6 @@ RUN ./.install/python.sh
 # tools
 RUN ./.install/kubectl.sh
 
-# setup global PATH for system tools
-
-ENV PATH=/usr/local/go/bin:$PATH
-ENV PATH=/usr/local/jdk/bin:$PATH
-
 # switch to user
 
 USER ambrose
@@ -46,6 +41,6 @@ RUN ./.install/vgo.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
 
-# open shell by default
+# open login shell by default
 
-ENTRYPOINT ["/bin/zsh"]
+ENTRYPOINT ["/bin/zsh", "-l"]

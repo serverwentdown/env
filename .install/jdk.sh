@@ -17,4 +17,7 @@ tar -C /usr/local -xzf jdk.tar.gz
 ln -s /usr/local/jdk-$JDK_NUMBER /usr/local/jdk
 rm jdk.tar.gz
 
+# symlink into /usr/local/bin
+ln -s /usr/local/jdk/bin/* /usr/local/bin/
+
 apk del .build-deps

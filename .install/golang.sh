@@ -34,5 +34,8 @@ rm go.tgz
 cd /usr/local/go/src
 ./make.bash
 
+# symlink into /usr/local/bin
+ln -s /usr/local/go/bin/* /usr/local/bin/
+
 apk del .build-deps
 

@@ -1,5 +1,10 @@
 
+# terminal settings
+export TERM=xterm-256color
+
 # zsh settings
+export SAVEHIST=1000
+export HISTFILE=~/.zsh_history
 setopt append_history
 setopt extended_history
 setopt share_history
@@ -11,7 +16,6 @@ setopt noshwordsplit
 setopt auto_cd
 setopt interactivecomments
 setopt extended_glob
-export TERM=xterm-256color
 
 # pure
 autoload -U promptinit; promptinit

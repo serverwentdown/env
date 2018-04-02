@@ -28,7 +28,6 @@ pipeline:
     image: alpine:latest
     commands:
       - ./.install/golang.sh
-      - export PATH=/usr/local/go/bin:$PATH
       - go version
       - go get github.com/golang/example/hello
       - $HOME/go/bin/hello
@@ -49,5 +48,4 @@ pipeline:
     image: alpine:latest
     commands:
       - ./.install/jdk.sh
-      - export PATH=/usr/local/jdk/bin:$PATH
       - java -version
