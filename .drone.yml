@@ -8,33 +8,39 @@ pipeline:
       - latest
   # tests to ensure they compile independently
   test-neovim:
+    group: test
     image: alpine:latest
     commands:
       - ./.install/neovim.sh
       - nvim -version
       - nvim +checkhealth +qa
   test-yadm:
+    group: test
     image: alpine:latest
     commands:
       - ./.install/yadm.sh
       - yadm
   test-golang:
+    group: test
     image: alpine:latest
     commands:
       - ./.install/golang.sh
       - export PATH=/usr/local/go/bin:$PATH
       - go version
   test-node:
+    group: test
     image: alpine:latest
     commands:
       - ./.install/node.sh
       - node --version
   test-kubectl:
+    group: test
     image: alpine:latest
     commands:
       - ./.install/kubectl.sh
       - kubectl version
   test-jdk:
+    group: test
     image: alpine:latest
     commands:
       - ./.install/jdk.sh
