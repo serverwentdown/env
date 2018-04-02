@@ -28,5 +28,5 @@ runenv
 ## Additional features
 
 ```sh
-sudo ./.install/jdk.sh
+sudo ./.install/jdk.sh && sudo ./.install/gradlr.sh
 ```

@@ -26,6 +26,8 @@ RUN ./.install/yadm.sh
 RUN ./.install/golang.sh
 RUN ./.install/node.sh
 RUN ./.install/python.sh
+#RUN ./.install/jdk.sh
+#RUN ./.install/gradlr.sh
 # tools
 RUN ./.install/kubectl.sh
 
