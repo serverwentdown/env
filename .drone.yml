@@ -9,6 +9,8 @@ pipeline:
   slack:
     image: plugins/slack
     secrets: [ slack_webhook ]
+    when:
+      status: [ failure, success ]
   # tests to ensure they compile independently
   test-neovim:
     group: test
@@ -17,23 +19,31 @@ pipeline:
       - ./.install/neovim.sh
       - nvim -version
       - nvim +checkhealth +qa
+    when:
+      status: [ failure, success ]
   test-pure:
     group: test
     image: alpine:latest
     commands:
       - ./.install/pure.sh
+    when:
+      status: [ failure, success ]
   test-thefuck:
     group: test
     image: alpine:latest
     commands:
       - ./.install/thefuck.sh
       - thefuck -v
+    when:
+      status: [ failure, success ]
   test-yadm:
     group: test
     image: alpine:latest
     commands:
       - ./.install/yadm.sh
       - yadm version
+    when:
+      status: [ failure, success ]
   test-golang:
     group: test
     image: alpine:latest
@@ -42,6 +52,8 @@ pipeline:
       - go version
       - go get github.com/golang/example/hello
       - $HOME/go/bin/hello
+    when:
+      status: [ failure, success ]
   test-node:
     group: test
     image: alpine:latest
@@ -49,6 +61,8 @@ pipeline:
       - ./.install/node.sh
       - node -e "console.log(process.versions)"
       - yarn --version
+    when:
+      status: [ failure, success ]
   test-python:
     group: test
     image: alpine:latest
@@ -56,15 +70,21 @@ pipeline:
       - ./.install/python.sh
       - python3 --version
       - pip3 --version
+    when:
+      status: [ failure, success ]
   test-jdk:
     group: test
     image: alpine:latest
     commands:
       - ./.install/jdk.sh
       - java -version
+    when:
+      status: [ failure, success ]
   test-kubectl:
     group: test
     image: alpine:latest
     commands:
       - ./.install/kubectl.sh
       - kubectl version -c
+    when:
+      status: [ failure, success ]
