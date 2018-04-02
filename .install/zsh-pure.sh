@@ -12,8 +12,3 @@ curl -fLo ~/.zfunctions/prompt_pure_setup --create-dirs \
 curl -fLo ~/.zfunctions/async --create-dirs \
 	https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh
 
-echo '# pure' >> ~/.zshrc
-echo 'fpath=( "$HOME/.zfunctions" $fpath )' >> ~/.zshrc
-echo 'autoload -U promptinit; promptinit' >> ~/.zshrc
-echo 'prompt pure' >> ~/.zshrc
-
