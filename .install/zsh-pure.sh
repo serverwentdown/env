@@ -7,9 +7,10 @@ echo
 echo "Installing pure-prompt for ZSH..."
 echo
 
-mkdir ~/.zfunctions
-curl -fLo ~/.zfunctions/prompt_pure_setup https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh
-curl -fLo ~/.zfunctions/async https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh
+curl -fLo ~/.zfunctions/prompt_pure_setup --create-dirs \
+	https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh
+curl -fLo ~/.zfunctions/async --create-dirs \
+	https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh
 
 echo '# pure' >> ~/.zshrc
 echo 'fpath=( "$HOME/.zfunctions" $fpath )' >> ~/.zshrc

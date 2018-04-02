@@ -97,7 +97,7 @@ if $LIGHT == 'true'
 endif
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-colorscheme solarized
+silent! colorscheme solarized
 
 " numbering
 set number
