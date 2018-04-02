@@ -6,6 +6,9 @@ pipeline:
     dockerfile: .dockerfile
     tags:
       - latest
+  slack:
+    image: plugins/slack
+    secrets: [ slack_webhook ]
   # tests to ensure they compile independently
   test-neovim:
     group: test

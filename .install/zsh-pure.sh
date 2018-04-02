@@ -7,7 +7,7 @@ echo
 echo "Installing pure-prompt for ZSH..."
 echo
 
-mkdir /usr/local/share/zsh/site-functions/
+mkdir -p /usr/local/share/zsh/site-functions
 curl -fLo /usr/local/share/zsh/site-functions/prompt_pure_setup \
 	https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh
 curl -fLo /usr/local/share/zsh/site-functions/async \
