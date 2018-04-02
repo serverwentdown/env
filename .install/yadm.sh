@@ -8,7 +8,7 @@ echo "Installing yadm..."
 echo
 
 apk add --no-cache --virtual .build-deps \
-    curl
+	curl
 
 apk add --no-cache \
 	git \

@@ -12,6 +12,8 @@ apk add --no-cache --virtual .build-deps \
 	gcc \
 	musl-dev \
 	openssl \
+	wget \
+	tar \
 	go
 
 GOROOT_BOOTSTRAP="$(go env GOROOT)"

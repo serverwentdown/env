@@ -6,4 +6,26 @@ pipeline:
     dockerfile: .dockerfile
     tags:
       - latest
+  test-neovim:
+    image: alpine:latest
+    commands:
+      - ./.install/neovim.sh
+  test-yadm:
+    image: alpine:latest
+    commands:
+      - ./.install/yadm.sh
+  test-golang:
+    image: alpine:latest
+    commands:
+      - ./.install/golang.sh
+  test-node:
+    image: alpine:latest
+    commands:
+      - ./.install/node.sh
+  test-kubectl:
+    image: alpine:latest
+    commands:
+      - ./.install/kubectl.sh
+
+
 
