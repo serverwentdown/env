@@ -17,6 +17,12 @@ pipeline:
       - ./.install/neovim.sh
       - nvim -version
       - nvim +checkhealth +qa
+  test-thefuck:
+    group: test
+    image: alpine:latest
+    commands:
+      - ./.install/thefuck.sh
+      - thefuck -v
   test-yadm:
     group: test
     image: alpine:latest

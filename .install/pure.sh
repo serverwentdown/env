@@ -4,7 +4,7 @@ set -e
 source ./.versions
 
 echo
-echo "Installing pure-prompt for ZSH..."
+echo "Installing pure-prompt for zsh..."
 echo
 
 mkdir -p /usr/local/share/zsh/site-functions

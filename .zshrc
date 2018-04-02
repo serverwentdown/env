@@ -21,6 +21,9 @@ setopt extended_glob
 autoload -U promptinit; promptinit
 prompt pure
 
+# thefuck
+eval $(thefuck --alias nope)
+
 # golang
 export PATH="$(go env GOPATH)/bin:$PATH"
 
