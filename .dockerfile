@@ -17,7 +17,8 @@ RUN ./.install/archival.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
-# dotfiles
+# shell, env manager
+RUN ./.install/zsh-pure.sh
 RUN ./.install/yadm.sh
 # languages
 RUN ./.install/golang.sh
@@ -37,7 +38,6 @@ USER ambrose
 # install user programs
 
 # shell, editor
-RUN ./.install/zsh-pure.sh
 RUN ./.install/plug.sh
 # tools
 RUN ./.install/vgo.sh
