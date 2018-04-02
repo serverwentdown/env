@@ -19,7 +19,7 @@ pipeline:
     image: alpine:latest
     commands:
       - ./.install/yadm.sh
-      - yadm
+      - yadm version
   test-golang:
     group: test
     image: alpine:latest
@@ -27,18 +27,20 @@ pipeline:
       - ./.install/golang.sh
       - export PATH=/usr/local/go/bin:$PATH
       - go version
+      - go get github.com/golang/example/hello
+      - $HOME/go/bin/hello
   test-node:
     group: test
     image: alpine:latest
     commands:
       - ./.install/node.sh
-      - node --version
+      - node -e "console.log(process.versions)"
   test-kubectl:
     group: test
     image: alpine:latest
     commands:
       - ./.install/kubectl.sh
-      - kubectl version
+      - kubectl version -c
   test-jdk:
     group: test
     image: alpine:latest
