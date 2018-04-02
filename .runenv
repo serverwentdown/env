@@ -1,36 +1,44 @@
 #!/bin/sh
 
+CONTAINER_IMAGE="registry.labs.0x.no/env"
+CONTAINER_HOME="/home/ambrose"
+
 OPTIND=1
 
 delete=""
 name=""
-ports=""
+ports="\n\t"
 volumes=""
 
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-hx] [-n NAME] [-p PORT]... [-v LIST]... [CMD]...
+Usage: ${0##*/} [-hxc] [-n NAME] [-p PORT]... [-v LIST]... [CMD]...
 Starts an env Docker container. If CMD is specified, starts CMD 
 instead of a shell.
 
    -h       display this help and exit
    -x       delete Docker container after exit. will loose data
+   -c       forward \$PWD into $CONTAINER_HOME/src
+   -n NAME  give container a NAME
    -p PORT  forward host PORT to container PORT
    -v LIST  mount volume LIST. specify as LOCAL:MOUNT
 
 EOF
 }
 
-while getopts "hxn:p:v:" opt; do
+while getopts "hxcn:p:v:" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
+		;;
+	c)
+		volumes="$volumes\n\t-v $PWD:$CONTAINER_HOME/src "
 		;;
 	n)
 		name="--name $OPTARG "
 		;;
 	p)
-		ports="-p $OPTARG:$OPTARG $ports"
+		ports="$ports-p $OPTARG:$OPTARG "
 		;;
 	v)
 		volumes="$volumes\n\t-v $OPTARG "
@@ -55,14 +63,16 @@ done
 shift $((OPTIND-1))
 [ "$1" = "--" ] && shift
 
-docker pull registry.labs.0x.no/env
+if [ "$ports" = "\n\t" ]; then
+	ports=""
+fi
+
+docker pull $CONTAINER_IMAGE
 
 cmd="\n\
-docker run -it $delete$name\n\
-	$ports$volumes\n\
-	-v $PWD:/home/ambrose/src \n\
-	-v $HOME/.ssh:/home/ambrose/.ssh \n\
-	registry.labs.0x.no/env \n\
+docker run -it $delete$name$ports$volumes\n\
+	-v $HOME/.ssh:$CONTAINER_HOME/.ssh \n\
+	$CONTAINER_IMAGE \n\
 	$@\
 "
 
