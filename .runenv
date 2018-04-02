@@ -5,6 +5,7 @@ CONTAINER_HOME="/home/ambrose"
 
 OPTIND=1
 
+workdir=""
 delete=""
 name=""
 ports="\n\t"
@@ -18,7 +19,7 @@ instead of a shell.
 
    -h       display this help and exit
    -x       delete Docker container after exit. will loose data
-   -w       forward \$PWD into $CONTAINER_HOME/src
+   -w       forward \$PWD into $CONTAINER_HOME/src, and start there
    -n NAME  give container a NAME
    -p PORT  forward host PORT to container PORT
    -v LIST  mount volume LIST. specify as LOCAL:MOUNT
@@ -32,6 +33,7 @@ while getopts "hxwn:p:v:" opt; do
 		delete="--rm "
 		;;
 	w)
+		workdir="\n\t--workdir $CONTAINER_HOME/src "
 		volumes="$volumes\n\t-v $PWD:$CONTAINER_HOME/src "
 		;;
 	n)
@@ -70,7 +72,7 @@ fi
 docker pull $CONTAINER_IMAGE
 
 cmd="\n\
-docker run -it $delete$name$ports$volumes\n\
+docker run -it $delete$name$ports$workdir$volumes\n\
 	-v $HOME/.ssh:$CONTAINER_HOME/.ssh \n\
 	$CONTAINER_IMAGE \n\
 	$@\
@@ -78,7 +80,6 @@ docker run -it $delete$name$ports$volumes\n\
 
 echo
 echo "Running: $cmd"
-echo
 
 `echo $cmd`
 
