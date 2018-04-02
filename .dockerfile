@@ -19,7 +19,7 @@ RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
 # shell config, env manager
-RUN ./.install/zsh-pure.sh
+RUN ./.install/pure.sh
 RUN ./.install/thefuck.sh
 RUN ./.install/yadm.sh
 # languages

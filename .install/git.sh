@@ -4,7 +4,7 @@ set -e
 source ./.versions
 
 echo
-echo "Installing Git..."
+echo "Installing git..."
 echo
 
 apk add --no-cache \

@@ -17,6 +17,11 @@ pipeline:
       - ./.install/neovim.sh
       - nvim -version
       - nvim +checkhealth +qa
+  test-pure:
+    group: test
+    image: alpine:latest
+    commands:
+      - ./.install/pure.sh
   test-thefuck:
     group: test
     image: alpine:latest
@@ -43,15 +48,23 @@ pipeline:
     commands:
       - ./.install/node.sh
       - node -e "console.log(process.versions)"
-  test-kubectl:
+      - yarn --version
+  test-python:
     group: test
     image: alpine:latest
     commands:
-      - ./.install/kubectl.sh
-      - kubectl version -c
+      - ./.install/python.sh
+      - python3 --version
+      - pip3 --version
   test-jdk:
     group: test
     image: alpine:latest
     commands:
       - ./.install/jdk.sh
       - java -version
+  test-kubectl:
+    group: test
+    image: alpine:latest
+    commands:
+      - ./.install/kubectl.sh
+      - kubectl version -c
