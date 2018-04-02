@@ -6,6 +6,7 @@ pipeline:
     dockerfile: .dockerfile
     tags:
       - latest
+  # tests to ensure they compile independently
   test-neovim:
     image: alpine:latest
     commands:
