@@ -1,8 +1,16 @@
 
 # zsh settings
-setopt appendhistory
-setopt autocd
-setopt extendedglob
+setopt append_history
+setopt extended_history
+setopt share_history
+setopt histignorespace
+setopt longlistjobs
+setopt notify
+setopt completeinword
+setopt noshwordsplit
+setopt auto_cd
+setopt interactivecomments
+setopt extended_glob
 export TERM=xterm-256color
 
 # pure
