@@ -7,6 +7,10 @@ echo
 echo "Installing Go $GOLANG_VERSION..."
 echo
 
+
+apl add --no-cache \
+	git
+
 apk add --no-cache --virtual .build-deps \
 	bash \
 	gcc \
