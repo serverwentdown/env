@@ -8,8 +8,8 @@ echo "Installing system utilities..."
 echo
 
 apk add --no-cache \
-	sudo \
 	nano \
 	curl \
 	wget \
 	openssh-client
+

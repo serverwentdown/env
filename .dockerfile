@@ -13,11 +13,12 @@ COPY --chown=ambrose:ambrose . .
 
 # system
 RUN ./.install/core.sh
+RUN ./.install/sudo.sh
 RUN ./.install/archival.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
-# shell, env manager
+# shell config, env manager
 RUN ./.install/zsh-pure.sh
 RUN ./.install/yadm.sh
 # languages
