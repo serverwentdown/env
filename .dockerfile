@@ -43,4 +43,4 @@ RUN ./.install/caddy.sh
 
 # open login shell by default
 
-ENTRYPOINT ["/bin/zsh", "-l"]
+CMD ["/bin/zsh", "-l"]
