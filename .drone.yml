@@ -11,22 +11,31 @@ pipeline:
     image: alpine:latest
     commands:
       - ./.install/neovim.sh
+      - nvim -version
+      - nvim +checkhealth +qa
   test-yadm:
     image: alpine:latest
     commands:
       - ./.install/yadm.sh
+      - yadm
   test-golang:
     image: alpine:latest
     commands:
       - ./.install/golang.sh
+      - export PATH=/usr/local/go/bin:$PATH
+      - go version
   test-node:
     image: alpine:latest
     commands:
       - ./.install/node.sh
+      - node --version
   test-kubectl:
     image: alpine:latest
     commands:
       - ./.install/kubectl.sh
-
-
-
+      - kubectl version
+  test-jdk:
+    image: alpine:latest
+    commands:
+      - ./.install/jdk.sh
+      - java -version
