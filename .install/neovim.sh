@@ -11,6 +11,7 @@ apk add --no-cache \
 	unibilium \
 	libtermkey \
 	libvterm \
+	libgcc \
 	python3
 
 apk add --no-cache --virtual .build-deps \
