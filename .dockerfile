@@ -27,7 +27,6 @@ RUN ./.install/golang.sh
 RUN ./.install/node.sh
 RUN ./.install/python.sh
 #RUN ./.install/jdk.sh
-#RUN ./.install/gradlr.sh
 # tools
 RUN ./.install/kubectl.sh
 
@@ -43,6 +42,9 @@ RUN ./.install/plug.sh
 RUN ./.install/vgo.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
+#RUN ./.install/gradlr.sh
+RUN ./.install/grunt.sh
+RUN ./.install/gulp.sh
 
 # open login shell by default
 
