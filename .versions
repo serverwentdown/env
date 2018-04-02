@@ -9,5 +9,9 @@ export YARN_VERSION=1.5.1
 
 export KUBECTL_VERSION=1.10.0
 
+export JDK_NUMBER=11
+export JDK_VERSION=4
+
+
 export CADDY_VERSION=0.10.12
 
