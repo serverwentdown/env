@@ -34,7 +34,7 @@ while getopts "hxwn:p:v:" opt; do
 		;;
 	w)
 		workdir="\n\t--workdir $CONTAINER_HOME/src "
-		volumes="$volumes\n\t-v $PWD:$CONTAINER_HOME/src "
+		volumes="$volumes\n\t-v '$PWD':$CONTAINER_HOME/src "
 		;;
 	n)
 		name="--name $OPTARG "
@@ -43,7 +43,7 @@ while getopts "hxwn:p:v:" opt; do
 		ports="$ports-p $OPTARG:$OPTARG "
 		;;
 	v)
-		volumes="$volumes\n\t-v $OPTARG "
+		volumes="$volumes\n\t-v '$OPTARG' "
 		;;
 	h)
 		show_help
@@ -81,5 +81,5 @@ docker run -it $delete$name$ports$workdir$volumes\n\
 echo
 echo "Running: $cmd"
 
-`echo $cmd`
+bash -c "`echo $cmd | tr -d '\n'`" # Ugh...
 

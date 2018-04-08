@@ -13,6 +13,7 @@ COPY --chown=ambrose:ambrose . .
 
 # system
 RUN ./.install/core.sh
+RUN ./.install/sdk.sh
 RUN ./.install/sudo.sh
 RUN ./.install/archival.sh
 RUN ./.install/git.sh

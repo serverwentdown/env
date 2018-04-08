@@ -12,7 +12,8 @@ apk add --no-cache \
 	libtermkey \
 	libvterm \
 	libgcc \
-	python3
+	python3 \
+	clang-libs # For deoplete-clang
 
 apk add --no-cache --virtual .build-deps \
 	curl \
