@@ -17,9 +17,15 @@ setopt auto_cd
 setopt interactivecomments
 setopt extended_glob
 
+# editor
+export EDITOR=nvim
+
 # pure
 autoload -U promptinit; promptinit
 prompt pure
+
+# autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # thefuck
 eval $(thefuck --alias nope)

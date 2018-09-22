@@ -21,6 +21,7 @@ RUN ./.install/zsh.sh
 RUN ./.install/neovim.sh
 # shell config, env manager
 RUN ./.install/pure.sh
+RUN ./.install/zsh-autosuggestions.sh
 RUN ./.install/thefuck.sh
 RUN ./.install/yadm.sh
 # languages
