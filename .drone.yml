@@ -2,6 +2,7 @@ pipeline:
   docker:
     image: plugins/docker
     registry: registry.makerforce.io
+    secrets: [ docker_username, docker_password ]
     repo: registry.makerforce.io/ambrose/env
     dockerfile: .dockerfile
     tags:
