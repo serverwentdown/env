@@ -1,8 +1,8 @@
 pipeline:
   docker:
     image: plugins/docker
-    registry: registry.labs.0x.no
-    repo: registry.labs.0x.no/env
+    registry: registry.makerforce.io
+    repo: registry.makerforce.io/ambrose/env
     dockerfile: .dockerfile
     tags:
       - latest
