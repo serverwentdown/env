@@ -24,7 +24,7 @@ apk add --no-cache --virtual .build-deps \
 	automake \
 	cmake \
 	libtool \
-    libintl \
+    gettext-dev \
 	unibilium-dev \
 	libtermkey-dev \
 	libvterm-dev \
