@@ -1,5 +1,5 @@
 
-# [env](https://registry.labs.0x.no/tags/env) [![Build Status](https://drone.labs.0x.no/api/badges/serverwentdown/env/status.svg)](https://drone.labs.0x.no/serverwentdown/env)
+# env [![Build Status](https://ci.makerforce.io/api/badges/ambrose/env/status.svg)](https://ci.makerforce.io/ambrose/env)
 
 Just storing dotfiles in a repository isn't enough. This is almost all the tools I use, put into a Docker image that I can run anywhere
 
