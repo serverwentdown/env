@@ -28,6 +28,7 @@ GOHOSTARCH="$(go env GOHOSTARCH)"
 
 wget -O go.tgz "https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz"
 
+echo "$GOLANG_HASH *go.tgz" | sha256sum -c -
 tar -C /usr/local -xzf go.tgz
 rm go.tgz
 cd /usr/local/go/src
