@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term urxvt
 # Your preferred application launcher
-set $menu dmenu_run -nb '#073642' -nf '#586e75' -sb '#268bd2' -sf '#fdf6e3' -fn 'Ubuntu:bold:pixelsize=18'
+set $menu dmenu_run -nb '#002b36' -nf '#586e75' -sb '#b58900' -sf '#002b36' -fn 'Ubuntu:bold:pixelsize=18'
 
 ### Output configuration
 #
@@ -189,14 +189,15 @@ bindsym $mod+r mode "resize"
 bar {
     position top
     colors {
-        statusline #839496
-        background #002b36
-        separator #586e75
-        focused_workspace #b58900 #b58900 #002b36
-        active_workspace #586e75 #586e75 #002b36
-        inactive_workspace #073642 #002b36 #839496
-        urgent_workspace #dc322f #dc322f #fdf6e3
+        statusline #839496da
+        background #002b36da
+        separator #586e75da
+        focused_workspace #b58900da #b58900da #002b36
+        active_workspace #586e75da #586e75da #002b36
+        inactive_workspace #073642da #002b36da #839496
+        urgent_workspace #dc322fda #dc322fda #fdf6e3
     }
+    status_command exec sway_status
 }
 
 #
