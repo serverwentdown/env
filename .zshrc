@@ -1,6 +1,6 @@
 
 # terminal settings
-export TERM=xterm-256color
+#export TERM=xterm-256color
 
 # zsh settings
 export SAVEHIST=1000
@@ -17,6 +17,11 @@ setopt auto_cd
 setopt interactivecomments
 setopt extended_glob
 
+autoload -U compinit; compinit
+bindkey -v
+# search
+bindkey '^R' history-incremental-search-backward
+
 # zsh imports
 fpath=( ~/.zsh/functions $fpath )
 
@@ -24,7 +29,8 @@ fpath=( ~/.zsh/functions $fpath )
 export EDITOR=nvim
 
 # pure
-export PURE_PROMPT_SYMBOL=$
+export PURE_PROMPT_SYMBOL='>'
+export PURE_PROMPT_VICMD_SYMBOL='<'
 autoload -U promptinit; promptinit
 prompt pure
 
