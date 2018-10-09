@@ -1,2 +1,2 @@
-.ssh/*.key
+.ssh/id_*
 .kube/config
