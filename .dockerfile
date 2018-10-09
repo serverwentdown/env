@@ -9,8 +9,10 @@ RUN adduser -s /bin/zsh -D ambrose
 WORKDIR /home/ambrose
 COPY --chown=ambrose:ambrose . .
 
-# install tools from source
+# install tools
 
+# repositories
+RUN ./.install/repositories.sh
 # system
 RUN ./.install/core.sh
 RUN ./.install/sdk.sh
@@ -18,11 +20,11 @@ RUN ./.install/sudo.sh
 RUN ./.install/archival.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh
-RUN ./.install/neovim.sh
+RUN ./.install/neovim-source.sh
 # languages
 RUN ./.install/python.sh
-RUN ./.install/golang.sh
-RUN ./.install/node.sh
+RUN ./.install/golang-source.sh
+RUN ./.install/node-source.sh
 #RUN ./.install/jdk.sh
 
 # switch to user
@@ -43,9 +45,10 @@ RUN ./.install/vgo.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
 RUN ./.install/kubectl.sh
-#RUN ./.install/gradlr.sh
+RUN ./.install/yarn.sh
 #RUN ./.install/grunt.sh
 #RUN ./.install/gulp.sh
+#RUN ./.install/gradlr.sh
 
 # open login shell by default
 

@@ -26,6 +26,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/sudo.sh
       - ./.install/pure.sh
     when:
       status: [ failure, success ]
@@ -33,6 +34,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/sudo.sh
       - ./.install/thefuck.sh
       - thefuck -v
     when:
@@ -41,6 +43,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/sudo.sh
       - ./.install/yadm.sh
       - yadm version
     when:
@@ -61,6 +64,14 @@ pipeline:
     commands:
       - ./.install/node.sh
       - node -e "console.log(process.versions)"
+    when:
+      status: [ failure, success ]
+  test-yarn:
+    group: test
+    image: alpine:latest
+    commands:
+      - ./.install/node.sh
+      - ./.install/yarn.sh
       - yarn --version
     when:
       status: [ failure, success ]
@@ -85,6 +96,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/sudo.sh
       - ./.install/kubectl.sh
       - kubectl version -c
     when:

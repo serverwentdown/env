@@ -3,7 +3,7 @@
 set -e
 
 echo
-echo "Installing sway..."
+echo "Installing sway and dependencies..."
 echo 
 
 apk add --no-cache \
