@@ -14,14 +14,15 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term xterm
+set $term urxvt
 # Your preferred application launcher
-set $menu dmenu_run
+set $menu dmenu_run -nb '#073642' -nf '#586e75' -sb '#268bd2' -sf '#fdf6e3' -fn 'Ubuntu:bold:pixelsize=18'
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.wallpaper.jpg fill
 #
 # Example configuration:
 #
@@ -188,10 +189,43 @@ bindsym $mod+r mode "resize"
 bar {
     position top
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        statusline #839496
+        background #002b36
+        separator #586e75
+        focused_workspace #b58900 #b58900 #002b36
+        active_workspace #586e75 #586e75 #002b36
+        inactive_workspace #073642 #002b36 #839496
+        urgent_workspace #dc322f #dc322f #fdf6e3
     }
 }
 
+#
+# Colors:
+#
+client.focused #002b36 #073642 #eee8d5 #268bd2
+client.focused_inactive #002b36 #073642 #839496 #073642
+client.unfocused #002b36 #002b36 #839496 #002b36
+client.urgent #002b36 #dc322f #fdf6e3 #002b36
+
+#
+# Fonts:
+#
+font xft:'Ubuntu' bold 11
+
+#
+# WE LOVE GAPS:
+#
+for_window [class="^.*"] border pixel 0
+default_border pixel 0 # bye bye, borders
+smart_gaps on
+gaps inner 12
+gaps outer 8
+
+#
+# Force Xresources load
+#
+exec xrdb -merge .Xresources
+
 include /etc/sway/config.d/*
+
+# vim: ai ts=4 sw=4 et

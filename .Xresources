@@ -1,5 +1,13 @@
-XTerm.vt100.saveLines: 4096
-XTerm.vt100.faceName: Ubuntu Mono:size=11
+URxvt.saveLines: 4096
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.scrollBar: false
+URxvt.font: xft:Ubuntu Mono:size=11
+URxvt.internalBorder: 8
+URxvt.internalBorderColor: #002b36
+URxvt.transparent: false
+URxvt.depth: 32
+URxvt.background: rgba:0000/2b00/3600/da00
 
 // https://raw.githubusercontent.com/solarized/xresources/master/Xresources.dark
 
