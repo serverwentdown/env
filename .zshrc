@@ -17,17 +17,25 @@ setopt auto_cd
 setopt interactivecomments
 setopt extended_glob
 
+# zsh imports
+fpath=( ~/.zsh/functions $fpath )
+
 # editor
 export EDITOR=nvim
 
 # pure
+export PURE_PROMPT_SYMBOL=$
 autoload -U promptinit; promptinit
 prompt pure
 
 # autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=239'
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+bindkey '^e' autosuggest-accept
 
 # thefuck
+export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang

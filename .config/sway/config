@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term urxvt -e /bin/zsh
+set $term xterm
 # Your preferred application launcher
 set $menu dmenu_run
 

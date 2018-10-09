@@ -7,14 +7,14 @@ echo
 echo "Installing thefuck for zsh..."
 echo
 
-apk add --no-cache --virtual .build-deps \
+sudo apk add --no-cache --virtual .build-deps \
 	build-base \
 	python3-dev \
 	linux-headers
 
-apk add --no-cache \
+sudo apk add --no-cache \
 	python3
 
-pip3 install thefuck
+pip3 install --user thefuck
 
-apk del .build-deps
+sudo apk del .build-deps
