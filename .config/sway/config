@@ -227,6 +227,13 @@ gaps outer 8
 #
 exec xrdb -merge .Xresources
 
+# 
+# Monitor Layout:
+# 
+output eDP-1 scale 2 pos 4000 0
+output DP-4 pos 1440 -540
+output DP-1 pos 0 0
+
 include /etc/sway/config.d/*
 
 # vim: ai ts=4 sw=4 et

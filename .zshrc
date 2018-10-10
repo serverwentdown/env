@@ -3,7 +3,7 @@
 #export TERM=xterm-256color
 
 # zsh settings
-export SAVEHIST=1000
+export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
 setopt append_history
 setopt extended_history
