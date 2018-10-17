@@ -42,7 +42,6 @@ RUN ./.install/zsh-autosuggestions.sh
 RUN ./.install/plug.sh
 # tools
 RUN ./.install/yadm.sh
-RUN ./.install/vgo.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
 RUN ./.install/kubectl.sh
