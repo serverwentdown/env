@@ -34,6 +34,7 @@ USER ambrose
 # install user programs
 
 # shell config
+RUN ./.install/dircolors.sh
 RUN ./.install/pure.sh
 RUN ./.install/thefuck.sh
 RUN ./.install/zsh-autosuggestions.sh

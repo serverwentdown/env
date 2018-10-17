@@ -17,6 +17,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/repositories.sh
       - ./.install/neovim.sh
       - nvim -version
       - nvim +checkhealth +qa
@@ -36,7 +37,7 @@ pipeline:
     commands:
       - ./.install/sudo.sh
       - ./.install/thefuck.sh
-      - thefuck -v
+      - ./.local/bin/thefuck -v
     when:
       status: [ failure, success ]
   test-yadm:
@@ -45,13 +46,14 @@ pipeline:
     commands:
       - ./.install/sudo.sh
       - ./.install/yadm.sh
-      - yadm version
+      - ./.local/bin/yadm version
     when:
       status: [ failure, success ]
   test-golang:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/repositories.sh
       - ./.install/golang.sh
       - go version
       - go get github.com/golang/example/hello
@@ -62,6 +64,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/repositories.sh
       - ./.install/node.sh
       - node -e "console.log(process.versions)"
     when:
@@ -70,6 +73,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/repositories.sh
       - ./.install/node.sh
       - ./.install/yarn.sh
       - yarn --version

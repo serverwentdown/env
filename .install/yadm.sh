@@ -14,6 +14,7 @@ sudo apk add --no-cache \
 	git \
 	bash
 
+mkdir -p ~/.local/bin
 curl -fLo ~/.local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
 chmod a+x ~/.local/bin/yadm
 

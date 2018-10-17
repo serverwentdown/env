@@ -4,7 +4,7 @@
 
 # zsh settings
 export SAVEHIST=10000
-export HISTFILE=~/.zsh_history
+export HISTFILE=$HOME/.zsh_history
 setopt append_history
 setopt extended_history
 setopt share_history
@@ -23,7 +23,10 @@ bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 # zsh imports
-fpath=( ~/.zsh/functions $fpath )
+fpath=( $HOME/.zsh/functions $fpath )
+
+# ls colors
+eval $(dircolors -b $HOME/.dircolors)
 
 # editor
 export EDITOR=nvim
@@ -35,7 +38,7 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=239'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^e' autosuggest-accept
@@ -50,11 +53,15 @@ export PATH="$(go env GOPATH)/bin:$PATH"
 # aliases
 alias vim=nvim
 
-# iTerm2 shell integration
+# gpg as ssh agent
+test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+# iTerm2 integration
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
-# Hack to optionally get some oh-my-zsh back
+# hack to optionally get some oh-my-zsh back
 export ZSH="$HOME/.oh-my-zsh"
 test -e "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh" && source "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh"
+# legacy scripts
 test -e "$HOME/.bin" && export PATH="$HOME/.bin:$PATH" # TODO: move to .local/bin
 
 # tips
