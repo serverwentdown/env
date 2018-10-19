@@ -6,7 +6,7 @@ Just storing dotfiles in a repository isn't enough. This is almost all the tools
 ## Usage
 
 ```sh
-docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src registry.labs.0x.no/env
+docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src registry.makerforce.io/ambrose/env
 yadm clone https://github.com/serverwentdown/env.git
 yadm decrypt
 ```
@@ -14,7 +14,7 @@ yadm decrypt
 Or to run without yadm: 
 
 ```sh
-docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src -v $HOME/.ssh:/home/ambrose/.ssh registry.labs.0x.no/env
+docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src -v $HOME/.ssh:/home/ambrose/.ssh registry.makerforce.io/ambrose/env
 ```
 
 Which is also packed as a script: 
