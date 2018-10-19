@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONTAINER_IMAGE="registry.labs.0x.no/env"
+CONTAINER_IMAGE="registry.makerforce.io/ambrose/env"
 CONTAINER_HOME="/home/ambrose"
 
 OPTIND=1
@@ -82,4 +82,3 @@ echo
 echo "Running: $cmd"
 
 bash -c "`echo $cmd | tr -d '\n'`" # Ugh...
-
