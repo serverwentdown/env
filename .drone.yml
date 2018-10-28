@@ -37,7 +37,7 @@ pipeline:
     commands:
       - ./.install/sudo.sh
       - ./.install/thefuck.sh
-      - ./.local/bin/thefuck -v
+      - ~/.local/bin/thefuck -v
     when:
       status: [ failure, success ]
   test-yadm:
@@ -46,7 +46,7 @@ pipeline:
     commands:
       - ./.install/sudo.sh
       - ./.install/yadm.sh
-      - ./.local/bin/yadm version
+      - ~/.local/bin/yadm version
     when:
       status: [ failure, success ]
   test-golang:
@@ -73,6 +73,7 @@ pipeline:
     group: test
     image: alpine:latest
     commands:
+      - ./.install/sudo.sh
       - ./.install/repositories.sh
       - ./.install/node.sh
       - ./.install/yarn.sh
@@ -102,6 +103,6 @@ pipeline:
     commands:
       - ./.install/sudo.sh
       - ./.install/kubectl.sh
-      - kubectl version -c
+      - ~/.local/bin/kubectl version -c
     when:
       status: [ failure, success ]
