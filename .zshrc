@@ -18,16 +18,20 @@ setopt interactivecomments
 setopt extended_glob
 
 autoload -U compinit; compinit
+# basic keybindings
 bindkey -v
-# search
-bindkey '^R' history-incremental-search-backward
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[3~" delete-char
+bindkey "^[[4~" end-of-line
+bindkey "^R" history-incremental-search-backward
 
 # zsh imports
 fpath=( $HOME/.zsh/functions $fpath )
 
 # ls colors
 if [[ "$(uname -s)" -eq "Darwin" ]]; then
-	eval $(gdircolors -b $HOME/.dircolors)
+	#eval $(gdircolors -b $HOME/.dircolors)
+	export CLICOLOR=1
 else
 	eval $(dircolors -b $HOME/.dircolors)
 fi
@@ -52,6 +56,9 @@ export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang
+if [[ "$(uname -s)" -eq "Darwin" ]]; then
+	export GOPATH="$HOME/Documents/go"
+fi
 export PATH="$(go env GOPATH)/bin:$PATH"
 
 # aliases
@@ -59,11 +66,6 @@ alias vim=nvim
 
 # gpg as ssh agent
 test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-
-# macOS GOPATH
-if [[ "$(uname -s)" -eq "Darwin" ]]; then
-	export GOPATH="$HOME/Documents/go"
-fi
 
 # iTerm2 integration
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
