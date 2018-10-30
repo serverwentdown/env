@@ -35,6 +35,10 @@ if [[ "$(uname -s)" -eq "Darwin" ]]; then
 else
 	eval $(dircolors -b $HOME/.dircolors)
 fi
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# completion menu
+zstyle ':completion:*' menu select
 
 # editor
 export EDITOR=nvim
