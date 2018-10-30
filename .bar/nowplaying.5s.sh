@@ -10,7 +10,8 @@
 # <bitbar.abouturl></bitbar.abouturl>
 
 # first, determine if there's an app that's playing or paused
-apps=(Spotify iTunes Vox)
+#apps=(Spotify iTunes Vox)
+apps=(Spotify iTunes)
 playing=""
 paused=""
 
@@ -66,14 +67,14 @@ fi
 # start outputting information to bitbar
 if [ "$playing" = "" ] && [ "$paused" = "" ]; then
 	# nothing is even paused
-	echo "🙉 No music playing | color=gray"
+	echo ":headphones:"
 else
 	# something is playing or is paused
 	track=""
 	artist=""
 
 	if [ "$playing" = "" ]; then
-		echo "$paused is paused | color=#888888"
+		echo "$paused is paused | color=gray"
 		echo "---"
 		app="$paused"
 	else
@@ -93,7 +94,9 @@ else
 	artist=$(osascript -e "tell application \"$app\" to $artist_query")
 
 	echo "$track | length=40" | awk -F '\ -' '{print $1}'
-	echo "---"
+	if [ "$playing" != "" ]; then
+		echo "---"
+	fi
 	echo "$artist"
 
 	if [ "$playing" != "" ]; then
@@ -101,6 +104,7 @@ else
 		echo "---"
 		echo "⏸ Pause | bash='$0' param1=pause param2=$app refresh=true terminal=false"
 	else
+		echo "---"
 		echo "▶️ Play | bash='$0' param1=play param2=$app refresh=true terminal=false"
 	fi
 

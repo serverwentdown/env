@@ -3,8 +3,12 @@
 SPEED_FILE=/tmp/speedtest.log
 
 if [[ "$1" == "speedtest" ]]; then
-	speedtest --bytes --timeout 10 --simple > /tmp/speedtest.log
-	echo "Updated: $(date +%H:%M:%S)" >> /tmp/speedtest.log
+	echo "Testing..." > /tmp/speedtest.log
+	OUTPUT="$(/usr/local/bin/speedtest --bytes --timeout 10 --simple)"
+	echo "$OUTPUT" > /tmp/speedtest.log
+	echo "Updated: $(date '+%a %l:%M:%S %p')" >> /tmp/speedtest.log
+	osascript -e "display notification \"$OUTPUT\" with title \"BitBar Speedtest\"" &> /dev/null
+	exit
 fi
 
 PING_ADDR=twitter.com
@@ -16,13 +20,13 @@ PING_TIMES=$(echo "$PING_STATS" | tail -n 1 | cut -d ' ' -f 4)
 loss=$(echo "$PING_STATS" | head -n 1 | cut -d ' ' -f 7)
 avg=$(echo $PING_TIMES | cut -d '/' -f 2 | tr -d $'\n')
 
-echo "${avg}ms $loss"
+printf "%.1fms %.0f%% | size=9\n" $avg ${loss%?}
 
 echo ---
 
 echo "address $PING_ADDR"
 
-echo "loss $LOSS"
+echo "loss $loss"
 
 for i in {1..3}; do
 	name=$(echo $PING_NAMES | cut -d '/' -f $i | tr -d $'\n')
@@ -36,4 +40,4 @@ if [[ -f /tmp/speedtest.log ]]; then
 	cat $SPEED_FILE
 fi
 
-echo "Run speedtest | bash='./ping.10s.sh' param1='speedtest' terminal=false"
+echo "Run Speedtest | bash='$0' param1='speedtest' terminal=false refresh=true"

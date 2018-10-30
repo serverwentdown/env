@@ -5,7 +5,7 @@ ACTIVE_INTERFACE=$(route get 1.1.1.1 | grep interface | cut -d ' ' -f 4)
 ADDR=$(ifconfig $ACTIVE_INTERFACE | grep 'inet ' | cut -d ' ' -f 2)
 ADDR6=$(ifconfig $ACTIVE_INTERFACE | grep 'inet6 ' | grep -v 'fe80' | cut -d ' ' -f 2)
 
-echo $ADDR
+echo "$ADDR | size=9"
 
 echo ---
 
