@@ -15,7 +15,21 @@ apk add --no-cache \
 	sway@testing \
 	sway-doc@testing \
 	dmenu \
-	xterm@community \
+	rxvt-unicode \
 	ttf-ubuntu-font-family \
 	ttf-opensans@community
 
+rc-update add udev
+rc-update add dbus
+
+apk add --no-cache \
+	alsa-utils \
+	alsa-utils-doc \
+	alsa-lib \
+	alsaconf \
+	pulseaudio \
+	pulseaudio-doc@community \
+	pulseaudio-libs \
+	pulseaudio-alsa@community
+
+rc-update add alsa
