@@ -34,6 +34,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	export CLICOLOR=1
 else
 	eval $(dircolors -b $HOME/.dircolors)
+	alias ls='ls --color=auto'
 fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
