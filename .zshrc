@@ -29,7 +29,7 @@ bindkey "^R" history-incremental-search-backward
 fpath=( $HOME/.zsh/functions $fpath )
 
 # ls colors
-if [[ "$(uname -s)" -eq "Darwin" ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
 	#eval $(gdircolors -b $HOME/.dircolors)
 	export CLICOLOR=1
 else
@@ -60,7 +60,7 @@ export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang
-if [[ "$(uname -s)" -eq "Darwin" ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
 	export GOPATH="$HOME/Documents/go"
 fi
 export PATH="$(go env GOPATH)/bin:$PATH"
@@ -75,7 +75,7 @@ test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
 
 # hack to optionally get some oh-my-zsh back
-if [[ "$(uname -s)" -eq "Darwin" ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
 
 	export ZSH="$HOME/.oh-my-zsh"
 	test -e "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh" && source "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh"
