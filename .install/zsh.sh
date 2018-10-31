@@ -8,5 +8,6 @@ echo "Installing zsh..."
 echo
 
 apk add --no-cache \
-	zsh
+	zsh \
+	coreutils
 
