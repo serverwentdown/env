@@ -1,0 +1,85 @@
+
+#
+# Basics:
+#
+
+# start a terminal
+alt - return : ~/.local/bin/open-iterm
+
+# start your launcher
+# configure spotlight to use alt - d
+
+# reload skhd configuration file
+alt + shift - c : skhd reload
+
+# reload chunkwm
+alt + shift - e : ~/.chunkwmrc
+
+#
+# Moving around:
+#
+
+# Move your focus around
+alt - h : chunkc tiling::window --focus west
+alt - j : chunkc tiling::window --focus south
+alt - k : chunkc tiling::window --focus north
+alt - l : chunkc tiling::window --focus east
+# or use $mod+[up|down|left|right]
+alt - left : chunkc tiling::window --focus west
+alt - down : chunkc tiling::window --focus south 
+alt - up : chunkc tiling::window --focus north
+alt - right : chunkc tiling::window --focus east
+
+# Move the focused window with the same, but add Shift
+alt + shift - h : chunkc tiling::window --warp west
+alt + shift - j : chunkc tiling::window --warp south
+alt + shift - k : chunkc tiling::window --warp north
+alt + shift - l : chunkc tiling::window --warp east
+# ditto, with arrow keys
+alt + shift - left : chunkc tiling::window --warp west
+alt + shift - down : chunkc tiling::window --warp south 
+alt + shift - up : chunkc tiling::window --warp north
+alt + shift - right : chunkc tiling::window --warp east
+
+#
+# Workspaces:
+#
+
+
+
+#
+# Layout stuff:
+#
+
+# You can "split" the current object of your focus...
+alt - b : chunkc tiling::window --use-insertion-point south
+alt - v : chunkc tiling::window --use-insertion-point east
+
+# Alternatively, set split with
+alt + ctrl - h : chunkc tiling::window --use-insertion-point west
+alt + ctrl - j : chunkc tiling::window --use-insertion-point south
+alt + ctrl - k : chunkc tiling::window --use-insertion-point north
+alt + ctrl - l : chunkc tiling::window --use-insertion-point east
+
+# Toggle the current focus between tiling and floating mode
+alt + shift - space : chunkc tiling::window --toggle float
+
+#
+# Scratchpad:
+#
+
+
+
+#
+# Resizing containers:
+#
+
+#:: default : chunkc border::color 0xdc322f00
+#:: resize @ : chunkc border::color 0xaadc322f
+#alt - r ; resize
+#resize < alt - r ; default # TODO: escape
+
+
+
+
+
