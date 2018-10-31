@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term urxvt
 # Your preferred application launcher
-set $menu dmenu_run -nb '#002b36' -nf '#586e75' -sb '#b58900' -sf '#002b36' -fn 'Ubuntu:bold:pixelsize=18'
+set $menu dmenu_run -nb '#202020' -nf '#93a1a1' -sb '#cb4b16' -sf '#eee8d5' -fn 'Ubuntu:bold:pixelsize=18'
 
 ### Output configuration
 #
@@ -189,13 +189,13 @@ bindsym $mod+r mode "resize"
 bar {
     position top
     colors {
-        statusline #839496da
-        background #002b36da
-        separator #586e75da
-        focused_workspace #b58900da #b58900da #002b36
-        active_workspace #586e75da #586e75da #002b36
-        inactive_workspace #073642da #002b36da #839496
-        urgent_workspace #dc322fda #dc322fda #fdf6e3
+        statusline #93a1a1dd
+        background #202020dd
+        separator #839496dd
+        focused_workspace #cb4b16dd #cb4b16dd #eee8d5
+        active_workspace #586e75dd #586e75dd #999999
+        inactive_workspace #202020dd #202020dd #999999
+        urgent_workspace #dc322fdd #dc322fdd #eee8d5
     }
     status_command exec sway_status
 }
@@ -203,10 +203,10 @@ bar {
 #
 # Colors:
 #
-client.focused #002b36 #073642 #eee8d5 #268bd2
-client.focused_inactive #002b36 #073642 #839496 #073642
-client.unfocused #002b36 #002b36 #839496 #002b36
-client.urgent #002b36 #dc322f #fdf6e3 #002b36
+client.focused #202020 #202020 #999999 #cb4b16
+client.focused_inactive #202020 #202020 #999999 #cb4b1699
+client.unfocused #202020dd #202020dd #999999 #cb4b1699
+client.urgent #202020 #dc322f #fdf6e3 #cb4b16aa99
 
 #
 # Fonts:
@@ -216,8 +216,7 @@ font xft:'Ubuntu' bold 11
 #
 # WE LOVE GAPS:
 #
-for_window [class="^.*"] border pixel 0
-default_border pixel 0 # bye bye, borders
+for_window [class="^.*"] border pixel 1
 smart_gaps on
 gaps inner 12
 gaps outer 8

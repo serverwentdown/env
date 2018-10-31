@@ -3,11 +3,11 @@ URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 URxvt.scrollBar: false
 URxvt.font: xft:Ubuntu Mono:size=11
-URxvt.internalBorder: 8
+URxvt.internalBorder: 4
 URxvt.internalBorderColor: #002b36
 URxvt.transparent: false
 URxvt.depth: 32
-URxvt.background: rgba:0000/2b00/3600/da00
+URxvt.background: rgba:2000/2000/2000/dd00
 
 // https://raw.githubusercontent.com/solarized/xresources/master/Xresources.dark
 
@@ -21,7 +21,7 @@ URxvt.background: rgba:0000/2b00/3600/da00
 #define S_base3         #fdf6e3
 
 *background:            S_base03
-*foreground:            S_base0
+*foreground:            #999999
 *fadeColor:             S_base03
 *cursorColor:           S_base1
 *pointerColorBackground:S_base01
