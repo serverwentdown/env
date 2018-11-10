@@ -25,6 +25,7 @@ curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN
 
 gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 mkdir -p ~/.local/lib/
+mkdir -p ~/.local/bin/
 tar -xzf yarn-v$YARN_VERSION.tar.gz -C ~/.local/lib
 ln -s ../lib/yarn-v$YARN_VERSION/bin/yarn ~/.local/bin/yarn
 ln -s ../lib/yarn-v$YARN_VERSION/bin/yarnpkg ~/.local/bin/yarnpkg
