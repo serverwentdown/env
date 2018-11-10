@@ -52,9 +52,9 @@ prompt pure
 
 # autosuggestions
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=239'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
-bindkey '^e' autosuggest-accept
+bindkey '^e' autosuggest-execute
 
 # syntax highlighting
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -101,6 +101,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 		echo " - it2dl file		Downloads file"
 		echo " - ^R			Searches history"
 		echo " - ^Z			Suspend process"
+		echo " - ^E			Executes suggestion or Emmet"
 		echo " - ⌘ B			In Finder, open a iTerm window"
 		echo
 		echo "In vim:"
@@ -117,6 +118,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 		echo " - mx (mark as x) \`x (return to x)"
 	}
 
-	tips
+	#tips
 
 fi
