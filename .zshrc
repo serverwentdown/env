@@ -55,6 +55,9 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=239'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^e' autosuggest-accept
 
+# syntax highlighting
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # thefuck
 export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
