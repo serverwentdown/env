@@ -72,6 +72,7 @@ steps:
   - ./.install/repositories.sh
   - ./.install/golang.sh
   - go version
+  - CGO_ENABLED=0
   - go get github.com/golang/example/hello
   - $HOME/go/bin/hello
 ---
