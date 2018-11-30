@@ -31,5 +31,5 @@ ln -s ../lib/yarn-v$YARN_VERSION/bin/yarn ~/.local/bin/yarn
 ln -s ../lib/yarn-v$YARN_VERSION/bin/yarnpkg ~/.local/bin/yarnpkg
 rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
-sudo apk del .build-deps-yarn
+sudo apk del --no-cache .build-deps-yarn
 
