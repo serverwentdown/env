@@ -1,108 +1,128 @@
-pipeline:
-  docker:
-    image: plugins/docker
+kind: pipeline
+name: default
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
     registry: registry.makerforce.io
-    secrets: [ docker_username, docker_password ]
     repo: registry.makerforce.io/ambrose/env
     dockerfile: .dockerfile
     tags:
-      - latest
-  slack:
-    image: plugins/slack
-    secrets: [ slack_webhook ]
-    when:
-      status: [ failure, success ]
-  # tests to ensure they compile independently
-  test-neovim:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/repositories.sh
-      - ./.install/neovim.sh
-      - nvim -version
-      - nvim +checkhealth +qa
-    when:
-      status: [ failure, success ]
-  test-pure:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/sudo.sh
-      - ./.install/pure.sh
-    when:
-      status: [ failure, success ]
-  test-thefuck:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/sudo.sh
-      - ./.install/thefuck.sh
-      - ~/.local/bin/thefuck -v
-    when:
-      status: [ failure, success ]
-  test-yadm:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/sudo.sh
-      - ./.install/yadm.sh
-      - ~/.local/bin/yadm version
-    when:
-      status: [ failure, success ]
-  test-golang:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/repositories.sh
-      - ./.install/golang.sh
-      - go version
-      - go get github.com/golang/example/hello
-      - $HOME/go/bin/hello
-    when:
-      status: [ failure, success ]
-  test-node:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/repositories.sh
-      - ./.install/node.sh
-      - node -e "console.log(process.versions)"
-    when:
-      status: [ failure, success ]
-  test-yarn:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/sudo.sh
-      - ./.install/repositories.sh
-      - ./.install/node.sh
-      - ./.install/yarn.sh
-      - yarn --version
-    when:
-      status: [ failure, success ]
-  test-python:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/python.sh
-      - python3 --version
-      - pip3 --version
-    when:
-      status: [ failure, success ]
-  test-jdk:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/jdk.sh
-      - java -version
-    when:
-      status: [ failure, success ]
-  test-kubectl:
-    group: test
-    image: alpine:latest
-    commands:
-      - ./.install/sudo.sh
-      - ./.install/kubectl.sh
-      - ~/.local/bin/kubectl version -c
-    when:
-      status: [ failure, success ]
+    - latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+- name: slack
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook
+  when:
+    status: [ failure, success ]
+
+---
+kind: pipeline
+name: test-neovim
+steps:
+- name: test-neovim
+  image: alpine:latest
+  commands:
+  - ./.install/repositories.sh
+  - ./.install/neovim.sh
+  - nvim -version
+  - nvim +checkhealth +qa
+---
+kind: pipeline
+name: test-pure
+steps:
+- name: test-pure
+  image: alpine:latest
+  commands:
+  - ./.install/sudo.sh
+  - ./.install/pure.sh
+---
+kind: pipeline
+name: test-thefuck
+steps:
+- name: test-thefuck
+  image: alpine:latest
+  commands:
+  - ./.install/sudo.sh
+  - ./.install/thefuck.sh
+  - ~/.local/bin/thefuck -v
+---
+kind: pipeline
+name: test-yadm
+steps:
+- name: test-yadm
+  image: alpine:latest
+  commands:
+  - ./.install/sudo.sh
+  - ./.install/yadm.sh
+  - ~/.local/bin/yadm version
+---
+kind: pipeline
+name: test-golang
+steps:
+- name: test-golang
+  image: alpine:latest
+  commands:
+  - ./.install/repositories.sh
+  - ./.install/golang.sh
+  - go version
+  - go get github.com/golang/example/hello
+  - $HOME/go/bin/hello
+---
+kind: pipeline
+name: test-node
+steps:
+- name: test-node
+  image: alpine:latest
+  commands:
+  - ./.install/repositories.sh
+  - ./.install/node.sh
+  - node -e "console.log(process.versions)"
+---
+kind: pipeline
+name: test-yarn
+steps:
+- name: test-yarn
+  image: alpine:latest
+  commands:
+  - ./.install/sudo.sh
+  - ./.install/repositories.sh
+  - ./.install/node.sh
+  - ./.install/yarn.sh
+  - yarn --version
+---
+kind: pipeline
+name: test-python
+steps:
+- name: test-python
+  image: alpine:latest
+  commands:
+  - ./.install/python.sh
+  - python3 --version
+  - pip3 --version
+---
+kind: pipeline
+name: test-jdk
+steps:
+- name: test-jdk
+  image: alpine:latest
+  commands:
+  - ./.install/jdk.sh
+  - java -version
+---
+kind: pipeline
+name: test-kubectl
+steps:
+- name: test-kubctl
+  image: alpine:latest
+  commands:
+  - ./.install/sudo.sh
+  - ./.install/kubectl.sh
+  - ~/.local/bin/kubectl version -c
+ 
