@@ -1,0 +1,91 @@
+#!/bin/sh
+
+if [ ! -x "$(which mc)" ]; then
+	echo "Please install the minio client first"
+	exit 1
+fi
+
+if [ ! -x "$(which python3)" ]; then
+	echo "WARNING: Please install python3 to use '-e none'"
+else
+	urlescape() {
+		python3 -c 'import urllib.parse; import sys; print(urllib.parse.quote(sys.argv[1]))' "$1"
+	}
+fi
+
+HOST_URL=https://object.makerforce.io
+HOST_ALIAS=o
+BUCKET=share
+
+FILES=()
+NAMES=()
+EXPIRES=()
+
+read_fileopts() {
+	if [ ! -z "$FILE" ]; then
+		FILES+=("$FILE")
+		NAMES+=("$NAME")
+		EXPIRES+=("$EXPIRE")
+		FILE=""
+		NAME=""
+		EXPIRE="168h"
+	fi
+}
+read_fileopts
+
+OPTIND=1
+while getopts "hn:e:f:" opt; do
+	case "$opt" in
+	h)
+		echo "NAME:"
+		echo "   share - Shares files to $HOST_URL"
+		echo ""
+		echo "USAGE:"
+		echo "   share -f FILE [-n NAME] [-e EXPIRES] [-f FILE ...]"
+		echo ""
+		echo "FLAGS:"
+		echo "  -f FILE     Share FILE at /$BUCKET/shasum/filename"
+		echo "  -n NAME     Share FILE at /$BUCKET/NAME"
+		echo "  -e EXPIRES  Set link expiry (NN[h|m|s] or 'none') (default: $EXPIRE)"
+		echo ""
+		;;
+	n)
+		NAME="$OPTARG"
+		;;
+	e)
+		EXPIRE="$OPTARG"
+		;;
+	f)
+		read_fileopts
+		FILE="$OPTARG"
+		;;
+	esac
+done
+read_fileopts
+
+for i in ${!FILES[@]}; do
+	FILE="${FILES[$i]}"
+	NAME="${NAMES[$i]}"
+	EXPIRE="${EXPIRES[$i]}"
+	if [ -z "$NAME" ]; then
+		HASH=$(shasum $FILE | awk '{ print $1 }')
+		FILENAME="$(basename $FILE)"
+		NAME="$HASH/$FILENAME"
+	fi
+
+	TARGET="$HOST_ALIAS/$BUCKET/$NAME"
+	if [ "$EXPIRE" == "none" ]; then
+		TARGET="$HOST_ALIAS/$BUCKET/s/$NAME"
+	fi
+
+	mc cp "$FILE" "$TARGET"
+	if [ "$EXPIRE" == "none" ]; then
+		echo "$HOST_URL/$BUCKET/s/$(urlescape "$NAME")"
+	else
+		mc share download \
+			--expire="$EXPIRE" \
+			"$TARGET" \
+			| sed '3q;d' | cut -d ' ' -f 2
+	fi
+done
+

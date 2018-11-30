@@ -69,6 +69,9 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 export PATH="$(go env GOPATH)/bin:$PATH"
 
+# yarn bin
+export PATH="$HOME/.yarn/bin:$PATH"
+
 # aliases
 alias vim=nvim
 
