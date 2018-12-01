@@ -11,5 +11,6 @@ apk add --no-cache \
 	unzip \
 	zip \
 	tar \
+	gzip \
 	xz
 
