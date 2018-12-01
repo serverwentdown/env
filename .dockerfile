@@ -38,6 +38,7 @@ RUN ./.install/dircolors.sh
 RUN ./.install/pure.sh
 RUN ./.install/thefuck.sh
 RUN ./.install/zsh-autosuggestions.sh
+RUN ./.install/zsh-syntax-highlighting.sh
 # editor
 RUN ./.install/plug.sh
 # tools
