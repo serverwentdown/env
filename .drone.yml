@@ -19,8 +19,8 @@ steps:
   settings:
     webhook:
       from_secret: slack_webhook
-    when:
-      status: [ failure, success ]
+  when:
+    status: [ failure, success ]
 
 ---
 kind: pipeline
