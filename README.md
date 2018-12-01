@@ -3,6 +3,11 @@
 
 Just storing dotfiles in a repository isn't enough. This is almost all the tools I use, put into a Docker image that I can run anywhere
 
+## Todo
+
+- [ ] i3bar
+- [ ] macOS support?
+
 ## Usage
 
 ```sh
