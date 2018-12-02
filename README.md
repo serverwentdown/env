@@ -12,7 +12,7 @@ Just storing dotfiles in a repository isn't enough. This is almost all the tools
 
 ```sh
 docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src registry.makerforce.io/ambrose/env
-yadm clone https://github.com/serverwentdown/env.git
+yadm clone git@github.com:serverwentdown/env.git
 yadm decrypt
 ```
 
