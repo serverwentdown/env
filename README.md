@@ -16,18 +16,12 @@ yadm clone git@github.com:serverwentdown/env.git
 yadm decrypt
 ```
 
-Or to run without yadm: 
-
-```sh
-docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src -v $HOME/.ssh:/home/ambrose/.ssh registry.makerforce.io/ambrose/env
-```
-
 Which is also packed as a script: 
 
 ```sh
 curl -fLo ~/.local/bin/runenv https://raw.githubusercontent.com/serverwentdown/env/master/.local/bin/runenv
 chmod +x ~/.local/bin/runenv
-runenv
+runenv -h
 ```
 
 ## Additional features
