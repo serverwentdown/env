@@ -117,10 +117,20 @@ steps:
 kind: pipeline
 name: test-kubectl
 steps:
-- name: test-kubctl
+- name: test-kubectl
   image: alpine:latest
   commands:
   - ./.install/sudo.sh
   - ./.install/kubectl.sh
   - ~/.local/bin/kubectl version -c
+---
+kind: pipeline
+name: test-minio-client
+steps:
+- name: test-minio-client
+  image: alpine:latest
+  commands:
+  - ./.install/sudo.sh
+  - ./.install/minio-client.sh
+  - ~/.local/bin/mc version
  

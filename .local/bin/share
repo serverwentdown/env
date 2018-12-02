@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 if [ ! -x "$(which mc)" ]; then
 	echo "Please install the minio client first"
@@ -63,7 +63,7 @@ while getopts "hn:e:f:" opt; do
 done
 read_fileopts
 
-for i in ${!FILES[@]}; do
+for i in {1..$#foo}; do
 	FILE="${FILES[$i]}"
 	NAME="${NAMES[$i]}"
 	EXPIRE="${EXPIRES[$i]}"

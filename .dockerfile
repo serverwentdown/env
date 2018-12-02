@@ -46,6 +46,7 @@ RUN ./.install/yadm.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
 RUN ./.install/kubectl.sh
+RUN ./.install/minio-client.sh
 RUN ./.install/yarn.sh
 #RUN ./.install/grunt.sh
 #RUN ./.install/gulp.sh

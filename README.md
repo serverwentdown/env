@@ -25,8 +25,8 @@ docker run -it -p 8080:8080 -v $PWD:/home/ambrose/src -v $HOME/.ssh:/home/ambros
 Which is also packed as a script: 
 
 ```sh
-curl -fLo ~/.bin/runenv https://raw.githubusercontent.com/serverwentdown/env/master/.runenv
-chmod +x ~/.bin/runenv
+curl -fLo ~/.local/bin/runenv https://raw.githubusercontent.com/serverwentdown/env/master/.local/bin/runenv
+chmod +x ~/.local/bin/runenv
 runenv
 ```
 

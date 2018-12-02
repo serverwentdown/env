@@ -74,6 +74,8 @@ docker pull $CONTAINER_IMAGE
 cmd="\n\
 docker run -it $delete$name$ports$workdir$volumes\n\
 	-v $HOME/.ssh:$CONTAINER_HOME/.ssh \n\
+	-v $HOME/.kube:$CONTAINER_HOME/.kube \n\
+	-v $HOME/.mc:$CONTAINER_HOME/.mc \n\
 	$CONTAINER_IMAGE \n\
 	$@\
 "
