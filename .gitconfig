@@ -2,6 +2,7 @@
 	default = simple
 [user]
 	name = Ambrose Chua
+	email = ambrose@chua.family
 	useConfigOnly = true
 [core]
 	editor = nvim
