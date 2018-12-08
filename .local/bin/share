@@ -64,7 +64,7 @@ while getopts "hn:e:f:" opt; do
 done
 read_fileopts
 
-for i in {1..$#foo}; do
+for i in {1..$#FILES}; do
 	FILE="${FILES[$i]}"
 	NAME="${NAMES[$i]}"
 	EXPIRE="${EXPIRES[$i]}"
