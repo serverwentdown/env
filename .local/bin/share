@@ -75,12 +75,12 @@ for i in {1..$#foo}; do
 	fi
 
 	TARGET="$HOST_ALIAS/$BUCKET/$NAME"
-	if [ "$EXPIRE" == "none" ]; then
+	if [[ "$EXPIRE" == "none" ]]; then
 		TARGET="$HOST_ALIAS/$BUCKET/s/$NAME"
 	fi
 
 	mc cp "$FILE" "$TARGET"
-	if [ "$EXPIRE" == "none" ]; then
+	if [[ "$EXPIRE" == "none" ]]; then
 		echo "$HOST_URL/$BUCKET/s/$(urlescape "$NAME")"
 	else
 		mc share download \
