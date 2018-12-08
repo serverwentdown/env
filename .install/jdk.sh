@@ -20,4 +20,4 @@ rm jdk.tar.gz
 # symlink into /usr/local/bin
 ln -s /usr/local/jdk/bin/* /usr/local/bin/
 
-apk del .build-deps
+apk del --no-cache .build-deps

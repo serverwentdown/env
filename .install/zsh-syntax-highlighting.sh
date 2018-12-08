@@ -14,4 +14,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-sy
 cd ~/.zsh/zsh-syntax-highlighting
 git checkout 0.6.0
 
-sudo apk del .build-deps
+sudo apk del --no-cache .build-deps

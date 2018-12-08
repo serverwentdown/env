@@ -18,4 +18,4 @@ mkdir -p ~/.local/bin
 curl -fLo ~/.local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
 chmod a+x ~/.local/bin/yadm
 
-sudo apk del .build-deps
+sudo apk del --no-cache .build-deps

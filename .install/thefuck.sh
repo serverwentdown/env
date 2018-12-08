@@ -17,4 +17,4 @@ sudo apk add --no-cache \
 
 pip3 install --user thefuck
 
-sudo apk del .build-deps
+sudo apk del --no-cache .build-deps

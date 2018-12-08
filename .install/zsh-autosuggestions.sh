@@ -14,4 +14,4 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosugges
 cd ~/.zsh/zsh-autosuggestions
 git checkout v0.4.3
 
-sudo apk del .build-deps
+sudo apk del --no-cache .build-deps

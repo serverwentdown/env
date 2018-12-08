@@ -49,7 +49,7 @@ cd "node-v$NODE_VERSION"
 make -j$(getconf _NPROCESSORS_ONLN) >/dev/null || make
 make install
 
-apk del .build-deps
+apk del --no-cache .build-deps
 
 cd ..
 rm -Rf "node-v$NODE_VERSION"
