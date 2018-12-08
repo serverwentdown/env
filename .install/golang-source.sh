@@ -37,5 +37,5 @@ cd /usr/local/go/src
 # symlink into /usr/local/bin
 ln -s /usr/local/go/bin/* /usr/local/bin/
 
-apk del .build-deps
+apk del --no-cache .build-deps
 

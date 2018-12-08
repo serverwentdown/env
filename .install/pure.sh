@@ -16,4 +16,4 @@ curl -fLo ~/.zsh/functions/prompt_pure_setup \
 curl -fLo ~/.zsh/functions/async \
 	https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh
 
-sudo apk del .build-deps
+sudo apk del --no-cache .build-deps

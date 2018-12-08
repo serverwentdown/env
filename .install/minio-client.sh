@@ -14,4 +14,4 @@ mkdir -p  ~/.local/bin
 curl -fLo ~/.local/bin/mc https://dl.minio.io/client/mc/release/linux-amd64/mc
 chmod a+x ~/.local/bin/mc
 
-sudo apk del .build-deps
+sudo apk del --no-cache .build-deps

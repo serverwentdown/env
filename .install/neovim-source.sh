@@ -46,4 +46,4 @@ rm -rf neovim
 
 pip3 install neovim
 
-apk del .build-deps
+apk del --no-cache .build-deps
