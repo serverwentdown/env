@@ -1,3 +1,4 @@
 .ssh/id_*
+.ssh/README.txt
 .kube/config
 .mc/config.json
