@@ -48,8 +48,6 @@ RUN ./.install/caddy.sh
 RUN ./.install/kubectl.sh
 RUN ./.install/minio-client.sh
 RUN ./.install/yarn.sh
-#RUN ./.install/grunt.sh
-#RUN ./.install/gulp.sh
 #RUN ./.install/gradlr.sh
 
 # open login shell by default
