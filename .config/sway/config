@@ -203,10 +203,10 @@ bar {
 #
 # Colors:
 #
-client.focused #202020 #202020 #999999 #cb4b16
-client.focused_inactive #202020 #202020 #999999 #cb4b1699
-client.unfocused #202020dd #202020dd #999999 #cb4b1699
-client.urgent #202020 #dc322f #fdf6e3 #cb4b16aa99
+client.focused #202020 #202020 #999999 #cb4b16 #00000000
+client.focused_inactive #202020 #202020 #999999 #cb4b1699 #00000000
+client.unfocused #202020dd #202020dd #999999 #cb4b1699 #00000000
+client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #00000000
 
 #
 # Fonts:
