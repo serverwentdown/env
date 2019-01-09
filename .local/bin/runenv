@@ -15,23 +15,29 @@ image="$CONTAINER_IMAGE"
 
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-hxw] [-n NAME] [-p PORT]... [-v LIST]... [CMD]...
+Usage: ${0##*/} [-xwt] [-n NAME] [-p PORT]... [-v LIST]... [CMD]...
+       ${0##*/} -l
+       ${0##*/} -a NAME
+       ${0##*/} -e NAME [CMD]...
+       ${0##*/} -h
 Starts an env Docker container. If CMD is specified, starts CMD 
 instead of a shell.
 
-   -h       display this help and exit
-   -l       list running containers and exit
    -x       delete Docker container after exit. will loose data
    -w       forward \$PWD into $CONTAINER_HOME/src, and start there
    -n NAME  give container a NAME
    -p PORT  forward host PORT to container PORT
    -v LIST  mount volume LIST. specify as LOCAL:MOUNT
    -t       run pwntools instead
+   -l       list running containers and exit
+   -a NAME  attach to a running container
+   -e NAME  execute zsh or CMD on a running container
+   -h       display this help and exit
 
 EOF
 }
 
-show_running() {
+list_running() {
 docker ps \
 	--filter \
 	label=org.label-schema.vcs-url=https://git.makerforce.io/ambrose/env.git \
@@ -39,7 +45,7 @@ docker ps \
 	"table {{.Names}}\t{{.RunningFor}}\t{{.Ports}}\t{{.Command}}"
 }
 
-while getopts "hlxwn:p:v:t" opt; do
+while getopts "xwn:p:v:tla:e:h" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
@@ -57,16 +63,24 @@ while getopts "hlxwn:p:v:t" opt; do
 	v)
 		volumes="$volumes\n\t-v '$OPTARG' "
 		;;
+	t)
+		image="$CONTAINER_IMAGE_PWN"
+		;;
+	l)
+		list_running
+		exit 0
+		;;
+	a)
+		mode_attach="true"
+		name="$OPTARG"
+		;;
+	e)
+		mode_execute="true"
+		name="$OPTARG"
+		;;
 	h)
 		show_help
 		exit 0
-		;;
-	l)
-		show_running
-		exit 0
-		;;
-	t)
-		image="$CONTAINER_IMAGE_PWN"
 		;;
 	:)
 		echo "Option -$OPTARG requires an argument." >&2
@@ -86,6 +100,23 @@ shift $((OPTIND-1))
 
 if [ "$ports" = "\n\t" ]; then
 	ports=""
+fi
+
+if [ "$mode_attach" = "true" ]; then
+	docker attach \
+		$name
+	exit 0
+fi
+
+if [ "$mode_execute" = "true" ]; then
+	cmd="$@"
+	if [ -z "$@" ]; then
+		cmd="/bin/zsh"
+	fi
+	docker exec -it \
+		$name \
+		$cmd
+	exit 0
 fi
 
 docker pull $image
