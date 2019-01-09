@@ -20,6 +20,7 @@ Starts an env Docker container. If CMD is specified, starts CMD
 instead of a shell.
 
    -h       display this help and exit
+   -l       list running containers and exit
    -x       delete Docker container after exit. will loose data
    -w       forward \$PWD into $CONTAINER_HOME/src, and start there
    -n NAME  give container a NAME
@@ -30,7 +31,15 @@ instead of a shell.
 EOF
 }
 
-while getopts "hxwn:p:v:t" opt; do
+show_running() {
+docker ps \
+	--filter \
+	label=org.label-schema.vcs-url=https://git.makerforce.io/ambrose/env.git \
+	--format \
+	"table {{.Names}}\t{{.RunningFor}}\t{{.Ports}}\t{{.Command}}"
+}
+
+while getopts "hlxwn:p:v:t" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
@@ -50,6 +59,10 @@ while getopts "hxwn:p:v:t" opt; do
 		;;
 	h)
 		show_help
+		exit 0
+		;;
+	l)
+		show_running
 		exit 0
 		;;
 	t)

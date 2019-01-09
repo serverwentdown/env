@@ -14,12 +14,12 @@ function! DoNvimPluginUpdate(arg)
 endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPluginUpdate') }
   let g:deoplete#enable_at_startup = 1 " enable at startup
-  let g:deoplete#max_abbr_width = 0 " no width limit
-  let g:deoplete#max_menu_width = 0 " no width limit
+  "let g:deoplete#max_abbr_width = 0 " no width limit
+  "let g:deoplete#max_menu_width = 0 " no width limit
   let g:deoplete#enable_smart_case = 1 " enable smart case
   "let g:deoplete#file#enable_buffer_path = 1
-  set completeopt=menuone,noinsert
-  inoremap <silent><expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+  set completeopt=menuone,longest
+  "inoremap <silent><expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
 " git
 Plug 'tpope/vim-fugitive'
