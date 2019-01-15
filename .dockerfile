@@ -27,6 +27,11 @@ RUN ./.install/python.sh
 RUN ./.install/golang-source.sh
 RUN ./.install/node-source.sh
 #RUN ./.install/jdk.sh
+# system
+RUN ./.install/docker.sh
+# desktop
+#RUN ./.install/desktop.sh
+#RUN ./.install/firefox.sh
 
 # switch to user
 
@@ -44,6 +49,7 @@ RUN ./.install/zsh-syntax-highlighting.sh
 RUN ./.install/plug.sh
 # tools
 RUN ./.install/yadm.sh
+RUN ./.install/pass.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
 RUN ./.install/kubectl.sh
