@@ -7,11 +7,6 @@ echo
 echo "Installing Yarn $YARN_VERSION..."
 echo
 
-sudo apk add --no-cache --virtual .build-deps-yarn \
-	curl \
-	gnupg \
-	tar
-
 for key in \
 	6A010C5166006599AA17F08146C2130DFD2497F5 \
 ; do
@@ -30,6 +25,4 @@ tar -xzf yarn-v$YARN_VERSION.tar.gz -C ~/.local/lib
 ln -s ../lib/yarn-v$YARN_VERSION/bin/yarn ~/.local/bin/yarn
 ln -s ../lib/yarn-v$YARN_VERSION/bin/yarnpkg ~/.local/bin/yarnpkg
 rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
-
-sudo apk del --no-cache .build-deps-yarn
 

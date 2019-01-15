@@ -40,17 +40,39 @@ brew cask install \
 	iterm2-nightly \
 	bitbar \
 	firefoxnightly
+./.install/dircolors.sh
+./.install/pure.sh
+pip3 install --user thefuck
+./.install/zsh-autosuggestions.sh
+./.install/zsh-syntax-highlighting.sh
+./.install/plug.sh
+./.install/yadm.sh
+# pass is installed using homebrew
+./.install/packr.sh
+./.install/caddy.sh
+./.install/httpie.sh
+./.install/kubectl.sh
+./.install/minio-client.sh
+./.install/yarn.sh
 yadm clone git@github.com:serverwentdown/env.git
 ```
 
-## Additional features
+## Optional
 
 ```sh
+# requires private key
+yadm decrypt
+# requires yadm decrypt
+git clone git@makerforce.io:ambrose/pass.git ~/.password-store
+# takes up a lot of space
 sudo ./.install/jdk.sh && sudo ./.install/gradlr.sh
+# for desktop environments only
 sudo ./.install/desktop.sh && sudo ./.install/firefox.sh
 ```
 
-## Keeping `.install` synchronised
+## Maintenance
+
+Keep `.install` synchronised with Dockerfile. Check with:
 
 ```sh
 for f in .install/*; do grep $f .dockerfile -q || echo "Missing: $f"; done

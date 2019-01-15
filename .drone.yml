@@ -29,71 +29,17 @@ steps:
 - name: test-neovim
   image: alpine:latest
   commands:
-  - ./.install/repositories.sh
-  - ./.install/neovim.sh
+  - ./.install/neovim-source.sh
   - nvim -version
   - nvim +checkhealth +qa
----
-kind: pipeline
-name: test-pure
-steps:
-- name: test-pure
+- name: test-plug
   image: alpine:latest
   commands:
-  - ./.install/sudo.sh
-  - ./.install/pure.sh
----
-kind: pipeline
-name: test-thefuck
-steps:
-- name: test-thefuck
-  image: alpine:latest
-  commands:
-  - ./.install/sudo.sh
-  - ./.install/thefuck.sh
-  - ~/.local/bin/thefuck -v
----
-kind: pipeline
-name: test-yadm
-steps:
-- name: test-yadm
-  image: alpine:latest
-  commands:
-  - ./.install/sudo.sh
-  - ./.install/yadm.sh
-  - ~/.local/bin/yadm version
----
-kind: pipeline
-name: test-golang
-steps:
-- name: test-golang
-  image: alpine:latest
-  commands:
-  - ./.install/repositories.sh
-  - ./.install/golang.sh
-  - go version
----
-kind: pipeline
-name: test-node
-steps:
-- name: test-node
-  image: alpine:latest
-  commands:
-  - ./.install/repositories.sh
-  - ./.install/node.sh
-  - node -e "console.log(process.versions)"
----
-kind: pipeline
-name: test-yarn
-steps:
-- name: test-yarn
-  image: alpine:latest
-  commands:
-  - ./.install/sudo.sh
-  - ./.install/repositories.sh
-  - ./.install/node.sh
-  - ./.install/yarn.sh
-  - ~/.local/bin/yarn --version
+  - ./.install/neovim-source.sh
+  - nvim -version
+  - nvim +checkhealth +qa
+    ./.install/core.sh
+    ./.install/plug.sh
 ---
 kind: pipeline
 name: test-python
@@ -106,6 +52,42 @@ steps:
   - pip3 --version
 ---
 kind: pipeline
+name: test-golang
+steps:
+- name: test-golang
+  image: alpine:latest
+  commands:
+  - ./.install/golang-source.sh
+  - go version
+- name: test-packr
+  image: alpine:latest
+  commands:
+  - ./.install/golang-source.sh
+  - ./.install/packr.sh
+- name: test-caddy
+  image: alpine:latest
+  commands:
+  - ./.install/golang-source.sh
+  - ./.install/caddy.sh
+---
+kind: pipeline
+name: test-node
+steps:
+- name: test-node
+  image: alpine:latest
+  commands:
+  - ./.install/node-source.sh
+  - node -e "console.log(process.versions)"
+- name: test-yarn
+  image: alpine:latest
+  commands:
+  - ./.install/node-source.sh
+  - ./.install/core.sh
+  - ./.install/gnupg.sh
+  - ./.install/yarn.sh
+  - ~/.local/bin/yarn --version
+---
+kind: pipeline
 name: test-jdk
 steps:
 - name: test-jdk
@@ -115,12 +97,86 @@ steps:
   - java -version
 ---
 kind: pipeline
+name: test-dircolors
+steps:
+- name: test-dircolors
+  image: alpine:latest
+  commands:
+  - ./.install/dircolors.sh
+---
+kind: pipeline
+name: test-pure
+steps:
+- name: test-pure
+  image: alpine:latest
+  commands:
+  - ./.install/pure.sh
+---
+kind: pipeline
+name: test-thefuck
+steps:
+- name: test-thefuck
+  image: alpine:latest
+  commands:
+  - ./.install/python3.sh
+  - ./.install/sudo.sh
+  - ./.install/thefuck.sh
+  - ~/.local/bin/thefuck -v
+---
+kind: pipeline
+name: test-zsh-autosuggestions
+steps:
+- name: test-zsh-autosuggestions
+  image: alpine:latest
+  commands:
+  - ./.install/zsh-autosuggestions.sh
+---
+kind: pipeline
+name: test-zsh-syntax-highlighting
+steps:
+- name: test-zsh-syntax-highlighting
+  image: alpine:latest
+  commands:
+  - ./.install/zsh-syntax-highlighting.sh
+---
+kind: pipeline
+name: test-yadm
+steps:
+- name: test-yadm
+  image: alpine:latest
+  commands:
+  - ./.install/core.sh
+  - ./.install/yadm.sh
+  - ~/.local/bin/yadm version
+---
+kind: pipeline
+name: test-pass
+steps:
+- name: test-pass
+  image: alpine:latest
+  commands:
+  - ./.install/repositories.sh
+  - ./.install/sudo.sh
+  - ./.install/pass.sh
+  - pass version
+---
+kind: pipeline
+name: test-httpie
+steps:
+- name: test-httpie
+  image: alpine:latest
+  commands:
+  - ./.install/python.sh
+  - ./.install/httpie.sh
+  - ~/.local/bin/http version
+---
+kind: pipeline
 name: test-kubectl
 steps:
 - name: test-kubectl
   image: alpine:latest
   commands:
-  - ./.install/sudo.sh
+  - ./.install/core.sh
   - ./.install/kubectl.sh
   - ~/.local/bin/kubectl version -c
 ---
@@ -130,7 +186,6 @@ steps:
 - name: test-minio-client
   image: alpine:latest
   commands:
-  - ./.install/sudo.sh
+  - ./.install/core.sh
   - ./.install/minio-client.sh
   - ~/.local/bin/mc version
- 
