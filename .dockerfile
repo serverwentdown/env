@@ -52,6 +52,7 @@ RUN ./.install/yadm.sh
 RUN ./.install/pass.sh
 RUN ./.install/packr.sh
 RUN ./.install/caddy.sh
+RUN ./.install/httpie.sh
 RUN ./.install/kubectl.sh
 RUN ./.install/minio-client.sh
 RUN ./.install/yarn.sh
