@@ -18,6 +18,7 @@ RUN ./.install/core.sh
 RUN ./.install/sdk.sh
 RUN ./.install/sudo.sh
 RUN ./.install/archival.sh
+RUN ./.install/gnupg.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh
 RUN ./.install/neovim-source.sh
