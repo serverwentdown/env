@@ -15,7 +15,7 @@ curl -fLo ~/.local/share/nvim/site/spell/en.utf-8.sug --create-dirs \
 
 # install plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	https://github.com/junegunn/vim-plug/raw/$VIM_PLUG_VERSION/plug.vim
 
 nvim +PlugInstall +qa || true
 

@@ -9,7 +9,7 @@ echo
 
 mkdir -p ~/.zsh/functions
 curl -fLo ~/.zsh/functions/prompt_pure_setup \
-	https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh
+	https://github.com/sindresorhus/pure/raw/v$PURE_VERSION/pure.zsh
 curl -fLo ~/.zsh/functions/async \
-	https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh
+	https://github.com/sindresorhus/pure/raw/v$PURE_VERSION/async.zsh
 

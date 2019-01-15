@@ -6,4 +6,5 @@ echo
 echo "Downloading LS_COLORS..."
 echo
 
-wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O ~/.dircolors
+curl -fLo ~/.dircolors \
+	https://github.com/trapd00r/LS_COLORS/raw/master/LS_COLORS

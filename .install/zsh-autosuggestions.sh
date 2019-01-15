@@ -9,5 +9,5 @@ echo
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 cd ~/.zsh/zsh-autosuggestions
-git checkout v0.4.3
+git checkout v$ZSH_AUTOSUGGESTIONS_VERSION
 
