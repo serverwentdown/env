@@ -36,7 +36,7 @@ cd /usr/local/go/src
 
 # cleanup
 rm -rf \
-	/usr/local/go/pkg/bootstrap
+	/usr/local/go/pkg/bootstrap \
 	/usr/local/go/pkg/obj
 
 # symlink into /usr/local/bin
