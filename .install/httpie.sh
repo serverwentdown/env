@@ -7,5 +7,5 @@ echo
 echo "Installing HTTPie..."
 echo
 
-pip3 install --user httpie
+pip3 install --no-cache-dir --user httpie
 

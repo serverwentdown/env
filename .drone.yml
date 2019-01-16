@@ -184,6 +184,7 @@ steps:
   image: alpine:latest
   commands:
   - ./.install/core.sh
+  - ./.install/upx.sh
   - ./.install/jq.sh
   - ~/.local/bin/jq --version
 ---
@@ -194,6 +195,7 @@ steps:
   image: alpine:latest
   commands:
   - ./.install/core.sh
+  - ./.install/upx.sh
   - ./.install/kubectl.sh
   - ~/.local/bin/kubectl version --client
 ---
@@ -204,5 +206,6 @@ steps:
   image: alpine:latest
   commands:
   - ./.install/core.sh
+  - ./.install/upx.sh
   - ./.install/minio-client.sh
   - ~/.local/bin/mc version

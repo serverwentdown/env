@@ -17,3 +17,6 @@ fi
 go get github.com/caddyserver/builds
 go run build.go
 go install
+upx $(go env GOPATH)/bin/caddy
+go clean -cache
+

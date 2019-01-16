@@ -34,6 +34,11 @@ rm go.tgz
 cd /usr/local/go/src
 ./make.bash
 
+# cleanup
+rm -rf \
+	/usr/local/go/pkg/bootstrap
+	/usr/local/go/pkg/obj
+
 # symlink into /usr/local/bin
 ln -s /usr/local/go/bin/* /usr/local/bin/
 

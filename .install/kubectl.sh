@@ -8,6 +8,8 @@ echo "Installing kubectl $KUBECTL_VERSION..."
 echo
 
 mkdir -p  ~/.local/bin
-curl -fLo ~/.local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl
+curl -fLo ~/.local/bin/kubectl \
+	https://storage.googleapis.com/kubernetes-release/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl
 chmod a+x ~/.local/bin/kubectl
+upx ~/.local/bin/kubectl
 

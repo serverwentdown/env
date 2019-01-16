@@ -44,6 +44,6 @@ make install
 cd ..
 rm -rf neovim
 
-pip3 install neovim
+pip3 install --no-cache-dir neovim
 
 apk del --no-cache .build-deps

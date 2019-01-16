@@ -12,6 +12,6 @@ sudo apk add --no-cache --virtual .build-deps \
 	python3-dev \
 	linux-headers
 
-pip3 install --user thefuck
+pip3 install --no-cache-dir --user thefuck
 
 sudo apk del --no-cache .build-deps
