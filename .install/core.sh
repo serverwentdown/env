@@ -11,5 +11,8 @@ apk add --no-cache \
 	nano \
 	curl \
 	wget \
+	bash \
 	openssh-client
+
+# bash for compatibility
 

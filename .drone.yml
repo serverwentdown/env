@@ -102,6 +102,7 @@ steps:
 - name: test-dircolors
   image: alpine:latest
   commands:
+  - ./.install/core.sh
   - ./.install/dircolors.sh
 ---
 kind: pipeline
@@ -110,6 +111,7 @@ steps:
 - name: test-pure
   image: alpine:latest
   commands:
+  - ./.install/core.sh
   - ./.install/pure.sh
 ---
 kind: pipeline
@@ -118,7 +120,7 @@ steps:
 - name: test-thefuck
   image: alpine:latest
   commands:
-  - ./.install/python3.sh
+  - ./.install/python.sh
   - ./.install/sudo.sh
   - ./.install/thefuck.sh
   - ~/.local/bin/thefuck -v
@@ -129,6 +131,7 @@ steps:
 - name: test-zsh-autosuggestions
   image: alpine:latest
   commands:
+  - ./.install/git.sh
   - ./.install/zsh-autosuggestions.sh
 ---
 kind: pipeline
@@ -137,6 +140,7 @@ steps:
 - name: test-zsh-syntax-highlighting
   image: alpine:latest
   commands:
+  - ./.install/git.sh
   - ./.install/zsh-syntax-highlighting.sh
 ---
 kind: pipeline
@@ -168,7 +172,7 @@ steps:
   commands:
   - ./.install/python.sh
   - ./.install/httpie.sh
-  - ~/.local/bin/http version
+  - ~/.local/bin/http --version
 ---
 kind: pipeline
 name: test-kubectl
