@@ -22,27 +22,10 @@ runenv -h
 ### macOS
 
 ```sh
-brew install \
-	wget \
-	xz \
-	gnupg \
-	git \
-	zsh \
-	neovim \
-	python \
-	go \
-	node \
-	\
-	pass
-brew cask install \
-	java8 \
-	docker \
-	iterm2-nightly \
-	bitbar \
-	firefoxnightly
+brew bundle --file=.brewfile
 ./.install/dircolors.sh
 ./.install/pure.sh
-pip3 install --user thefuck
+# thefuck is installed using homebrew
 ./.install/zsh-autosuggestions.sh
 ./.install/zsh-syntax-highlighting.sh
 ./.install/plug.sh
@@ -51,8 +34,9 @@ pip3 install --user thefuck
 ./.install/packr.sh
 ./.install/caddy.sh
 ./.install/httpie.sh
-./.install/kubectl.sh
-./.install/minio-client.sh
+# jq is installed using homebrew
+# kubectl is installed using homebrew
+# minio-client is installed using homebrew
 ./.install/yarn.sh
 yadm clone git@github.com:serverwentdown/env.git
 ```

@@ -1,0 +1,158 @@
+cask_args appdir: "/Applications"
+tap "homebrew/cask"
+
+# system
+brew "wget"
+brew "xz"
+brew "gnupg"
+brew "git"
+brew "zsh"
+brew "neovim"
+# languages
+brew "python"
+brew "go"
+brew "node"
+# more system
+cask "docker"
+# desktop
+tap "koekeishiya/formulae"
+brew "koekeishiya/formulae/skhd"
+brew "koekeishiya/formulae/chunkwm"
+cask "bitbar"
+cask "iterm2-nightly"
+cask "firefoxnightly"
+
+# user tools
+brew "thefuck"
+brew "pass"
+brew "jq"
+brew "kubernetes-cli"
+tap "minio/stable"
+brew "minio/stable/mc"
+
+
+# extra system
+brew "coreutils"
+brew "gawk"
+brew "gnu-getopt"
+brew "gnu-sed"
+brew "figlet"
+brew "toilet"
+brew "lolcat"
+#brew "neofetch"
+brew "openssl"
+brew "p7zip"
+brew "unrar"
+#brew "fswatch"
+brew "watch"
+brew "socat"
+brew "htop"
+brew "tmux"
+brew "mosh"
+#brew "qemu"
+cask "intel-haxm"
+cask "virtualbox"
+cask "xquartz"
+cask "daisydisk"
+#cask "osxfuse"
+#cask "gpgtools"
+#cask "karabiner-elements"
+cask "switchresx"
+#cask "keycastr" # replaced by custom keycastr
+cask "whoozle-android-file-transfer-nightly"
+cask "intel-power-gadget"
+#cask "wacom-tablet"
+
+# extra tools
+brew "highlight"
+brew "pwgen"
+brew "ghi"
+brew "hadolint"
+brew "upx"
+#brew "kubernetes-helm"
+#brew "terraform"
+brew "ykman"
+cask "keybase"
+#cask "yubikey-neo-manager"
+#cask "yubikey-personalization-gui"
+#cask "yubikey-piv-manager"
+#cask "dash"
+
+# extra network
+brew "aria2"
+brew "shadowsocks-libev", restart_service: true
+#brew "wrk"
+#cask "tuntap"
+# speedtest.net app
+
+# extra database
+#brew "cockroach"
+#brew "redis"
+
+# extra analysis
+brew "masscan"
+brew "nmap"
+#brew "binwalk"
+#brew "foremost"
+#brew "pngcheck"
+#cask "burp-suite"
+#cask "cutter"
+#cask "binary-ninja"
+cask "wireshark"
+
+# extra media
+brew "ffmpeg"
+#brew "lame"
+#brew "sox"
+#brew "gifsicle"
+brew "graphicsmagick", args: ["with-webp"]
+brew "asciinema"
+cask "gimp"
+#cask "adobe-dng-converter"
+cask "inkscape"
+# audacity
+cask "obs"
+cask "vlc"
+# blackmagic davinci resolve
+# blackmagic disk speed test
+# epson scan
+cask "skyfonts"
+
+# extra electronics
+#brew "avrdude"
+#brew "stlink"
+#cask "arduino"
+cask "betaflight-configurator"
+cask "coolterm"
+#cask "etcher"
+cask "kicad"
+
+# extra lang
+brew "sbt"
+#cask "android-sdk"
+cask "java-beta"
+#cask "qt-creator"
+
+# extra apps
+tap "browsh-org/homebrew-browsh"
+brew "browsh-org/homebrew-browsh/browsh"
+cask "google-chrome"
+cask "brave-browser"
+cask "libreoffice"
+cask "figma"
+cask "spotify"
+
+# extra apps social
+cask "slack"
+cask "trello"
+cask "telegram"
+cask "signal"
+cask "whatsapp"
+cask "discord"
+cask "skype"
+cask "flume"
+cask "ghost"
+
+# extra apps gaming
+cask "steam"
+
