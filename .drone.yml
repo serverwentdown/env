@@ -29,17 +29,19 @@ steps:
 - name: test-neovim
   image: alpine:latest
   commands:
+  - apk add --no-cache patch
   - ./.install/neovim-source.sh
   - nvim -version
   - nvim +checkhealth +qa
 - name: test-plug
   image: alpine:latest
   commands:
+  - apk add --no-cache patch
   - ./.install/neovim-source.sh
   - nvim -version
   - nvim +checkhealth +qa
-    ./.install/core.sh
-    ./.install/plug.sh
+  - ./.install/core.sh
+  - ./.install/plug.sh
 ---
 kind: pipeline
 name: test-python
@@ -150,6 +152,7 @@ steps:
   image: alpine:latest
   commands:
   - ./.install/core.sh
+  - ./.install/git.sh
   - ./.install/yadm.sh
   - ~/.local/bin/yadm version
 ---
@@ -192,7 +195,7 @@ steps:
   commands:
   - ./.install/core.sh
   - ./.install/kubectl.sh
-  - ~/.local/bin/kubectl version -c
+  - ~/.local/bin/kubectl version --client
 ---
 kind: pipeline
 name: test-minio-client
