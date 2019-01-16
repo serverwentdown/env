@@ -7,7 +7,7 @@ echo
 echo "Installing packr..."
 echo
 
-go get -u github.com/gobuffalo/packr/...
-upx $(go env GOPATH)/bin/packr{,2}
+go get github.com/gobuffalo/packr/v2/packr2
+upx $(go env GOPATH)/bin/packr2
 go clean -cache
 
