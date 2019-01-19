@@ -1,5 +1,6 @@
 cask_args appdir: "/Applications"
 tap "homebrew/cask"
+tap "homebrew/services"
 
 # system
 brew "wget"
@@ -8,6 +9,7 @@ brew "upx"
 brew "gnupg"
 brew "git"
 brew "zsh"
+brew "bash" # improve bash version
 brew "neovim"
 # languages
 brew "python"
@@ -57,7 +59,8 @@ brew "mosh"
 cask "intel-haxm"
 cask "virtualbox"
 cask "xquartz"
-cask "daisydisk"
+#cask "daisydisk"
+brew "ncdu"
 #cask "osxfuse"
 #cask "gpgtools"
 #cask "karabiner-elements"
@@ -147,7 +150,6 @@ cask "spotify"
 
 # extra apps social
 cask "slack"
-cask "trello"
 cask "telegram"
 cask "signal"
 cask "whatsapp"

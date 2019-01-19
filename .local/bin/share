@@ -79,7 +79,7 @@ for i in {1..$#FILES}; do
 		TARGET="$HOST_ALIAS/$BUCKET/s/$NAME"
 	fi
 
-	mc cp "$FILE" "$TARGET"
+	mc cp "$FILE" "$TARGET" >&2
 	if [[ "$EXPIRE" == "none" ]]; then
 		echo "$HOST_URL/$BUCKET/s/$(urlescape "$NAME")"
 	else
