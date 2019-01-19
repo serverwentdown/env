@@ -28,20 +28,20 @@ Plug 'tpope/vim-fugitive'
 Plug 'zchee/deoplete-clang', { 'for': [ 'c', 'cpp', 'h' ] }
 
 " html, css
-Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'vue' ] }
+Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'vue', 'javascript' ] }
   let g:user_emmet_leader_key = '<C-t>'
   function! s:setup_emmet_shortcut()
     imap <expr> <C-e> emmet#expandAbbrIntelligent("\<C-e>")
   endfunction
-  autocmd FileType html,css,scss,vue call s:setup_emmet_shortcut()
+  autocmd FileType html,css,scss,vue,javascript call s:setup_emmet_shortcut()
 
 " javascript
 Plug 'wokalski/autocomplete-flow', { 'for': [ 'javascript' ] }
 Plug 'Quramy/vim-js-pretty-template', { 'for': [ 'javascript' ] }
   function! s:setup_prettytemplate()
-    JsPreTmpl html
+    JsPreTmpl
   endfunction
-  "autocmd FileType javascript call s:setup_prettytemplate
+  "autocmd FileType javascript call s:setup_prettytemplate()
   " Moved to plugin init
 Plug 'posva/vim-vue', { 'for': [ 'vue' ] }
 
@@ -103,7 +103,7 @@ call plug#end()
 " plugin init
 
 " javascript
-autocmd FileType javascript JsPreTmpl html
+autocmd FileType javascript JsPreTmpl
 
 " other init
 
