@@ -46,7 +46,7 @@ while getopts "hn:e:f:" opt; do
 		echo "FLAGS:"
 		echo "  -f FILE     Share FILE at /$BUCKET/shasum/filename"
 		echo "  -n NAME     Share FILE at /$BUCKET/NAME"
-		echo "  -e EXPIRES  Set link expiry (NN[h|m|s] or 'none') (default: $EXPIRE)"
+		echo "  -e EXPIRES  Set link expiry (NN[h|m|s] or 'none') (default: 168h)"
 		echo ""
 		exit 0
 		;;
