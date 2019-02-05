@@ -65,11 +65,13 @@ steps:
   image: alpine:latest
   commands:
   - ./.install/golang-source.sh
+  - ./.install/upx.sh
   - ./.install/packr.sh
 - name: test-caddy
   image: alpine:latest
   commands:
   - ./.install/golang-source.sh
+  - ./.install/upx.sh
   - ./.install/caddy.sh
 ---
 kind: pipeline

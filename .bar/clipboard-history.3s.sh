@@ -74,6 +74,9 @@ if (( $(pbpaste | wc -c) > 36 )); then
 fi
 echo "${content//|/ }"
 
+echo 
+echo "Send to Pushhook |bash='$HOME/.bin/pushhook' param1=clipboard terminal=false"
+
 # Show history section if historical files exist
 if [[ -e "$tmp_dir/item-1.pb" ]]; then
 
