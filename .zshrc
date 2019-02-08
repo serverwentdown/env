@@ -89,6 +89,8 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	test -e "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh" && source "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh"
 	# legacy scripts
 	test -e "$HOME/.bin" && export PATH="$HOME/.bin:$PATH" # TODO: move to .local/bin
+	# python path on macOS
+	export PATH="$PATH:/Users/ambrose/Library/Python/3.7/bin"
 
 	# tips
 	function tips {
