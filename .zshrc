@@ -111,7 +111,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 		echo " - ⌘ B			In Finder, open a iTerm window"
 		echo
 		echo "In vim:"
-		echo " - ctrl-v, shift-i, //"
+		echo " - ctrl-v, shift-i, [chars]"
 		echo " - o (insert in new line) a (append) A (append at end) c (change selection)"
 		echo " - w (start of word) e (end of word) 0 (start of line) $ (end of line)"
 		echo " - k (up) j (down) h (left) l (right)"
@@ -119,9 +119,10 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 		echo " - % (jump to matching brackets)"
 		echo " - (jump to line in screen) H (top) M (middle) L (bottom)"
 		echo " - (jump by screen to line) ctrl-u (half up) ctrl-d (half down)"
-		echo " - (scroll screen, put current line at) z. (center) z+ (top) z- (bottom)"
+		echo " - (scroll screen, put current line at) zz (center) zt (top) zb (bottom)"
 		echo " - (scroll screen by one line) ctrl-y (up) ctrl-e (down)"
 		echo " - mx (mark as x) \`x (return to x)"
+		echo " - f[char] (find char)"
 	}
 
 	#tips

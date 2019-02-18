@@ -105,6 +105,24 @@ call plug#end()
 " javascript
 autocmd FileType javascript JsPreTmpl
 
+" mapping init
+
+" disable arrow keys in normal mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+map <pageup> <nop>
+map <pagedown> <nop>
+
+" disable arrow keys in insert mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+imap <pageup> <nop>
+imap <pagedown> <nop>
+
 " other init
 
 " theme
