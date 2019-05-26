@@ -11,7 +11,7 @@ if [[ "$1" == "speedtest" ]]; then
 	exit
 fi
 
-PING_ADDR=twitter.com
+PING_ADDR=1.1.1.1
 PING_STATS=$(ping -c 10 -i 0.1 $PING_ADDR | tail -n 2)
 
 PING_NAMES=$(echo "$PING_STATS" | tail -n 1 | cut -d ' ' -f 2)

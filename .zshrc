@@ -90,7 +90,9 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	# legacy scripts
 	test -e "$HOME/.bin" && export PATH="$HOME/.bin:$PATH" # TODO: move to .local/bin
 	# python path on macOS
-	export PATH="$PATH:/Users/ambrose/Library/Python/3.7/bin"
+	export PATH="$PATH:$HOME/Library/Python/3.7/bin"
+	# flutter SDK
+	export PATH="$PATH:$HOME/Documents/tools/flutter/bin"
 
 	# tips
 	function tips {
@@ -128,3 +130,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	#tips
 
 fi
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc

@@ -83,6 +83,7 @@ cask "keybase"
 #cask "yubikey-personalization-gui"
 #cask "yubikey-piv-manager"
 #cask "dash"
+cask "graphql-playground"
 
 # extra network
 brew "aria2"
