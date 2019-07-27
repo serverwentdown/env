@@ -136,7 +136,7 @@ cask "kicad"
 
 # extra lang
 brew "sbt"
-#cask "android-sdk"
+cask "android-sdk"
 cask "java"
 #cask "qt-creator"
 

@@ -76,8 +76,14 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # aliases
 alias vim=nvim
 
-# gpg as ssh agent
+# gpg
+export GPG_TTY="$(tty)"
+# gpg ssh agent
 test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+# minio client
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc
 
 # iTerm2 integration
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
@@ -131,5 +137,3 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 
 fi
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/mc mc

@@ -4,5 +4,6 @@
 	name = Ambrose Chua
 	email = ambrose@chua.family
 	useConfigOnly = true
+	signingkey = AE677CFF65D984EB1F0DC24CDB3FFE064995FE8D
 [core]
 	editor = nvim
