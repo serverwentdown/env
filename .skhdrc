@@ -100,5 +100,9 @@ resize < down : chunkc tiling::window --use-temporary-ratio -0.03 --adjust-windo
 resize < up : chunkc tiling::window --use-temporary-ratio 0.03 --adjust-window-edge north; chunkc tiling::window --use-temporary-ratio 0.03 --adjust-window-edge south
 resize < right : chunkc tiling::window --use-temporary-ratio 0.03 --adjust-window-edge west; chunkc tiling::window --use-temporary-ratio 0.03 --adjust-window-edge east
 
+#
+# Custom largegaps mode
+#
 
-
+alt + shift - g : chunkc tiling::desktop --gap inc; chunkc tiling::desktop --padding inc
+alt + shift + ctrl - g : chunkc tiling::desktop --gap dec; chunkc tiling::desktop --padding dec

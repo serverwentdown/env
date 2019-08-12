@@ -43,7 +43,7 @@
 				"Alpha Component": 1,
 				"Green Component": 0.3
 			},
-			"Show Mark Indicators": true,
+			"Show Mark Indicators": false,
 			"Mouse Reporting": false,
 			"Cursor Boost": 0,
 			"Ansi 4 Color": {

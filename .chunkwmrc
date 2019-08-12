@@ -14,27 +14,8 @@ chunkc set global_desktop_offset_bottom  20
 chunkc set global_desktop_offset_left    20
 chunkc set global_desktop_offset_right   20
 chunkc set global_desktop_offset_gap     12
-
-chunkc set 3_desktop_offset_top          64
-chunkc set 3_desktop_offset_bottom       64
-chunkc set 3_desktop_offset_left         64
-chunkc set 3_desktop_offset_right        64
-chunkc set 3_desktop_offset_gap          16
-chunkc set 4_desktop_offset_top          64
-chunkc set 4_desktop_offset_bottom       64
-chunkc set 4_desktop_offset_left         64
-chunkc set 4_desktop_offset_right        64
-chunkc set 4_desktop_offset_gap          16
-chunkc set 5_desktop_offset_top          64
-chunkc set 5_desktop_offset_bottom       64
-chunkc set 5_desktop_offset_left         64
-chunkc set 5_desktop_offset_right        64
-chunkc set 5_desktop_offset_gap          16
-chunkc set 6_desktop_offset_top          64
-chunkc set 6_desktop_offset_bottom       64
-chunkc set 6_desktop_offset_left         64
-chunkc set 6_desktop_offset_right        64
-chunkc set 6_desktop_offset_gap          16
+chunkc set desktop_padding_step_size     10
+chunkc set desktop_gap_step_size         6
 
 #
 # Cursor
