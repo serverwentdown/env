@@ -70,6 +70,9 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 export PATH="$(go env GOPATH)/bin:$PATH"
 
+# rust
+source $HOME/.cargo/env
+
 # yarn bin
 export PATH="$HOME/.yarn/bin:$PATH"
 
