@@ -4,8 +4,8 @@
 # See bottom
 #
 
-:: default : chunkc border::color 0x88888888
-:: resize @ : chunkc border::color 0xaadc322f
+:: default : chunkc border::color 0xbbcb4b16
+:: resize @ : chunkc border::color 0xffdc322f
 
 #
 # Basics:
