@@ -1,0 +1,73 @@
+#!/bin/zsh
+
+MODE_DEFAULT=('.wallpaper.jpg' 'true' 'Solarized Matched' 'Dark Matched')
+MODE_DARK=('.wallpaper.dark.png' 'true' 'Solarized Matched' 'Dark Matched')
+MODE_LIGHT=('.wallpaper.light.png' 'false' 'Solarized Light Matched' 'Light Matched')
+
+evaluate() {
+	input="$1"
+	shift
+	replacements=($@)
+	for i in {1..$#replacements}; do
+		match="{$i}"
+		replacement="${replacements[i]}"
+		input="$(echo "$input" | sed "s/$match/$replacement/g")"
+	done
+	echo $input
+}
+
+change_system_theme() {
+	mode=($@)
+	template="
+tell application \"System Events\"
+	set picture of desktops to \"$HOME/{1}\"
+	tell appearance preferences
+		set dark mode to {2}
+	end tell
+end tell
+"
+	osascript -e "$(evaluate "$template" $mode)"
+}
+
+change_iterm2_theme() {
+	mode=($@)
+	template='
+import iterm2
+
+async def main(conn):
+
+    app = await iterm2.async_get_app(conn)
+
+    profiles = await iterm2.PartialProfile.async_query(conn)
+    new_profile = None
+    for profile in profiles:
+        if profile.name == "{3}":
+            new_profile = await profile.async_get_full_profile()
+            await profile.async_make_default()
+
+    windows = app.terminal_windows
+    for window in windows:
+        tabs = window.tabs
+        for tab in tabs:
+            sessions = tab.sessions
+            for session in sessions:
+                await session.async_set_profile(new_profile)
+
+iterm2.run_until_complete(main)
+'
+	script="$HOME/Library/Application Support/iTerm2/Scripts/change-theme.py"
+	evaluate "$template" $mode > $script
+	python3 $script
+}
+
+mode_name="MODE_$1:u"
+mode=(${(P)mode_name})
+
+if [[ -z $mode ]]; then
+	echo "No mode specified"
+	exit 1
+fi
+
+change_system_theme $mode
+change_iterm2_theme $mode
+

@@ -71,7 +71,9 @@ fi
 export PATH="$(go env GOPATH)/bin:$PATH"
 
 # rust
-source $HOME/.cargo/env
+if [[ -f $HOME/.cargo/env ]]; then
+	source $HOME/.cargo/env
+fi
 
 # yarn bin
 export PATH="$HOME/.yarn/bin:$PATH"

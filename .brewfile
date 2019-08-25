@@ -11,10 +11,21 @@ brew "git"
 brew "zsh"
 brew "bash" # improve bash version
 brew "neovim"
+brew "pinentry"
 # languages
 brew "python"
 brew "go"
 brew "node"
+brew "deno"
+# system
+brew "grpc"
+brew "protobuf"
+# flutter
+brew "usbmuxd", args: ["HEAD"]
+brew "libimobiledevice", args: ["HEAD"]
+brew "ideviceinstaller"
+brew "ios-deploy"
+brew "cocoapods"
 # more system
 cask "docker"
 # desktop
@@ -24,6 +35,7 @@ brew "koekeishiya/formulae/chunkwm"
 cask "bitbar"
 cask "iterm2-nightly"
 cask "firefoxnightly"
+cask "brave-browser"
 
 # user tools
 brew "thefuck"
@@ -42,10 +54,11 @@ brew "coreutils"
 brew "gawk"
 brew "gnu-getopt"
 brew "gnu-sed"
+brew "gnu-tar"
 brew "figlet"
 brew "toilet"
 brew "lolcat"
-#brew "neofetch"
+brew "neofetch"
 brew "openssl"
 brew "p7zip"
 brew "unrar"
@@ -61,10 +74,13 @@ cask "virtualbox"
 cask "xquartz"
 #cask "daisydisk"
 brew "ncdu"
+tap "jeffreywildman/virt-manager"
+brew "jeffreywildman/virt-manager/virt-viewer"
+brew "jeffreywildman/virt-manager/virt-manager"
 #cask "osxfuse"
 #cask "gpgtools"
 #cask "karabiner-elements"
-cask "switchresx"
+#cask "switchresx"
 #cask "keycastr" # replaced by custom keycastr
 cask "whoozle-android-file-transfer"
 cask "intel-power-gadget"
@@ -73,10 +89,10 @@ cask "intel-power-gadget"
 # extra tools
 brew "highlight"
 brew "pwgen"
-brew "ghi"
+#brew "ghi"
 brew "hadolint"
 #brew "kubernetes-helm"
-#brew "terraform"
+brew "terraform"
 brew "ykman"
 cask "keybase"
 #cask "yubikey-neo-manager"
@@ -88,6 +104,7 @@ cask "graphql-playground"
 # extra network
 brew "aria2"
 brew "shadowsocks-libev", restart_service: true
+brew "ipfs"
 #brew "wrk"
 #cask "tuntap"
 # speedtest.net app
@@ -114,13 +131,15 @@ brew "ffmpeg"
 #brew "gifsicle"
 brew "graphicsmagick", args: ["with-webp"]
 brew "asciinema"
-cask "gimp"
+#cask "gimp"
+cask "krita"
 #cask "adobe-dng-converter"
 cask "inkscape"
 # audacity
 cask "obs"
 cask "vlc"
 # blackmagic davinci resolve
+cask "blender"
 # blackmagic disk speed test
 # epson scan
 cask "skyfonts"
