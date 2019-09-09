@@ -103,7 +103,7 @@ cask "graphql-playground"
 
 # extra network
 brew "aria2"
-brew "shadowsocks-libev", restart_service: true
+#brew "shadowsocks-libev", restart_service: true
 brew "ipfs"
 #brew "wrk"
 #cask "tuntap"
