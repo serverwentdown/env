@@ -85,6 +85,8 @@ alias vim=nvim
 export GPG_TTY="$(tty)"
 # gpg ssh agent
 test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# gpg ssh fix pinentry
+echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
 
 # minio client
 autoload -U +X bashcompinit && bashcompinit
