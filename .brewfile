@@ -84,6 +84,7 @@ brew "jeffreywildman/virt-manager/virt-manager"
 #cask "keycastr" # replaced by custom keycastr
 cask "whoozle-android-file-transfer"
 cask "intel-power-gadget"
+cask "avibrazil-rdm"
 #cask "wacom-tablet"
 
 # extra tools

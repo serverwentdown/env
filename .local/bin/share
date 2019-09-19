@@ -13,8 +13,8 @@ else
 	}
 fi
 
-HOST_URL=https://object.makerforce.io
-HOST_ALIAS=o
+HOST_URL=https://huge.makerforce.io
+HOST_ALIAS=h
 BUCKET=share
 
 FILES=()
