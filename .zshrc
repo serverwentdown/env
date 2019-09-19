@@ -81,12 +81,14 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # aliases
 alias vim=nvim
 
-# gpg
-export GPG_TTY="$(tty)"
-# gpg ssh agent
-test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-# gpg ssh fix pinentry
-echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
+function gpg_start {
+	# gpg
+	export GPG_TTY="$(tty)"
+	# gpg ssh agent
+	test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+	# gpg ssh fix pinentry
+	echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
+}
 
 # minio client
 autoload -U +X bashcompinit && bashcompinit
