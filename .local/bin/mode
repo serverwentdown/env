@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-MODE_DEFAULT=('.wallpaper.jpg' 'true' 'Solarized Matched' 'Dark Matched')
-MODE_DARK=('.wallpaper.dark.png' 'true' 'Solarized Matched' 'Dark Matched')
-MODE_LIGHT=('.wallpaper.light.png' 'false' 'Solarized Light Matched' 'Light Matched')
+MODE_DEFAULT=('default.jpg' 'true' 'Solarized Matched' 'Dark Matched' 'df202020' 'ff999999')
+MODE_DARK=('dark.png' 'true' 'Solarized Matched' 'Dark Matched' '00202020' 'ff999999')
+MODE_LIGHT=('light.png' 'false' 'Solarized Light Matched' 'Light Matched' '00dfdfdf' 'ff666666')
 
 evaluate() {
 	input="$1"
@@ -18,9 +18,14 @@ evaluate() {
 
 change_system_theme() {
 	mode=($@)
+	rm -f ~/Pictures/wallpapers/current/*
+	cp ~/.wallpaper/"${mode[1]}" ~/Pictures/wallpapers/current/"${mode[3]}${mode[1]}"
 	template="
 tell application \"System Events\"
-	set picture of desktops to \"$HOME/{1}\"
+	tell desktops
+		set change interval to -1
+		set change interval to 1
+	end tell
 	tell appearance preferences
 		set dark mode to {2}
 	end tell
@@ -60,6 +65,12 @@ iterm2.run_until_complete(main)
 	python3 $script
 }
 
+change_yabai_theme() {
+	mode=($@)
+	yabai -m config status_bar_background_color 0x${mode[5]}
+	yabai -m config status_bar_foreground_color 0x${mode[6]}
+}
+
 mode_name="MODE_$1:u"
 mode=(${(P)mode_name})
 
@@ -70,4 +81,4 @@ fi
 
 change_system_theme $mode
 change_iterm2_theme $mode
-
+change_yabai_theme $mode

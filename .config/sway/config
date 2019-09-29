@@ -101,29 +101,33 @@ input * {
 # Workspaces:
 #
     # switch to workspace
-    bindsym $mod+1 workspace 1
-    bindsym $mod+2 workspace 2
-    bindsym $mod+3 workspace 3
-    bindsym $mod+4 workspace 4
-    bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6
-    bindsym $mod+7 workspace 7
-    bindsym $mod+8 workspace 8
-    bindsym $mod+9 workspace 9
-    bindsym $mod+0 workspace 10
+    bindcode $mod+10 workspace 1
+    bindcode $mod+11 workspace 2
+    bindcode $mod+12 workspace 3
+    bindcode $mod+13 workspace 4
+    bindcode $mod+14 workspace 5
+    bindcode $mod+15 workspace 6
+    bindcode $mod+16 workspace 7
+    bindcode $mod+17 workspace 8
+    bindcode $mod+18 workspace 9
+    bindcode $mod+19 workspace 10
     # move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace 1
-    bindsym $mod+Shift+2 move container to workspace 2
-    bindsym $mod+Shift+3 move container to workspace 3
-    bindsym $mod+Shift+4 move container to workspace 4
-    bindsym $mod+Shift+5 move container to workspace 5
-    bindsym $mod+Shift+6 move container to workspace 6
-    bindsym $mod+Shift+7 move container to workspace 7
-    bindsym $mod+Shift+8 move container to workspace 8
-    bindsym $mod+Shift+9 move container to workspace 9
-    bindsym $mod+Shift+0 move container to workspace 10
+    bindcode $mod+Shift+10 move container to workspace 1
+    bindcode $mod+Shift+11 move container to workspace 2
+    bindcode $mod+Shift+12 move container to workspace 3
+    bindcode $mod+Shift+13 move container to workspace 4
+    bindcode $mod+Shift+14 move container to workspace 5
+    bindcode $mod+Shift+15 move container to workspace 6
+    bindcode $mod+Shift+16 move container to workspace 7
+    bindcode $mod+Shift+17 move container to workspace 8
+    bindcode $mod+Shift+18 move container to workspace 9
+    bindcode $mod+Shift+19 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+#
+# Displays:
+#
+    # TODO
 #
 # Layout stuff:
 #
@@ -169,22 +173,28 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10 px or 10 ppt
-    bindsym $down resize grow height 10 px or 10 ppt
-    bindsym $up resize shrink height 10 px or 10 ppt
-    bindsym $right resize grow width 10 px or 10 ppt
+    bindsym $left resize shrink width 12 px or 12 ppt
+    bindsym $down resize grow height 12 px or 12 ppt
+    bindsym $up resize shrink height 12 px or 12 ppt
+    bindsym $right resize grow width 12 px or 12 ppt
 
     # ditto, with arrow keys
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 12 px or 12 ppt
+    bindsym Down resize grow height 12 px or 12 ppt
+    bindsym Up resize shrink height 12 px or 12 ppt
+    bindsym Right resize grow width 12 px or 12 ppt
 
     # return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+#
+# Custom largegaps mode
+#
+bindsym $mod+g gaps inner current set 36, gaps outer current set 60
+bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 20 
 
 #
 # Status Bar:
@@ -223,7 +233,7 @@ font xft:'Ubuntu' bold 11
 #for_window [class="^.*"] border pixel 1
 smart_gaps on
 gaps inner 12
-gaps outer 8
+gaps outer 20
 
 #
 # Force Xresources load

@@ -1,0 +1,144 @@
+
+#
+# Resizing containers:
+# See bottom
+#
+
+:: default : yabai -m config active_window_border_color 0xbbcb4b16
+:: resize @ : yabai -m config active_window_border_color 0xffdc322f
+
+#
+# Basics:
+#
+
+# start a terminal
+alt - return : ~/.local/bin/open-iterm
+
+# kill focused window
+alt + shift - q : yabai -m window --close
+
+# start your launcher
+alt - d : skhd -k "cmd - space"
+#osascript -e 'tell application "System Events" to keystroke space using {command down}'
+
+# reload skhd configuration file
+alt + shift - c : skhd reload
+
+# reload chunkwm
+alt + shift - e : ~/.yabairc
+
+#
+# Moving around:
+#
+
+# Move your focus around
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+# or use $mod+[up|down|left|right]
+alt - left : yabai -m window --focus west
+alt - down : yabai -m window --focus south 
+alt - up : yabai -m window --focus north
+alt - right : yabai -m window --focus east
+
+# Move the focused window with the same, but add Shift
+alt + shift - h : yabai -m window --warp west
+alt + shift - j : yabai -m window --warp south
+alt + shift - k : yabai -m window --warp north
+alt + shift - l : yabai -m window --warp east
+# ditto, with arrow keys
+alt + shift - left : yabai -m window --warp west
+alt + shift - down : yabai -m window --warp south 
+alt + shift - up : yabai -m window --warp north
+alt + shift - right : yabai -m window --warp east
+
+#
+# Workspaces:
+#
+
+# switch to workspace
+alt - 0x12 : yabai -m space --focus 1
+alt - 0x13 : yabai -m space --focus 2
+alt - 0x14 : yabai -m space --focus 3
+alt - 0x15 : yabai -m space --focus 4
+alt - 0x17 : yabai -m space --focus 5
+alt - 0x16 : yabai -m space --focus 6
+alt - 0x1A : yabai -m space --focus 7
+alt - 0x1C : yabai -m space --focus 8
+alt - 0x19 : yabai -m space --focus 9
+alt - 0x1D : yabai -m space --focus 10
+# move focused container to workspace
+alt + shift - 0x12 : yabai -m window --space 1
+alt + shift - 0x13 : yabai -m window --space 2
+alt + shift - 0x14 : yabai -m window --space 3
+alt + shift - 0x15 : yabai -m window --space 4
+alt + shift - 0x17 : yabai -m window --space 5
+alt + shift - 0x16 : yabai -m window --space 6
+alt + shift - 0x1A : yabai -m window --space 7
+alt + shift - 0x1C : yabai -m window --space 8
+alt + shift - 0x19 : yabai -m window --space 9
+alt + shift - 0x1D : yabai -m window --space 10
+
+#
+# Displays:
+#
+
+# switch to displays
+alt - a : yabai -m display --focus 1
+alt - b : yabai -m display --focus 2
+alt - c : yabai -m display --focus 3
+# move to display and follow
+alt + shift - a : yabai -m window --display 1; yabai -m display --focus 1
+alt + shift - b : yabai -m window --display 2; yabai -m display --focus 2
+alt + shift - c : yabai -m window --display 3; yabai -m display --focus 3
+
+#
+# Layout stuff:
+#
+
+# You can "split" the current object of your focus...
+alt - b : yabai -m window --insert south
+alt - v : yabai -m window --insert east
+
+# Alternatively, set split with
+alt + ctrl - h : yabai -m window --insert west
+alt + ctrl - j : yabai -m window --insert south
+alt + ctrl - k : yabai -m window --insert north
+alt + ctrl - l : yabai -m window --insert east
+
+# Make the current focus fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# Toggle the current focus between tiling and floating mode
+alt + shift - space : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
+
+#
+# Scratchpad:
+#
+
+
+#
+# Resizing containers:
+#
+
+alt - r ; resize
+resize < return ; default
+resize < alt - r ; default
+resize < escape ; default
+
+resize < h : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
+resize < j : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
+resize < k : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
+resize < l : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
+resize < left : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
+resize < down : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
+resize < up : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
+resize < right : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
+
+#
+# Custom largegaps mode
+#
+
+alt - g : yabai -m space --gap abs:36; yabai -m space --padding abs:60:60:60:60
+alt + shift - g : yabai -m space --gap abs:12; yabai -m space --padding abs:20:20:20:20
