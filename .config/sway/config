@@ -69,7 +69,7 @@ input * {
     floating_modifier $mod normal
 
     # reload the configuration file
-    bindsym $mod+Shift+c reload
+    #bindsym $mod+Shift+c reload
 
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
@@ -152,7 +152,7 @@ input * {
     bindsym $mod+space focus mode_toggle
 
     # move focus to the parent container
-    bindsym $mod+a focus parent
+    #bindsym $mod+a focus parent
 #
 # Scratchpad:
 #

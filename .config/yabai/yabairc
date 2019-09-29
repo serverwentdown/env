@@ -30,14 +30,14 @@ yabai -m config window_border_width          2
 
 yabai -m config active_window_border_color   0xbbcb4b16
 yabai -m config normal_window_border_color   0x00cb4b16
-yabai -m config insert_window_border_color   0xbbb58900
+yabai -m config insert_window_border_color   0xff268bd2
 
 yabai -m config window_opacity               off
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.90
 yabai -m config window_opacity_duration      0.0
 
-yabai -m config window_shadow                off
+yabai -m config window_shadow                on
 
 #
 # Desktop
@@ -67,12 +67,16 @@ yabai -m rule --add app=Safari space=3
 yabai -m rule --add app=Chrome space=3
 yabai -m rule --add app=Firefox space=3
 yabai -m rule --add app=Brave space=3
-yabai -m rule --add app=iTerm space=4
+yabai -m rule --add app=iTerm space=^4
 yabai -m rule --add app=Discord space=5
 yabai -m rule --add app=Telegram space=5
 yabai -m rule --add app=Slack space=5
 yabai -m rule --add app=Signal space=5
 yabai -m rule --add app=Skype space=5
 yabai -m rule --add app=Steam space=6
+#
+# Space rules
+#
+yabai -m space 6 --layout float
 
 echo "yabai configuration loaded.."

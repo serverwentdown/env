@@ -22,10 +22,10 @@ alt - d : skhd -k "cmd - space"
 #osascript -e 'tell application "System Events" to keystroke space using {command down}'
 
 # reload skhd configuration file
-alt + shift - c : skhd reload
+#alt + shift - c : skhd reload
 
 # reload chunkwm
-alt + shift - e : ~/.yabairc
+#alt + shift - e : ~/.yabairc
 
 #
 # Moving around:
@@ -85,13 +85,15 @@ alt + shift - 0x1D : yabai -m window --space 10
 #
 
 # switch to displays
-alt - a : yabai -m display --focus 1
-alt - b : yabai -m display --focus 2
-alt - c : yabai -m display --focus 3
+alt - 0x2A : yabai -m display --focus 1
+alt - 0x1E : yabai -m display --focus 2
+alt - 0x21 : yabai -m display --focus 3
+alt - 0x18 : yabai -m display --focus 3
 # move to display and follow
-alt + shift - a : yabai -m window --display 1; yabai -m display --focus 1
-alt + shift - b : yabai -m window --display 2; yabai -m display --focus 2
-alt + shift - c : yabai -m window --display 3; yabai -m display --focus 3
+alt + shift - 0x2A : yabai -m window --display 1; yabai -m display --focus 1
+alt + shift - 0x1E : yabai -m window --display 2; yabai -m display --focus 2
+alt + shift - 0x21 : yabai -m window --display 3; yabai -m display --focus 3
+alt + shift - 0x18 : yabai -m window --display 4; yabai -m display --focus 4
 
 #
 # Layout stuff:
@@ -107,16 +109,34 @@ alt + ctrl - j : yabai -m window --insert south
 alt + ctrl - k : yabai -m window --insert north
 alt + ctrl - l : yabai -m window --insert east
 
+# Switch the current container between different layout styles
+# alt - s : 
+# alt - w :
+# Below, we approximate the feature of Sway
+alt - e : yabai -m space --rotate 90
+
 # Make the current focus fullscreen
 alt - f : yabai -m window --toggle zoom-fullscreen
 
 # Toggle the current focus between tiling and floating mode
 alt + shift - space : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
 
+# Swap focus between the tiling area and the floating area
+# alt - space
+
 #
 # Scratchpad:
 #
 
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+# alt + shift - - : 
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+# alt - - : 
 
 #
 # Resizing containers:
@@ -142,3 +162,9 @@ resize < right : yabai -m window --resize left:12:0; yabai -m window --resize ri
 
 alt - g : yabai -m space --gap abs:36; yabai -m space --padding abs:60:60:60:60
 alt + shift - g : yabai -m space --gap abs:12; yabai -m space --padding abs:20:20:20:20
+
+#
+# Custom shadows
+#
+
+alt - s : yabai -m window --toggle shadow
