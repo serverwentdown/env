@@ -32,7 +32,7 @@ apk add --no-cache --virtual .build-deps \
 	python3-dev \
 	python3
 
-git clone https://github.com/neovim/neovim.git
+git clone --depth 1 https://github.com/neovim/neovim.git
 cd neovim
 if [ "$NEOVIM_VERSION" = "nightly" ]; then
 	git checkout $NEOVIM_VERSION

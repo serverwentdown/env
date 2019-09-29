@@ -7,7 +7,4 @@ echo
 echo "Installing zsh-autosuggestions..."
 echo
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
-cd ~/.zsh/zsh-autosuggestions
-git checkout v$ZSH_AUTOSUGGESTIONS_VERSION
-
+git clone --depth 1 -b v$ZSH_AUTOSUGGESTIONS_VERSION https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
