@@ -36,10 +36,8 @@ steps:
 - name: test-plug
   image: alpine:latest
   commands:
-  - apk add --no-cache patch
-  - ./.install/neovim-source.sh
-  - nvim -version
-  - nvim +checkhealth +qa
+  - ./.install/repositories.sh
+  - apk add --no-cache neovim@community
   - ./.install/core.sh
   - ./.install/plug.sh
 ---
@@ -62,16 +60,16 @@ steps:
   - ./.install/golang-source.sh
   - go version
 - name: test-packr
-  image: alpine:latest
+  image: golang:1.13-alpine
   commands:
-  - ./.install/golang-source.sh
+  - ./.install/git.sh
   - ./.install/upx.sh
   - ./.install/packr.sh
 - name: test-caddy
-  image: alpine:latest
+  image: golang:1.13-alpine
   commands:
   - apk add --no-cache build-base
-  - ./.install/golang-source.sh
+  - ./.install/git.sh
   - ./.install/upx.sh
   - ./.install/caddy.sh
 ---
