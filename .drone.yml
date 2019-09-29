@@ -70,6 +70,7 @@ steps:
 - name: test-caddy
   image: alpine:latest
   commands:
+  - apk add --no-cache build-base
   - ./.install/golang-source.sh
   - ./.install/upx.sh
   - ./.install/caddy.sh
