@@ -7,5 +7,5 @@ echo "Installing pass..."
 echo
 
 sudo apk add --no-cache \
-    pass@testing
-
+	gnupg \
+	pass@testing

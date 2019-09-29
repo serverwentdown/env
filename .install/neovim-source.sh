@@ -8,7 +8,7 @@ echo "Installing neovim $NEOVIM_VERSION..."
 echo
 
 apk add --no-cache \
-    gettext \
+	gettext \
 	unibilium \
 	libtermkey \
 	libvterm \
@@ -25,20 +25,20 @@ apk add --no-cache --virtual .build-deps \
 	automake \
 	cmake \
 	libtool \
-    gettext-dev \
+	gettext-dev \
 	unibilium-dev \
 	libtermkey-dev \
 	libvterm-dev \
 	python3-dev \
 	python3
 
-git clone --depth 1 https://github.com/neovim/neovim.git
-cd neovim
 if [ "$NEOVIM_VERSION" = "nightly" ]; then
-	git checkout $NEOVIM_VERSION
+	branch=$NEOVIM_VERSION
 else
-	git checkout v$NEOVIM_VERSION
+	branch=v$NEOVIM_VERSION
 fi
+git clone --depth 1 -b $branch https://github.com/neovim/neovim.git
+cd neovim
 make CMAKE_EXTRA_FLAGS=-DENABLE_JEMALLOC=OFF >/dev/null || make
 make install
 cd ..

@@ -13,7 +13,7 @@ brew "bash" # improve bash version
 brew "neovim"
 brew "pinentry"
 # languages
-brew "python"
+brew "python3"
 brew "go"
 brew "node"
 brew "deno"
@@ -31,11 +31,10 @@ cask "docker"
 # desktop
 tap "koekeishiya/formulae"
 brew "koekeishiya/formulae/skhd"
-brew "koekeishiya/formulae/chunkwm"
+brew "koekeishiya/formulae/yabai"
 cask "bitbar"
 cask "iterm2-nightly"
 cask "firefoxnightly"
-cask "brave-browser"
 
 # user tools
 brew "thefuck"
@@ -70,8 +69,8 @@ brew "tmux"
 brew "mosh"
 #brew "qemu"
 cask "intel-haxm"
-cask "virtualbox"
-cask "xquartz"
+#cask "virtualbox"
+#cask "xquartz"
 #cask "daisydisk"
 brew "ncdu"
 tap "jeffreywildman/virt-manager"
@@ -143,7 +142,7 @@ cask "vlc"
 cask "blender"
 # blackmagic disk speed test
 # epson scan
-cask "skyfonts"
+#cask "skyfonts"
 
 # extra electronics
 #brew "avrdude"
