@@ -75,6 +75,10 @@ if [[ -f $HOME/.cargo/env ]]; then
 	source $HOME/.cargo/env
 fi
 
+# deno
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # yarn bin
 export PATH="$HOME/.yarn/bin:$PATH"
 

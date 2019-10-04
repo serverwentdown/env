@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-MODE_DEFAULT=('default.jpg' 'true' 'Solarized Matched' 'Dark Matched' 'df202020' 'ff999999')
-MODE_DARK=('dark.png' 'true' 'Solarized Matched' 'Dark Matched' '00202020' 'ff999999')
-MODE_LIGHT=('light.png' 'false' 'Solarized Light Matched' 'Light Matched' '00dfdfdf' 'ff666666')
+MODE_DEFAULT=('default.jpg' 'true' 'Solarized Matched' 'dark' 'df202020' 'ff999999')
+MODE_DARK=('dark.png' 'true' 'Solarized Matched' 'dark' '00202020' 'ff999999')
+MODE_LIGHT=('light.png' 'false' 'Solarized Light Matched' 'light' '00dfdfdf' 'ff666666')
 
 evaluate() {
 	input="$1"
@@ -65,6 +65,13 @@ iterm2.run_until_complete(main)
 	python3 $script
 }
 
+change_kitty_theme() {
+	mode=($@)
+	rm ~/.config/kitty/colorscheme.conf
+	ln -s ~/.config/kitty/colorscheme.${mode[4]}.conf ~/.config/kitty/colorscheme.conf
+	kitty @ set-colors -a ~/.config/kitty/colorscheme.conf
+}
+
 change_yabai_theme() {
 	mode=($@)
 	yabai -m config status_bar_background_color 0x${mode[5]}
@@ -81,4 +88,5 @@ fi
 
 change_system_theme $mode
 change_iterm2_theme $mode
+change_kitty_theme $mode
 change_yabai_theme $mode

@@ -9,7 +9,7 @@ yabai -m config status_bar_text_font         ".AppleSystemUIFont:Regular:12.0"
 yabai -m config status_bar_icon_font         "Font Awesome 5 Pro:Solid:12.0"
 yabai -m config status_bar_background_color  0x00202020
 yabai -m config status_bar_foreground_color  0xff999999
-yabai -m config status_bar_space_icon_strip      
+yabai -m config status_bar_space_icon_strip       
 yabai -m config status_bar_power_icon_strip   
 yabai -m config status_bar_space_icon        
 yabai -m config status_bar_clock_icon        
@@ -19,7 +19,7 @@ yabai -m config status_bar_clock_icon        
 #
 
 yabai -m config mouse_follows_focus          on
-yabai -m config focus_follows_mouse          autoraise
+yabai -m config focus_follows_mouse          off # autofocus
 
 #
 # Styling
@@ -73,10 +73,11 @@ yabai -m rule --add app=Telegram space=5
 yabai -m rule --add app=Slack space=5
 yabai -m rule --add app=Signal space=5
 yabai -m rule --add app=Skype space=5
-yabai -m rule --add app=Steam space=6
+yabai -m rule --add app=Preview title=.pdf space=6
+yabai -m rule --add app=Steam space=7
 #
 # Space rules
 #
-yabai -m space 6 --layout float
+yabai -m space 7 --layout float
 
 echo "yabai configuration loaded.."
