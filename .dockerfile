@@ -19,6 +19,7 @@ RUN ./.install/sdk.sh
 RUN ./.install/sudo.sh
 RUN ./.install/archival.sh
 RUN ./.install/upx.sh
+RUN ./.install/dust.sh
 RUN ./.install/gnupg.sh
 RUN ./.install/git.sh
 RUN ./.install/zsh.sh

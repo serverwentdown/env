@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ip=""
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	ip="$(ipconfig getifaddr en0)"
+else
+	ip="$(ip route get 1 | head -n 1 | sed -e 's/.*src \([^ ]*\) .*/\1/')"
+fi
+
+toilet -f mono9 -w $(tput cols) $ip

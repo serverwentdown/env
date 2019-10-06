@@ -109,6 +109,15 @@ steps:
   - ./.install/dircolors.sh
 ---
 kind: pipeline
+name: test-dust
+steps:
+- name: test-dust
+  image: alpine:latest
+  commands:
+  - ./.install/core.sh
+  - ./.install/dust.sh
+---
+kind: pipeline
 name: test-pure
 steps:
 - name: test-pure

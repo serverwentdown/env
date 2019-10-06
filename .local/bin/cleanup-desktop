@@ -1,0 +1,52 @@
+#!/bin/sh
+
+set -e
+echo "set -ex"
+
+SCREENSHOTS="$HOME/Pictures/screenshots"
+PROJECTS="$HOME/Documents"
+NOTES="$HOME/Documents"
+
+# Move screenshots
+echo "echo Moving screenshots"
+mkdir -p "$SCREENSHOTS"
+for f in ~/Desktop/Screenshot*; do
+	if ! [[ -f "$f" ]]; then
+		continue;
+	fi
+	basename="$(basename "$f")"
+	if [[ -e "$SCREENSHOTS/$basename" ]]; then
+		basename="$basename $(date +"%Y%m%d-%H%M%S")"
+	fi
+	echo mv "\"$f\"" "\"$SCREENSHOTS/$basename\""
+done
+
+# Move projects
+echo "echo Moving projects"
+mkdir -p "$PROJECTS"
+for f in ~/Desktop/*; do
+	if ! [[ -d "$f" ]]; then
+		continue;
+	fi
+	basename="$(basename "$f")"
+	if [[ -e "$PROJECTS/$basename" ]]; then
+		basename="$basename $(date +"%Y%m%d-%H%M%S")"
+	fi
+	echo mv "\"$f\"" "\"$PROJECTS/$basename\""
+done
+
+# Move notes
+echo "echo Moving notes"
+mkdir -p "$NOTES"
+for f in ~/Desktop/*.txt; do
+	if ! [[ -f "$f" ]]; then
+		continue;
+	fi
+	basename="$(basename "$f")"
+	if [[ -e "$NOTES/$basename" ]]; then
+		basename="${basename%.txt} $(date +"%Y%m%d-%H%M%S").txt"
+	fi
+	echo mv "\"$f\"" "\"$NOTES/$basename\""
+done
+
+echo "echo Done!"
