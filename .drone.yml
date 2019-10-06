@@ -118,6 +118,15 @@ steps:
   - ./.install/dust.sh
 ---
 kind: pipeline
+name: test-hadolint
+steps:
+- name: test-hadolint
+  image: alpine:latest
+  commands:
+  - ./.install/core.sh
+  - ./.install/hadolint.sh
+---
+kind: pipeline
 name: test-pure
 steps:
 - name: test-pure

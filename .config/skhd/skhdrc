@@ -168,3 +168,9 @@ alt + shift - g : yabai -m space --gap abs:12; yabai -m space --padding abs:20:2
 #
 
 alt - s : yabai -m window --toggle shadow
+
+#
+# Custom picture in picture
+#
+
+alt - p : yabai -m window --toggle float; yabai -m window --toggle sticky; yabai -m window --toggle shadow

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-source ./.versions
+. "$(dirname "$0")"/../.versions
 
 echo
 echo "Installing OpenJDK $JDK_NUMBER $JDK_VERSION..."
@@ -21,3 +21,4 @@ rm jdk.tar.gz
 ln -s /usr/local/jdk/bin/* /usr/local/bin/
 
 apk del --no-cache .build-deps
+

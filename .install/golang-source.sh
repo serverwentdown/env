@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-source ./.versions
+. "$(dirname "$0")"/../.versions
 
 echo
 echo "Installing Go $GOLANG_VERSION..."

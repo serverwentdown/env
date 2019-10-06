@@ -31,6 +31,7 @@ RUN ./.install/node-source.sh
 #RUN ./.install/jdk.sh
 # more system
 RUN ./.install/docker.sh
+RUN ./.install/hadolint.sh
 # desktop
 #RUN ./.install/desktop.sh
 #RUN ./.install/firefox.sh
