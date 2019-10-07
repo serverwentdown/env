@@ -18,8 +18,8 @@ alt - return : ~/.local/bin/open-iterm
 alt + shift - q : yabai -m window --close
 
 # start your launcher
-alt - d : skhd -k "cmd - space"
-#osascript -e 'tell application "System Events" to keystroke space using {command down}'
+#alt - d : skhd -k "cmd - space"
+# Alternatively, set inside System Preferences
 
 # reload skhd configuration file
 #alt + shift - c : skhd reload
@@ -173,4 +173,4 @@ alt - s : yabai -m window --toggle shadow
 # Custom picture in picture
 #
 
-alt - p : yabai -m window --toggle float; yabai -m window --toggle sticky; yabai -m window --toggle shadow
+alt - p : yabai -m window --toggle float; yabai -m window --toggle topmost; yabai -m window --toggle sticky; yabai -m window --toggle shadow

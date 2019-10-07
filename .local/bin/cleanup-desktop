@@ -10,7 +10,7 @@ NOTES="$HOME/Documents"
 # Move screenshots
 echo "echo Moving screenshots"
 mkdir -p "$SCREENSHOTS"
-for f in ~/Desktop/Screenshot*; do
+for f in ~/Desktop/Screenshot* ~/Desktop/"Screen Recording"*; do
 	if ! [[ -f "$f" ]]; then
 		continue;
 	fi

@@ -138,6 +138,8 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 		echo " - k (up) j (down) h (left) l (right)"
 		echo " - ~ (swap case) U (uppercase) u (lowercase) gUU guu gu$ gu0 gUaw"
 		echo " - % (jump to matching brackets)"
+		echo " - cc (intent line) = (indent selection)"
+		echo " - (insert mode) ctrl-y (indent) ctrl-d (unindent)"
 		echo " - (jump to line in screen) H (top) M (middle) L (bottom)"
 		echo " - (jump by screen to line) ctrl-u (half up) ctrl-d (half down)"
 		echo " - (scroll screen, put current line at) zz (center) zt (top) zb (bottom)"
