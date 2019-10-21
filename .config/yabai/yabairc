@@ -61,13 +61,14 @@ yabai -m config window_gap                   12
 #
 # App rules
 #
-yabai -m rule --add app=Spotify space=1
+yabai -m rule --add app=Spotify space=1 display=2
 yabai -m rule --add app=Mail space=2
 yabai -m rule --add app=Safari space=3
 yabai -m rule --add app=Chrome space=3
 yabai -m rule --add app=Firefox space=3
 yabai -m rule --add app=Brave space=3
-yabai -m rule --add app=iTerm space=^4
+yabai -m rule --add app=iTerm space=4
+yabai -m rule --add app=kitty space=4
 yabai -m rule --add app=Discord space=5
 yabai -m rule --add app=Telegram space=5
 yabai -m rule --add app=Slack space=5

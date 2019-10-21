@@ -21,9 +21,6 @@ setopt extended_glob
 autoload -U compinit; compinit
 # basic keybindings
 bindkey -v
-bindkey "^[[1~" beginning-of-line
-bindkey "^[[3~" delete-char
-bindkey "^[[4~" end-of-line
 bindkey "^R" history-incremental-search-backward
 
 # zsh imports
@@ -42,12 +39,20 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 # completion menu
 zstyle ':completion:*' menu select
 
+# documents
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	export DOC="$HOME/Documents"
+else
+	export DOC="$HOME"
+fi
+
 # editor
 export EDITOR=nvim
 
 # pure
-export PURE_PROMPT_SYMBOL='>'
-export PURE_PROMPT_VICMD_SYMBOL='<'
+export PURE_PROMPT_SYMBOL="%1{❯%}"
+export PURE_PROMPT_VICMD_SYMBOL="%1{❮%}"
+# Fixes it's treatment as a double width character, see https://github.com/geometry-zsh/geometry/commit/dbd28b23293b0862055deda8e59db57ebd6d6606#diff-37d2e8a43274d6fbaf5b762a55f5138cR211
 autoload -U promptinit; promptinit
 prompt pure
 
@@ -65,14 +70,12 @@ export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang
-if [[ "$(uname -s)" == "Darwin" ]]; then
-	export GOPATH="$HOME/Documents/go"
-fi
+export GOPATH="$DOC/go"
 export PATH="$(go env GOPATH)/bin:$PATH"
 
 # rust
-if [[ -f $HOME/.cargo/env ]]; then
-	source $HOME/.cargo/env
+if [[ -f "$HOME/.cargo/env" ]]; then
+	source "$HOME/.cargo/env"
 fi
 
 # deno
@@ -82,9 +85,19 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # yarn bin
 export PATH="$HOME/.yarn/bin:$PATH"
 
+# minio client
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc
+
+# kubectl
+if [[ -f "$(which kubectl)" ]]; then
+	source <(kubectl completion zsh)
+fi
+
 # aliases
 alias vim=nvim
 
+# gpg help
 function gpg_start {
 	# gpg
 	export GPG_TTY="$(tty)"
@@ -94,12 +107,10 @@ function gpg_start {
 	echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
 }
 
-# minio client
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/mc mc
-
 # iTerm2 integration
-test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
+if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+	source "$HOME/.iterm2_shell_integration.zsh"
+fi
 
 # hack to optionally get some oh-my-zsh back
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -110,6 +121,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	test -e "$HOME/.bin" && export PATH="$HOME/.bin:$PATH" # TODO: move to .local/bin
 	# python path on macOS
 	export PATH="$PATH:$HOME/Library/Python/3.7/bin"
+	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 	# flutter SDK
 	export PATH="$PATH:$HOME/Documents/tools/flutter/bin"
 
@@ -147,8 +159,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 		echo " - mx (mark as x) \`x (return to x)"
 		echo " - f[char] (find char)"
 	}
-
-	#tips
 
 fi
 

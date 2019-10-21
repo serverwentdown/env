@@ -12,7 +12,8 @@
 #
 
 # start a terminal
-alt - return : ~/.local/bin/open-iterm
+alt - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
+alt + shift - return : ~/.local/bin/open-iterm
 
 # kill focused window
 alt + shift - q : yabai -m window --close
@@ -21,11 +22,23 @@ alt + shift - q : yabai -m window --close
 #alt - d : skhd -k "cmd - space"
 # Alternatively, set inside System Preferences
 
+# vimac! awesome stuff
+alt - m : skhd -k "cmd + shift + ctrl + alt - space"
+
 # reload skhd configuration file
 #alt + shift - c : skhd reload
 
 # reload chunkwm
 #alt + shift - e : ~/.yabairc
+
+#
+# Raw mode:
+# Allows standard macOS alt keys
+#
+
+:: raw : yabai -m config active_window_border_color 0xffffffff
+alt - i ; raw
+raw < return ; default
 
 #
 # Moving around:

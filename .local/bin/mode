@@ -87,6 +87,10 @@ if [[ -z $mode ]]; then
 fi
 
 change_system_theme $mode
-change_iterm2_theme $mode
-change_kitty_theme $mode
 change_yabai_theme $mode
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+	change_iterm2_theme $mode
+fi
+if [[ "$TERM" == "xterm-kitty" ]]; then
+	change_kitty_theme $mode
+fi
