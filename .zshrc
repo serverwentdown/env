@@ -1,7 +1,3 @@
-
-# terminal settings
-#export TERM=xterm-256color
-
 # zsh settings
 export HISTSIZE=10000
 export SAVEHIST=100000
@@ -52,13 +48,14 @@ export EDITOR=nvim
 # pure
 export PURE_PROMPT_SYMBOL="%1{❯%}"
 export PURE_PROMPT_VICMD_SYMBOL="%1{❮%}"
+zstyle :prompt:pure:git:dirty color 242
 # Fixes it's treatment as a double width character, see https://github.com/geometry-zsh/geometry/commit/dbd28b23293b0862055deda8e59db57ebd6d6606#diff-37d2e8a43274d6fbaf5b762a55f5138cR211
 autoload -U promptinit; promptinit
 prompt pure
 
 # autosuggestions
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^e' autosuggest-execute
 

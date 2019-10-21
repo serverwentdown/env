@@ -14,7 +14,7 @@ export JDK_VERSION=15
 
 export VIM_PLUG_VERSION=0.10.0
 
-export PURE_VERSION=1.10.3
+export PURE_VERSION=1.11.0
 
 export YADM_VERSION=1.12.0
 
