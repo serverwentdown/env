@@ -131,8 +131,10 @@ if $LIGHT == 'true'
   set background=light
 endif
 let g:solarized_termtrans=1
-let g:solarized_termcolors=256
 silent! colorscheme solarized
+
+" highlighting
+highlight SpellBad cterm=undercurl
 
 " numbering
 set number
