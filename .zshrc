@@ -91,6 +91,14 @@ if [[ -f "$(which kubectl)" ]]; then
 	source <(kubectl completion zsh)
 fi
 
+# python path
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	export PATH="$PATH:$HOME/Library/Python/3.7/bin"
+	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+fi
+# flutter SDK
+export PATH="$PATH:$DOC/flutter/bin"
+
 # aliases
 alias vim=nvim
 
@@ -116,11 +124,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	test -e "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh" && source "$HOME/.oh-my-zsh/plugins/osx/osx.plugin.zsh"
 	# legacy scripts
 	test -e "$HOME/.bin" && export PATH="$HOME/.bin:$PATH" # TODO: move to .local/bin
-	# python path on macOS
-	export PATH="$PATH:$HOME/Library/Python/3.7/bin"
-	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
-	# flutter SDK
-	export PATH="$PATH:$HOME/Documents/tools/flutter/bin"
 
 	# tips
 	function tips {
