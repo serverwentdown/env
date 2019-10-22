@@ -68,7 +68,7 @@ iterm2.run_until_complete(main)
 change_kitty_theme() {
 	mode=($@)
 	rm ~/.config/kitty/colorscheme.conf
-	ln -s ~/.config/kitty/colorscheme.${mode[4]}.conf ~/.config/kitty/colorscheme.conf
+	ln -s colorscheme.${mode[4]}.conf ~/.config/kitty/colorscheme.conf
 	kitty @ set-colors -a ~/.config/kitty/colorscheme.conf
 }
 
@@ -86,8 +86,10 @@ if [[ -z $mode ]]; then
 	exit 1
 fi
 
-change_system_theme $mode
-change_yabai_theme $mode
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	change_system_theme $mode
+	change_yabai_theme $mode
+fi
 if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 	change_iterm2_theme $mode
 fi
