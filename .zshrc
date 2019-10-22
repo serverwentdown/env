@@ -17,7 +17,7 @@ setopt extended_glob
 autoload -U compinit; compinit
 # basic keybindings
 bindkey -v
-bindkey "^R" history-incremental-search-backward
+bindkey "^R" history-incremental-pattern-search-backward
 
 # zsh imports
 fpath=( $HOME/.zsh/functions $fpath )
