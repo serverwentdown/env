@@ -68,7 +68,9 @@ eval $(thefuck --alias nope)
 
 # golang
 export GOPATH="$DOC/go"
-export PATH="$(go env GOPATH)/bin:$PATH"
+if [[ -f "$(which kubectl)" ]]; then
+	export PATH="$(go env GOPATH)/bin:$PATH"
+fi
 
 # rust
 if [[ -f "$HOME/.cargo/env" ]]; then
