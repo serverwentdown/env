@@ -4,13 +4,18 @@
 sudo dnf install fedpkg ccache
 fedpkg clone -a kernel
 cd kernel
-sudo dnf builddep kernel.spec
 git checkout f31
+sudo dnf builddep kernel.spec
+# edit kernel.spec to change buildid to macbookpro
 echo CONFIG_KEYBOARD_APPLESPI=y >> kernel-local
 ./configs/build_configs.sh
 make release
 fedpkg local
-sudo dnf install --nogpgcheck ./x86_64/kernel-5.3.8-303.fc31.x86_64.rpm
+sudo dnf install --nogpgcheck ./x86_64/kernel-core-5.3.8-304.macbookpro.fc31.x86_64
+#sudo dnf install --nogpgcheck ./x86_64/kernel-devel-5.3.8-304.macbookpro.fc31.x86_64
+sudo dnf install --nogpgcheck ./x86_64/kernel-modules-5.3.8-304.macbookpro.fc31.x86_64
+sudo dnf install --nogpgcheck ./x86_64/kernel-modules-extra-5.3.8-304.macbookpro.fc31.x86_64
+sudo dnf install --nogpgcheck ./x86_64/kernel-5.3.8-304.macbookpro.fc31.x86_64
 
 # ZFS
 sudo dnf install http://download.zfsonlinux.org/fedora/zfs-release$(rpm -E %dist).noarch.rpm
