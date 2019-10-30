@@ -31,5 +31,9 @@ This worked fine, until I realised that Fedora's tool `toolbox` doesn't deal wit
 
 Also, I found that Fedora Silverblue has a symlink from `/home` to `/var/home` where the actual home folder is mounted, following conventions. This is neat, I'm going to see if I can use this as a mount point. 
 
+## Experiment 2: Moved Mountpoint to /var/home
+
+TODO
+
 <!-- vim: set conceallevel=2 et ts=2 sw=2: -->
 

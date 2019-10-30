@@ -5,12 +5,12 @@ sudo dnf install fedpkg ccache
 fedpkg clone -a kernel
 cd kernel
 sudo dnf builddep kernel.spec
-git checkout origin/f30 # Didn't work...
+git checkout f31
 echo CONFIG_KEYBOARD_APPLESPI=y >> kernel-local
-./configs/build_configs.sh # Seems optional
+./configs/build_configs.sh
 make release
 fedpkg local
-sudo dnf install --nogpgcheck ./x86_64/kernel-*.rpm
+sudo dnf install --nogpgcheck ./x86_64/kernel-5.3.8-303.fc31.x86_64.rpm
 
 # ZFS
 sudo dnf install http://download.zfsonlinux.org/fedora/zfs-release$(rpm -E %dist).noarch.rpm
