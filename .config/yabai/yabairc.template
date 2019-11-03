@@ -7,8 +7,8 @@
 yabai -m config status_bar                   on
 yabai -m config status_bar_text_font         ".AppleSystemUIFont:Regular:12.0"
 yabai -m config status_bar_icon_font         "Font Awesome 5 Pro:Solid:12.0"
-yabai -m config status_bar_background_color  0xdf202020
-yabai -m config status_bar_foreground_color  0xff999999
+yabai -m config status_bar_background_color  0x<background>
+yabai -m config status_bar_foreground_color  0x<foreground>
 yabai -m config status_bar_space_icon_strip       
 yabai -m config status_bar_power_icon_strip   
 yabai -m config status_bar_space_icon        

@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 MODE_DEFAULT=('default.jpg' 'true' 'Solarized Matched' 'dark' 'df202020' 'ff999999')
+MODE_DEFAULT_LIGHT=('default.jpg' 'false' 'Solarized Light Matched' 'light' 'dff9f9f9' 'ff666666')
 MODE_DARK=('dark.png' 'true' 'Solarized Matched' 'dark' '00202020' 'ff999999')
 MODE_LIGHT=('light.png' 'false' 'Solarized Light Matched' 'light' '00dfdfdf' 'ff666666')
 
@@ -74,6 +75,7 @@ change_kitty_theme() {
 
 change_yabai_theme() {
 	mode=($@)
+	cat ~/.config/yabai/yabairc.template | sed "s/<background>/${mode[5]}/g" | sed "s/<foreground>/${mode[6]}/g" > ~/.config/yabai/yabairc
 	yabai -m config status_bar_background_color 0x${mode[5]}
 	yabai -m config status_bar_foreground_color 0x${mode[6]}
 }

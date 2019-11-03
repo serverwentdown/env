@@ -33,7 +33,10 @@ Also, I found that Fedora Silverblue has a symlink from `/home` to `/var/home` w
 
 ## Experiment 2: Moved Mountpoint to /var/home
 
-TODO
+This didn't work. I misread toolbox: it needs `/home` to be a symlink, not the user's `$HOME`. I can't do that because I want to keep a usable user in the home directory. Seems like I'd have to patch toolbox...
+
+`.local/bin/toolbox` is my monkeypatched toolbox, just to make it work for now. I still need to figure out how to rewrite the home-link part to work with home directories like mine, without breaking everything else. The problem is toolbox currently canonicalises all homedir links but only sets up the proper links for `/var/home` links.
+
+Funny bug, `yadm` likes to hardcode the home directory in Git. But this setup also allows me to set that hardcoded direcotry to `/var/home/ambrose`
 
 <!-- vim: set conceallevel=2 et ts=2 sw=2: -->
-
