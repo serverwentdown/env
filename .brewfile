@@ -153,6 +153,7 @@ cask "vlc"
 #brew "avrdude"
 #brew "stlink"
 #cask "arduino"
+#brew "arduino-cli
 cask "betaflight-configurator"
 cask "coolterm"
 #cask "etcher"

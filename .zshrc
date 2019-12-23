@@ -67,7 +67,6 @@ export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang
-export GOPATH="$DOC/go"
 if [[ -f "$(which kubectl)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
 fi
@@ -98,11 +97,15 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	export PATH="$PATH:$HOME/Library/Python/3.7/bin"
 	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 fi
-# flutter SDK
-export PATH="$PATH:$DOC/flutter/bin"
+# android sdk
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export PATH="$PATH:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools"
+# flutter sdk
+export PATH="$PATH:$HOME/flutter/bin"
 
 # aliases
 alias vim=nvim
+alias icat="kitty +kitten icat"
 
 # gpg help
 function gpg_start {

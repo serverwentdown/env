@@ -14,15 +14,16 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term urxvt
+set $term kitty --single-instance -d ~
 # Your preferred application launcher
-set $menu dmenu_run -nb '#202020' -nf '#93a1a1' -sb '#cb4b16' -sf '#eee8d5' -fn 'Ubuntu:bold:pixelsize=18'
+set $menu dmenu_run -nb '#202020' -nf '#93a1a1' -sb '#cb4b16' -sf '#eee8d5' -fn 'IBM Plex Sans:bold:pixelsize=18'
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg ~/.wallpaper.jpg fill
+output * bg ~/.wallpaper/dark.png tile
+#output * bg ~/.wallpaper/default.jpg fill
 #
 # Example configuration:
 #
@@ -46,6 +47,11 @@ output * bg ~/.wallpaper.jpg fill
 input * {
     xkb_layout us
     xkb_variant dvp
+    xkb_options "caps:escape"
+}
+
+input type:touchpad {
+    natural_scroll enabled
 }
 
 ### Key bindings
@@ -69,7 +75,7 @@ input * {
     floating_modifier $mod normal
 
     # reload the configuration file
-    #bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+c reload
 
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
@@ -138,6 +144,7 @@ input * {
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
+    bindsym $mod+n layout default
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
@@ -217,19 +224,22 @@ bar {
 #
 # Colors:
 #
-client.focused #202020 #202020 #999999 #cb4b16 #00000000
-client.focused_inactive #202020 #202020 #999999 #cb4b1699 #00000000
-client.unfocused #202020dd #202020dd #999999 #cb4b1699 #00000000
-client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #00000000
+client.focused #202020 #202020 #999999 #cb4b16 #cb4b16bb
+client.focused_inactive #202020 #202020 #999999 #cb4b1699 #cb4b16bb
+client.unfocused #202020dd #202020dd #999999 #cb4b1699 #cb4b1600
+client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #cb4b1600
 
 #
 # Fonts:
 #
-font xft:'Ubuntu' bold 11
+font pango:IBM Plex Sans bold 11
 
 #
 # WE LOVE GAPS:
 #
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
 #for_window [class="^.*"] border pixel 1
 smart_gaps on
 gaps inner 12
@@ -243,10 +253,10 @@ exec xrdb -merge .Xresources
 # 
 # Monitor Layout:
 # 
-#output eDP-1 scale 2 pos 4000 0
+output eDP-1 scale 1 pos 4000 0
 #output DP-4 pos 1440 -540
 #output DP-1 pos 0 0
 
-include /etc/sway/config.d/*
+#include /etc/sway/config.d/*
 
 # vim: ai ts=4 sw=4 et
