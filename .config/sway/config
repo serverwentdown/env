@@ -1,7 +1,3 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
@@ -16,20 +12,44 @@ set $right l
 # Your preferred terminal emulator
 set $term kitty --single-instance -d ~
 # Your preferred application launcher
-set $menu dmenu_run -nb '#202020' -nf '#93a1a1' -sb '#cb4b16' -sf '#eee8d5' -fn 'IBM Plex Sans:bold:pixelsize=18'
+set $menu ~/.local/bin/wofi_run
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg ~/.wallpaper/dark.png tile
-#output * bg ~/.wallpaper/default.jpg fill
+# Default wallpaper
+#output * bg ~/.wallpaper/dark.png tile
+#output * bg ~/.wallpaper/light.png tile
+output * bg ~/.wallpaper/default.jpg fill
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+#output eDP-1 scale 1 position 4000 0
+#output DP-4 position 1440 -540
+#output DP-1 position 0 0
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+exec swayidle -w \
+    timeout 1140 'swaymsg "output * dpms off"' \
+        resume 'swaymsg "output * dpms on"' \
+    timeout 1200 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg' \
+    before-sleep 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg' \
+    timeout 3600 'systemctl hybrid-sleep'
+bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg
 
 ### Input configuration
 #
@@ -159,7 +179,7 @@ input type:touchpad {
     bindsym $mod+space focus mode_toggle
 
     # move focus to the parent container
-    #bindsym $mod+a focus parent
+    bindsym $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -198,12 +218,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
-# Custom largegaps mode
-#
-bindsym $mod+g gaps inner current set 36, gaps outer current set 60
-bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 20 
-
-#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -218,9 +232,10 @@ bar {
         inactive_workspace #202020dd #202020dd #999999
         urgent_workspace #dc322fdd #dc322fdd #eee8d5
     }
-    status_command exec sway_status
+    swaybar_command waybar
 }
 
+### Customisations
 #
 # Colors:
 #
@@ -228,14 +243,12 @@ client.focused #202020 #202020 #999999 #cb4b16 #cb4b16bb
 client.focused_inactive #202020 #202020 #999999 #cb4b1699 #cb4b16bb
 client.unfocused #202020dd #202020dd #999999 #cb4b1699 #cb4b1600
 client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #cb4b1600
-
 #
 # Fonts:
 #
 font pango:IBM Plex Sans bold 11
-
 #
-# WE LOVE GAPS:
+# Gaps:
 #
 default_border pixel 2
 default_floating_border pixel 2
@@ -244,19 +257,23 @@ hide_edge_borders smart
 smart_gaps on
 gaps inner 12
 gaps outer 20
+# Toggle large gaps
+bindsym $mod+g gaps inner current set 36, gaps outer current set 60
+bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 20 
 
+### Fixes
 #
-# Force Xresources load
+# Force Xresources load:
 #
 exec xrdb -merge .Xresources
+#
+# Enable PolicyKit:
+#
+exec lxpolkit
 
-# 
-# Monitor Layout:
-# 
-output eDP-1 scale 1 pos 4000 0
-#output DP-4 pos 1440 -540
-#output DP-1 pos 0 0
-
-#include /etc/sway/config.d/*
+### Setup-specific configuration
+#
+# Enables custom monitor layouts on other desktop environments
+include ~/.config/sway/enabled/*
 
 # vim: ai ts=4 sw=4 et

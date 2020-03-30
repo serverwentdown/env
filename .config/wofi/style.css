@@ -1,0 +1,54 @@
+#window {
+	border: none;
+	background: rgba(32, 32, 32, 0.875);
+	color: #999;
+}
+
+#input {
+	padding: 8px 12px;
+	border-radius: 0;
+	border: none;
+	background: rgba(32, 32, 32, 0);
+	color: #fff;
+}
+#input:focus {
+	border: none;
+}
+
+.entry#selected,
+.entry#unselected {
+	padding: 8px 12px;
+}
+#selected,
+row > #selected {
+	background: rgba(203, 75, 22, 0.73);
+	text: #fff;
+}
+#unselected,
+row > #unselected {
+	background: none;
+	text: #fff;
+}
+
+flowboxchild {
+	padding: 0;
+}
+
+flowboxchild:focus,
+flowboxchild:selected,
+row:focus,
+row:selected {
+	outline: none;
+	background: none;
+	border-radius: 0;
+}
+
+list {
+	background: rgba(32, 32, 32, 0.875);
+	color: #999;
+}
+list * {
+	padding: 0;
+	margin: 0;
+}
+

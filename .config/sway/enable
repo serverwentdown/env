@@ -1,0 +1,7 @@
+#!/bin/sh
+
+rm -f enabled/*
+
+for name in "$@"; do
+	ln -s ../$name enabled/$name
+done

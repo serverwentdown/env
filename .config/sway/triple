@@ -1,0 +1,54 @@
+
+#
+# Wallpaper configuration
+#
+output "Philips Consumer Electronics Company Philips 19B4 UK51344100785" bg ~/.wallpaper/wallpaper-aux.png center
+output "Dell Inc. DELL P2719H DNJQPS2" bg ~/.wallpaper/wallpaper-right.png center
+output "Dell Inc. DELL P2719H 974YPS2" bg ~/.wallpaper/wallpaper-left.png center
+
+#
+# Output configuration
+#
+default_orientation vertical
+output "Philips Consumer Electronics Company Philips 19B4 UK51344100785" position 2160 800 transform 270
+output "Dell Inc. DELL P2719H DNJQPS2" position 1080 0 transform 90
+output "Dell Inc. DELL P2719H 974YPS2" position 0 0 transform 270
+
+#
+# Magic source switch
+#
+mode "monitor" {
+    # --nodetect increases performance only when --bus is used
+    
+    # switch the left display to DisplayPort
+    #bindsym F1 exec ddcutil --sn 974YPS2 --async --nousb --noverify setvcp 60 0x0f
+    bindsym F1 exec ddcutil --bus 6 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 6 --nodetect --noverify setvcp 60 0x0f
+    # switch the left display to VGA
+    #bindsym Shift+F1 exec ddcutil --sn 974YPS2 --async --nousb --noverify setvcp 60 0x01
+    bindsym F3 exec ddcutil --bus 6 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 6 --nodetect --noverify setvcp 60 0x01
+    # switch the right display to DisplayPort
+    #bindsym F2 exec ddcutil --sn DNJQPS2 --async --nousb --noverify setvcp 60 0x0f
+    bindsym F2 exec ddcutil --bus 5 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 5 --nodetect --noverify setvcp 60 0x0f
+    # switch the right display to VGA
+    #bindsym Shift+F2 exec ddcutil --sn DNJQPS2 --async --nousb --noverify setvcp 60 0x01
+    bindsym F4 exec ddcutil --bus 5 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 5 --nodetect --noverify setvcp 60 0x01
+
+    # switch both displays to DisplayPort
+    bindsym F5 exec (ddcutil --bus 5 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 5 --nodetect --noverify setvcp 60 0x0f) & (ddcutil --bus 6 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 6 --nodetect --noverify setvcp 60 0x0f)
+    # switch both displays to VGA
+    bindsym F6 exec (ddcutil --bus 5 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 5 --nodetect --noverify setvcp 60 0x01) & (ddcutil --bus 6 --nodetect --noverify setvcp D6 0x01 && ddcutil --bus 6 --nodetect --noverify setvcp 60 0x01)
+
+    # return to default mode
+    bindsym Scroll_Lock mode "default"
+}
+bindsym Scroll_Lock mode "monitor"
+
+#
+# Media controls
+#
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +2%"
+bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -2%"
+bindsym XF86AudioMute exec "pactl set-sink-mute 0 toggle"
+bindsym $mod+p exec "dbus-send --bus=unix:path=/run/user/1000/bus --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+
+# vim: ai ts=4 sw=4 et

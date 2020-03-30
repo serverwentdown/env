@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+export PATH="$PATH:$HOME/.local/bin"
+
+wofi --normal-window --show drun
