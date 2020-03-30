@@ -20,7 +20,7 @@ bindkey -v
 bindkey "^R" history-incremental-pattern-search-backward
 
 # zsh imports
-fpath=( $HOME/.zsh/functions $fpath )
+fpath=( $HOME/.config/zsh/functions $fpath )
 
 # ls colors
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -54,13 +54,13 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # autosuggestions
-source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^e' autosuggest-execute
 
 # syntax highlighting
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # thefuck
 export PATH="$HOME/.local/bin:$PATH"
