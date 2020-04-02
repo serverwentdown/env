@@ -18,7 +18,7 @@ let g:deoplete#enable_at_startup = 1 " enable at startup
 "let g:deoplete#max_menu_width = 0 " no width limit
 let g:deoplete#enable_smart_case = 1 " enable smart case
 "let g:deoplete#file#enable_buffer_path = 1
-set completeopt=menuone,longest
+set completeopt=menuone,noinsert,longest
 "inoremap <silent><expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 
 " git
