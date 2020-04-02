@@ -109,12 +109,11 @@ alias icat="kitty +kitten icat"
 
 # gpg help
 function gpg_start {
-	# gpg
+	# gpg tty fix for macOS pinentry. also ensures agent is started
 	export GPG_TTY="$(tty)"
+	echo UPDATESTARTUPTTY | gpg-connect-agent 2>&1 >/dev/null
 	# gpg ssh agent
 	test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-	# gpg ssh fix pinentry
-	echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
 }
 
 # iTerm2 integration
