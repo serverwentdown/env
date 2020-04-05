@@ -9,10 +9,12 @@ call plug#begin()
 Plug 'altercation/vim-colors-solarized'
 
 " completion
+" TODO: REMOVE ALL OUR CUSTOM COMPLETIONS AND USE LANGUAGE SERVER
+" TODO: CHOOSE LINTING AND FORMATTING TOOLS
 function! DoNvimPluginUpdate(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPluginUpdate') }
+"Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPluginUpdate') }
 let g:deoplete#enable_at_startup = 1 " enable at startup
 "let g:deoplete#max_abbr_width = 0 " no width limit
 "let g:deoplete#max_menu_width = 0 " no width limit
@@ -127,8 +129,8 @@ endfunction
 " python
 Plug 'python-mode/python-mode', { 'for': [ 'python' ], 'branch': 'develop' }
 let g:pymode_rope = 1
-let g:pymode_rope_completion = 1
-let g:pymode_rope_completion_bind = '<C-e>'
+"let g:pymode_rope_completion = 1
+"let g:pymode_rope_completion_bind = '<C-e>'
 
 " plantuml
 Plug 'aklt/plantuml-syntax', { 'for': [ 'plantuml' ] }

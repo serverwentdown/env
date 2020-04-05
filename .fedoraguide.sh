@@ -44,6 +44,7 @@ sudo dnf install thefuck
 
 # Neovim
 sudo dnf install neovim
+sudo dnf install cmake
 
 # Firefox
 # Comes with Fedora Workstation, sudo dnf install firefox
