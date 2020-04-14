@@ -135,6 +135,9 @@ let g:pymode_rope = 1
 " plantuml
 Plug 'aklt/plantuml-syntax', { 'for': [ 'plantuml' ] }
 
+" ansible
+Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
+
 call plug#end()
 
 
@@ -279,6 +282,10 @@ set shiftwidth=4
 " indentation overrides
 "filetype indent on
 " TODO: figure out how to properly use the runtime overrides
+
+" width
+"set textwidth=80
+set colorcolumn=+1
 
 " skel
 augroup Skel

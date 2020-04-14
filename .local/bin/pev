@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -e
+
+PEV="$HOME/pev"
+
+if [[ ! -d "$PEV/bin" ]]; then
+	if [[ ! -d "$PEV/src" ]]; then
+		git clone --recursive https://github.com/merces/pev.git "$PEV/src"
+	fi
+	if ! ldconfig -p | grep libssl > /dev/null; then
+		echo "Please install openssl-devel"
+		exit 1
+	fi
+	cd "$PEV/src"
+	make prefix="$PEV"
+	make prefix="$PEV" install
+fi
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PEV/lib"
+
+PROG="$1"
+if [[ -z "$PROG" ]]; then
+	echo "Usage: $0 PROG [ARGS...]"
+	echo -n "Programs: "
+	find "$PEV/bin" -maxdepth 1 -perm -111 -type f -printf "%f "
+	exit 1
+fi
+
+shift
+"$PEV/bin/$PROG" "$@"
