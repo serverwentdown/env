@@ -26,18 +26,11 @@ steps:
 kind: pipeline
 name: test-neovim
 steps:
-- name: test-neovim
-  image: alpine:latest
-  commands:
-  - apk add --no-cache patch
-  - ./.install/neovim-source.sh
-  - nvim -version
-  - nvim +checkhealth +qa
 - name: test-plug
   image: alpine:latest
   commands:
   - ./.install/repositories.sh
-  - apk add --no-cache neovim@community
+  - ./.install/neovim.sh
   - ./.install/core.sh
   - ./.install/plug.sh
 ---
@@ -76,15 +69,11 @@ steps:
 kind: pipeline
 name: test-node
 steps:
-- name: test-node
-  image: alpine:latest
-  commands:
-  - ./.install/node-source.sh
-  - node -e "console.log(process.versions)"
 - name: test-yarn
   image: alpine:latest
   commands:
-  - ./.install/node-source.sh
+  - ./.install/repositories.sh
+  - ./.install/node.sh
   - ./.install/core.sh
   - ./.install/gnupg.sh
   - ./.install/yarn.sh
@@ -115,6 +104,7 @@ steps:
   image: alpine:latest
   commands:
   - ./.install/core.sh
+  - ./.install/upx.sh
   - ./.install/dust.sh
 ---
 kind: pipeline
