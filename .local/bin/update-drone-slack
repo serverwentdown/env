@@ -1,0 +1,52 @@
+#!/bin/bash
+
+DRONE_SERVER=${DRONE_SERVER:="https://ci.makerforce.io"}
+DRONE_TOKEN=${DRONE_TOKEN:=""}
+
+echo
+echo "This script updates Slack webhooks on all Drone repos"
+echo
+
+path_to_httpie=$(which http)
+if [ ! -x "$path_to_httpie" ] ; then
+	echo "HTTPie not installed. Please install it at (https://httpie.org/doc#installation)"
+fi
+
+path_to_jq=$(which jq)
+if [ ! -x "$path_to_jq" ] ; then
+	echo "JQ not installed. Please install it at (https://stedolan.github.io/jq/download/)"
+fi
+
+if [ -z $DRONE_TOKEN ]; then
+	echo "Enter Drone token ($DRONE_SERVER/account/token)"
+	echo -n "> "
+	read DRONE_TOKEN
+	echo
+fi
+
+echo "Enter Slack webhook URL"
+echo -n "> "
+read slack_webhook
+echo
+echo
+
+echo "Fetching repo list..."
+repo_list=$(http GET $DRONE_SERVER/api/user/repos Authorization:"Bearer $DRONE_TOKEN" | jq .[].slug -r)
+
+for r in $repo_list; do
+
+	echo "Updating slack_webhook in $r..."
+	http --check-status -b PATCH \
+		$DRONE_SERVER/api/repos/$r/secrets/slack_webhook \
+		Authorization:"Bearer $DRONE_TOKEN" \
+		data="$slack_webhook" \
+		pull_request:=false \
+	|| http --check-status -b POST \
+		$DRONE_SERVER/api/repos/$r/secrets \
+		Authorization:"Bearer $DRONE_TOKEN" \
+		name="slack_webhook" \
+		data="$slack_webhook" \
+		pull_request:=false
+
+done
+
