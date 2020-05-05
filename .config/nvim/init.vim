@@ -299,18 +299,23 @@ augroup END
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:·,diff:-
 
 " hidden characters
-let w:listchars = [ "tab:\\\ \\\ ,extends:›,precedes:‹,nbsp:␣,trail:·", "tab:»\\\ ,extends:›,precedes:‹,nbsp:␣,trail:·", "tab:⇥\\\ ,extends:›,precedes:‹,nbsp:␣,trail:·,space:·,eol:↵"]
-let w:listchars_mode = -1
-highlight Whitespace ctermfg=10 ctermbg=none cterm=none
+let g:listchars = [ "tab:\\\ \\\ ,extends:›,precedes:‹,nbsp:␣,trail:·", "tab:⇥\\\ ,extends:›,precedes:‹,nbsp:␣,trail:·,space:·", "tab:⇥\\\ ,extends:›,precedes:‹,nbsp:␣,trail:·,space:·,eol:↵"]
+let g:listchars_mode = 0 " 0 means default is 1
+highlight Whitespace ctermfg=11 ctermbg=none cterm=none
 function! ToggleListChars()
-  let w:listchars_mode += 1
-  if w:listchars_mode >= len(w:listchars)
+  let g:listchars_mode += 1
+  if g:listchars_mode >= len(g:listchars)
     "set nolist
-    let w:listchars_mode = -1
+    let g:listchars_mode = -1
     call ToggleListChars()
   else
     set list
-    execute "set listchars=".w:listchars[w:listchars_mode]
+    if g:listchars_mode == 1
+      highlight Whitespace ctermfg=237 ctermbg=none cterm=none
+    else
+      highlight Whitespace ctermfg=11 ctermbg=none cterm=none
+    endif
+    execute "set listchars=".g:listchars[g:listchars_mode]
   endif
 endfunction
 call ToggleListChars()

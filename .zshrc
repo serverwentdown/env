@@ -116,6 +116,11 @@ function gpg_start {
 	test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 }
 
+# Ensure LANG is set
+if [[ -z "$LANG" ]]; then
+	export LANG=en_GB.UTF-8
+fi
+
 # iTerm2 integration
 if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
 	source "$HOME/.iterm2_shell_integration.zsh"
