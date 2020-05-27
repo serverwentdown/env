@@ -247,9 +247,9 @@ bar {
 #
 # Colors:
 #
-client.focused #202020 #202020 #999999 #cb4b16 #cb4b16bb
-client.focused_inactive #202020 #202020 #999999 #cb4b1699 #cb4b16bb
-client.unfocused #202020dd #202020dd #999999 #cb4b1699 #cb4b1600
+client.focused #202020 #202020 #999999 #268bd2 #cb4b16bb
+client.focused_inactive #202020 #202020 #999999 #268bd2 #cb4b16bb
+client.unfocused #202020dd #202020dd #999999 #00ff00 #cb4b1600
 client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #cb4b1600
 #
 # Fonts:

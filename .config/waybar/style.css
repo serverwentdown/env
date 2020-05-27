@@ -8,8 +8,8 @@
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 0px solid rgba(100, 114, 125, 0.5);
+    background-color: rgba(32, 32, 32, 0.5);
+    border-bottom: 3px solid rgba(32, 32, 32, 0);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -28,45 +28,49 @@ window#waybar.solo {
 }
 */
 
-window#waybar.termite {
-    background-color: #3F3F3F;
+window#waybar.kitty {
+    background-color: rgba(32, 32, 32, 0.875);
 }
 
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
+window#waybar.firefox {
+    background-color: #131313;
+}
+
+window#waybar.spotify {
+    background-color: #181818;
+}
+
+#workspaces {
+	margin-right: 4px;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #ffffff;
-    border-bottom: 3px solid transparent;
+    padding: 0 6px;
+    background-color: #2d2d2d;
+    color: #a3a3a3;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    box-shadow: inherit;
-    border-bottom: 3px solid #ffffff;
+    background: #606060;
+    color: #ffffff;
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    background-color: #cb4b16;
+    color: #ffffff;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: #dc322f;
 }
 
 #mode {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    background-color: #d33682;
 }
 
 #window {
-	padding: 0 10px;
+	padding: 0 6px;
 	margin: 0 4px;
 }
 
@@ -80,12 +84,15 @@ window#waybar.chromium {
 #pulseaudio,
 #custom-media,
 #tray,
-#mode,
 #idle_inhibitor,
 #mpd {
     padding: 0 10px;
     margin: 0 4px;
     color: #ffffff;
+}
+
+#tray {
+	margin-right: 0;
 }
 
 #clock {
@@ -141,7 +148,8 @@ label:focus {
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    background-color: #606060;
+    color: #a3a3a3;
 }
 
 #pulseaudio {
@@ -150,8 +158,8 @@ label:focus {
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+    background-color: #606060;
+    color: #a3a3a3;
 }
 
 #custom-media {
