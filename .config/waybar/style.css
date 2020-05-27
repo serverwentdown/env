@@ -40,6 +40,15 @@ window#waybar.spotify {
     background-color: #181818;
 }
 
+window#waybar.discord {
+	background-color: #36393f;
+}
+
+/* Can't match org.telegram.desktop :( */
+window#waybar.telegram {
+	background-color: #36393f;
+}
+
 #workspaces {
 	margin-right: 4px;
 }
