@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=wg0 toggle
+Categories=System;
+X-GNOME-FullName=wg0 toggle
+Comment=Toggle WireGuard interface wg0
+Icon=wg0-toggle.png
+NoDisplay=false
+Exec=bash -c "/home/$USER/.local/bin/wg0-toggle"
+Terminal=false
+X-GNOME-UsesNotifications=true
