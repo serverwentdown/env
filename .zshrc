@@ -29,7 +29,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 else
 	eval $(dircolors -b $HOME/.dircolors)
 	if [[ -L ~/.config/sway/enabled/home ]]; then
-		alias ls='ls --color=auto -l -h'
+		alias ls='ls --color=auto -l -h --time-style=iso -N'
 	else
 		alias ls='ls --color=auto'
 	fi
