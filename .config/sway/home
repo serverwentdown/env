@@ -1,0 +1,32 @@
+#
+# Workspaces
+#
+workspace 1 output "Unknown PL270 0000000000001"
+workspace 2 output "Unknown PL270 0000000000001"
+workspace 3 output "Unknown PL270 0000000000001"
+workspace 4 output "Unknown PL270 0000000000001"
+workspace 8 output "Apple Computer Inc Color LCD 0x00000000"
+workspace 9 output "Apple Computer Inc Color LCD 0x00000000"
+# Select back old workspace
+workspace 1
+
+#
+# Wallpaper configuration
+#
+output "Unknown PL270 0000000000001" bg ~/.wallpaper/default.jpg fill
+
+#
+# Output configuration
+#
+default_orientation horizontal
+output "Unknown PL270 0000000000001" position 0 0 transform 90
+output "Apple Computer Inc Color LCD 0x00000000" position 2160 1800 transform 0 scale 1.5
+
+#
+# Switch configuration
+#
+set $laptop "Apple Computer Inc Color LCD 0x00000000"
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+# vim: ai ts=4 sw=4 et

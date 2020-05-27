@@ -46,9 +46,6 @@ bindsym Scroll_Lock mode "monitor"
 #
 # Media controls
 #
-bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume 0 +2%"
-bindsym XF86AudioLowerVolume exec "pactl set-sink-volume 0 -2%"
-bindsym XF86AudioMute exec "pactl set-sink-mute 0 toggle"
 bindsym $mod+p exec "dbus-send --bus=unix:path=/run/user/1000/bus --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
 
 # vim: ai ts=4 sw=4 et
