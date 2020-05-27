@@ -118,8 +118,7 @@
         "format-ethernet": "{ifname}: {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "⚠",
-        "format-alt": "{ipaddr}",
-        "on-click": "XDG_CURRENT_DESKTOP=GNOME gnome-control-center network"
+        "format-alt": "{ipaddr}"
     },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float

@@ -264,10 +264,10 @@ hide_edge_borders smart
 #for_window [class="^.*"] border pixel 1
 smart_gaps on
 gaps inner 12
-gaps outer 20
+gaps outer 16
 # Toggle large gaps
-bindsym $mod+g gaps inner current set 36, gaps outer current set 60
-bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 20 
+bindsym $mod+g gaps inner current set 36, gaps outer current set 32
+bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 16
 
 ### Fixes
 #
