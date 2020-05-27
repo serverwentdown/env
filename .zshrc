@@ -67,7 +67,7 @@ export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang
-if [[ -f "$(which kubectl)" ]]; then
+if [[ -f "$(which go)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 

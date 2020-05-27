@@ -23,7 +23,7 @@ alt + shift - q : yabai -m window --close
 # Alternatively, set inside System Preferences
 
 # vimac! awesome stuff
-alt - m : skhd -k "cmd + shift + ctrl + alt - space"
+#alt - m : skhd -k "cmd + shift + ctrl + alt - space"
 
 # reload skhd configuration file
 #alt + shift - c : skhd reload
@@ -187,3 +187,8 @@ alt - s : yabai -m window --toggle shadow
 #
 
 alt - p : yabai -m window --toggle float; yabai -m window --toggle topmost; yabai -m window --toggle sticky; yabai -m window --toggle shadow
+
+#
+# Custom focus Google Meet and mute/unmute
+#
+alt - m : yabai -m window --focus $(yabai -m query --windows | jq 'map(select(.title | contains("Meet"))) | .[0]?.id') && skhd -k 'cmd - d'
