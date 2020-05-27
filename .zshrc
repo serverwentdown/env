@@ -67,7 +67,7 @@ export PATH="$HOME/.local/bin:$PATH"
 eval $(thefuck --alias nope)
 
 # golang
-if [[ -f "$(which go)" ]]; then
+if [[ -f "$(which go 2>/dev/null)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
@@ -88,7 +88,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/mc mc
 
 # kubectl
-if [[ -f "$(which kubectl)" ]]; then
+if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
 	source <(kubectl completion zsh)
 fi
 
@@ -113,7 +113,7 @@ function gpg_start {
 	export GPG_TTY="$(tty)"
 	echo UPDATESTARTUPTTY | gpg-connect-agent 2>&1 >/dev/null
 	# gpg ssh agent
-	test -e "$(which gpgconf)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+	test -e "$(which gpgconf 2>/dev/null)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 }
 
 # Ensure LANG is set
