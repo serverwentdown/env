@@ -93,6 +93,7 @@ window#waybar.telegram {
 #pulseaudio,
 #custom-media,
 #tray,
+#mode,
 #idle_inhibitor,
 #mpd {
     padding: 0 10px;
