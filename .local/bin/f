@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+if [ -z $1 ]; then
+	echo "Usage: $0 freq"
+	exit 1
+fi
+
+pkexec cpupower frequency-set --max $1

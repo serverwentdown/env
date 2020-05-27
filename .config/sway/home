@@ -23,6 +23,20 @@ output "Unknown PL270 0000000000001" position 0 0 transform 90
 output "Apple Computer Inc Color LCD 0x00000000" position 2160 1800 transform 0 scale 1.5
 
 #
+# Controls
+#
+# Remember to configure udev. See https://blog.tcharles.fr/ddc-ci-screen-control-on-linux/
+bindsym --locked Alt+XF86AudioLowerVolume exec "ddcutil setvcp --model PL270 0x10 - 0x0a"
+bindsym --locked Alt+XF86AudioRaiseVolume exec "ddcutil setvcp --model PL270 0x10 + 0x0a"
+
+#
+# Scroll tweaks
+#
+input * {
+    scroll_factor 4
+}
+
+#
 # Switch configuration
 #
 set $laptop "Apple Computer Inc Color LCD 0x00000000"

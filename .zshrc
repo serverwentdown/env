@@ -28,7 +28,11 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	export CLICOLOR=1
 else
 	eval $(dircolors -b $HOME/.dircolors)
-	alias ls='ls --color=auto'
+	if [[ -L ~/.config/sway/enabled/home ]]; then
+		alias ls='ls --color=auto -l -h'
+	else
+		alias ls='ls --color=auto'
+	fi
 fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 

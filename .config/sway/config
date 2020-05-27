@@ -73,7 +73,7 @@ input * {
     xkb_layout us
     xkb_variant dvp
     xkb_options "caps:escape"
-    scroll_factor 5
+    scroll_factor 3
 }
 
 input type:touchpad {
@@ -249,7 +249,7 @@ bar {
 # Colors:
 #
 client.focused #202020 #202020 #999999 #268bd2 #cb4b16bb
-client.focused_inactive #202020 #202020 #999999 #268bd2 #cb4b16bb
+client.focused_inactive #202020 #202020 #999999 #cb4b16bb #cb4b16bb
 client.unfocused #202020dd #202020dd #999999 #00ff00 #cb4b1600
 client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #cb4b1600
 #
@@ -263,12 +263,23 @@ bindsym --locked XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@
 bindsym --locked XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -2%"
 bindsym --locked XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 bindsym --locked XF86AudioMicMute exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-bindsym --locked XF86MonBrightnessDown exec "brightnessctl set 5%-"
-bindsym --locked XF86MonBrightnessUp exec "brightnessctl set +5%"
 bindsym --locked XF86AudioPlay exec "playerctl play-pause"
+bindsym --locked XF86AudioPause exec "playerctl pause"
 bindsym --locked XF86AudioNext exec "playerctl next"
 bindsym --locked XF86AudioPrev exec "playerctl previous"
 bindsym --locked XF86AudioStop exec "playerctl stop"
+bindsym --locked XF86MonBrightnessDown exec "brightnessctl set 5%-"
+bindsym --locked XF86MonBrightnessUp exec "brightnessctl set +5%"
+bindsym --locked Shift+XF86AudioLowerVolume exec "brightnessctl set 5%-"
+bindsym --locked Shift+XF86AudioRaiseVolume exec "brightnessctl set +5%"
+# 
+# Screenshot controls:
+#
+set $screenshots $HOME/Pictures/screenshots
+bindsym Print exec grim -t png $screenshots"/Screenshot $(date '+%Y-%m-%d at %H-%m-%S').png"
+bindsym Shift+Print exec grim -g "$(slurp)" -t png $screenshots"/Screenshot $(date '+%Y-%m-%d at %H-%m-%S').png"
+# TODO:
+bindsym $mod+Shift+Print exec grim-upload -s
 #
 # Gaps:
 #
