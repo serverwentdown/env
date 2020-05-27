@@ -2,6 +2,8 @@
 	border: none;
 	background: rgba(32, 32, 32, 0.875);
 	color: #999;
+	font-family: "Fira Code";
+	font-size: 13px;
 }
 
 #input {

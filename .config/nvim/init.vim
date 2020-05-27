@@ -8,6 +8,9 @@ call plug#begin()
 " theme
 Plug 'altercation/vim-colors-solarized'
 
+" razer
+Plug 'https://github.com/DanManN/vim-razer'
+
 " completion
 " TODO: REMOVE ALL OUR CUSTOM COMPLETIONS AND USE LANGUAGE SERVER
 " TODO: CHOOSE LINTING AND FORMATTING TOOLS

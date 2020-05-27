@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 export PATH="$PATH:$HOME/.local/bin"
+export MOZ_ENABLE_WAYLAND=1
 cd ~
 
 wofi \
@@ -12,7 +13,12 @@ wofi \
 	--matching contains \
 	--insensitive \
 	--term kitty \
+	--define always_parse_args=true \
 	--show drun,run
+
+# REMOVED:
+#	--exec-search \
 
 # TIPS:
 # - Hold shift to open in terminal
+# - Hold control to run with arguments
