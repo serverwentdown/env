@@ -14,7 +14,12 @@ set $term kitty --single-instance -d ~
 # Your preferred application launcher
 set $menu ~/.local/bin/wofi_run
 
-### Output configuration
+### Mouse
+# 
+# Please tweak wofi_run when enabling this
+focus_follows_mouse yes
+
+### Output configuratjon
 #
 # Default wallpaper
 #output * bg ~/.wallpaper/dark.png tile

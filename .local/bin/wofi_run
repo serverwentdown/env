@@ -1,5 +1,18 @@
 #!/bin/zsh
 
 export PATH="$PATH:$HOME/.local/bin"
+cd ~
 
-wofi --normal-window --show drun
+wofi \
+	--width 600 \
+	--prompt search \
+	--normal-window \
+	--allow-images --allow-markup \
+	--hide-scroll \
+	--matching contains \
+	--insensitive \
+	--term kitty \
+	--show drun,run
+
+# TIPS:
+# - Hold shift to open in terminal

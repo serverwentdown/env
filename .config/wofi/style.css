@@ -5,7 +5,7 @@
 }
 
 #input {
-	padding: 8px 12px;
+	padding: 8px 16px;
 	border-radius: 0;
 	border: none;
 	background: rgba(32, 32, 32, 0);
@@ -17,17 +17,31 @@
 
 .entry#selected,
 .entry#unselected {
-	padding: 8px 12px;
+	padding: 8px 38px;
 }
 #selected,
 row > #selected {
 	background: rgba(203, 75, 22, 0.73);
-	text: #fff;
+	color: #fff;
 }
 #unselected,
 row > #unselected {
 	background: none;
-	text: #fff;
+	color: #fff;
+}
+
+image {
+	margin-right: 8px;
+}
+
+expander .entry#selected,
+expander .entry#unselected {
+	padding: 8px 22px;
+}
+
+list .entry#selected,
+list .entry#unselected {
+	padding: 8px 62px;
 }
 
 flowboxchild {
