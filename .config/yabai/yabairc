@@ -7,12 +7,12 @@
 yabai -m config status_bar                   on
 yabai -m config status_bar_text_font         ".AppleSystemUIFont:Regular:12.0"
 yabai -m config status_bar_icon_font         "Font Awesome 5 Pro:Solid:12.0"
-yabai -m config status_bar_background_color  0x00202020
+yabai -m config status_bar_background_color  0xdf202020
 yabai -m config status_bar_foreground_color  0xff999999
-yabai -m config status_bar_space_icon_strip  1 2 3 4 5 6 7 8 9 10
-yabai -m config status_bar_power_icon_strip  b c
-yabai -m config status_bar_space_icon        X
-yabai -m config status_bar_clock_icon        "t"
+yabai -m config status_bar_space_icon_strip       
+yabai -m config status_bar_power_icon_strip   
+yabai -m config status_bar_space_icon        
+yabai -m config status_bar_clock_icon        
 
 #
 # Cursor
@@ -62,20 +62,20 @@ yabai -m config window_gap                   12
 # App rules
 #
 yabai -m rule --add app=Spotify space=1 display=2
-#yabai -m rule --add app=Mail space=2
-#yabai -m rule --add app=Safari space=3
-#yabai -m rule --add app=Chrome space=3
-#yabai -m rule --add app=Firefox space=3
-#yabai -m rule --add app=Brave space=3
-#yabai -m rule --add app=iTerm space=4
-#yabai -m rule --add app=kitty space=4
-#yabai -m rule --add app=Discord space=5
-yabai -m rule --add app=Telegram space=5 display=2
-#yabai -m rule --add app=Slack space=5
-#yabai -m rule --add app=Signal space=5
-#yabai -m rule --add app=Skype space=5
-#yabai -m rule --add app=Preview title=.pdf space=6
-#yabai -m rule --add app=Steam space=7
+yabai -m rule --add app=Mail space=2
+yabai -m rule --add app=Safari space=3
+yabai -m rule --add app=Chrome space=3
+yabai -m rule --add app=Firefox space=3
+yabai -m rule --add app=Brave space=3
+yabai -m rule --add app=iTerm space=4
+yabai -m rule --add app=kitty space=4
+yabai -m rule --add app=Discord space=5
+yabai -m rule --add app=Telegram space=5
+yabai -m rule --add app=Slack space=5
+yabai -m rule --add app=Signal space=5
+yabai -m rule --add app=Skype space=5
+yabai -m rule --add app=Preview title=.pdf space=6
+yabai -m rule --add app=Steam space=7
 #
 # Space rules
 #

@@ -35,6 +35,7 @@ else
 	fi
 fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+alias list='exa --git --long --header --tree --level 2'
 
 # completion menu
 zstyle ':completion:*' menu select

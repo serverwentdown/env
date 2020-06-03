@@ -17,7 +17,7 @@ set $menu ~/.local/bin/wofi_run
 ### Mouse
 # 
 # Please tweak wofi_run when enabling this
-focus_follows_mouse yes
+focus_follows_mouse no
 
 ### Output configuratjon
 #
@@ -53,7 +53,7 @@ exec swayidle -w \
         resume 'swaymsg "output * dpms on"' \
     timeout 1200 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg' \
     before-sleep 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg' \
-    timeout 3600 'systemctl hybrid-sleep'
+    timeout 3600 'systemctl suspend'
 bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg
 
 ### Input configuration

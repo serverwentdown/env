@@ -39,6 +39,7 @@ input * {
 #
 # Switch configuration
 #
+# This is so crazy performant that I did not notice it worked. Was expecting my main display to go blank for a while but it didn't even flash
 set $laptop "Apple Computer Inc Color LCD 0x00000000"
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
