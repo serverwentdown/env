@@ -1,0 +1,14 @@
+font=IBM Plex Sans 9
+background-color=#202020a0
+text-color=#ffffff
+
+width=360
+height=92
+margin=8
+padding=12
+border-size=0
+border-radius=0
+default-timeout=3600
+
+max-visible=10
+anchor=top-right
