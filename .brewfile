@@ -15,7 +15,7 @@ brew "pinentry"
 # languages
 #brew "python3"
 #brew "go"
-#brew "node"
+brew "node"
 #brew "deno"
 # system
 #brew "grpc"
