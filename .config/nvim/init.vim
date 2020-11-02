@@ -1,105 +1,15 @@
-
-
 " setup plugins
-
 
 call plug#begin()
 
-" theme
-Plug 'altercation/vim-colors-solarized'
+" TODO: switch to language server
 
-" razer
-Plug 'https://github.com/DanManN/vim-razer'
-
-" completion
-" TODO: REMOVE ALL OUR CUSTOM COMPLETIONS AND USE LANGUAGE SERVER
-" TODO: CHOOSE LINTING AND FORMATTING TOOLS
-function! DoNvimPluginUpdate(arg)
-  UpdateRemotePlugins
-endfunction
-"Plug 'Shougo/deoplete.nvim', { 'do': function('DoNvimPluginUpdate') }
-let g:deoplete#enable_at_startup = 1 " enable at startup
-"let g:deoplete#max_abbr_width = 0 " no width limit
-"let g:deoplete#max_menu_width = 0 " no width limit
-let g:deoplete#enable_smart_case = 1 " enable smart case
-"let g:deoplete#file#enable_buffer_path = 1
-set completeopt=menuone,noinsert,longest
-"inoremap <silent><expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
-
-" git
-Plug 'tpope/vim-fugitive'
-" [c] Git commit
-nnoremap <silent> <Leader>c :<C-u>Gcommit<CR>
-" [p] Git pull 
-nnoremap <silent> <Leader>p :<C-u>Gpull<CR>
-" [u] Git push
-nnoremap <silent> <Leader>u :<C-u>Gpush<CR>
-" [w] Git write and add
-nnoremap <silent> <Leader>w :<C-u>Gwrite<CR>
-" [l] Git blame
-nnoremap <silent> <Leader>l :<C-u>Gblame<CR>
-" [s] Git status
-nnoremap <silent> <Leader>s :<C-u>Gstatus<CR>
-
-" c, c++
-Plug 'zchee/deoplete-clang', { 'for': [ 'c', 'cpp', 'h' ] }
-
-" html, css
-Plug 'mattn/emmet-vim', { 'for': [ 'html', 'css', 'scss', 'vue', 'javascript' ] }
-let g:user_emmet_leader_key = '<C-t>'
-function! s:setup_emmet_shortcut()
-  imap <expr> <C-e> emmet#expandAbbrIntelligent("\<C-e>")
-endfunction
-autocmd FileType html,css,scss,vue,javascript call s:setup_emmet_shortcut()
-
-" markdown (better)
-Plug 'plasticboy/vim-markdown', { 'for': [ 'markdown' ] }
-let g:vim_markdown_folding_style_pythonic = 1
-
-" javascript
-Plug 'wokalski/autocomplete-flow', { 'for': [ 'javascript' ] }
-Plug 'Quramy/vim-js-pretty-template', { 'for': [ 'javascript' ] }
-function! s:setup_prettytemplate()
-  JsPreTmpl
-endfunction
-"autocmd FileType javascript call s:setup_prettytemplate()
-" Moved to plugin init
-Plug 'posva/vim-vue', { 'for': [ 'vue' ] }
+" rust
+Plug 'rust-lang/rust.vim'
+let g:rustfmt_autosave = 1
 
 " go
-function! BuildDeopleteGo(arg)
-  :echom "install/update github.com/nsf/gocode"
-  :silent !go get -u github.com/nsf/gocode
-  :silent !make
-endfunction
-Plug 'zchee/deoplete-go', { 'for': [ 'go' ], 'do': function('BuildDeopleteGo') }
-function! BuildVimGo(arg)
-  :echom "install/update github.com/nsf/gocode"
-  :silent !go get -u github.com/nsf/gocode
-  :echom "install/update github.com/alecthomas/gometalinter"
-  :silent !go get -u github.com/alecthomas/gometalinter
-  :echom  "install/update golang.org/x/tools/cmd/goimports"
-  :silent !go get -u golang.org/x/tools/cmd/goimports
-  :echom "install/update golang.org/x/tools/cmd/guru"
-  :silent !go get -u golang.org/x/tools/cmd/guru
-  :echom "install/update golang.org/x/tools/cmd/gorename"
-  :silent !go get -u golang.org/x/tools/cmd/gorename
-  :echom "install/update github.com/golang/lint/golint"
-  :silent !go get -u github.com/golang/lint/golint
-  :echom "install/update github.com/kisielk/errcheck"
-  :silent !go get -u github.com/kisielk/errcheck
-  :echom "install/update github.com/jstemmer/gotags"
-  :silent !go get -u github.com/jstemmer/gotags
-  :echom "install/update github.com/klauspost/asmfmt/cmd/asmfmt"
-  :silent !go get -u github.com/klauspost/asmfmt/cmd/asmfmt
-  :echom "install/update github.com/fatih/motion"
-  :silent !go get -u github.com/fatih/motion
-  :echom "install/update github.com/zmb3/gogetdoc"
-  :silent !go get -u github.com/zmb3/gogetdoc
-  :echom "install/update github.com/josharian/impl"
-  :silent !go get -u github.com/josharian/impl
-endfunction
-Plug 'fatih/vim-go', { 'for': [ 'go' ], 'do': function('BuildVimGo') }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:go_term_enabled = 1
 let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_chan_whitespace_error = 1
@@ -135,50 +45,7 @@ let g:pymode_rope = 1
 "let g:pymode_rope_completion = 1
 "let g:pymode_rope_completion_bind = '<C-e>'
 
-" plantuml
-Plug 'aklt/plantuml-syntax', { 'for': [ 'plantuml' ] }
-
-" ansible
-Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
-
 call plug#end()
-
-
-" main configuration
-
-
-" plugin init
-
-" javascript
-autocmd FileType javascript JsPreTmpl
-
-" mapping init
-
-" disable arrow keys in normal mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-map <pageup> <nop>
-map <pagedown> <nop>
-
-" disable arrow keys in insert mode
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
-imap <pageup> <nop>
-imap <pagedown> <nop>
-
-" other init
-
-" theme
-set background=dark
-if $LIGHT == 'true'
-  set background=light
-endif
-let g:solarized_termtrans=1
-silent! colorscheme solarized
 
 " statusline
 function! GitBranch()
@@ -214,7 +81,7 @@ highlight StatuslineGit ctermfg=14 ctermbg=8 cterm=none
 highlight StatuslineGitDirty ctermfg=14 ctermbg=8 cterm=bold
 highlight StatuslineFileInfo ctermfg=11 ctermbg=0 cterm=italic
 highlight StatuslineFileStats ctermfg=14 ctermbg=8 cterm=none
-highlight StatuslineCursor ctermfg=15 ctermbg=9 cterm=none
+highlight StatuslineCursor ctermfg=15 ctermbg=6 cterm=none
 " assembly
 set statusline=
 set statusline+=%#StatuslineModeNormal#%{(mode()=='n')?'\ \ NORMAL\ \ ':''}
@@ -259,7 +126,10 @@ highlight TabLineSel ctermfg=15 ctermbg=9 cterm=italic
 highlight VertSplit ctermfg=0 ctermbg=0 cterm=none
 
 " highlighting
-highlight SpellBad cterm=undercurl
+highlight SpellBad cterm=undercurl ctermbg=0
+highlight SpellCap cterm=undercurl ctermbg=0
+highlight SpellLocal cterm=undercurl ctermbg=0
+highlight SpellRare cterm=undercurl ctermbg=0
 
 " folding
 highlight Folded ctermfg=10 ctermbg=none cterm=bold
@@ -278,6 +148,9 @@ set cursorline
 highlight CursorLine ctermfg=none ctermbg=none cterm=none
 highlight CursorLineNR ctermfg=12 ctermbg=none cterm=bold
 
+" selection
+highlight Visual ctermfg=none ctermbg=0 cterm=none
+
 " indentation
 set tabstop=4
 set softtabstop=4
@@ -287,8 +160,9 @@ set shiftwidth=4
 " TODO: figure out how to properly use the runtime overrides
 
 " width
+highlight ColorColumn ctermfg=none ctermbg=0 cterm=none
 "set textwidth=80
-set colorcolumn=+1
+set colorcolumn=80
 
 " skel
 augroup Skel
@@ -332,5 +206,8 @@ let g:netrw_winsize=25
 
 " spellcheck
 set spell spelllang=en_gb
+
+" modeline
+set modeline
 
 " vim: set expandtab ts=2 sw=2:
