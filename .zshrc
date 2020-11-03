@@ -167,17 +167,20 @@ PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
 
 # command entry plugins
 
-AUTOSUGGESTIONS="/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-if [[ -f "$AUTOSUGGESTIONS" ]]; then
-	export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
-	export ZSH_AUTOSUGGEST_USE_ASYNC=true
-	bindkey '^e' autosuggest-execute
-	source "$AUTOSUGGESTIONS"
-fi
-SYNTAX_HIGHLIGHTING="/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if [[ -f "$SYNTAX_HIGHLIGHTING" ]]; then
-	source "$SYNTAX_HIGHLIGHTING"
-fi
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+bindkey '^e' autosuggest-execute
+
+zsh_plugins+=( autosuggestions syntax-highlighting )
+for zsh_plugin in $zsh_plugins; do
+	zsh_plugin_path="zsh-$zsh_plugin/zsh-$zsh_plugin.zsh"
+	if [[ -f "/usr/local/share/$zsh_plugin_path" ]]; then
+		zsh_plugin_path="/usr/local/share/$zsh_plugin_path"
+	elif [[ -f "/usr/share/$zsh_plugin_path" ]]; then
+		zsh_plugin_path="/usr/share/$zsh_plugin_path"
+	fi
+	source "$zsh_plugin_path"
+done
 if [[ -f "$(which thefuck 2>/dev/null)" ]]; then
 	eval $(thefuck --alias nope)
 fi
