@@ -27,23 +27,70 @@ autoload -U compinit; compinit
 autoload -U +X bashcompinit && bashcompinit
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+# prompt: vcs
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 zstyle ':vcs_info:git:*' formats ' %b '
 zstyle ':vcs_info:*' enable git
-PROMPT_HISTORY=$'%F{10}%{\e[3m%} %h %{\e[0m%}%f'
+# prompt: return code
+format_return_code() {
+	return_code_=$1
+	if [[ $1 -gt 128 ]]; then
+		return_code_=SIG$(kill -l $1)
+	fi
+	case $1 in
+		127) return_code_="not found";;
+		126) return_code_="not exec";;
+		1) return_code_="err";;
+	esac
+	echo -n $return_code_
+}
+format_return_code_prev() {
+	if [[ $1 == 0 ]]; then
+		return
+	fi
+	text=" $(format_return_code $1) "
+	text_length=${#text}
+	width=$(tput cols)
+	start=$(( $width - $text_length ))
+
+	echo -n $'\e[F\e['
+	echo -n $start
+	echo -n $'G\e[37m\e[41m'
+	echo -n "$text"
+	echo -n $'\e[0m\e[E'
+}
+precmd_return_code() {
+	format_return_code_prev $?
+}
+# prompt: vi mode
+typeset -g zle_vi_mode_=
+zle-line-init zle-keymap-select() {
+	case "$KEYMAP" in
+		vicmd) zle_vi_mode_=$'%K{9} N %k';;
+		viins|main) zle_vi_mode_=$'%K{2} I %k';;
+		*) zle_vi_mode_=no;;
+	esac
+	zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+# prompt: parts
+precmd_functions+=( precmd_return_code precmd_vcs_info )
 PROMPT_USER_MACHINE=$''
 if [[ ! -z "$SSH_CLIENT" ]]; then
 	PROMPT_USER_MACHINE=$'@%m'
 fi
-PROMPT_USER=$'%F{white}%{\e[3m%}%(!.%K{9}.%K{4}) %n'"$PROMPT_USER_MACHINE"$' %k%{\e[0m%}%f'
-RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
-PROMPT_ERROR=$'%F{white}%{\e[3m%}%(?.%K{2} .%K{9} %? )%k%{\e[0m%}%f'
+PROMPT_USER=$'%F{15}%{\e[3m%}%(!.%K{9}.%K{4}) %n'"$PROMPT_USER_MACHINE"$' %k%{\e[0m%}%f'
+PROMPT_HISTORY=$'%F{11}%{\e[3m%} %h %{\e[0m%}%f'
+PROMPT_ERROR=$'%F{15}%{\e[3m%}%(?.%K{2}.%K{1} $(format_return_code $?) )%k%{\e[0m%}%f'
+PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
 PROMPT_VCS=$'%B%K{8}$vcs_info_msg_0_%k%b'
 PROMPT_DIRECTORY=$'%K{black} %2~ %k'
-PROMPT="$PROMPT_ERROR$PROMPT_VCS$PROMPT_DIRECTORY "
+PROMPT_VI=$'%F{15}%{\e[3m%}$zle_vi_mode_%{\e[0m%}%f'
+RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
+PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
 
 AUTOSUGGESTIONS="/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ -f "$AUTOSUGGESTIONS" ]]; then
@@ -77,7 +124,7 @@ if [[ -f "$(which cargo 2>/dev/null)" ]]; then
 fi
 
 if [[ -f "$(which mc 2>/dev/null)" ]]; then
-	complete -o nospace -C /usr/local/bin/mc mc
+	complete -o nospace -C mc mc
 fi
 if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
 	source <(kubectl completion zsh)
