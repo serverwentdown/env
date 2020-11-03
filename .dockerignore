@@ -1,6 +1,6 @@
 .git
 
-Dockerfile
+.dockerfile
 .dockerignore
 .drone.yml
 
