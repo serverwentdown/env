@@ -45,7 +45,7 @@ RUN apk add --no-cache --update \
 	pass gnupg \
 	\
 	python3 python3-dev py3-pip \
-	alpine-sdk
+	linux-headers alpine-sdk
 
 # create user
 
