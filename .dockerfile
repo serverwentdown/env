@@ -47,6 +47,13 @@ RUN apk add --no-cache --update \
 	python3 python3-dev py3-pip \
 	linux-headers alpine-sdk
 
+# install additional tooling
+
+RUN echo '@edge-testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
+RUN apk add --no-cache --update \
+	kubectl@edge-testing \
+	minio-client@edge-testing
+
 # create user
 
 RUN adduser -s /bin/zsh -D ambrose
@@ -72,13 +79,6 @@ RUN pip3 install --no-cache-dir --user thefuck
 RUN pip3 install --no-cache-dir --user httpie
 # TODO: https://github.com/bootandy/dust/
 # TODO: https://github.com/TheLocehiliosan/yadm/
-
-# install additional tooling
-
-RUN echo '@edge-testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
-RUN apk add --no-cache --update \
-	kubectl@edge-testing \
-	minio-client@edge-testing
 
 # open login shell by default
 

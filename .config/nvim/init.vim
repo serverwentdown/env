@@ -3,15 +3,34 @@ call plug#begin()
 " rust
 
 Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 let g:rustfmt_autosave = 1
+autocmd FileType rust nmap <leader>t :Ctest<CR>
+autocmd FileType rust nmap <leader>b :Cbuild<CR>
+autocmd FileType rust nmap <leader>r :Crun<CR>
+autocmd FileType rust nmap K <Plug>(rust-def)
+" runthis: cargo +nightly install --git https://github.com/racer-rust/racer.git racer
 
 " go
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'AndrewRadev/splitjoin.vim'
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_metalinter_autosave = 1
+let g:go_fmt_command = "goimports"
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
+" K -> :GoDoc
+
 
 call plug#end()
 
