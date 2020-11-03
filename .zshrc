@@ -1,8 +1,8 @@
-
 # basic settings
 
-export HISTSIZE=10000
-export SAVEHIST=100000
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
 setopt append_history
 setopt extended_history
 setopt share_history
