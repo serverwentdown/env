@@ -3,10 +3,13 @@
 
 Just storing dotfiles in a repository isn't enough. This is almost all the tools I use, put into a Docker image that I can run anywhere
 
-## Todo
+## Screenshots
 
-- [ ] i3bar
-- [ ] macOS support?
+![](.local/screenshots/iterm1.png)
+![](.local/screenshots/iterm2.png)
+![](.local/screenshots/iterm3.png)
+![](.local/screenshots/iterm4.png)
+![](.local/screenshots/iterm5.png)
 
 ## Usage
 
@@ -22,22 +25,28 @@ runenv -h
 ### macOS
 
 ```sh
-brew bundle --file=.brewfile
-./.install/dircolors.sh
-./.install/pure.sh
-# thefuck is installed using homebrew
-./.install/zsh-autosuggestions.sh
-./.install/zsh-syntax-highlighting.sh
-./.install/plug.sh
-./.install/yadm.sh
-# pass is installed using homebrew
-./.install/packr.sh
-./.install/caddy.sh
-./.install/httpie.sh
-# jq is installed using homebrew
-# kubectl is installed using homebrew
-# minio-client is installed using homebrew
-./.install/yarn.sh
+brew install \
+	xz upx \
+	\
+	zsh-autosuggestions \
+	zsh-syntax-highlighting \
+	exa jq \
+	neovim \
+	\
+	git \
+	pass gnupg \
+	\
+	python@3.9 \
+	go \
+	\
+	thefuck \
+	httpie \
+	dust \
+	yadm \
+	\
+	kubectl \
+	minio/stable/mc
+
 yadm clone git@github.com:serverwentdown/env.git
 ```
 
@@ -48,17 +57,4 @@ yadm clone git@github.com:serverwentdown/env.git
 yadm decrypt
 # requires yadm decrypt
 git clone git@makerforce.io:ambrose/pass.git ~/.password-store
-# takes up a lot of space
-sudo ./.install/jdk.sh && sudo ./.install/gradlr.sh
-# for desktop environments only
-sudo ./.install/desktop.sh && sudo ./.install/firefox.sh
 ```
-
-## Maintenance
-
-Keep `.install` synchronised with Dockerfile. Check with:
-
-```sh
-for f in .install/*; do grep $f .dockerfile -q || echo "Missing: $f"; done
-```
-
