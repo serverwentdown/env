@@ -44,7 +44,7 @@ RUN apk add --no-cache --update \
 	git \
 	pass gnupg \
 	\
-	python3 \
+	python3 py3-pip \
 	alpine-sdk
 
 # create user
