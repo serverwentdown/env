@@ -1,3 +1,0 @@
-#!/bin/sh
-
-docker run -it --rm -v $(pwd):/data dominicbreuker/stego-toolkit

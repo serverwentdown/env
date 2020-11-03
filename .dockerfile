@@ -1,40 +1,63 @@
-FROM alpine:latest
+FROM alpine:3.12
+
+# install essential
+
+RUN apk add --no-cache --update openssl wget curl \
+	&& echo hosts: dns files > /etc/nsswitch.conf
+
+# install nix (https://github.com/NixOS/docker)
+
+ARG NIX_VERSION=2.3.6
+RUN wget https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-x86_64-linux.tar.xz \
+	&& tar xf nix-${NIX_VERSION}-x86_64-linux.tar.xz \
+	&& addgroup -g 30000 -S nixbld \
+	&& for i in $(seq 1 30); do adduser -S -D -h /var/empty -g "Nix build user $i" -u $((30000 + i)) -G nixbld nixbld$i ; done \
+	&& mkdir -m 0755 /etc/nix \
+	&& echo 'sandbox = false' > /etc/nix/nix.conf \
+	&& mkdir -m 0755 /nix && USER=root sh nix-${NIX_VERSION}-x86_64-linux/install \
+	&& ln -s /nix/var/nix/profiles/default/etc/profile.d/nix.sh /etc/profile.d/ \
+	&& rm -r /nix-${NIX_VERSION}-x86_64-linux* \
+	&& rm -rf /var/cache/apk/* \
+	&& /nix/var/nix/profiles/default/bin/nix-collect-garbage --delete-old \
+	&& /nix/var/nix/profiles/default/bin/nix-store --optimise \
+	&& /nix/var/nix/profiles/default/bin/nix-store --verify --check-contents
+
+ENV \
+    ENV=/etc/profile \
+    USER=root \
+    PATH=/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin \
+    GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt \
+    NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    NIX_PATH=/nix/var/nix/profiles/per-user/root/channels
+
+# install common
+
+RUN apk add --no-cache --update \
+	sudo \
+	unzip zip tar gzip xz upx \
+	\
+	zsh \
+	exa jq \
+	neovim \
+	\
+	openssh-client \
+	git \
+	pass gnupg \
+	\
+	python3 \
+	alpine-sdk
 
 # create user
 
 RUN adduser -s /bin/zsh -D ambrose
+RUN echo '' >> /etc/sudoers
+RUN echo '## No password sudo' >> /etc/sudoers
+RUN echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # install dotfiles
 
 WORKDIR /home/ambrose
 COPY --chown=ambrose:ambrose . .
-
-# install tools
-
-# repositories
-RUN ./.install/repositories.sh
-# system
-RUN ./.install/core.sh
-RUN ./.install/sdk.sh
-RUN ./.install/sudo.sh
-RUN ./.install/archival.sh
-RUN ./.install/upx.sh
-RUN ./.install/dust.sh
-RUN ./.install/gnupg.sh
-RUN ./.install/git.sh
-RUN ./.install/zsh.sh
-RUN ./.install/neovim-source.sh
-# languages
-RUN ./.install/python.sh
-RUN ./.install/golang-source.sh
-RUN ./.install/node-source.sh
-#RUN ./.install/jdk.sh
-# more system
-RUN ./.install/docker.sh
-RUN ./.install/hadolint.sh
-# desktop
-#RUN ./.install/desktop.sh
-#RUN ./.install/firefox.sh
 
 # switch to user
 
@@ -42,25 +65,17 @@ USER ambrose
 
 # install user programs
 
-# shell config
-RUN ./.install/dircolors.sh
-RUN ./.install/pure.sh
-RUN ./.install/thefuck.sh
-RUN ./.install/zsh-autosuggestions.sh
-RUN ./.install/zsh-syntax-highlighting.sh
-# editor
-RUN ./.install/plug.sh
-# tools
-RUN ./.install/yadm.sh
-RUN ./.install/pass.sh
-RUN ./.install/packr.sh
-RUN ./.install/caddy.sh
-RUN ./.install/httpie.sh
-RUN ./.install/jq.sh
-RUN ./.install/kubectl.sh
-RUN ./.install/minio-client.sh
-RUN ./.install/yarn.sh
-#RUN ./.install/gradlr.sh
+RUN pip3 install --no-cache-dir --user thefuck
+RUN pip3 install --no-cache-dir --user httpie
+# TODO: https://github.com/bootandy/dust/
+# TODO: https://github.com/TheLocehiliosan/yadm/
+
+# install additional tooling
+
+RUN echo '@edge-testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
+RUN apk add --no-cache --update \
+	kubectl@edge-testing \
+	minio-client@edge-testing
 
 # open login shell by default
 

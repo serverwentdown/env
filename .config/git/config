@@ -1,9 +1,9 @@
-[push]
-	default = simple
+# This is Git's per-user configuration file.
 [user]
+# Please adapt and uncomment the following lines:
 	name = Ambrose Chua
-	email = ambrose@chua.family
-	useConfigOnly = true
-	signingkey = 4995FE8D
-[core]
-	editor = nvim
+	email = ambrose@hey.com
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
