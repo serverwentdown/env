@@ -151,19 +151,47 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 # prompt: parts
 precmd_functions+=( precmd_return_code precmd_vcs_info )
-PROMPT_USER_MACHINE=$''
-if [[ ! -z "$SSH_CLIENT" ]]; then
-	PROMPT_USER_MACHINE=$'@%m'
-fi
-PROMPT_USER=$'%F{15}%{\e[3m%}%(!.%K{9}.%K{4}) %n'"$PROMPT_USER_MACHINE"$' %k%{\e[0m%}%f'
-PROMPT_HISTORY=$'%F{10}%{\e[3m%} %h %{\e[0m%}%f'
-PROMPT_ERROR=$'%F{15}%{\e[3m%}%(?.%K{2}.%K{1} $(format_return_code $?) )%k%{\e[0m%}%f'
-PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
-PROMPT_VCS=$'%K{8}$(format_vcs_info $vcs_info_msg_0_)%k'
-PROMPT_DIRECTORY=$'%K{black} %2~ %k'
-PROMPT_VI=$'%F{15}%{\e[3m%}$zle_vi_mode_%{\e[0m%}%f'
-RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
-PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
+setup_prompt_colors() {
+	PROMPT_COLOR_BASE03=8
+	PROMPT_COLOR_BASE02=0
+	PROMPT_COLOR_BASE01=10
+	PROMPT_COLOR_BASE00=11
+	PROMPT_COLOR_BASE0=12
+	PROMPT_COLOR_BASE1=14
+	PROMPT_COLOR_BASE2=7
+	PROMPT_COLOR_BASE3=15
+	if [[ "$LIGHT" == "true" ]]; then
+		PROMPT_COLOR_TEMP03=$PROMPT_COLOR_TEMP03
+		PROMPT_COLOR_TEMP02=$PROMPT_COLOR_TEMP02
+		PROMPT_COLOR_TEMP01=$PROMPT_COLOR_TEMP01
+		PROMPT_COLOR_TEMP00=$PROMPT_COLOR_TEMP00
+		PROMPT_COLOR_BASE03=$PROMPT_COLOR_BASE3
+		PROMPT_COLOR_BASE02=$PROMPT_COLOR_BASE2
+		PROMPT_COLOR_BASE01=$PROMPT_COLOR_BASE1
+		PROMPT_COLOR_BASE00=$PROMPT_COLOR_BASE0
+		PROMPT_COLOR_BASE0=$PROMPT_COLOR_TEMP00
+		PROMPT_COLOR_BASE1=$PROMPT_COLOR_TEMP01
+		PROMPT_COLOR_BASE2=$PROMPT_COLOR_TEMP02
+		PROMPT_COLOR_BASE3=$PROMPT_COLOR_TEMP03
+	fi
+}
+setup_prompt() {
+	setup_prompt_colors
+	PROMPT_USER_MACHINE=$''
+	if [[ ! -z "$SSH_CLIENT" ]]; then
+		PROMPT_USER_MACHINE=$'@%m'
+	fi
+	PROMPT_USER=$'%F{15}%{\e[3m%}%(!.%K{9}.%K{4}) %n'"$PROMPT_USER_MACHINE"$' %k%{\e[0m%}%f'
+	PROMPT_HISTORY=$'%F{10}%{\e[3m%} %h %{\e[0m%}%f'
+	PROMPT_ERROR=$'%F{15}%{\e[3m%}%(?.%K{2}.%K{1} $(format_return_code $?) )%k%{\e[0m%}%f'
+	PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
+	PROMPT_VCS=$'%K{'$PROMPT_COLOR_BASE03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
+	PROMPT_DIRECTORY=$'%K{'$PROMPT_COLOR_BASE02$'} %2~ %k'
+	PROMPT_VI=$'%F{15}%{\e[3m%}$zle_vi_mode_%{\e[0m%}%f'
+	RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
+	PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
+}
+setup_prompt
 
 # command entry plugins
 
@@ -186,6 +214,23 @@ if [[ -f "$(which thefuck 2>/dev/null)" ]]; then
 fi
 
 # helper scripts
+
+function theme {
+	case "$1" in
+		light)
+			ITERM_PROFILE=Light
+			export LIGHT=true
+		;;
+		dark)
+			ITERM_PROFILE=Default
+			export LIGHT=false
+		;;
+	esac
+	if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+		echo -e "\033]50;SetProfile=$ITERM_PROFILE\a"
+	fi
+	setup_prompt
+}
 
 function gpg_start {
 	# gpg tty fix for macOS pinentry. also ensures agent is started
