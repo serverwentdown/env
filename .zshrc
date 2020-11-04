@@ -82,6 +82,7 @@ export TIME_STYLE=iso
 if [[ -f "$(which exa 2>/dev/null)" ]]; then
 	alias ls=exa
 fi
+alias ll="ls -l"
 
 # prompt
 

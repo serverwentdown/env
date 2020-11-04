@@ -6,10 +6,10 @@ Just storing dotfiles in a repository isn't enough. This is almost all the tools
 ## Screenshots
 
 ![](.local/screenshots/iterm1.png)
+![](.local/screenshots/iterm1-light.png)
 ![](.local/screenshots/iterm2.png)
 ![](.local/screenshots/iterm3.png)
-![](.local/screenshots/iterm4.png)
-![](.local/screenshots/iterm5.png)
+![](.local/screenshots/iterm3-light.png)
 
 ## Usage
 
