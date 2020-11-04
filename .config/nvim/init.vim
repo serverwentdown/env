@@ -40,6 +40,7 @@ set background=dark
 if $LIGHT == 'true'
 	set background=light
 endif
+let g:solarized_termtrans=1
 silent! colorscheme solarized
 
 " statusline

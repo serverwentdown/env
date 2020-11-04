@@ -219,15 +219,20 @@ function theme {
 	case "$1" in
 		light)
 			ITERM_PROFILE=Light
+			KITTY_THEME=light
 			export LIGHT=true
 		;;
 		dark)
 			ITERM_PROFILE=Default
+			KITTY_THEME=dark
 			export LIGHT=false
 		;;
 	esac
 	if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 		echo -e "\033]50;SetProfile=$ITERM_PROFILE\a"
+	fi
+	if [[ "$TERM" == "xterm-kitty" ]]; then
+		kitty @ set-colors -a ~/.config/kitty/colorscheme.$KITTY_THEME.conf
 	fi
 	setup_prompt
 }
