@@ -33,10 +33,12 @@ ENV \
 # install common
 
 RUN apk add --no-cache --update \
-	sudo \
+	sudo tzdataa \
 	unzip zip tar gzip xz upx \
 	\
-	zsh \
+	zsh zsh-vcs ncurses \
+	zsh-autosuggestions \
+	zsh-syntax-highlighting \
 	exa jq \
 	neovim \
 	\

@@ -1,7 +1,8 @@
+
 # basic settings
 
 HISTSIZE=10000
-SAVEHIST=10000
+SAVEHIST=50000
 HISTFILE=~/.zsh_history
 setopt append_history
 setopt extended_history
@@ -42,15 +43,20 @@ fi
 
 # completion
 
-autoload -U compinit; compinit
-autoload -U +X bashcompinit && bashcompinit
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+setup_completion() {
+	autoload -U compinit; compinit
+	autoload -U +X bashcompinit && bashcompinit
+	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-if [[ -f "$(which mc 2>/dev/null)" ]]; then
-	complete -o nospace -C mc mc
-fi
-if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
-	source <(kubectl completion zsh)
+	if [[ -f "$(which mc 2>/dev/null)" ]]; then
+		complete -o nospace -C mc mc
+	fi
+	if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
+		source <(kubectl completion zsh)
+	fi
+}
+if [[ $SLOW == true ]]; then
+	setup_completion
 fi
 
 # platform specific
@@ -63,15 +69,22 @@ esac
 if [[ $PLATFORM == macos ]]; then
 	export PATH="$HOME/Library/Python/3.8/bin:$PATH"
 fi
+
+setup_term_integration() {}
 if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-	if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
-		source "$HOME/.iterm2_shell_integration.zsh"
-	fi
+	setup_term_integration() {
+		if [[ -f "$HOME/.iterm2_shell_integration.zsh" ]]; then
+			source "$HOME/.iterm2_shell_integration.zsh"
+		fi
+	}
 	alias icat="imgcat"
 fi
 if [[ "$TERM" == "xterm-kitty" ]]; then
 	alias icat="kitty +kitten icat"
 	alias ssh="kitty +kitten ssh"
+fi
+if [[ $FAST != true ]]; then
+	setup_term_integration
 fi
 
 # directory listings
@@ -86,14 +99,24 @@ alias ll="ls -l"
 
 # prompt
 
-# prompt: vcs
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
 setopt prompt_subst
-zstyle ':vcs_info:git:*' formats $' %b %u%c'
-zstyle ':vcs_info:git:*' actionformats $'%(u..%B)%(c..%B) %u%c %b (%a) '
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' check-for-changes true
+# prompt: vcs
+setup_prompt_vcs() {
+	autoload -Uz vcs_info
+	zstyle ':vcs_info:git:*' formats $' %b %u%c'
+	zstyle ':vcs_info:git:*' actionformats $'%(u..%B)%(c..%B) %b (%a) %u%c'
+	zstyle ':vcs_info:*' enable git
+	zstyle ':vcs_info:*' check-for-changes true
+	prompt_vcs_enabled=false
+	precmd_vcs_info() {
+		if [[ $prompt_vcs_enabled == true ]]; then
+			vcs_info
+		elif [[ -d ".git" ]]; then
+			prompt_vcs_enabled=true
+			vcs_info
+		fi
+	}
+}
 format_vcs_info() {
 	text="$1"
 	dirty=false
@@ -107,6 +130,9 @@ format_vcs_info() {
 		echo "$text"
 	fi
 }
+if [[ $FAST != "true" ]]; then
+	setup_prompt_vcs
+fi
 # prompt: return code
 format_return_code() {
 	return_code_=$1
@@ -127,13 +153,16 @@ format_return_code_prev() {
 	text=" $(format_return_code $1) "
 	text_length=${#text}
 	width=$(tput cols)
-	start=$(( $width - $text_length ))
+	start=$(( $width - $text_length - 1 ))
 
-	echo -n $'\e[F\e['
-	echo -n $start
-	echo -n $'G\e[37m\e[41m'
+	tput sc
+	tput cuu1
+	tput hpa $start
+	tput setab $PROMPT_COLOR_RED
+	tput setaf $PROMPT_COLOR_BASE3
 	echo -n "$text"
-	echo -n $'\e[0m\e[E'
+	tput sgr0
+	tput rc
 }
 precmd_return_code() {
 	format_return_code_prev $?
@@ -161,6 +190,14 @@ setup_prompt_colors() {
 	PROMPT_COLOR_BASE1=14
 	PROMPT_COLOR_BASE2=7
 	PROMPT_COLOR_BASE3=15
+    PROMPT_COLOR_YELLOW=3
+    PROMPT_COLOR_ORANGE=9
+    PROMPT_COLOR_RED=1
+    PROMPT_COLOR_MAGENTA=5
+    PROMPT_COLOR_VIOLET=13
+    PROMPT_COLOR_BLUE=4
+    PROMPT_COLOR_CYAN=6
+    PROMPT_COLOR_GREEN=2
 	if [[ "$LIGHT" == "true" ]]; then
 		PROMPT_COLOR_TEMP03=$PROMPT_COLOR_TEMP03
 		PROMPT_COLOR_TEMP02=$PROMPT_COLOR_TEMP02
@@ -182,13 +219,15 @@ setup_prompt() {
 	if [[ ! -z "$SSH_CLIENT" ]]; then
 		PROMPT_USER_MACHINE=$'@%m'
 	fi
-	PROMPT_USER=$'%F{15}%{\e[3m%}%(!.%K{9}.%K{4}) %n'"$PROMPT_USER_MACHINE"$' %k%{\e[0m%}%f'
-	PROMPT_HISTORY=$'%F{10}%{\e[3m%} %h %{\e[0m%}%f'
-	PROMPT_ERROR=$'%F{15}%{\e[3m%}%(?.%K{2}.%K{1} $(format_return_code $?) )%k%{\e[0m%}%f'
+	PROMPT_FMT_ITALIC=$(tput sitm)
+	PROMPT_FMT_RESET=$(tput sgr 0)
+
+	PROMPT_USER=$'%{'"$PROMPT_FMT_ITALIC"$'%}%F{'"$PROMPT_COLOR_BASE3"$'}%(!.%K{'"$PROMPT_COLOR_ORANGE"$'}.%K{'"$PROMPT_COLOR_BLUE"$'}) %n'"$PROMPT_USER_MACHINE"$' %k%f%{'"$PROMPT_FMT_RESET"$'%}'
+	PROMPT_HISTORY=$'%F{'"$PROMPT_COLOR_BASE01"$'}%{'"$PROMPT_FMT_ITALIC"$'%} %h %{'"$PROMPT_FMT_RESET"$'%}%f'
 	PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
 	PROMPT_VCS=$'%K{'$PROMPT_COLOR_BASE03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
 	PROMPT_DIRECTORY=$'%K{'$PROMPT_COLOR_BASE02$'} %2~ %k'
-	PROMPT_VI=$'%F{15}%{\e[3m%}$zle_vi_mode_%{\e[0m%}%f'
+	PROMPT_VI=$'%F{'"$PROMPT_COLOR_BASE3"$'}%{'"$PROMPT_FMT_ITALIC"$'%}$zle_vi_mode_%{'"$PROMPT_FMT_RESET"$'%}%f'
 	RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
 	PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
 }
@@ -200,18 +239,30 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 bindkey '^e' autosuggest-execute
 
-zsh_plugins+=( autosuggestions syntax-highlighting )
-for zsh_plugin in $zsh_plugins; do
-	zsh_plugin_path="zsh-$zsh_plugin/zsh-$zsh_plugin.zsh"
-	if [[ -f "/usr/local/share/$zsh_plugin_path" ]]; then
-		zsh_plugin_path="/usr/local/share/$zsh_plugin_path"
-	elif [[ -f "/usr/share/$zsh_plugin_path" ]]; then
-		zsh_plugin_path="/usr/share/$zsh_plugin_path"
+setup_assistance() {
+	zsh_plugins+=( autosuggestions syntax-highlighting )
+	for zsh_plugin in $zsh_plugins; do
+		zsh_plugin_path="zsh-$zsh_plugin/zsh-$zsh_plugin.zsh"
+		if [[ -f "/usr/local/share/$zsh_plugin_path" ]]; then
+			zsh_plugin_path="/usr/local/share/$zsh_plugin_path"
+		elif [[ -f "/usr/share/zsh/plugins/$zsh_plugin_path" ]]; then
+			zsh_plugin_path="/usr/share/zsh/plugins/$zsh_plugin_path"
+		else
+			continue
+		fi
+		source "$zsh_plugin_path"
+	done
+}
+if [[ $FAST != true ]]; then
+	setup_assistance
+fi
+setup_nope() {
+	if [[ -f "$(which thefuck 2>/dev/null)" ]]; then
+		eval $(thefuck --alias nope)
 	fi
-	source "$zsh_plugin_path"
-done
-if [[ -f "$(which thefuck 2>/dev/null)" ]]; then
-	eval $(thefuck --alias nope)
+}
+if [[ $SLOW == true ]]; then
+	setup_nope
 fi
 
 # helper scripts

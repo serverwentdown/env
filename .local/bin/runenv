@@ -62,8 +62,8 @@ _canonicalize_file_path() {
 }
 
 
-CONTAINER_IMAGE="registry.makerforce.io/ambrose/env"
-CONTAINER_IMAGE_PWN="registry.makerforce.io/ambrose/pwn"
+CONTAINER_IMAGE="serverwentdown/env"
+CONTAINER_IMAGE_PWN="serverwentdown/pwn"
 CONTAINER_HOME="/home/ambrose"
 
 OPTIND=1
