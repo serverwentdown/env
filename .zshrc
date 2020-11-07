@@ -31,8 +31,8 @@ if [[ -f "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
 fi
-if [[ -f "$HOME/.gem/ruby/2.6.0/bin" ]]; then
-	export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+if [[ -f "$(which go 2>/dev/null)" ]]; then
+	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 if [[ -f "$(which go 2>/dev/null)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
@@ -67,7 +67,9 @@ case "$(uname -s)" in
 esac
 
 if [[ $PLATFORM == macos ]]; then
-	export PATH="$HOME/Library/Python/3.8/bin:$PATH"
+	export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+	export PATH="$HOME/Library/Python/3.10/bin:$PATH" # LOL
+	# On Linux, scripts are installed into $HOME/.local/bin
 fi
 
 setup_term_integration() {}
@@ -130,7 +132,7 @@ format_vcs_info() {
 		echo "$text"
 	fi
 }
-if [[ $FAST != "true" ]]; then
+if [[ $FAST != true ]]; then
 	setup_prompt_vcs
 fi
 # prompt: return code
@@ -198,7 +200,8 @@ setup_prompt_colors() {
     PROMPT_COLOR_BLUE=4
     PROMPT_COLOR_CYAN=6
     PROMPT_COLOR_GREEN=2
-	if [[ "$LIGHT" == "true" ]]; then
+	PROMPT_COLOR_ALWAYS_BASE3=$PROMPT_COLOR_BASE3
+	if [[ $LIGHT == true ]]; then
 		PROMPT_COLOR_TEMP03=$PROMPT_COLOR_TEMP03
 		PROMPT_COLOR_TEMP02=$PROMPT_COLOR_TEMP02
 		PROMPT_COLOR_TEMP01=$PROMPT_COLOR_TEMP01
@@ -222,12 +225,12 @@ setup_prompt() {
 	PROMPT_FMT_ITALIC=$(tput sitm)
 	PROMPT_FMT_RESET=$(tput sgr 0)
 
-	PROMPT_USER=$'%{'"$PROMPT_FMT_ITALIC"$'%}%F{'"$PROMPT_COLOR_BASE3"$'}%(!.%K{'"$PROMPT_COLOR_ORANGE"$'}.%K{'"$PROMPT_COLOR_BLUE"$'}) %n'"$PROMPT_USER_MACHINE"$' %k%f%{'"$PROMPT_FMT_RESET"$'%}'
-	PROMPT_HISTORY=$'%F{'"$PROMPT_COLOR_BASE01"$'}%{'"$PROMPT_FMT_ITALIC"$'%} %h %{'"$PROMPT_FMT_RESET"$'%}%f'
+	PROMPT_USER=$'%{'"$PROMPT_FMT_ITALIC"$'%}%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%(!.%K{'"$PROMPT_COLOR_ORANGE"$'}.%K{'"$PROMPT_COLOR_BLUE"$'}) %n'"$PROMPT_USER_MACHINE"$' %k%f%{'"$PROMPT_FMT_RESET"$'%}'
+	PROMPT_HISTORY=$'%F{'"$PROMPT_COLOR_BASE01"$'} %h %f'
 	PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
 	PROMPT_VCS=$'%K{'$PROMPT_COLOR_BASE03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
 	PROMPT_DIRECTORY=$'%K{'$PROMPT_COLOR_BASE02$'} %2~ %k'
-	PROMPT_VI=$'%F{'"$PROMPT_COLOR_BASE3"$'}%{'"$PROMPT_FMT_ITALIC"$'%}$zle_vi_mode_%{'"$PROMPT_FMT_RESET"$'%}%f'
+	PROMPT_VI=$'%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%{'"$PROMPT_FMT_ITALIC"$'%}$zle_vi_mode_%{'"$PROMPT_FMT_RESET"$'%}%f'
 	RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
 	PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
 }
@@ -268,15 +271,23 @@ fi
 # helper scripts
 
 function theme {
+	case "$2" in
+		g)
+			KITTY_VARIATION=greyscale-
+		;;
+		*)
+			KITTY_VARIATION=
+		;;
+	esac
 	case "$1" in
 		light)
 			ITERM_PROFILE=Light
-			KITTY_THEME=light
+			KITTY_THEME=${KITTY_VARIATION}light
 			export LIGHT=true
 		;;
 		dark)
 			ITERM_PROFILE=Default
-			KITTY_THEME=dark
+			KITTY_THEME=${KITTY_VARIATION}dark
 			export LIGHT=false
 		;;
 	esac

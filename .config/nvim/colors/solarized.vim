@@ -138,6 +138,7 @@
 let s:terms_italic=[
             \"rxvt",
             \"gnome-terminal",
+            \"xterm-kitty",
             \"iTerm.app"
             \]
 " For reference only, terminals are known to be incomptible.
@@ -150,6 +151,9 @@ if has("gui_running")
 else
     let s:terminal_italic=0 " terminals will be guilty until proven compatible
     for term in s:terms_italic
+        if $TERM =~ term
+            let s:terminal_italic=1
+        endif
         if $TERM_PROGRAM =~ term
             let s:terminal_italic=1
         endif
