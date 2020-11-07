@@ -45,7 +45,10 @@ brew install \
 	yadm \
 	\
 	kubectl \
-	minio/stable/mc
+	minio/stable/mc \
+	\
+	pinentry-mac
+
 
 yadm clone git@github.com:serverwentdown/env.git
 ```
