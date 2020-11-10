@@ -161,7 +161,7 @@ format_return_code_prev() {
 	tput cuu1
 	tput hpa $start
 	tput setab $PROMPT_COLOR_RED
-	tput setaf $PROMPT_COLOR_BASE3
+	tput setaf $PROMPT_COLOR_ALWAYS_BASE3
 	echo -n "$text"
 	tput sgr0
 	tput rc
