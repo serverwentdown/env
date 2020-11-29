@@ -1,8 +1,8 @@
 
 # basic settings
 
-HISTSIZE=10000
-SAVEHIST=50000
+HISTSIZE=5000
+SAVEHIST=5000
 HISTFILE=~/.zsh_history
 setopt append_history
 setopt extended_history
@@ -24,6 +24,33 @@ bindkey "^R" history-incremental-pattern-search-backward
 alias vim=nvim
 export EDITOR=nvim
 
+# speed
+
+slower_functions=()
+load_slower() {
+	for func in $slower_functions; do
+		$func
+	done
+}
+slowest_functions=()
+load_slowest() {
+	for func in $slowest_functions; do
+		$func
+	done
+}
+prompt_run_count=0
+on_second_prompt() {
+	if [[ "$prompt_run_count" == 1 ]]; then
+		#zmodload zsh/zprof
+		prompt_use_italic=true
+		load_slower
+		#load_slowest
+		#zprof
+	fi
+	(( prompt_run_count = prompt_run_count + 1 ))
+}
+precmd_functions+=( on_second_prompt )
+
 # executables
 
 export PATH="$HOME/.local/bin:$PATH"
@@ -39,24 +66,6 @@ if [[ -f "$(which go 2>/dev/null)" ]]; then
 fi
 if [[ -f "$(which cargo 2>/dev/null)" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-# completion
-
-setup_completion() {
-	autoload -U compinit; compinit
-	autoload -U +X bashcompinit && bashcompinit
-	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-	if [[ -f "$(which mc 2>/dev/null)" ]]; then
-		complete -o nospace -C mc mc
-	fi
-	if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
-		source <(kubectl completion zsh)
-	fi
-}
-if [[ $SLOW == true ]]; then
-	setup_completion
 fi
 
 # platform specific
@@ -85,9 +94,24 @@ if [[ "$TERM" == "xterm-kitty" ]]; then
 	alias icat="kitty +kitten icat"
 	alias ssh="kitty +kitten ssh"
 fi
-if [[ $FAST != true ]]; then
-	setup_term_integration
-fi
+setup_term_integration
+#slower_functions+=( setup_term_integration )
+
+# completion
+
+setup_completion() {
+	autoload -U compinit; compinit
+	autoload -U +X bashcompinit && bashcompinit
+	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+	if [[ -f "$(which mc 2>/dev/null)" ]]; then
+		complete -o nospace -C mc mc
+	fi
+	if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
+		source <(kubectl completion zsh)
+	fi
+}
+slowest_functions+=( setup_completion )
 
 # directory listings
 
@@ -111,12 +135,7 @@ setup_prompt_vcs() {
 	zstyle ':vcs_info:*' check-for-changes true
 	prompt_vcs_enabled=false
 	precmd_vcs_info() {
-		if [[ $prompt_vcs_enabled == true ]]; then
-			vcs_info
-		elif [[ -d ".git" ]]; then
-			prompt_vcs_enabled=true
-			vcs_info
-		fi
+		vcs_info
 	}
 }
 format_vcs_info() {
@@ -132,9 +151,7 @@ format_vcs_info() {
 		echo "$text"
 	fi
 }
-if [[ $FAST != true ]]; then
-	setup_prompt_vcs
-fi
+slower_functions+=( setup_prompt_vcs )
 # prompt: return code
 format_return_code() {
 	return_code_=$1
@@ -222,8 +239,10 @@ setup_prompt() {
 	if [[ ! -z "$SSH_CLIENT" ]]; then
 		PROMPT_USER_MACHINE=$'@%m'
 	fi
-	PROMPT_FMT_ITALIC=$(tput sitm)
-	PROMPT_FMT_RESET=$(tput sgr 0)
+	if [[ $prompt_use_italic == true ]]; then
+		PROMPT_FMT_ITALIC=$(tput sitm)
+		PROMPT_FMT_RESET=$(tput sgr0)
+	fi
 
 	PROMPT_USER=$'%{'"$PROMPT_FMT_ITALIC"$'%}%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%(!.%K{'"$PROMPT_COLOR_ORANGE"$'}.%K{'"$PROMPT_COLOR_BLUE"$'}) %n'"$PROMPT_USER_MACHINE"$' %k%f%{'"$PROMPT_FMT_RESET"$'%}'
 	PROMPT_HISTORY=$'%F{'"$PROMPT_COLOR_BASE01"$'} %h %f'
@@ -234,7 +253,9 @@ setup_prompt() {
 	RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
 	PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
 }
+prompt_use_italic=false
 setup_prompt
+slower_functions+=( setup_prompt )
 
 # command entry plugins
 
@@ -256,17 +277,13 @@ setup_assistance() {
 		source "$zsh_plugin_path"
 	done
 }
-if [[ $FAST != true ]]; then
-	setup_assistance
-fi
+slower_functions+=( setup_assistance )
 setup_nope() {
 	if [[ -f "$(which thefuck 2>/dev/null)" ]]; then
 		eval $(thefuck --alias nope)
 	fi
 }
-if [[ $SLOW == true ]]; then
-	setup_nope
-fi
+slowest_functions+=( setup_nope )
 
 # helper scripts
 
