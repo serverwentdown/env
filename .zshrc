@@ -58,7 +58,7 @@ if [[ -f "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
 fi
-if [[ -f "$(which go 2>/dev/null)" ]]; then
+if [[ -f "$(which ruby 2>/dev/null)" ]]; then
 	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 if [[ -f "$(which go 2>/dev/null)" ]]; then
