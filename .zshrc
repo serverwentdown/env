@@ -129,8 +129,11 @@ setopt prompt_subst
 # prompt: vcs
 setup_prompt_vcs() {
 	autoload -Uz vcs_info
-	zstyle ':vcs_info:git:*' formats $' %b %u%c'
-	zstyle ':vcs_info:git:*' actionformats $'%(u..%B)%(c..%B) %b (%a) %u%c'
+	zstyle ':vcs_info:git:*' stagedstr $'%B'
+	zstyle ':vcs_info:git:*' unstagedstr $'%B'
+	#zstyle ':vcs_info:git:*' unstagedstr "$(tput smul)"
+	zstyle ':vcs_info:git:*' formats $'%u%c%m %b %%b'
+	zstyle ':vcs_info:git:*' actionformats $'%u%c%m %b (%a) %%b'
 	zstyle ':vcs_info:*' enable git
 	zstyle ':vcs_info:*' check-for-changes true
 	prompt_vcs_enabled=false
@@ -140,16 +143,7 @@ setup_prompt_vcs() {
 }
 format_vcs_info() {
 	text="$1"
-	dirty=false
-	while [[ "${text[-2]}" == " " ]]; do
-		dirty=true
-		text="${text[0,-2]}"
-	done
-	if $dirty; then
-		echo "%B$text%b"
-	else
-		echo "$text"
-	fi
+	echo "$text"
 }
 slower_functions+=( setup_prompt_vcs )
 # prompt: return code

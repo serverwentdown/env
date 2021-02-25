@@ -4,6 +4,7 @@
 " - :noh to clear highlighting
 " - gd to go to definition 
 " - g* to search for current word
+" - gq to reformat line into column
 "
 
 call plug#begin()
