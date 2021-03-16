@@ -132,11 +132,17 @@ set modeline
 
 " skel
 
+fun LoadSkel(ext, title)
+	exe "0r ~/.config/nvim/skel/skel." . a:ext
+	exe "$d"
+	exe "%s/Title/" . a:title . "/e"
+endfunction
 augroup Skel
-	autocmd BufNewFile *.sh 0r ~/.config/nvim/skel/skel.sh
-	autocmd BufNewFile *.md 0r ~/.config/nvim/skel/skel.md
-	autocmd BufNewFile *.html 0r ~/.config/nvim/skel/skel.html
-	autocmd BufNewFile *.py 0r ~/.config/nvim/skel/skel.py
+	autocmd BufNewFile *.sh call LoadSkel("sh", expand("%:r"))
+	autocmd BufNewFile *.md call LoadSkel("md", expand("%:r"))
+	autocmd BufNewFile *.html call LoadSkel("html", expand("%:r"))
+	autocmd BufNewFile *.py call LoadSkel("py", expand("%:r"))
+	autocmd BufNewFile *.yaml,*.yml call LoadSkel("yaml", expand("%:r"))
 augroup END
 
 " characters, hidden characters
