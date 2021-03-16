@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eno pipefail
+set -eo pipefail
 
 # snippet from https://github.com/mkropat/sh-realpath
 realpath() {
@@ -60,7 +60,7 @@ _canonicalize_file_path() {
     (cd "$dir" 2>/dev/null && printf '%s/%s\n' "$(pwd -P)" "$file")
 }
 
-. ~/.config/containers
+. ~/.config/contain
 
 if [[ -f "$(which docker 2>/dev/null)" ]]; then
 	RUNTIME=docker
@@ -96,7 +96,7 @@ Usage: ${0##*/} [-xwo] [-n NAME] [-p PORT]... [-v LIST]... [-i IMAGE] [-t TAG] [
 Starts an environment container. If CMD is specified, starts CMD instead of a shell.
 
    -x       delete Docker container after exit. will loose data
-   -w       forward \$PWD into $CONTAINER_HOME/src, and start there
+   -w       forward \$PWD into $CONTAIN_HOME/src, and start there
    -o       use host networking instead
    -n NAME  give container a NAME
    -p PORT  forward host PORT to container PORT
@@ -126,8 +126,8 @@ while getopts "xwn:p:v:i:la:e:h" opt; do
 		delete="--rm "
 		;;
 	w)
-		workdir="\n\t--workdir $CONTAINER_HOME/src "
-		volumes="$volumes\n\t-v '$(realpath $PWD)':$CONTAINER_HOME/src "
+		workdir="\n\t--workdir $CONTAIN_HOME/src "
+		volumes="$volumes\n\t-v '$(realpath $PWD)':$CONTAIN_HOME/src "
 		;;
 	o)
 		host="--net host "
@@ -209,6 +209,6 @@ $RUNTIME run -it $env$delete$name$ports$host$workdir$volumes\n\
 "
 
 echo
-echo "Running: $cmd"
+echo -e "Running: $cmd"
 
-bash -c "`echo $cmd | tr -d '\n'`" # Ugh...
+bash -c "`echo -e $cmd | tr -d '\n'`" # Ugh...
