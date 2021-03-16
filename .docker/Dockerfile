@@ -22,7 +22,7 @@ RUN apk add --no-cache --update \
 		git \
 		pass gnupg \
 		\
-		python3 python3-dev py3-pip \
+		python3 py3-pip python3-dev \
 		\
 		linux-headers alpine-sdk
 
@@ -44,6 +44,7 @@ RUN adduser -s /bin/zsh -D ambrose \
 
 WORKDIR /home/ambrose
 COPY --chown=ambrose:ambrose . .
+RUN chmod go-a .gnupg
 
 # switch to user
 
@@ -56,6 +57,11 @@ RUN wget -O ~/.config/nvim/autoload/plug.vim --force-directories \
 	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN pip3 install --no-cache-dir --user thefuck
 RUN pip3 install --no-cache-dir --user httpie
+
+LABEL org.opencontainers.image.title="environment"
+LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
+LABEL org.opencontainers.image.source="https://github.com/serverwentdown/env.git"
+LABEL org.opencontainers.image.authors="Ambrose Chua"
 
 # open login shell by default
 

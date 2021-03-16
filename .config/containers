@@ -1,0 +1,3 @@
+DEFAULT_IMAGE=docker.io/serverwentdown/env
+DEFAULT_TAG=latest
+HOME=/home/ambrose
