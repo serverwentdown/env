@@ -311,10 +311,20 @@ function theme {
 	setup_prompt
 }
 
-test -e "$(which gpgconf 2>/dev/null)" && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+if [[ -z "$SSH_CLIENT" ]] && [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
+	# use gpg agent for SSH if not connected over SSH
+	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+if ! [[ -S "$SSH_AUTH_SOCK" ]]; then
+	# start gpg agent for SSH access
+	gpg-connect-agent /bye >/dev/null 2>&1
+fi
 
-function gpg_start {
-	# gpg tty fix for macOS pinentry
-	#export GPG_TTY="$(tty)"
-	#echo UPDATESTARTUPTTY | gpg-connect-agent 2>&1 >/dev/null
+function gpg_kill {
+	gpgconf --kill gpg-agent
+}
+function gpg_tty {
+	# put gpg pinentry on this tty
+	export GPG_TTY="$(tty)"
+	echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 }
