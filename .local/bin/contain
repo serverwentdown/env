@@ -83,7 +83,7 @@ env="--env TERM --env CONTAIN=true "
 workdir=""
 delete=""
 name=""
-ports="\n\t"
+ports=""
 host=""
 volumes=""
 image="$DEFAULT_IMAGE"
@@ -108,6 +108,7 @@ Starts an environment container. If CMD is specified, starts CMD instead of a sh
    -t TAG   use TAG as container tag instead
 
    -l       list running containers and exit
+   -u       pull image and exit
    -a NAME  attach to a running container
    -e NAME  execute zsh or CMD on a running container
    -h       display this help and exit
@@ -121,17 +122,23 @@ list_running() {
 		--format "table {{.Names}}\t{{.RunningFor}}\t{{.Ports}}\t{{.Command}}"
 }
 
-while getopts "xwon:p:v:i:t:la:e:h" opt; do
+pull_image() {
+	$runtime pull \
+		$image:$tag
+}
+
+while getopts "xwon:p:v:i:t:lua:e:h" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
 		;;
 	w)
-		workdir="\n\t--workdir $CONTAIN_HOME/src "
+		workdir="--workdir $CONTAIN_HOME/src/ "
 		if $selinux_enabled; then
 			volume_opts=":z"
 		fi
-		volumes="$volumes\n\t--volume '$(realpath $PWD)':$CONTAIN_HOME/src$volume_opts "
+		mount="$(realpath "$PWD")"
+		volumes="$volumes--volume \"$mount:$CONTAIN_HOME/src/$volume_opts\" "
 		;;
 	o)
 		host="--net host "
@@ -146,7 +153,7 @@ while getopts "xwon:p:v:i:t:la:e:h" opt; do
 		if $selinux_enabled; then
 			volume_opts=":z"
 		fi
-		volumes="$volumes\n\t--volume '$OPTARG'$volume_opts "
+		volumes="$volumes--volume $OPTARG$volume_opts "
 		;;
 	i)
 		image="$OPTARG"
@@ -156,6 +163,10 @@ while getopts "xwon:p:v:i:t:la:e:h" opt; do
 		;;
 	l)
 		list_running
+		exit 0
+		;;
+	u)
+		pull_image
 		exit 0
 		;;
 	a)
@@ -201,14 +212,23 @@ if [ "$mode_execute" = "true" ]; then
 	if [ -z "$@" ]; then
 		cmd="/bin/zsh"
 	fi
-	$runtime exec -it \
+	$runtime exec --interactive --tty \
 		$name \
 		$cmd
 	exit 0
 fi
 
-set -x
+cmd="\
+$runtime run --interactive --tty \
+	$runtime_extra_opts\
+	$labels$env\
+	$delete\
+	$name\
+	$ports$host\
+	$workdir$volumes\
+	$image:$tag\
+	$@ \
+"
 
-$runtime run -it $runtime_extra_opts$labels$env$delete$name$ports$host$workdir$volumes \
-	$image:$tag \
-	$@
+echo Running: $cmd
+exec sh -c "exec $cmd"
