@@ -311,20 +311,32 @@ function theme {
 	setup_prompt
 }
 
-if [[ -z "$SSH_CLIENT" ]] && [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
-	# use gpg agent for SSH if not connected over SSH
-	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
-if ! [[ -S "$SSH_AUTH_SOCK" ]]; then
-	# start gpg agent for SSH access
-	gpg-connect-agent /bye >/dev/null 2>&1
+if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
+	if [[ -z "$SSH_CLIENT" ]] || [[ -z "$SSH_AUTH_SOCK" ]]; then
+		# use gpg agent for SSH if not connected over SSH
+		export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+	fi
+	if ! [[ -S "$SSH_AUTH_SOCK" ]]; then
+		# start gpg agent for SSH access
+		gpg-connect-agent /bye >/dev/null 2>&1
+	fi
+	if [[ $PLATFORM == macos ]] && [[ -f "$(which pinentry-mac 2>/dev/null)" ]]; then
+		# if pinentry-mac exists and not linked, relink
+		if [[ "$(readlink /usr/local/bin/pinentry)" != "/usr/local/bin/pinentry-mac" ]]; then
+			ln -fs /usr/local/bin/pinentry-mac /usr/local/bin/pinentry
+			echo "Notice: Linked pinentry to pinentry-mac. Undo with:"
+			echo "  brew unlink pinentry && brew link --overwrite pinentry"
+		fi
+	fi
+
+	function gpg_kill {
+		# just in case
+		gpgconf --kill gpg-agent
+	}
+	function gpg_tty {
+		# put gpg pinentry on this tty
+		export GPG_TTY="$(tty)"
+		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
+	}
 fi
 
-function gpg_kill {
-	gpgconf --kill gpg-agent
-}
-function gpg_tty {
-	# put gpg pinentry on this tty
-	export GPG_TTY="$(tty)"
-	echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
-}
