@@ -97,6 +97,13 @@ fi
 setup_term_integration
 #slower_functions+=( setup_term_integration )
 
+# term fixes
+
+alias sudo="sudo TERM=xterm-256color"
+term_color() {
+	export TERM=xterm-256color
+}
+
 # completion
 
 setup_completion() {
@@ -311,6 +318,8 @@ function theme {
 	setup_prompt
 }
 
+# gnupg
+
 if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 	if [[ -z "$SSH_CLIENT" ]] || [[ -z "$SSH_AUTH_SOCK" ]]; then
 		# use gpg agent for SSH if not connected over SSH
@@ -332,14 +341,13 @@ if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 		fi
 	fi
 
-	function gpg_kill {
+	gpg_kill() {
 		# just in case
 		gpgconf --kill gpg-agent
 	}
-	function gpg_tty {
+	gpg_tty() {
 		# put gpg pinentry on this tty
 		export GPG_TTY="$(tty)"
 		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 	}
 fi
-
