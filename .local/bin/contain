@@ -63,19 +63,22 @@ _canonicalize_file_path() {
 . ~/.config/contain
 
 if [[ -f "$(which docker 2>/dev/null)" ]]; then
-	RUNTIME=docker
+	runtime=docker
 elif [[ -f "$(which podman 2>/dev/null)" ]]; then
-	RUNTIME=podman
+	runtime=podman
+	runtime_extra_opts="$runtime_extra_opts--userns=keep-id "
 fi
 
-if $RUNTIME info | grep -iq selinux; then
-	SELINUX_ENABLED=true
+if $runtime info | grep -iq selinux; then
+	selinux_enabled=true
 else
-	SELINUX_ENABLED=false
+	selinux_enabled=false
 fi
 
 OPTIND=1
 
+label="${0##*/}=true"
+labels="-l $label "
 env="-e TERM -e SSH_CLIENT "
 workdir=""
 delete=""
@@ -113,21 +116,22 @@ EOF
 }
 
 list_running() {
-	$RUNTIME ps \
-		--filter \
-		label=contain=true \
-		--format \
-		"table {{.Names}}\t{{.RunningFor}}\t{{.Ports}}\t{{.Command}}"
+	$runtime ps --all \
+		--filter label="$label" \
+		--format "table {{.Names}}\t{{.RunningFor}}\t{{.Ports}}\t{{.Command}}"
 }
 
-while getopts "xwn:p:v:i:la:e:h" opt; do
+while getopts "xwon:p:v:i:t:la:e:h" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
 		;;
 	w)
 		workdir="\n\t--workdir $CONTAIN_HOME/src "
-		volumes="$volumes\n\t-v '$(realpath $PWD)':$CONTAIN_HOME/src "
+		if $selinux_enabled; then
+			volume_opts=":z"
+		fi
+		volumes="$volumes\n\t-v '$(realpath $PWD)':$CONTAIN_HOME/src$volume_opts "
 		;;
 	o)
 		host="--net host "
@@ -139,7 +143,10 @@ while getopts "xwn:p:v:i:la:e:h" opt; do
 		ports="$ports-p $OPTARG:$OPTARG "
 		;;
 	v)
-		volumes="$volumes\n\t-v '$OPTARG' "
+		if $selinux_enabled; then
+			volume_opts=":z"
+		fi
+		volumes="$volumes\n\t-v '$OPTARG'$volume_opts "
 		;;
 	i)
 		image="$OPTARG"
@@ -184,7 +191,7 @@ if [ "$ports" = "\n\t" ]; then
 fi
 
 if [ "$mode_attach" = "true" ]; then
-	$RUNTIME attach \
+	$runtime attach \
 		$name
 	exit 0
 fi
@@ -194,16 +201,14 @@ if [ "$mode_execute" = "true" ]; then
 	if [ -z "$@" ]; then
 		cmd="/bin/zsh"
 	fi
-	$RUNTIME exec -it \
+	$runtime exec -it \
 		$name \
 		$cmd
 	exit 0
 fi
 
-$RUNTIME pull $image
-
 cmd="\n\
-$RUNTIME run -it $env$delete$name$ports$host$workdir$volumes\n\
+$runtime run -it $runtime_extra_opts$labels$env$delete$name$ports$host$workdir$volumes\n\
 	$image:$tag \n\
 	$@\
 "

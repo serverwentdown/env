@@ -44,7 +44,7 @@ RUN adduser -s /bin/zsh -D ambrose \
 
 WORKDIR /home/ambrose
 COPY --chown=ambrose:ambrose . .
-RUN chmod go-a .gnupg
+RUN chmod go-rwx .gnupg
 
 # switch to user
 
