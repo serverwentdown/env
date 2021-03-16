@@ -2,3 +2,6 @@
 
 .dockerfile
 .dockerignore
+
+.github
+.local/screenshots
