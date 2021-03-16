@@ -5,10 +5,17 @@ set -eu
 # Parse options
 
 nicetohave=true
+go=false
+rust=false
 
 while [ $# != 0 ]; do
 	case "$1" in
-		notnicetohave) nicetohave=false;;
+		nonicetohave) nicetohave=false;;
+		nicetohave) nicetohave=true;;
+		nogo) go=false;;
+		go) go=true;;
+		norust) rust=false;;
+		rust) rust=true;;
 		*) echo "Unknown flag: $1"; exit 1;;
 	esac
 	shift
@@ -81,6 +88,7 @@ download_dust() {
 		--output-document /tmp/dust.tar.gz \
 		https://github.com/bootandy/dust/releases/download/$version/dust-$version-$arch-$system.tar.gz
 	tar -x \
+		--gunzip \
 		--file /tmp/dust.tar.gz \
 		--to-stdout \
 		dust-$version-$arch-$system/dust > $download_bin_path/dust
@@ -89,9 +97,9 @@ download_dust() {
 download_kubectl() {
 	version=$(wget --quiet --output-document - https://dl.k8s.io/release/stable.txt)
 	arch=amd64
-	case $ID in
+	case $PLATFORM in
 		macos) system=darwin;;
-		*) system=linux;;
+		linux) system=linux;;
 	esac
 	wget \
 		--output-document $download_bin_path/kubectl \
@@ -100,9 +108,9 @@ download_kubectl() {
 }
 download_minio_client() {
 	arch=amd64
-	case $ID in
+	case $PLATFORM in
 		macos) system=darwin;;
-		*) system=linux;;
+		linux) system=linux;;
 	esac
 	wget \
 		--output-document $download_bin_path/mc \
@@ -115,6 +123,27 @@ download_nvim_plug() {
 	wget \
 		--output-document $HOME/.config/nvim/autoload/plug.vim \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
+download_go() {
+	version=1.16.2
+	arch=amd64
+	case $PLATFORM in
+		macos) system=darwin;;
+		linux) system=linux;;
+	esac
+	wget \
+		--output-document /tmp/go.tar.gz \
+		https://golang.org/dl/go$version.$system-$arch.tar.gz
+	sudo tar -x \
+		--gunzip \
+		--directory /usr/local \
+		--file /tmp/go.tar.gz
+	sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
+	sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+	rm /tmp/go.tar.gz
+}
+download_rust() {
+	wget --output-document - https://sh.rustup.rs | sh -s -- -y
 }
 
 # Install basics
@@ -180,6 +209,18 @@ case $ID in
 esac
 $nicetohave && pip3 install --no-cache-dir --user thefuck
 
+# Install Golang
+
+case $ID in
+	macos) packages_add go;;
+	alpine) packages_add go;;
+	*) $go && download_go;;
+esac
+
+# Install Rust
+
+$rust && download_rust
+
 # Install dust
 
 case $ID in
@@ -195,4 +236,9 @@ $nicetohave && download_minio_client
 # Install editor plugins
 
 download_nvim_plug
+nvim +PlugInstall +qa || true
+
+# Final packages installation
+
+packages_install
 
