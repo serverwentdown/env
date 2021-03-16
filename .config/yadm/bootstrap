@@ -174,6 +174,7 @@ esac
 packages_add neovim git
 $nicetohave && packages_add pass gnupg
 case $ID in
+	macos) packages_add pinentry-mac;
 	alpine) packages_add dropbear-ssh;;
 	fedora) packages_add openssh-clients;;
 	debian|ubuntu) packages_add openssh-client;;
@@ -207,10 +208,14 @@ packages_install
 # Install Python 3 packages
 
 case $ID in
+	macos) $nicetohave && packages_add httpie;;
 	alpine) packages_add httpie;;
 	*) pip3 install --no-cache-dir --user httpie;;
 esac
-$nicetohave && pip3 install --no-cache-dir --user thefuck
+case $ID in
+	macos) $nicetohave && packages_add thefuck;;
+	*) $nicetohave && pip3 install --no-cache-dir --user thefuck;;
+esac
 
 # Install Golang
 

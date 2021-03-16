@@ -17,47 +17,27 @@ Just storing dotfiles in a repository isn't enough. This is almost all the tools
 
 ```sh
 export PATH="$HOME/.local/bin:$PATH"
-curl -fLo ~/.local/bin/runenv https://raw.githubusercontent.com/serverwentdown/env/master/.local/bin/runenv
-chmod +x ~/.local/bin/runenv
-runenv -h
+curl -fLo ~/.local/bin/contain https://raw.githubusercontent.com/serverwentdown/env/master/.local/bin/contain
+chmod +x ~/.local/bin/contain
+contain -h
 ```
 
-### macOS
+### macOS, Fedora, Alpine, Ubuntu, Debian
+
+[Install yadm](https://yadm.io/docs/install), and then clone.
 
 ```sh
-brew install \
-	xz upx \
-	\
-	zsh-autosuggestions \
-	zsh-syntax-highlighting \
-	exa jq \
-	neovim \
-	\
-	git \
-	pass gnupg \
-	\
-	python@3.9 \
-	go \
-	\
-	thefuck \
-	httpie \
-	dust \
-	yadm \
-	\
-	kubectl \
-	minio/stable/mc \
-	\
-	pinentry-mac
-
-
+# Install yadm (macOS)
+brew install yadm
+# Install yadm (dirty method)
+curl -fLo ~/.local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
+chmod +x /usr/local/bin/yadm
+# Clone
 yadm clone git@github.com:serverwentdown/env.git
 ```
 
 ## Optional
 
 ```sh
-# requires private key
-yadm decrypt
-# requires yadm decrypt
 git clone git@makerforce.io:ambrose/pass.git ~/.password-store
 ```
