@@ -174,7 +174,7 @@ esac
 packages_add neovim git
 $nicetohave && packages_add pass gnupg
 case $ID in
-	macos) packages_add pinentry-mac;
+	macos) packages_add pinentry-mac;;
 	alpine) packages_add dropbear-ssh;;
 	fedora) packages_add openssh-clients;;
 	debian|ubuntu) packages_add openssh-client;;
