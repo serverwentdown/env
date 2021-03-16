@@ -321,9 +321,12 @@ if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 		gpg-connect-agent /bye >/dev/null 2>&1
 	fi
 	if [[ $PLATFORM == macos ]] && [[ -f "$(which pinentry-mac 2>/dev/null)" ]]; then
-		# if pinentry-mac exists and not linked, relink
-		if [[ "$(readlink /usr/local/bin/pinentry)" != "/usr/local/bin/pinentry-mac" ]]; then
-			ln -fs /usr/local/bin/pinentry-mac /usr/local/bin/pinentry
+		# if pinentry-mac exists, relink if not done
+		# see https://github.com/Homebrew/linuxbrew-core/blob/fd3dadc66f11b7317035e76552992ef368adf7ea/Formula/gnupg.rb#L46
+		pinentry_configure="/usr/local/opt/pinentry/bin/pinentry"
+		pinentry_mac="/usr/local/opt/pinentry-mac/bin/pinentry-mac"
+		if [[ "$(readlink $pinentry_configure)" != "$pinentry_mac" ]]; then
+			ln -fs $pinentry_mac $pinentry_configure
 			echo "Notice: Linked pinentry to pinentry-mac. Undo with:"
 			echo "  brew unlink pinentry && brew link --overwrite pinentry"
 		fi
