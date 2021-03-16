@@ -1,0 +1,42 @@
+kind: pipeline
+name: default
+
+steps:
+- name: docker-alpine
+  image: plugins/docker
+  settings:
+    registry: registry.makerforce.io
+    repo: registry.makerforce.io/ambrose/env
+    dockerfile: .docker/alpine
+    tags:
+    - alpine
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+- name: docker-alpine-slim
+  image: plugins/docker
+  settings:
+    registry: registry.makerforce.io
+    repo: registry.makerforce.io/ambrose/env
+    dockerfile: .docker/alpine-slim
+    tags:
+    - alpine-slim
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+- name: docker-fedora
+  image: plugins/docker
+  settings:
+    registry: registry.makerforce.io
+    repo: registry.makerforce.io/ambrose/env
+    dockerfile: .docker/fedora
+    tags:
+    - fedora
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+# vim: set et ts=4 sw=4:
