@@ -207,13 +207,8 @@ if [ "$mode_execute" = "true" ]; then
 	exit 0
 fi
 
-cmd="\n\
-$runtime run -it $runtime_extra_opts$labels$env$delete$name$ports$host$workdir$volumes\n\
-	$image:$tag \n\
-	$@\
-"
+set -x
 
-echo
-echo -e "Running: $cmd"
-
-bash -c "`echo -e $cmd | tr -d '\n'`" # Ugh...
+$runtime run -it $runtime_extra_opts$labels$env$delete$name$ports$host$workdir$volumes \
+	$image:$tag \
+	$@
