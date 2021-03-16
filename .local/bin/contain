@@ -78,8 +78,8 @@ fi
 OPTIND=1
 
 label="${0##*/}=true"
-labels="-l $label "
-env="-e TERM -e SSH_CLIENT "
+labels="--label $label "
+env="--env TERM --env CONTAIN=true "
 workdir=""
 delete=""
 name=""
@@ -131,22 +131,22 @@ while getopts "xwon:p:v:i:t:la:e:h" opt; do
 		if $selinux_enabled; then
 			volume_opts=":z"
 		fi
-		volumes="$volumes\n\t-v '$(realpath $PWD)':$CONTAIN_HOME/src$volume_opts "
+		volumes="$volumes\n\t--volume '$(realpath $PWD)':$CONTAIN_HOME/src$volume_opts "
 		;;
 	o)
 		host="--net host "
 		;;
 	n)
-		name="--name $OPTARG "
+		name="--name $OPTARG --hostname $OPTARG "
 		;;
 	p)
-		ports="$ports-p $OPTARG:$OPTARG "
+		ports="$ports--publish $OPTARG:$OPTARG "
 		;;
 	v)
 		if $selinux_enabled; then
 			volume_opts=":z"
 		fi
-		volumes="$volumes\n\t-v '$OPTARG'$volume_opts "
+		volumes="$volumes\n\t--volume '$OPTARG'$volume_opts "
 		;;
 	i)
 		image="$OPTARG"

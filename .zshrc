@@ -40,7 +40,7 @@ load_slowest() {
 }
 prompt_run_count=0
 on_second_prompt() {
-	if [[ "$prompt_run_count" == 1 ]]; then
+	if [[ "$prompt_run_count" == 1 ]] && [[ "$USER" != "root" ]]; then
 		#zmodload zsh/zprof
 		prompt_use_italic=true
 		load_slower
@@ -241,6 +241,9 @@ setup_prompt() {
 	PROMPT_USER_MACHINE=$''
 	if [[ ! -z "$SSH_CLIENT" ]]; then
 		PROMPT_USER_MACHINE=$'@%m'
+	fi
+	if [[ "$CONTAIN" == true ]]; then
+		PROMPT_USER_MACHINE=$'#%m'
 	fi
 	if [[ $prompt_use_italic == true ]]; then
 		PROMPT_FMT_ITALIC=$(tput sitm)
