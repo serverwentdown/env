@@ -1,7 +1,13 @@
+# vcs
 .git
 
-.dockerfile
+# packaging
+.docker
 .dockerignore
 
+# publishing
 .github
 .local/screenshots
+
+# large
+.wallpaper

@@ -1,0 +1,198 @@
+#!/bin/sh
+
+set -eu
+
+# Parse options
+
+nicetohave=true
+
+while [ $# != 0 ]; do
+	case "$1" in
+		notnicetohave) nicetohave=false;;
+		*) echo "Unknown flag: $1"; exit 1;;
+	esac
+	shift
+done
+
+# Parse platforms into a friendly format
+
+case "$(uname -s)" in
+	Darwin)
+		PLATFORM=macos
+		ID=macos
+		VERSION_ID=$(sw_vers -productVersion)
+		;;
+	Linux)
+		PLATFORM=linux
+		. /etc/os-release
+		;;
+	*)
+		PLATFORM=unsupported
+		ID=unsupported
+		VERSION_ID=unsupported
+		;;
+esac
+
+if [ $ID = fedora ] && [ $VARIANT_ID = coreos ]; then
+	ID=coreos # Fedora CoreOS
+fi
+
+# Package installation helpers
+
+packages=""
+packages_add() {
+	packages="$packages $@"
+}
+packages_install() {
+	case $ID in
+		macos)
+			brew install --formulae $packages
+			;;
+		alpine)
+			sudo apk add --no-cache --update $packages
+			;;
+		fedora)
+			sudo dnf install -y $packages
+			sudo dnf clean all
+			sudo rm -rf /var/cache/dnf
+			;;
+		debian|ubuntu)
+			sudo apt-get update
+			sudo apt-get install -y $packages
+			sudo rm -rf /var/lib/apt/lists/*
+			;;
+	esac
+	packages=""
+}
+
+# Installation into user folder
+
+download_bin_path="$HOME/.local/bin"
+mkdir -p $download_bin_path
+download_dust() {
+	version=v0.5.4
+	arch=x86_64
+	case $ID in
+		macos) system=apple-darwin;;
+		alpine) system=unknown-linux-musl;;
+		*) system=unknown-linux-gnu;;
+	esac
+	wget \
+		--output-document /tmp/dust.tar.gz \
+		https://github.com/bootandy/dust/releases/download/$version/dust-$version-$arch-$system.tar.gz
+	tar -x \
+		--file /tmp/dust.tar.gz \
+		--to-stdout \
+		dust-$version-$arch-$system/dust > $download_bin_path/dust
+	rm /tmp/dust.tar.gz
+}
+download_kubectl() {
+	version=$(wget --quiet --output-document - https://dl.k8s.io/release/stable.txt)
+	arch=amd64
+	case $ID in
+		macos) system=darwin;;
+		*) system=linux;;
+	esac
+	wget \
+		--output-document $download_bin_path/kubectl \
+		https://dl.k8s.io/release/$version/bin/$system/$arch/kubectl
+	chmod +x $download_bin_path/kubectl
+}
+download_minio_client() {
+	arch=amd64
+	case $ID in
+		macos) system=darwin;;
+		*) system=linux;;
+	esac
+	wget \
+		--output-document $download_bin_path/mc \
+		https://minio.mirror.makerforce.io/client/mc/release/$system-$arch/mc
+		#https://dl.min.io/client/mc/release/$system-$arch/mc
+	chmod +x $download_bin_path/mc
+}
+download_nvim_plug() {
+	mkdir -p $HOME/.config/nvim/autoload
+	wget \
+		--output-document $HOME/.config/nvim/autoload/plug.vim \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
+
+# Install basics
+
+packages_add openssl wget upx
+case $PLATFORM in
+	linux) packages_add tar gzip;;
+esac
+case $PLATFORM in
+	macos|alpine|fedora) packages_add xz;;
+	debian|ubuntu) packages_add xz-utils;;
+esac
+
+# Install shell
+
+packages_add zsh zsh-autosuggestions zsh-syntax-highlighting
+case $ID in
+	alpine) packages_add zsh-vcs ncurses;;
+	fedora) packages_add ncurses;;
+	debian|ubuntu) packages_add ncurses-bin;;
+esac
+
+# Install editor, management and security tools
+
+packages_add neovim git
+$nicetohave && packages_add pass gnupg
+case $ID in
+	alpine) packages_add dropbear-ssh;;
+	fedora) packages_add openssh-clients;;
+	debian|ubuntu) packages_add openssh-client;;
+esac
+packages_add exa jq
+
+# Install C compilers
+
+case $ID in
+	alpine) $nicetohave && packages_add alpine-sdk linux-headers;;
+	fedora) $nicetohave && packages_add kernel-headers;;
+	debian|ubuntu) $nicetohave && packages_add build-essential;;
+esac
+
+# Install Python 3
+
+case $ID in
+	macos) packages_add python@3;;
+	alpine|fedora|debian|ubuntu) packages_add python3;;
+esac
+case $ID in
+	alpine|debian|ubuntu) $nicetohave && packages_add python3-dev;;
+	fedora) $nicetohave && packages_add python3-devel;;
+esac
+case $ID in
+	alpine) $nicetohave && packages_add py3-pip;;
+	fedora|debian|ubuntu) $nicetohave && packages_add python3-pip;;
+esac
+packages_install
+
+# Install Python 3 packages
+
+case $ID in
+	alpine) packages_add httpie;;
+	*) pip3 install --no-cache-dir --user httpie;;
+esac
+$nicetohave && pip3 install --no-cache-dir --user thefuck
+
+# Install dust
+
+case $ID in
+	macos|alpine) $nicetohave && packages_add dust;;
+	fedora|debian|ubuntu) $nicetohave && download_dust;;
+esac
+
+# Install deployment utilities
+
+$nicetohave && download_kubectl
+$nicetohave && download_minio_client
+
+# Install editor plugins
+
+download_nvim_plug
+

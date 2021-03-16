@@ -2,7 +2,7 @@ FROM alpine:3.13
 
 RUN echo hosts: dns files > /etc/nsswitch.conf
 RUN apk add --no-cache --update \
-		sudo tzdata zsh
+		sudo zsh
 
 RUN adduser -s /bin/zsh -D ambrose \
 	&& echo '' >> /etc/sudoers \
@@ -15,7 +15,7 @@ RUN chmod go-rwx .gnupg
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap
+RUN ./.config/yadm/bootstrap notnicetohave
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
