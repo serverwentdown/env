@@ -7,6 +7,7 @@ set -eu
 nicetohave=true
 go=false
 rust=false
+rootzsh=false
 
 while [ $# != 0 ]; do
 	case "$1" in
@@ -16,6 +17,8 @@ while [ $# != 0 ]; do
 		go) go=true;;
 		norust) rust=false;;
 		rust) rust=true;;
+		norootzsh) rootzsh=false;;
+		rootzsh) rootzsh=true;;
 		*) echo "Unknown flag: $1"; exit 1;;
 	esac
 	shift
@@ -241,4 +244,8 @@ nvim +PlugInstall +qa || true
 # Final packages installation
 
 packages_install
+
+# Give root a ZSH prompt
+
+sudo cp $HOME/.zshrc /root/.zshrc
 

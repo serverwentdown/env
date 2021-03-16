@@ -15,7 +15,7 @@ RUN chmod go-rwx .gnupg
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap
+RUN ./.config/yadm/bootstrap rootzsh
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"

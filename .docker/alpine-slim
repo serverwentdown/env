@@ -15,7 +15,7 @@ RUN chmod go-rwx .gnupg
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap nonicetohave nogo norust
+RUN ./.config/yadm/bootstrap rootzsh nonicetohave nogo norust
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
