@@ -54,6 +54,9 @@ packages_add() {
 	packages="$packages $@"
 }
 packages_install() {
+	if [ -z "$packages" ]; then
+		return
+	fi
 	case $ID in
 		macos)
 			brew install --formulae $packages
