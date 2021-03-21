@@ -89,6 +89,7 @@ if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 		fi
 	}
 	alias icat="imgcat"
+	alias ssh="TERM=xterm-256color ssh"
 fi
 if [[ "$TERM" == "xterm-kitty" ]]; then
 	alias icat="kitty +kitten icat"
@@ -131,6 +132,23 @@ if [[ -f "$(which exa 2>/dev/null)" ]]; then
 	alias ls=exa
 fi
 alias ll="ls -l"
+
+# window and tab title
+
+# https://github.com/trystan2k/zsh-tab-title/blob/85c64b64e38d1ec45c0201f00c061535bea67e8b/title.plugin.zsh#L10-L38
+function title {
+	title="$1"
+	window="${2:-$1}"
+	case "$TERM" in
+		cygwin|xterm*|putty*|rxvt*|ansi)
+			print -Pn "\e]2;$window:q\a" # set window name
+			print -Pn "\e]1;$title:q\a" # set tab name
+			;;
+		screen*|tmux*)
+			print -Pn "\ek$title:q\e\\" # set screen hardstatus
+			;;
+	esac
+}
 
 # prompt
 
@@ -177,14 +195,18 @@ format_return_code_prev() {
 	width=$(tput cols)
 	start=$(( $width - $text_length - 1 ))
 
-	tput sc
-	tput cuu1
-	tput hpa $start
-	tput setab $PROMPT_COLOR_RED
-	tput setaf $PROMPT_COLOR_ALWAYS_BASE3
+	tput -S <<EOF
+sc
+cuu1
+hpa $start
+setab $PROMPT_COLOR_RED
+setaf $PROMPT_COLOR_ALWAYS_BASE3
+EOF
 	echo -n "$text"
-	tput sgr0
-	tput rc
+	tput -S <<EOF
+sgr0
+rc
+EOF
 }
 precmd_return_code() {
 	format_return_code_prev $?
@@ -239,17 +261,32 @@ setup_prompt_colors() {
 setup_prompt() {
 	setup_prompt_colors
 	PROMPT_USER_MACHINE=$''
+	PROMPT_TITLE_MACHINE=$''
 	if [[ ! -z "$SSH_CLIENT" ]]; then
 		PROMPT_USER_MACHINE=$'@%m'
+		PROMPT_TITLE_MACHINE=$'%m:'
 	fi
 	if [[ "$CONTAIN" == true ]]; then
 		PROMPT_USER_MACHINE=$'#%m'
+		PROMPT_TITLE_MACHINE=$'%m#'
 	fi
 	if [[ $prompt_use_italic == true ]]; then
 		PROMPT_FMT_ITALIC=$(tput sitm)
 		PROMPT_FMT_RESET=$(tput sgr0)
 	fi
-
+	case "$TERM" in
+		cygwin|xterm*|putty*|rxvt*|ansi)
+			PROMPT_FMT_TITLE=$'\e]1;'
+			PROMPT_FMT_TITLE_END=$'\a'
+			PROMPT_FMT_WINDOW=$'\e]2;'
+			PROMPT_FMT_WINDOW_END=$'\a'
+			;;
+		screen*|tmux*)
+			PROMPT_FMT_TITLE=$'\ek'
+			PROMPT_FMT_TITLE_END=$':q\e\\'
+			;;
+	esac
+	PROMPT_TITLE=$'%{'"$PROMPT_FMT_TITLE$PROMPT_TITLE_MACHINE"$'%2~'"$PROMPT_FMT_TITLE_END"$'%}'
 	PROMPT_USER=$'%{'"$PROMPT_FMT_ITALIC"$'%}%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%(!.%K{'"$PROMPT_COLOR_ORANGE"$'}.%K{'"$PROMPT_COLOR_BLUE"$'}) %n'"$PROMPT_USER_MACHINE"$' %k%f%{'"$PROMPT_FMT_RESET"$'%}'
 	PROMPT_HISTORY=$'%F{'"$PROMPT_COLOR_BASE01"$'} %h %f'
 	PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
@@ -257,7 +294,7 @@ setup_prompt() {
 	PROMPT_DIRECTORY=$'%K{'$PROMPT_COLOR_BASE02$'} %2~ %k'
 	PROMPT_VI=$'%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%{'"$PROMPT_FMT_ITALIC"$'%}$zle_vi_mode_%{'"$PROMPT_FMT_RESET"$'%}%f'
 	RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
-	PROMPT="$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
+	PROMPT="$PROMPT_TITLE$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
 }
 prompt_use_italic=false
 setup_prompt
