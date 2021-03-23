@@ -8,6 +8,7 @@ nicetohave=true
 go=false
 rust=false
 rootzsh=false
+desktop=false
 
 while [ $# != 0 ]; do
 	case "$1" in
@@ -19,6 +20,8 @@ while [ $# != 0 ]; do
 		rust) rust=true;;
 		norootzsh) rootzsh=false;;
 		rootzsh) rootzsh=true;;
+		nodesktop) desktop=false;;
+		desktop) desktop=true;;
 		*) echo "Unknown flag: $1"; exit 1;;
 	esac
 	shift
@@ -257,3 +260,21 @@ packages_install
 
 sudo cp $HOME/.zshrc /root/.zshrc
 
+# desktop: Install sway
+
+case $ID in
+	alpine|fedora|ubuntu) packages_add \
+		sway swaybg swayidle swaylock \
+		waybar wofi \
+		grim slurp wf-recorder \
+		playerctl \
+		;;
+esac
+
+case $ID in
+	alpine|fedora) packages_add wayvnc;;
+esac
+
+# desktop: Final packages installation
+
+packages_install
