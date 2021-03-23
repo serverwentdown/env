@@ -241,15 +241,16 @@ case $ID in
 	*) pip3 install --no-cache-dir --user httpie;;
 esac
 case $ID in
-	macos) $nicetohave && packages_add thefuck;;
+	macos|fedora|debian|ubuntu) $nicetohave && packages_add thefuck;;
 	*) $nicetohave && pip3 install --no-cache-dir --user thefuck;;
 esac
 
 # Install Golang
 
 case $ID in
-	macos) packages_add go;;
-	alpine) packages_add go;;
+	macos) $go && packages_add go;;
+	#alpine) $go && packages_add go;;
+	#fedora) $go && packages_add golang;;
 	*) $go && download_go;;
 esac
 
@@ -261,7 +262,7 @@ $rust && download_rust
 
 case $ID in
 	macos|alpine) $nicetohave && packages_add dust;;
-	fedora|debian|ubuntu) $nicetohave && download_dust;;
+	*) $nicetohave && download_dust;;
 esac
 
 # Install deployment utilities
@@ -287,13 +288,18 @@ if $desktop; then
 	# desktop: Install sway
 
 	case $ID in
+		debian) echo "WARN: $ID has no stable sway packages";;
 		alpine|fedora|ubuntu) packages_add \
 			sway swaybg swayidle swaylock \
 			waybar wofi mako lxpolkit \
 			grim slurp wf-recorder \
-			playerctl ddcutil \
-			kitty \
+			playerctl \
 			;;
+	esac
+
+	case $ID in
+		alpine) echo "WARN: $ID has no stable ddcutil and kitty packages";;
+		fedora|debian|ubuntu) packages_add ddcutil kitty;;
 	esac
 
 	case $ID in
@@ -312,7 +318,7 @@ if $desktop; then
 			fira-code-fonts \
 			google-noto-sans-fonts google-noto-serif-fonts google-noto-emoji-color-fonts google-noto-cjk-fonts \
 			;;
-		ubuntu) packages_add \
+		debian|ubuntu) packages_add \
 			fonts-ibm-plex \
 			fonts-firacode \
 			fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
