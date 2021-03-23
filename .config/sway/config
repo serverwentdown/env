@@ -22,8 +22,6 @@ focus_follows_mouse no
 ### Output configuratjon
 #
 # Default wallpaper
-#output * bg ~/.wallpaper/dark.png tile
-#output * bg ~/.wallpaper/light.png tile
 output * bg ~/.wallpaper/default.jpg fill
 #
 # Example configuration:
@@ -70,11 +68,15 @@ bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --imag
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input * {
-    xkb_layout us
-    xkb_variant dvp
-    xkb_options "caps:escape"
+    xkb_layout "custom,custom"
+    xkb_variant "dvp,basic"
+    xkb_options "altwin:swap_lalt_lwin,ctrl:nocaps,lv3:ralt_switch"
     scroll_factor 3
 }
+# Switch keyboard layouts
+bindsym $mod+F1 input * xkb_switch_layout 0
+bindsym $mod+F2 input * xkb_switch_layout 1
+bindsym $mod+F3 input * xkb_switch_layout 2
 
 input type:touchpad {
     natural_scroll enabled

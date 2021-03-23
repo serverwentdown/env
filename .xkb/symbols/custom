@@ -1,0 +1,22 @@
+hidden partial modifier_keys
+xkb_symbols "lctrl_escape" {
+	key <LCTL> { [ Escape ] };
+};
+
+partial alphanumeric_keys
+xkb_symbols "basic" {
+
+    include "us(basic)"
+    name[Group1]= "English (US) (lctrl_escape)";
+
+    include "custom(lctrl_escape)"
+};
+
+partial alphanumeric_keys
+xkb_symbols "dvp" {
+
+    include "us(dvp)"
+    name[Group1]= "English (Programmer Dvorak) (lctrl_escape)";
+
+    include "custom(lctrl_escape)"
+};
