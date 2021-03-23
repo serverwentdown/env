@@ -289,11 +289,16 @@ if $desktop; then
 	case $ID in
 		alpine|fedora|ubuntu) packages_add \
 			sway swaybg swayidle swaylock \
-			waybar wofi mako \
+			waybar wofi mako lxpolkit \
 			grim slurp wf-recorder \
 			playerctl ddcutil \
 			kitty \
 			;;
+	esac
+
+	case $ID in
+		alpine|fedora) packages_add pinentry-gtk;;
+		debian|ubuntu) packages_add pinentry-gtk2;;
 	esac
 
 	case $ID in
