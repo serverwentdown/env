@@ -1,0 +1,28 @@
+FROM fedora:33
+
+RUN dnf install -y \
+		zsh \
+	&& dnf clean all \
+	&& rm -rrf /var/cache/dnf
+
+RUN useradd -s /bin/zsh ambrose \
+	&& echo '' >> /etc/sudoers \
+	&& echo '## No password sudo' >> /etc/sudoers \
+	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+WORKDIR /home/ambrose
+COPY --chown=ambrose:ambrose . .
+RUN chmod go-rwx .gnupg
+
+USER ambrose
+
+RUN ./.config/yadm/bootstrap rootzsh desktop
+
+LABEL org.opencontainers.image.title="environment"
+LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
+LABEL org.opencontainers.image.source="https://github.com/serverwentdown/env.git"
+LABEL org.opencontainers.image.authors="Ambrose Chua"
+
+CMD ["/bin/zsh", "-l"]
+
+# vim: set ft=dockerfile:

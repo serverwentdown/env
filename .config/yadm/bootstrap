@@ -154,6 +154,28 @@ download_go() {
 download_rust() {
 	wget --output-document - https://sh.rustup.rs | sh -s -- -y
 }
+download_font_path="$HOME/.local/share/fonts"
+mkdir -p $download_font_path
+download_font_firacode() {
+	version=5.2
+	wget \
+		--output-document /tmp/firacode.zip \
+		https://github.com/tonsky/FiraCode/releases/download/$version/Fira_Code_v$version.zip
+	unzip /tmp/firacode.zip -d /tmp/firacode
+	mv /tmp/firacode/ttf/* $download_font_path/
+	rm -r /tmp/firacode.zip /tmp/firacode
+}
+download_font_ibmplex() {
+	version=5.1.3
+	wget \
+		--output-document /tmp/ibmplex.zip \
+		https://github.com/IBM/plex/releases/download/v$version/TrueType.zip
+	unzip /tmp/ibmplex.zip -d /tmp/ibmplex
+	for family in Sans Serif Mono; do
+		mv /tmp/ibmplex/TrueType/IBM-Plex-$family/*.ttf $download_font_path/
+	done
+	rm -r /tmp/ibmplex.zip /tmp/ibmplex
+}
 
 # Install basics
 
@@ -260,21 +282,40 @@ packages_install
 
 sudo cp $HOME/.zshrc /root/.zshrc
 
-# desktop: Install sway
+if $desktop; then
 
-case $ID in
-	alpine|fedora|ubuntu) packages_add \
-		sway swaybg swayidle swaylock \
-		waybar wofi \
-		grim slurp wf-recorder \
-		playerctl \
-		;;
-esac
+	# desktop: Install sway
 
-case $ID in
-	alpine|fedora) packages_add wayvnc;;
-esac
+	case $ID in
+		alpine|fedora|ubuntu) packages_add \
+			sway swaybg swayidle swaylock \
+			waybar wofi mako \
+			grim slurp wf-recorder \
+			playerctl ddcutil \
+			kitty \
+			;;
+	esac
 
-# desktop: Final packages installation
+	case $ID in
+		alpine) packages_add \
+			font-noto font-noto-cjk font-noto-emoji
+			download_font_firacode
+			download_font_ibmplex
+			;;
+		fedora) packages_add \
+			ibm-plex-sans-fonts ibm-plex-serif-fonts ibm-plex-mono-fonts \
+			fira-code-fonts \
+			google-noto-sans-fonts google-noto-serif-fonts google-noto-emoji-color-fonts google-noto-cjk-fonts \
+			;;
+		ubuntu) packages_add \
+			fonts-ibm-plex \
+			fonts-firacode \
+			fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
+			;;
+	esac
 
-packages_install
+	# desktop: Final packages installation
+
+	packages_install
+
+fi
