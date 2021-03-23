@@ -1,47 +1,34 @@
-#
-# Workspaces
-#
-workspace 1 output "Unknown PL270 0000000000001"
-workspace 2 output "Unknown PL270 0000000000001"
-workspace 3 output "Unknown PL270 0000000000001"
-workspace 4 output "Unknown PL270 0000000000001"
-workspace 8 output "Apple Computer Inc Color LCD 0x00000000"
-workspace 9 output "Apple Computer Inc Color LCD 0x00000000"
-# Select back old workspace
-workspace 1
-
-#
-# Wallpaper configuration
-#
-output "Unknown PL270 0000000000001" bg ~/.wallpaper/default.jpg fill
 
 #
 # Output configuration
 #
-default_orientation horizontal
-output "Unknown PL270 0000000000001" position 0 0 transform 90
-output "Apple Computer Inc Color LCD 0x00000000" position 2160 1800 transform 0 scale 1.5
+default_orientation vertical
+set $output_primary "Unknown PL270 0000000000001"
+set $output_laptop "Apple Computer Inc Color LCD 0x00000000"
+output $output_primary position 0 0 transform 270
+output $output_laptop position 2160 1800 transform 0 scale 1.5
 
 #
 # Controls
 #
 # Remember to configure udev. See https://blog.tcharles.fr/ddc-ci-screen-control-on-linux/
-bindsym --locked Alt+XF86AudioLowerVolume exec "ddcutil setvcp --model PL270 0x10 - 0x0a"
-bindsym --locked Alt+XF86AudioRaiseVolume exec "ddcutil setvcp --model PL270 0x10 + 0x0a"
+set $monitor_primary --bus 8
+set $monitor_global --noverify --sleep-multiplier 0.1
+bindsym --locked $mod+F11 exec ddcutil setvcp $monitor_global $monitor_primary 0x10 - 0x0a
+bindsym --locked $mod+F12 exec ddcutil setvcp $monitor_global $monitor_primary 0x10 + 0x0a
 
 #
-# Scroll tweaks
+# Display output toggle
 #
-input * {
-    scroll_factor 4
-}
+bindsym --locked $mod+Shift+F10 output $output_primary disable
+bindsym --locked $mod+F10 output $output_primary enable
 
 #
 # Switch configuration
 #
 # This is so crazy performant that I did not notice it worked. Was expecting my main display to go blank for a while but it didn't even flash
 set $laptop "Apple Computer Inc Color LCD 0x00000000"
-bindswitch --reload --locked lid:on output $laptop disable
-bindswitch --reload --locked lid:off output $laptop enable
+bindswitch --reload --locked lid:on output $output_laptop disable
+bindswitch --reload --locked lid:off output $output_laptop enable
 
 # vim: ai ts=4 sw=4 et

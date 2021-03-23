@@ -37,6 +37,6 @@ bindsym Pause mode "monitor"
 #
 # Media controls
 #
-bindsym $mod+p exec "dbus-send --bus=unix:path=/run/user/1000/bus --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym $mod+p exec "playerctl play-pause"
 
 # vim: ai ts=4 sw=4 et
