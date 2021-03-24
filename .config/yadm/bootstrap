@@ -248,7 +248,7 @@ esac
 # Install Golang
 
 case $ID in
-	macos) $go && packages_add go;;
+	#macos) $go && packages_add go;;
 	#alpine) $go && packages_add go;;
 	#fedora) $go && packages_add golang;;
 	*) $go && download_go;;
@@ -285,16 +285,49 @@ sudo cp $HOME/.zshrc /root/.zshrc
 
 if $desktop; then
 
+	case $ID in
+		debian)
+			if ! grep --quiet 'unstable' /etc/apt/sources.list; then
+				echo "WARN: debian unstable required"
+				exit 1
+			fi
+			if ! grep --quiet 'contrib' /etc/apt/sources.list; then
+				echo "WARN: contrib required"
+				echo "WARN: enabling contrib"
+				echo "deb http://deb.debian.org/debian unstable contrib" | sudo tee /etc/apt/sources.list
+			fi
+			;;
+		fedora)
+			if ! rpm -qa | grep --quiet 'rpmfusion-free'; then
+				echo "WARN: rpmfusion free requried"
+				echo "WARN: enabling rpmfusion free"
+				sudo dnf install -y \
+					"https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+			fi
+			;;
+	esac
+
 	# desktop: Install sway
 
 	case $ID in
-		debian) echo "WARN: $ID has no stable sway packages";;
-		alpine|fedora|ubuntu) packages_add \
+		alpine|fedora|debian|ubuntu) packages_add \
 			sway swaybg swayidle swaylock \
-			waybar wofi mako lxpolkit \
-			grim slurp wf-recorder \
+			waybar wofi \
+			\
+			lxpolkit \
+			grim slurp \
 			playerctl \
 			;;
+	esac
+
+	case $ID in
+		alpine|fedora) packages_add mako;;
+		debian|ubuntu) packages_add mako-notifier;;
+	esac
+
+	case $ID in
+		fedora) echo "WARN: $ID has no stable wf-recorder package";;
+		alpine|debian|ubuntu) packages_add wf-recorder;;
 	esac
 
 	case $ID in

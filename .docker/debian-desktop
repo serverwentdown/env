@@ -1,9 +1,12 @@
-FROM debian:stable
+FROM debian:unstable
 
 RUN apt-get update \
 	&& apt-get install -y \
 		sudo zsh \
 	&& rm -rf /var/lib/apt/lists/*
+
+# Requires contrib source
+RUN echo 'deb http://deb.debian.org/debian unstable contrib' >> /etc/apt/sources.list
 
 RUN useradd -s /bin/zsh ambrose \
 	&& echo '' >> /etc/sudoers \
@@ -16,7 +19,7 @@ RUN chmod go-rwx .gnupg
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap rootzsh
+RUN ./.config/yadm/bootstrap rootzsh desktop
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
