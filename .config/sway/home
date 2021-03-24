@@ -7,6 +7,9 @@ set $output_primary "Unknown PL270 0000000000001"
 set $output_laptop "Apple Computer Inc Color LCD 0x00000000"
 output $output_primary position 0 0 transform 270
 output $output_laptop position 2160 1800 transform 0 scale 1.5
+bindsym $mod+Shift+F9 output $output_primary position 0 0 transform 0
+bindsym $mod+F9 output $output_primary position 0 0 transform 270
+
 
 #
 # Display controls:
