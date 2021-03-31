@@ -1,41 +1,52 @@
 
 #
-# Output configuration
+# Output configuration:
 #
 default_orientation vertical
-output "Philips Consumer Electronics Company Philips 19B4 UK51344100785" position 0 800 transform 270
-output "Dell Inc. DELL P2719H DNJQPS2" position 2160 0 transform 90
-output "Dell Inc. DELL P2719H 974YPS2" position 1080 0 transform 270
+set $output_mini "Philips Consumer Electronics Company Philips 19B4 UK51344100785"
+set $output_left "Dell Inc. DELL P2719H 974YPS2"
+set $output_right "Dell Inc. DELL P2719H DNJQPS2"
+output $output_mini position 56 800 transform 270
+output $output_left position 1080 0 transform 270
+output $output_right position 2160 0 transform 90
 
 #
-# Magic source switch
+# Display controls:
 #
+# Remember to configure udev. See https://blog.tcharles.fr/ddc-ci-screen-control-on-linux/
+set $monitor_global --noverify --sleep-multiplier 0.1
 set $monitor_mini --bus 0
 set $monitor_left --bus 5
 set $monitor_right --bus 6
+# Display source controls:
 mode "monitor" {
     # switch the left display to DisplayPort
-    bindsym F1 exec ddcutil $monitor_left setvcp D6 0x01 && ddcutil $monitor_left setvcp 60 0x0f
+    bindsym F1 exec ddcutil $monitor_global $monitor_left setvcp 0x60 0x0f
     # switch the left display to VGA
-    bindsym F3 exec ddcutil $monitor_left setvcp D6 0x01 && ddcutil $monitor_left setvcp 60 0x01
+    bindsym F3 exec ddcutil $monitor_global $monitor_left setvcp 0x60 0x01
 
     # switch the right display to DisplayPort
-    bindsym F2 exec ddcutil $monitor_right setvcp D6 0x01 && ddcutil $monitor_right setvcp 60 0x0f
+    bindsym F2 exec ddcutil $monitor_global $monitor_right setvcp 0x60 0x0f
     # switch the right display to VGA
-    bindsym F4 exec ddcutil $monitor_right setvcp D6 0x01 && ddcutil $monitor_right setvcp 60 0x01
+    bindsym F4 exec ddcutil $monitor_global $monitor_right setvcp 0x60 0x01
 
     # switch both displays to DisplayPort
-    bindsym F5 exec (ddcutil $monitor_left setvcp D6 0x01 && ddcutil $monitor_left setvcp 60 0x0f) & (ddcutil $monitor_right setvcp D6 0x01 && ddcutil $monitor_right setvcp 60 0x0f)
+    bindsym F5 exec (ddcutil $monitor_global $monitor_left setvcp 0x60 0x0f) & (ddcutil $monitor_global $monitor_right setvcp 0x60 0x0f)
     # switch both displays to VGA
-    bindsym F6 exec (ddcutil $monitor_left setvcp D6 0x01 && ddcutil $monitor_left setvcp 60 0x01) & (ddcutil $monitor_right setvcp D6 0x01 && ddcutil $monitor_right setvcp 60 0x01)
+    bindsym F6 exec (ddcutil $monitor_global $monitor_left setvcp 0x60 0x01) & (ddcutil $monitor_global $monitor_right setvcp 0x60 0x01)
 
     # return to default mode
     bindsym Pause mode "default"
 }
 bindsym Pause mode "monitor"
+# Display brightness controls:
+set $monitor_brightness_step 0x0a
+set $monitor_mini_brightness_step 0x03
+bindsym --locked $mod+F11 exec (ddcutil $monitor_global $monitor_left setvcp 0x10 - $monitor_brightness_step) & (ddcutil $monitor_global $monitor_right setvcp 0x10 - $monitor_brightness_step) & (ddcutil $monitor_global $monitor_mini setvcp 0x10 - $monitor_mini_brightness_step)
+bindsym --locked $mod+F12 exec (ddcutil $monitor_global $monitor_left setvcp 0x10 + $monitor_brightness_step) & (ddcutil $monitor_global $monitor_right setvcp 0x10 + $monitor_brightness_step) & (ddcutil $monitor_global $monitor_mini setvcp 0x10 + $monitor_mini_brightness_step)
 
 #
-# Media controls
+# Media controls:
 #
 bindsym $mod+p exec "playerctl play-pause"
 

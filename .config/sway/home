@@ -1,6 +1,6 @@
 
 #
-# Output configuration
+# Output configuration:
 #
 default_orientation vertical
 set $output_primary "Unknown PL270 0000000000001"
@@ -9,25 +9,22 @@ output $output_primary position 0 0 transform 270
 output $output_laptop position 2160 1800 transform 0 scale 1.5
 
 #
-# Controls
+# Display controls:
 #
 # Remember to configure udev. See https://blog.tcharles.fr/ddc-ci-screen-control-on-linux/
-set $monitor_primary --bus 8
 set $monitor_global --noverify --sleep-multiplier 0.1
-bindsym --locked $mod+F11 exec ddcutil setvcp $monitor_global $monitor_primary 0x10 - 0x0a
-bindsym --locked $mod+F12 exec ddcutil setvcp $monitor_global $monitor_primary 0x10 + 0x0a
+set $monitor_primary --bus 8
+# Display brightness controls:
+set $monitor_brightness_step 0x0a
+bindsym --locked $mod+F11 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 - $monitor_brightness_step
+bindsym --locked $mod+F12 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 + $monitor_brightness_step
 
 #
-# Display output toggle
+# Display output toggle:
 #
 bindsym --locked $mod+Shift+F10 output $output_primary disable
 bindsym --locked $mod+F10 output $output_primary enable
-
-#
-# Switch configuration
-#
 # This is so crazy performant that I did not notice it worked. Was expecting my main display to go blank for a while but it didn't even flash
-set $laptop "Apple Computer Inc Color LCD 0x00000000"
 bindswitch --reload --locked lid:on output $output_laptop disable
 bindswitch --reload --locked lid:off output $output_laptop enable
 
