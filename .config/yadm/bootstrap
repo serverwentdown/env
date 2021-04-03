@@ -291,6 +291,7 @@ esac
 # Deoplete Go
 $deoplete && $go && go get -u github.com/stamblerre/gocode
 $deoplete && touch ~/.config/deoplete
+$deoplete || rm -f ~/.config/deoplete
 # Plug install
 download_nvim_plug
 nvim +PlugInstall +qa || true
