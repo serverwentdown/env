@@ -9,6 +9,17 @@
 
 call plug#begin()
 
+" better completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if filereadable(expand("~/.config/deoplete"))
+	let g:deoplete#enable_at_startup = 1
+endif
+Plug 'deoplete-plugins/deoplete-clang'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
+Plug 'deoplete-plugins/deoplete-docker'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+
 " rust
 
 Plug 'rust-lang/rust.vim'
@@ -41,11 +52,6 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
 " K -> :GoDoc
-
-" c
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-Plug 'deoplete-plugins/deoplete-clang'
 
 " vue
 
