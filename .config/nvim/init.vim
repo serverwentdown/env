@@ -44,6 +44,7 @@ autocmd FileType go nmap <leader>r <Plug>(go-run)
 
 " c
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
 Plug 'deoplete-plugins/deoplete-clang'
 
 " vue
