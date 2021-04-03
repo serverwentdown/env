@@ -42,6 +42,10 @@ autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
 " K -> :GoDoc
 
+" c
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-clang'
+
 " vue
 
 Plug 'posva/vim-vue'
