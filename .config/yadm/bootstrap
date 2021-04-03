@@ -260,6 +260,7 @@ esac
 # Install Rust
 
 $rust && download_rust
+$rust && rustup component add rls rust-analysis rust-src
 
 # Install dust
 
@@ -275,23 +276,6 @@ $nicetohave && download_minio_client
 
 # Install editor plugins
 
-# Neovim bindings, Deoplete Python
-case $ID in
-	macos) $deoplete && pip3 install --no-cache-dir --user neovim jedi;;
-	alpine) $deoplete && packages_add py3-pynvim py3-jedi;;
-	fedora|debian|ubuntu) $deoplete && packages_add python3-neovim python3-jedi;;
-esac
-# Deoplete clang
-case $ID in
-	macos) $deoplete && brew install llvm --with-clang;;
-	alpine) $deoplete && packages_add clang clang-extra-tools;;
-	fedora) $deoplete && packages_add clang clang-tools-extra;;
-	debian|ubuntu) $deoplete && packages_add clang clang-format;;
-esac
-# Deoplete Go
-$deoplete && $go && go get -u github.com/stamblerre/gocode
-$deoplete && touch ~/.config/deoplete
-$deoplete || rm -f ~/.config/deoplete
 # Plug install
 download_nvim_plug
 nvim +PlugInstall +qa || true

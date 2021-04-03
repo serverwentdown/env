@@ -9,16 +9,12 @@
 
 call plug#begin()
 
-" better completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-if filereadable(expand("~/.config/deoplete"))
-	let g:deoplete#enable_at_startup = 1
-endif
-Plug 'deoplete-plugins/deoplete-clang'
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
-Plug 'deoplete-plugins/deoplete-docker'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+" language server protocol
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " rust
 
