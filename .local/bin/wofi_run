@@ -5,7 +5,7 @@ export MOZ_ENABLE_WAYLAND=1
 cd ~
 
 wofi \
-	--width 600 \
+	--width 400 \
 	--prompt search \
 	--normal-window \
 	--allow-images --allow-markup \
