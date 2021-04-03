@@ -65,22 +65,22 @@
     },
     "clock": {
         // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "tooltip-format": "<big>{:%Y %B %e}</big>\n<tt><small>{calendar}</small></tt>",
 		"format": "{:%H:%M}",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%Y-%m-%d %H:%M}"
     },
     "cpu": {
-        "format": "{usage}%",
-        "format-alt": "{usage}% "
+        "format": "{usage}% ",
+        "format-alt": "{usage}%"
     },
     "memory": {
-        "format": "{}%",
-        "format-alt": "{}% "
+        "format": "{}% ",
+        "format-alt": "{}%"
     },
     "temperature": {
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
+        "critical-threshold": 75,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""],
@@ -115,10 +115,11 @@
         //"format-linked": "{ifname} (No IP) ",
         //"format-disconnected": "Disconnected ⚠",
         "format-wifi": "{essid} ({signalStrength}%)",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr}",
+        "format-ethernet": "{ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "⚠",
-        "format-alt": "{ipaddr}"
+        "format-alt": "{ipaddr}",
+		"tooltip-format": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float

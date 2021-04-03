@@ -1,70 +1,46 @@
 #window {
-	border: none;
 	background: rgba(32, 32, 32, 0.875);
-	color: #999;
+
 	font-family: "Fira Code";
-	font-size: 13px;
+	font-size: 14px;
+	color: #a0a0a0;
 }
 
 #input {
 	padding: 8px 16px;
-	border-radius: 0;
+
+	background: none;
 	border: none;
-	background: rgba(32, 32, 32, 0);
-	color: #fff;
+	border-radius: 0;
 }
 #input:focus {
-	border: none;
-}
-
-.entry#selected,
-.entry#unselected {
-	padding: 8px 38px;
-}
-#selected,
-row > #selected {
-	background: rgba(203, 75, 22, 0.73);
-	color: #fff;
-}
-#unselected,
-row > #unselected {
-	background: none;
-	color: #fff;
-}
-
-image {
-	margin-right: 8px;
-}
-
-expander .entry#selected,
-expander .entry#unselected {
-	padding: 8px 22px;
-}
-
-list .entry#selected,
-list .entry#unselected {
-	padding: 8px 62px;
+	box-shadow: none;
 }
 
 flowboxchild {
 	padding: 0;
 }
-
-flowboxchild:focus,
-flowboxchild:selected,
-row:focus,
-row:selected {
+#entry:selected {
+	background: rgba(203, 75, 22, 0.73);
 	outline: none;
-	background: none;
-	border-radius: 0;
 }
-
+.entry#selected,
+.entry#unselected {
+	padding: 8px 38px;
+}
+expander .entry#selected,
+expander .entry#unselected {
+	padding: 8px 22px;
+}
 list {
-	background: rgba(32, 32, 32, 0.875);
-	color: #999;
+	background: rgba(32, 32, 32, 1);
+	color: #a0a0a0;
 }
-list * {
-	padding: 0;
-	margin: 0;
+list .entry#selected,
+list .entry#unselected {
+	padding: 6px 62px;
 }
 
+image {
+	margin-right: 8px;
+}
