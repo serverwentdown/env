@@ -16,7 +16,7 @@ RUN chmod go-rwx .gnupg
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap rootzsh nodeoplete rust
+RUN ./.config/yadm/bootstrap rootzsh rust
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
