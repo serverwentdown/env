@@ -42,6 +42,10 @@ autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
 " K -> :GoDoc
 
+" vue
+
+Plug 'posva/vim-vue'
+
 call plug#end()
 
 " theme
