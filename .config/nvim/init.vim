@@ -53,6 +53,10 @@ autocmd FileType go nmap <leader>r <Plug>(go-run)
 
 Plug 'posva/vim-vue'
 
+" gutter: git
+
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 
 " theme

@@ -1166,3 +1166,7 @@ endif
 exe "let s:fg_custom015 = ' ctermfg=".s:custom015."'"
 exe "hi! Whitespace" .s:fmt_none .s:fg_custom015 .s:bg_none
 exe "hi! NonText" .s:fmt_none .s:fg_custom015 .s:bg_none
+
+" lsp
+exe "hi! SignColumn" .s:bg_base02
+exe "hi! lspReference" .s:bg_base02
