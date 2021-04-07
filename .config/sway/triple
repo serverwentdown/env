@@ -9,6 +9,7 @@ set $output_right "Dell Inc. DELL P2719H DNJQPS2"
 output $output_mini position 56 800 transform 270
 output $output_left position 1080 0 transform 270
 output $output_right position 2160 0 transform 90
+output * bg ~/.wallpaper/daniel-j-schwarz-a4M-Vegh7Y4-unsplash.jpg fill
 
 #
 # Display controls:

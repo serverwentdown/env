@@ -35,8 +35,15 @@ load_slower() {
 slowest_functions=()
 load_slowest() {
 	for func in $slowest_functions; do
+		echo "Running $func"
 		$func
 	done
+}
+sup() {
+	echo "What's up? I am a machine, and you're trying to treat me like a human :(."
+	echo "You might feel better if I load some autocompletion scripts for you."
+	load_slowest
+	echo "I have more power now!"
 }
 prompt_run_count=0
 on_second_prompt() {
@@ -113,15 +120,23 @@ setup_completion() {
 	autoload -U compinit; compinit
 	autoload -U +X bashcompinit && bashcompinit
 	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+}
+slower_functions+=( setup_completion )
+setup_completion_minio() {
+	# Depends:
+	setup_completion
 
 	if [[ -f "$(which mc 2>/dev/null)" ]]; then
 		complete -o nospace -C mc mc
+		echo "Loaded minio completion"
 	fi
 	if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
 		source <(kubectl completion zsh)
+		echo "Loaded kubectl completion"
 	fi
 }
-slowest_functions+=( setup_completion )
+#slower_functions+=( setup_completion_more )
+slowest_functions+=( setup_completion_more )
 
 # directory listings
 
@@ -298,7 +313,6 @@ setup_prompt() {
 }
 prompt_use_italic=false
 setup_prompt
-slower_functions+=( setup_prompt )
 
 # command entry plugins
 
