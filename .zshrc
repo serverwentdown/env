@@ -122,7 +122,7 @@ setup_completion() {
 	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 }
 slower_functions+=( setup_completion )
-setup_completion_minio() {
+setup_completion_more() {
 	# Depends:
 	setup_completion
 
@@ -326,6 +326,8 @@ setup_assistance() {
 		zsh_plugin_path="zsh-$zsh_plugin/zsh-$zsh_plugin.zsh"
 		if [[ -f "/usr/local/share/$zsh_plugin_path" ]]; then
 			zsh_plugin_path="/usr/local/share/$zsh_plugin_path"
+		elif [[ -f "/usr/share/$zsh_plugin_path" ]]; then
+			zsh_plugin_path="/usr/share/$zsh_plugin_path"
 		elif [[ -f "/usr/share/zsh/plugins/$zsh_plugin_path" ]]; then
 			zsh_plugin_path="/usr/share/zsh/plugins/$zsh_plugin_path"
 		else
