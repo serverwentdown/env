@@ -30,8 +30,8 @@ contain -h
 # Install yadm (macOS)
 brew install yadm
 # Install yadm (dirty method)
-curl -fLo ~/.local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
-chmod +x /usr/local/bin/yadm
+sudo curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm
+sudo chmod +x /usr/local/bin/yadm
 # Clone
 yadm clone git@github.com:serverwentdown/env.git
 ```
