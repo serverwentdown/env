@@ -200,6 +200,9 @@ esac
 # Install editor, management and security tools
 
 packages_add neovim git
+case $ID in
+	fedora) packages_add vim-common;;
+esac
 $nicetohave && packages_add pass gnupg
 case $ID in
 	macos) packages_add pinentry-mac;;
