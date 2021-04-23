@@ -71,7 +71,7 @@ fi
 if [[ -f "$(which go 2>/dev/null)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
 fi
-if [[ -f "$(which cargo 2>/dev/null)" ]]; then
+if [[ -f "$HOME/.cargo" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
