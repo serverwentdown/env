@@ -5,6 +5,7 @@ set -e
 BASE="$HOME/.pwn/apktool"
 
 if [[ ! -d "$BASE/bin" ]]; then
+	mkdir -p "$BASE/bin"
 	wget --output-document "$BASE/bin/apktool" \
 		https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
 	chmod +x "$BASE/bin/apktool"
