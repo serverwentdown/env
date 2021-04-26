@@ -301,6 +301,7 @@ nvim +PlugInstall +qa || true
 # Install graphics tools
 
 case $ID in
+	fedora) $nicetohave && packages_add GraphicsMagick;;
 	*) $nicetohave && packages_add graphicsmagick;;
 esac
 
@@ -415,7 +416,7 @@ if $pwn; then
 	packages_install
 
 	case $ID in
-		alpine) $download_rust && pip3 install --no-cache-dir --user pwntools;;
+		alpine) download_rust && pip3 install --no-cache-dir --user pwntools;;
 		*) pip3 install --no-cache-dir --user pwntools;;
 	esac
 
