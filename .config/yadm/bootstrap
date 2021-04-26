@@ -423,7 +423,7 @@ if $pwn; then
 	# pwn: Tools 1
 
 	case $ID in
-		alpine|fedora|debian|ubuntu|macos) packages_add radare2 testdisk socat nasm john;;
+		alpine|fedora|debian|ubuntu|macos) packages_add radare2 testdisk socat nasm john binutils;;
 	esac
 	case $ID in
 		alpine|fedora|debian|ubuntu) packages_add file squashfs-tools;;
