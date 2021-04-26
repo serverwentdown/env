@@ -1,0 +1,28 @@
+FROM ubuntu:20.10
+
+RUN apt-get update \
+	&& apt-get install -y \
+		sudo zsh \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN useradd -s /bin/zsh ambrose \
+	&& echo '' >> /etc/sudoers \
+	&& echo '## No password sudo' >> /etc/sudoers \
+	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+WORKDIR /home/ambrose
+COPY --chown=ambrose:ambrose . .
+RUN chmod go-rwx .gnupg
+
+USER ambrose
+
+RUN ./.config/yadm/bootstrap rootzsh pwn
+
+LABEL org.opencontainers.image.title="environment"
+LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
+LABEL org.opencontainers.image.source="https://github.com/serverwentdown/env.git"
+LABEL org.opencontainers.image.authors="Ambrose Chua"
+
+CMD ["/bin/zsh", "-l"]
+
+# vim: set ft=dockerfile:

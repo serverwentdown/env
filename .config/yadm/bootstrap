@@ -9,6 +9,7 @@ go=false
 rust=false
 rootzsh=false
 desktop=false
+pwn=false
 
 while [ $# != 0 ]; do
 	case "$1" in
@@ -22,6 +23,8 @@ while [ $# != 0 ]; do
 		rootzsh) rootzsh=true;;
 		nodesktop) desktop=false;;
 		desktop) desktop=true;;
+		nopwn) pwn=false;;
+		pwn) pwn=true;;
 		*) echo "Unknown flag: $1"; exit 1;;
 	esac
 	shift
@@ -91,7 +94,7 @@ download_dust() {
 	case $ID in
 		macos) system=apple-darwin;;
 		alpine) system=unknown-linux-musl;;
-		*) system=unknown-linux-gnu;;
+		fedora|debian|ubuntu) system=unknown-linux-gnu;;
 	esac
 	wget \
 		--output-document /tmp/dust.tar.gz \
@@ -109,6 +112,7 @@ download_kubectl() {
 	case $PLATFORM in
 		macos) system=darwin;;
 		linux) system=linux;;
+		*) return 1;;
 	esac
 	wget \
 		--output-document $download_bin_path/kubectl \
@@ -120,6 +124,7 @@ download_minio_client() {
 	case $PLATFORM in
 		macos) system=darwin;;
 		linux) system=linux;;
+		*) return 1;;
 	esac
 	wget \
 		--output-document $download_bin_path/mc \
@@ -139,6 +144,7 @@ download_go() {
 	case $PLATFORM in
 		macos) system=darwin;;
 		linux) system=linux;;
+		*) return 1;;
 	esac
 	wget \
 		--output-document /tmp/go.tar.gz \
@@ -176,6 +182,17 @@ download_font_ibmplex() {
 	done
 	rm -r /tmp/ibmplex.zip /tmp/ibmplex
 }
+download_cutter_re() {
+	version=2.0.2
+	case $PLATFORM in
+		linux) system=Linux;;
+		*) return 1;;
+	esac
+	wget \
+		--output-document $download_bin_path/cutter \
+		https://github.com/rizinorg/cutter/releases/download/v$version/Cutter-v$version-x64.$system.AppImage
+	chmod +x $download_bin_path/cutter
+}
 
 # Install basics
 
@@ -201,6 +218,7 @@ esac
 
 packages_add neovim git
 case $ID in
+	alpine|debain|ubuntu) packages_add xxd;;
 	fedora) packages_add vim-common;;
 esac
 $nicetohave && packages_add pass gnupg
@@ -279,6 +297,12 @@ $nicetohave && download_minio_client
 # Plug install
 download_nvim_plug
 nvim +PlugInstall +qa || true
+
+# Install graphics tools
+
+case $ID in
+	*) $nicetohave && packages_add graphicsmagick;;
+esac
 
 # Final packages installation
 
@@ -364,6 +388,60 @@ if $desktop; then
 	esac
 
 	# desktop: Final packages installation
+
+	packages_install
+
+fi
+
+if $pwn; then
+
+	case $ID in
+		debian)
+			if ! grep --quiet 'unstable' /etc/apt/sources.list; then
+				echo "WARN: debian unstable required"
+				exit 1
+			fi
+			;;
+	esac
+
+	# pwn: Build dependencies for cryptography
+
+	case $ID in
+		alpine|debian|ubuntu) packages_add libffi-dev openssl-dev;;
+		fedora) packages_add libffi-devel openssl-devel;;
+	esac
+
+	packages_install
+
+	case $ID in
+		*) pip3 install --no-cache-dir --user pwntools;;
+	esac
+
+	# pwn: Other tools
+
+	case $ID in
+		alpine|fedora|debian|ubuntu|macos) packages_add radare2 binwalk testdisk socat nasm john;;
+	esac
+	case $ID in
+		alpine|fedora|debian|ubuntu) packages_add file squashfs-tools;;
+		macos) packages_add squashfs;;
+	esac
+	case $ID in
+		alpine|macos) packages_add exiftool;;
+		fedora) packages_add perl-Image-ExifTool;;
+		debain|ubuntu) packages_add libimage-exiftool-perl;;
+	esac
+	case $ID in
+		alpine|debian|ubuntu) packages_add netcat-openbsd;;
+		fedora) packages_add netcat;;
+	esac
+
+	case $ID in
+		alpine|fedora|debian|ubuntu) $desktop && download_cutter_re;;
+		macos) $desktop && brew install --cask cutter;;
+	esac
+
+	# pwn: Final packages installation
 
 	packages_install
 
