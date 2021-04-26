@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if ip link show wg0 2> /dev/null > /dev/null; then
-	echo "wg-quick down wg0"
-	pkexec wg-quick down wg0
-else
-	echo "wg-quick up wg0"
-	pkexec wg-quick up wg0
-fi

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+BASE="$HOME/.pwn/binwalk"
+
+if [[ ! -d "$BASE/bin" ]]; then
+	if [[ ! -d "$BASE/src" ]]; then
+		git clone --depth 1 --recursive \
+			https://github.com/ReFirmLabs/binwalk.git \
+			"$BASE/src"
+	fi
+	pushd "$BASE/src"
+	python3 setup.py install --prefix "$BASE"
+	popd
+fi
+
+export PYTHONPATH="$BASE/lib/python3.9/site-packages:$PYTHONPATH"
+
+"$BASE/bin/binwalk" "$@"

@@ -77,7 +77,7 @@ packages_install() {
 			;;
 		debian|ubuntu)
 			sudo apt-get update
-			sudo apt-get install -y $packages
+			sudo DEBIAN_FRONTEND=noninteractive apt-get install -y $packages
 			sudo rm -rf /var/lib/apt/lists/*
 			;;
 	esac
@@ -423,7 +423,7 @@ if $pwn; then
 	# pwn: Tools 1
 
 	case $ID in
-		alpine|fedora|debian|ubuntu|macos) packages_add radare2 binwalk testdisk socat nasm john;;
+		alpine|fedora|debian|ubuntu|macos) packages_add radare2 testdisk socat nasm john;;
 	esac
 	case $ID in
 		alpine|fedora|debian|ubuntu) packages_add file squashfs-tools;;

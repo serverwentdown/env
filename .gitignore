@@ -1,20 +1,6 @@
-# vcs
-.git
-
-# packaging
-.docker
-.dockerignore
-
-# publishing
-.github
-.local/screenshots
-
-# large
-.wallpaper
-
 # user data
-*
-!.*
+/*
+!/.*
 .*_history
 .android
 .ansible
