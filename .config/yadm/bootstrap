@@ -416,7 +416,7 @@ if $pwn; then
 	packages_install
 
 	case $ID in
-		alpine) download_rust && pip3 install --no-cache-dir --user pwntools;;
+		alpine) download_rust && export PATH="$HOME/.cargo/bin:$PATH" && pip3 install --no-cache-dir --user pwntools;;
 		*) pip3 install --no-cache-dir --user pwntools;;
 	esac
 
