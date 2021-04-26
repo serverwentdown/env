@@ -88,10 +88,11 @@ host=""
 volumes=""
 image="$DEFAULT_IMAGE"
 tag="$DEFAULT_TAG"
+caps=""
 
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-xwo] [-n NAME] [-p PORT]... [-v LIST]... [-i IMAGE] [-t TAG] [CMD]...
+Usage: ${0##*/} [-xwo] [-n NAME] [-p PORT]... [-v LIST]... [-i IMAGE] [-t TAG] [-c CAP]... [CMD]...
        ${0##*/} -l
        ${0##*/} -a NAME
        ${0##*/} -e NAME [CMD]...
@@ -104,6 +105,7 @@ Starts an environment container. If CMD is specified, starts CMD instead of a sh
    -n NAME  give container a NAME
    -p PORT  forward host PORT to container PORT
    -v LIST  mount volume LIST. specify as LOCAL:MOUNT
+   -c CAP   add capability CAP (example: SYS_PTRACE)
    -i IMAGE use IMAGE as container image instead
    -t TAG   use TAG as container tag instead
 
@@ -127,7 +129,7 @@ pull_image() {
 		$image:$tag
 }
 
-while getopts "xwon:p:v:i:t:lua:e:h" opt; do
+while getopts "xwon:p:v:c:i:t:lua:e:h" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
@@ -154,6 +156,9 @@ while getopts "xwon:p:v:i:t:lua:e:h" opt; do
 			volume_opts=":z"
 		fi
 		volumes="$volumes--volume $OPTARG$volume_opts "
+		;;
+	c)
+		caps="$caps--cap-add $OPTARG "
 		;;
 	i)
 		image="$OPTARG"
@@ -226,6 +231,7 @@ $runtime run --interactive --tty \
 	$name\
 	$ports$host\
 	$workdir$volumes\
+	$caps\
 	$image:$tag\
 	$@ \
 "
