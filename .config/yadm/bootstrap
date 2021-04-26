@@ -407,13 +407,15 @@ if $pwn; then
 	# pwn: Build dependencies for cryptography
 
 	case $ID in
-		alpine|debian|ubuntu) packages_add libffi-dev openssl-dev;;
+		alpine) packages_add libffi-dev openssl-dev;;
+		debian|ubuntu) packages_add libffi-dev libssl-dev;;
 		fedora) packages_add libffi-devel openssl-devel;;
 	esac
 
 	packages_install
 
 	case $ID in
+		alpine) $download_rust && pip3 install --no-cache-dir --user pwntools;;
 		*) pip3 install --no-cache-dir --user pwntools;;
 	esac
 
