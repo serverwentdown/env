@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -e
+
+BASE="$HOME/.pwn/pev"
+
+if [[ ! -d "$BASE/bin" ]]; then
+	if [[ ! -d "$BASE/src" ]]; then
+		git clone --depth 1 --recursive \
+			https://github.com/merces/pev.git \
+			"$BASE/src"
+	fi
+	if ! ldconfig -p | grep libssl > /dev/null; then
+		echo "Please install openssl-devel"
+		exit 1
+	fi
+	make --directory "$BASE/src" prefix="$BASE"
+	make --directory "$BASE/src" prefix="$BASE" install
+fi
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$BASE/lib"
+
+PROG="$1"
+if [[ -z "$PROG" ]]; then
+	echo "Usage: $0 PROG [ARGS...]"
+	echo -n "Programs: "
+	find "$BASE/bin" -maxdepth 1 -perm -111 -type f -printf "%f "
+	exit 1
+fi
+
+shift
+"$BASE/bin/$PROG" "$@"

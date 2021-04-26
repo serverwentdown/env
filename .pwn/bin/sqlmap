@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+BASE="$HOME/.pwn/sqlmap"
+
+if [[ ! -d "$BASE/bin" ]]; then
+	if [[ ! -d "$BASE/src" ]]; then
+		git clone --depth 1 --recursive \
+			https://github.com/sqlmapproject/sqlmap.git \
+			"$BASE/src"
+	fi
+	ln -s "$BASE/src/sqlmap.py" "$BASE/bin/sqlmap.py"
+	chmod +x "$BASE/bin/sqlmap.py"
+fi
+
+"$BASE/bin/sqlmap.py" "$@"

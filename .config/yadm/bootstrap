@@ -417,7 +417,7 @@ if $pwn; then
 		*) pip3 install --no-cache-dir --user pwntools;;
 	esac
 
-	# pwn: Other tools
+	# pwn: Tools 1
 
 	case $ID in
 		alpine|fedora|debian|ubuntu|macos) packages_add radare2 binwalk testdisk socat nasm john;;

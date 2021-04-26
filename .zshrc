@@ -60,7 +60,7 @@ precmd_functions+=( on_second_prompt )
 
 # executables
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.pwn/bin:$PATH"
 if [[ -f "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"

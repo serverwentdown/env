@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+BASE="$HOME/.pwn/apktool"
+
+if [[ ! -d "$BASE/bin" ]]; then
+	wget --output-document "$BASE/bin/apktool" \
+		https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
+	chmod +x "$BASE/bin/apktool"
+	wget --output-document "$BASE/bin/apktool.jar" \
+		https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.5.0.jar
+	chmod +x "$BASE/bin/apktool.jar"
+fi
+
+"$BASE/bin/apktool" "$@"
