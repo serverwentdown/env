@@ -420,7 +420,7 @@ if $pwn; then
 		*) pip3 install --no-cache-dir --user pwntools;;
 	esac
 
-	# pwn: Tools 1
+	# pwn: Tools
 
 	case $ID in
 		alpine|fedora|debian|ubuntu|macos) packages_add radare2 testdisk socat nasm john binutils;;
@@ -438,6 +438,17 @@ if $pwn; then
 		alpine|debian|ubuntu) packages_add netcat-openbsd;;
 		fedora) packages_add netcat;;
 	esac
+
+	# pwn: Tools (Ruby)
+
+	case $ID in
+		alpine) package_add ruby;;
+		fedora|debian|ubuntu) package_add rubygems;;
+	esac
+
+	gem install one_gadget
+
+	# pwn: Tools (desktop)
 
 	case $ID in
 		alpine|fedora|debian|ubuntu) $desktop && download_cutter_re;;

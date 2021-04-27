@@ -24,6 +24,7 @@
 !.config/yabai
 !.config/yadm
 !.config/contain
+.gem
 .gnupg/*
 !.gnupg/gpg-agent.conf
 !.gnupg/gpg.conf
