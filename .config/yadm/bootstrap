@@ -442,9 +442,11 @@ if $pwn; then
 	# pwn: Tools (Ruby)
 
 	case $ID in
-		alpine) package_add ruby;;
-		fedora|debian|ubuntu) package_add rubygems;;
+		alpine) packages_add ruby;;
+		fedora|debian|ubuntu) packages_add rubygems;;
 	esac
+
+	packages_install
 
 	gem install one_gadget
 
