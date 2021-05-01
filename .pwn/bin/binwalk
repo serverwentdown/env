@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -15,6 +15,7 @@ if [[ ! -d "$BASE/bin" ]]; then
 	popd
 fi
 
-export PYTHONPATH="$BASE/lib/python3.9/site-packages:$PYTHONPATH"
+pythonversion="$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+export PYTHONPATH="$BASE/lib/python$pythonversion/site-packages:$PYTHONPATH"
 
 "$BASE/bin/binwalk" "$@"
