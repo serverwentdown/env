@@ -12,7 +12,8 @@ RUN useradd -s /bin/zsh ambrose \
 
 WORKDIR /home/ambrose
 COPY --chown=ambrose:ambrose . .
-RUN chmod go-rwx .gnupg
+RUN chown ambrose:ambrose /home/ambrose \
+	&& chmod go-rwx .gnupg
 
 USER ambrose
 

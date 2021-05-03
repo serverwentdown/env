@@ -257,13 +257,16 @@ packages_install
 # Install Python 3 packages
 
 case $ID in
-	macos) $nicetohave && packages_add httpie;;
-	alpine) packages_add httpie;;
-	*) pip3 install --no-cache-dir --user httpie;;
+	macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add httpie;;
+	*) $nicetohave && pip3 install --no-cache-dir --user httpie;;
 esac
 case $ID in
 	macos|fedora|debian|ubuntu) $nicetohave && packages_add thefuck;;
 	*) $nicetohave && pip3 install --no-cache-dir --user thefuck;;
+esac
+case $ID in
+	macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add black;;
+	*) $nicetohave && pip3 install --no-cache-dir --user black;;
 esac
 
 # Install Golang
