@@ -16,13 +16,13 @@ RUN chown ambrose:ambrose /home/ambrose \
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap rootzsh nonicetohave desktopbase
+RUN ./.config/yadm/bootstrap rootzsh nobase desktopbase
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
 LABEL org.opencontainers.image.source="https://github.com/serverwentdown/env.git"
 LABEL org.opencontainers.image.authors="Ambrose Chua"
 
-CMD ["/bin/zsh", "-l"]
+CMD ["/bin/true"]
 
 # vim: set ft=dockerfile:

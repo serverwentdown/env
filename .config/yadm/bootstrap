@@ -4,6 +4,7 @@ set -eu
 
 # Parse options
 
+base=true
 nicetohave=true
 go=false
 rust=false
@@ -14,6 +15,8 @@ pwn=false
 
 while [ $# != 0 ]; do
 	case "$1" in
+		nobase) base=false;;
+        base) base=true;;
 		nonicetohave) nicetohave=false;;
 		nicetohave) nicetohave=true;;
 		nogo) go=false;;
@@ -197,127 +200,131 @@ download_cutter_re() {
 	chmod +x $download_bin_path/cutter
 }
 
-# Install basics
+if $base; then
 
-packages_add openssl wget upx
-case $PLATFORM in
-	linux) packages_add tar gzip;;
-esac
-case $PLATFORM in
-	macos|alpine|fedora) packages_add xz;;
-	debian|ubuntu) packages_add xz-utils;;
-esac
+	# Install basics
 
-# Install shell
+	packages_add openssl wget upx
+	case $PLATFORM in
+		linux) packages_add tar gzip;;
+	esac
+	case $PLATFORM in
+		macos|alpine|fedora) packages_add xz;;
+		debian|ubuntu) packages_add xz-utils;;
+	esac
 
-packages_add zsh zsh-autosuggestions zsh-syntax-highlighting
-case $ID in
-	alpine) packages_add zsh-vcs ncurses;;
-	fedora) packages_add ncurses;;
-	debian|ubuntu) packages_add ncurses-bin;;
-esac
+	# Install shell
 
-# Install editor, management and security tools
+	packages_add zsh zsh-autosuggestions zsh-syntax-highlighting
+	case $ID in
+		alpine) packages_add zsh-vcs ncurses;;
+		fedora) packages_add ncurses;;
+		debian|ubuntu) packages_add ncurses-bin;;
+	esac
 
-packages_add neovim git
-case $ID in
-	alpine|debain|ubuntu) packages_add xxd;;
-	fedora) packages_add vim-common;;
-esac
-$nicetohave && packages_add pass gnupg
-case $ID in
-	macos) packages_add pinentry-mac;;
-	alpine) packages_add dropbear-ssh;;
-	fedora) packages_add openssh-clients;;
-	debian|ubuntu) packages_add openssh-client;;
-esac
-packages_add exa jq
+	# Install editor, management and security tools
 
-# Install C compilers
+	packages_add neovim git
+	case $ID in
+		alpine|debain|ubuntu) packages_add xxd;;
+		fedora) packages_add vim-common;;
+	esac
+	$nicetohave && packages_add pass gnupg
+	case $ID in
+		macos) packages_add pinentry-mac;;
+		alpine) packages_add dropbear-ssh;;
+		fedora) packages_add openssh-clients;;
+		debian|ubuntu) packages_add openssh-client;;
+	esac
+	packages_add exa jq
 
-case $ID in
-	alpine) $nicetohave && packages_add alpine-sdk linux-headers;;
-	fedora) $nicetohave && packages_add kernel-headers;;
-	debian|ubuntu) $nicetohave && packages_add build-essential;;
-esac
+	# Install C compilers
 
-# Install Python 3
+	case $ID in
+		alpine) $nicetohave && packages_add alpine-sdk linux-headers;;
+		fedora) $nicetohave && packages_add kernel-headers;;
+		debian|ubuntu) $nicetohave && packages_add build-essential;;
+	esac
 
-case $ID in
-	macos) packages_add python@3;;
-	alpine|fedora|debian|ubuntu) packages_add python3;;
-esac
-case $ID in
-	alpine|debian|ubuntu) $nicetohave && packages_add python3-dev;;
-	fedora) $nicetohave && packages_add python3-devel;;
-esac
-case $ID in
-	alpine) $nicetohave && packages_add py3-pip;;
-	fedora|debian|ubuntu) $nicetohave && packages_add python3-pip;;
-esac
-packages_install
+	# Install Python 3
 
-# Install Python 3 packages
+	case $ID in
+		macos) packages_add python@3;;
+		alpine|fedora|debian|ubuntu) packages_add python3;;
+	esac
+	case $ID in
+		alpine|debian|ubuntu) $nicetohave && packages_add python3-dev;;
+		fedora) $nicetohave && packages_add python3-devel;;
+	esac
+	case $ID in
+		alpine) $nicetohave && packages_add py3-pip;;
+		fedora|debian|ubuntu) $nicetohave && packages_add python3-pip;;
+	esac
+	packages_install
 
-case $ID in
-	macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add httpie;;
-	*) $nicetohave && pip3 install --no-cache-dir --user httpie;;
-esac
-case $ID in
-	macos|fedora|debian|ubuntu) $nicetohave && packages_add thefuck;;
-	*) $nicetohave && pip3 install --no-cache-dir --user thefuck;;
-esac
-case $ID in
-	macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add black;;
-	*) $nicetohave && pip3 install --no-cache-dir --user black;;
-esac
+	# Install Python 3 packages
 
-# Install Golang
+	case $ID in
+		macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add httpie;;
+		*) $nicetohave && pip3 install --no-cache-dir --user httpie;;
+	esac
+	case $ID in
+		macos|fedora|debian|ubuntu) $nicetohave && packages_add thefuck;;
+		*) $nicetohave && pip3 install --no-cache-dir --user thefuck;;
+	esac
+	case $ID in
+		macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add black;;
+		*) $nicetohave && pip3 install --no-cache-dir --user black;;
+	esac
 
-case $ID in
-	#macos) $go && packages_add go;;
-	#alpine) $go && packages_add go;;
-	#fedora) $go && packages_add golang;;
-	*) $go && download_go;;
-esac
+	# Install Golang
 
-# Install Rust
+	case $ID in
+		#macos) $go && packages_add go;;
+		#alpine) $go && packages_add go;;
+		#fedora) $go && packages_add golang;;
+		*) $go && download_go;;
+	esac
 
-$rust && download_rust
-$rust && source $HOME/.cargo/env && rustup component add rls rust-analysis rust-src
+	# Install Rust
 
-# Install dust
+	$rust && download_rust
+	$rust && source $HOME/.cargo/env && rustup component add rls rust-analysis rust-src
 
-case $ID in
-	macos|alpine) $nicetohave && packages_add dust;;
-	*) $nicetohave && download_dust;;
-esac
+	# Install dust
 
-# Install deployment utilities
+	case $ID in
+		macos|alpine) $nicetohave && packages_add dust;;
+		*) $nicetohave && download_dust;;
+	esac
 
-$nicetohave && download_kubectl
-$nicetohave && download_minio_client
+	# Install deployment utilities
 
-# Install editor plugins
+	$nicetohave && download_kubectl
+	$nicetohave && download_minio_client
 
-# Plug install
-download_nvim_plug
-nvim +PlugInstall +qa || true
+	# Install editor plugins
 
-# Install graphics tools
+	# Plug install
+	download_nvim_plug
+	nvim +PlugInstall +qa || true
 
-case $ID in
-	fedora) $nicetohave && packages_add GraphicsMagick;;
-	*) $nicetohave && packages_add graphicsmagick;;
-esac
+	# Install graphics tools
 
-# Final packages installation
+	case $ID in
+		fedora) $nicetohave && packages_add GraphicsMagick;;
+		*) $nicetohave && packages_add graphicsmagick;;
+	esac
 
-packages_install
+	# Final packages installation
 
-# Give root a ZSH prompt
+	packages_install
 
-sudo cp $HOME/.zshrc /root/.zshrc
+	# Give root a ZSH prompt
+
+	sudo cp $HOME/.zshrc /root/.zshrc
+
+fi
 
 if $desktopbase; then
 
