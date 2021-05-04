@@ -389,7 +389,6 @@ if $desktopbase; then
 	case $ID in
 		alpine|fedora|debian|ubuntu) packages_add \
 			gsettings-desktop-schemas \
-			dconf \
 			gnome-themes-extra \
 			adwaita-icon-theme \
 			;;
