@@ -1,10 +1,11 @@
-FROM alpine:3.13
+FROM fedora:33
 
-RUN echo hosts: dns files > /etc/nsswitch.conf
-RUN apk add --no-cache --update \
-		sudo tzdata zsh
+RUN dnf install -y \
+		zsh \
+	&& dnf clean all \
+	&& rm -rrf /var/cache/dnf
 
-RUN adduser -s /bin/zsh -D ambrose \
+RUN useradd -s /bin/zsh ambrose \
 	&& echo '' >> /etc/sudoers \
 	&& echo '## No password sudo' >> /etc/sudoers \
 	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -29,6 +30,6 @@ LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
 LABEL org.opencontainers.image.source="https://github.com/serverwentdown/env.git"
 LABEL org.opencontainers.image.authors="Ambrose Chua"
 
-CMD ["/bin/true"]
+CMD ["/bin/zsh", "-l"]
 
 # vim: set ft=dockerfile:
