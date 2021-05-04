@@ -8,6 +8,7 @@ nicetohave=true
 go=false
 rust=false
 rootzsh=false
+desktopbase=false
 desktop=false
 pwn=false
 
@@ -21,8 +22,10 @@ while [ $# != 0 ]; do
 		rust) rust=true;;
 		norootzsh) rootzsh=false;;
 		rootzsh) rootzsh=true;;
-		nodesktop) desktop=false;;
-		desktop) desktop=true;;
+		nodesktopbase) desktopbase=false;;
+		desktopbase) desktopbase=true;;
+		nodesktop) desktopbase=false desktop=false;;
+		desktop) desktopbase=true desktop=true;;
 		nopwn) pwn=false;;
 		pwn) pwn=true;;
 		*) echo "Unknown flag: $1"; exit 1;;
@@ -316,7 +319,7 @@ packages_install
 
 sudo cp $HOME/.zshrc /root/.zshrc
 
-if $desktop; then
+if $desktopbase; then
 
 	case $ID in
 		debian)
@@ -339,6 +342,34 @@ if $desktop; then
 			fi
 			;;
 	esac
+
+	# desktopbase: Fonts
+
+	case $ID in
+		alpine) packages_add \
+			font-noto font-noto-cjk font-noto-emoji
+			download_font_firacode
+			download_font_ibmplex
+			;;
+		fedora) packages_add \
+			ibm-plex-sans-fonts ibm-plex-serif-fonts ibm-plex-mono-fonts \
+			fira-code-fonts \
+			google-noto-sans-fonts google-noto-serif-fonts google-noto-emoji-color-fonts google-noto-cjk-fonts \
+			;;
+		debian|ubuntu) packages_add \
+			fonts-ibm-plex \
+			fonts-firacode \
+			fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
+			;;
+	esac
+
+	# desktopbase: Final packages installation
+
+	packages_install
+
+fi
+
+if $desktopbase && $desktop; then
 
 	# desktop: Install sway
 
@@ -364,30 +395,25 @@ if $desktop; then
 	esac
 
 	case $ID in
+		alpine|fedora) packages_add pinentry-gtk;;
+		debian|ubuntu) packages_add pinentry-gtk2;;
+	esac
+
+	# desktop: Install applications
+
+	case $ID in
 		alpine) echo "WARN: $ID has no stable ddcutil and kitty packages";;
 		fedora|debian|ubuntu) packages_add ddcutil kitty;;
 	esac
 
 	case $ID in
-		alpine|fedora) packages_add pinentry-gtk;;
-		debian|ubuntu) packages_add pinentry-gtk2;;
-	esac
-
-	case $ID in
-		alpine) packages_add \
-			font-noto font-noto-cjk font-noto-emoji
-			download_font_firacode
-			download_font_ibmplex
+		macos) brew install --cask \
+			firefox \
+			iterm2 docker paw \
+			coolterm \
 			;;
-		fedora) packages_add \
-			ibm-plex-sans-fonts ibm-plex-serif-fonts ibm-plex-mono-fonts \
-			fira-code-fonts \
-			google-noto-sans-fonts google-noto-serif-fonts google-noto-emoji-color-fonts google-noto-cjk-fonts \
-			;;
-		debian|ubuntu) packages_add \
-			fonts-ibm-plex \
-			fonts-firacode \
-			fonts-noto-core fonts-noto-color-emoji fonts-noto-cjk \
+		*) packages_add \
+			firefox \
 			;;
 	esac
 
