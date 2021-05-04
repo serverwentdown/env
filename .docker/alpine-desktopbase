@@ -16,7 +16,7 @@ RUN chown ambrose:ambrose /home/ambrose \
 
 USER ambrose
 
-RUN ./.config/yadm/bootstrap rootzsh nobase desktopbase
+RUN ./.config/yadm/bootstrap rootzsh nobase nonicetohave desktopbase
 
 LABEL org.opencontainers.image.title="environment"
 LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"

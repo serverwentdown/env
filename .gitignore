@@ -7,6 +7,7 @@
 .bash*
 .cache
 .config/*
+!.config/fontconfig
 !.config/git
 !.config/kitty
 !.config/mako
@@ -24,6 +25,7 @@
 !.config/yabai
 !.config/yadm
 !.config/contain
+.dbus
 .gem
 .gnupg/*
 !.gnupg/gpg-agent.conf

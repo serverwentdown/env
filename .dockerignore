@@ -1,17 +1,3 @@
-# vcs
-.git
-
-# packaging
-.docker
-.dockerignore
-
-# publishing
-.github
-.local/screenshots
-
-# large
-.wallpaper
-
 # user data
 *
 !.*
@@ -21,6 +7,7 @@
 .bash*
 .cache
 .config/*
+!.config/fontconfig
 !.config/git
 !.config/kitty
 !.config/mako
@@ -38,6 +25,7 @@
 !.config/yabai
 !.config/yadm
 !.config/contain
+.dbus
 .gem
 .gnupg/*
 !.gnupg/gpg-agent.conf
@@ -65,3 +53,18 @@
 .wget-hsts
 .zcompdump
 .zoom
+
+
+# vcs
+.git
+
+# packaging
+.docker
+.dockerignore
+
+# publishing
+.github
+.local/screenshots
+
+# large
+.wallpaper
