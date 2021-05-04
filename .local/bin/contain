@@ -92,7 +92,7 @@ caps=""
 
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-xwo] [-n NAME] [-p PORT]... [-v LIST]... [-i IMAGE] [-t TAG] [-c CAP]... [CMD]...
+Usage: ${0##*/} [-xwod] [-n NAME] [-p PORT]... [-v LIST]... [-i IMAGE] [-t TAG] [-c CAP]... [CMD]...
        ${0##*/} -l
        ${0##*/} -a NAME
        ${0##*/} -e NAME [CMD]...
@@ -102,6 +102,7 @@ Starts an environment container. If CMD is specified, starts CMD instead of a sh
    -x       delete Docker container after exit. will loose data
    -w       forward \$PWD into $CONTAIN_HOME/src, and start there
    -o       use host networking instead
+   -d       desktop, forward wayland and xwayland
    -n NAME  give container a NAME
    -p PORT  forward host PORT to container PORT
    -v LIST  mount volume LIST. specify as LOCAL:MOUNT
@@ -129,7 +130,7 @@ pull_image() {
 		$image:$tag
 }
 
-while getopts "xwon:p:v:c:i:t:lua:e:h" opt; do
+while getopts "xwodn:p:v:c:i:t:lua:e:h" opt; do
 	case "$opt" in
 	x)
 		delete="--rm "
@@ -144,6 +145,22 @@ while getopts "xwon:p:v:c:i:t:lua:e:h" opt; do
 		;;
 	o)
 		host="--net host "
+		;;
+	d)
+		desktop=""
+		if $selinux_enabled; then
+			desktop="$desktop--security-opt label=disable "
+		fi
+		desktop="$desktop--env DISPLAY "
+		desktop="$desktop--env WAYLAND_DISPLAY "
+		desktop="$desktop--env QT_QPA_PLATFORM=wayland "
+		desktop="$desktop--env XDG_SESSION_TYPE "
+		desktop="$desktop--env XDG_SESSION_DESKTOP "
+		desktop="$desktop--env XDG_RUNTIME_DIR=/tmp "
+		desktop="$desktop--volume \"$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY\" "
+		desktop="$desktop--volume \"/tmp/.X11-unix:/tmp/.X11-unix\" "
+		desktop="$desktop--device /dev/dri "
+		desktop="$desktop--device /dev/snd "
 		;;
 	n)
 		name="--name $OPTARG --hostname $OPTARG "
@@ -232,6 +249,7 @@ $runtime run --interactive --tty \
 	$ports$host\
 	$workdir$volumes\
 	$caps\
+	$desktop\
 	$image:$tag\
 	$@ \
 "
