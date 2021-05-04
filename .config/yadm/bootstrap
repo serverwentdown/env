@@ -173,7 +173,7 @@ download_font_firacode() {
 	wget \
 		--output-document /tmp/firacode.zip \
 		https://github.com/tonsky/FiraCode/releases/download/$version/Fira_Code_v$version.zip
-	unzip /tmp/firacode.zip -d /tmp/firacode
+	unzip -q /tmp/firacode.zip -d /tmp/firacode
 	mv /tmp/firacode/ttf/* $download_font_path/
 	rm -r /tmp/firacode.zip /tmp/firacode
 }
@@ -182,7 +182,7 @@ download_font_ibmplex() {
 	wget \
 		--output-document /tmp/ibmplex.zip \
 		https://github.com/IBM/plex/releases/download/v$version/TrueType.zip
-	unzip /tmp/ibmplex.zip -d /tmp/ibmplex
+	unzip -q /tmp/ibmplex.zip -d /tmp/ibmplex
 	for family in Sans Serif Mono; do
 		mv /tmp/ibmplex/TrueType/IBM-Plex-$family/*.ttf $download_font_path/
 	done
@@ -361,26 +361,26 @@ if $desktopbase; then
 		fedora) packages_add \
 			ibm-plex-sans-fonts ibm-plex-serif-fonts ibm-plex-mono-fonts \
 			fira-code-fonts \
-			google-noto-emoji-color-fonts
+			google-noto-emoji-color-fonts \
 			;;
 		debian|ubuntu) packages_add \
 			fonts-ibm-plex \
 			fonts-firacode \
-			fonts-noto-color-emoji
+			fonts-noto-color-emoji \
 			;;
 	esac
 	case $ID in
 		alpine) $nicetohave && packages_add \
 			font-noto \
-			font-noto-cjk
+			font-noto-cjk \
 			;;
 		fedora) $nicetohave && packages_add \
 			google-noto-sans-fonts google-noto-serif-fonts \
-			google-noto-cjk-fonts
+			google-noto-cjk-fonts \
 			;;
 		debian|ubuntu) $nicetohave && packages_add \
 			fonts-noto-core \
-			fonts-noto-cjk
+			fonts-noto-cjk \
 			;;
 	esac
 
@@ -391,6 +391,7 @@ if $desktopbase; then
 			gsettings-desktop-schemas \
 			dconf \
 			gnome-themes-extra \
+			adwaita-icon-theme \
 			;;
 	esac
 	case $ID in
@@ -400,26 +401,6 @@ if $desktopbase; then
 	# desktopbase: Final packages installation
 
 	packages_install
-
-	# desktopbase: Configure desktop theme
-
-	mkdir -p "$HOME/.config/dconf"
-	dconf_user="$HOME/.config/dconf/user"
-	if ! [ -f "$dconf_user" ]; then
-		dconf_tmp="/tmp/dconf-defaults.d"
-		mkdir -p "$dconf_tmp"
-		cat > "$dconf_tmp/theme" <<EOF
-[org/gnome/desktop/interface]
-gtk-theme='Adwaita'
-icon-theme='Papirus'
-
-[org/gnome/settings-daemon/plugins/xsettings]
-antialiasing='grayscale'
-hinting='slight'
-EOF
-		dconf compile "$dconf_user" "$dconf_tmp"
-		rm -r "$dconf_tmp"
-	fi
 
 fi
 
