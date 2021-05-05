@@ -13,9 +13,16 @@ else
 	}
 fi
 
-HOST_URL=https://huge.makerforce.io
-HOST_ALIAS=h
-BUCKET=share
+SHASUM="sha256sum"
+if [ ! -x "$(which $SHASUM)" ]; then
+	SHASUM="shasum"
+fi
+
+HOST_ALIAS=b
+BUCKET=serverwentdown
+BUCKET_URL=https://serverwentdown.s3.us-west-000.backblazeb2.com
+BUCKET_PUBLIC=serverwentdown-pub
+BUCKET_PUBLIC_URL=https://serverwentdown-pub.s3.us-west-000.backblazeb2.com
 
 FILES=()
 NAMES=()
@@ -34,7 +41,7 @@ read_fileopts() {
 read_fileopts
 
 OPTIND=1
-while getopts "hn:e:f:" opt; do
+while getopts "hn:e:f:p" opt; do
 	case "$opt" in
 	h)
 		echo "NAME:"
@@ -44,9 +51,10 @@ while getopts "hn:e:f:" opt; do
 		echo "   share -f FILE [-n NAME] [-e EXPIRES] [-f FILE ...]"
 		echo ""
 		echo "FLAGS:"
-		echo "  -f FILE     Share FILE at /$BUCKET/shasum/filename"
-		echo "  -n NAME     Share FILE at /$BUCKET/NAME"
-		echo "  -e EXPIRES  Set link expiry (NN[h|m|s] or 'none') (default: 168h)"
+		echo "  -f FILE     Share FILE"
+		echo "  -n NAME     Share at NAME instead of SHASUM/FILENAME"
+		echo "  -e EXPIRES  Link expiry (default: 168h)"
+		echo "  -p          Link never expires"
 		echo ""
 		exit 0
 		;;
@@ -55,6 +63,9 @@ while getopts "hn:e:f:" opt; do
 		;;
 	e)
 		EXPIRE="$OPTARG"
+		;;
+	p)
+		EXPIRE="never"
 		;;
 	f)
 		read_fileopts
@@ -69,19 +80,19 @@ for i in {1..$#FILES}; do
 	NAME="${NAMES[$i]}"
 	EXPIRE="${EXPIRES[$i]}"
 	if [ -z "$NAME" ]; then
-		HASH=$(shasum $FILE | awk '{ print $1 }')
+		HASH=$($SHASUM $FILE | awk '{ print $1 }')
 		FILENAME="$(basename $FILE)"
 		NAME="$HASH/$FILENAME"
 	fi
 
 	TARGET="$HOST_ALIAS/$BUCKET/$NAME"
-	if [[ "$EXPIRE" == "none" ]]; then
-		TARGET="$HOST_ALIAS/$BUCKET/s/$NAME"
+	if [[ "$EXPIRE" == "never" ]]; then
+		TARGET="$HOST_ALIAS/$BUCKET_PUBLIC/$NAME"
 	fi
 
 	mc cp "$FILE" "$TARGET" >&2
-	if [[ "$EXPIRE" == "none" ]]; then
-		echo "$HOST_URL/$BUCKET/s/$(urlescape "$NAME")"
+	if [[ "$EXPIRE" == "never" ]]; then
+		echo "$BUCKET_PUBLIC_URL/$(urlescape "$NAME")"
 	else
 		mc share download \
 			--expire="$EXPIRE" \

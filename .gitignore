@@ -47,6 +47,7 @@
 !.local/share/yadm
 .local/share/yadm/repo.git
 !.local/share/yadm/archive
+.mc/share
 .mozilla
 .password-store
 .pki
