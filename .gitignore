@@ -39,11 +39,14 @@
 .local/bin/http*
 .local/bin/kube*
 .local/bin/mc
+.local/lib
 .local/share/*
 !.local/share/MultiMC
 .local/share/MultiMC/*
 !.local/share/MultiMC/install.sh
-.local/lib
+!.local/share/yadm
+.local/share/yadm/repo.git
+!.local/share/yadm/archive
 .mozilla
 .password-store
 .pki
