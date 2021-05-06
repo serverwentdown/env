@@ -4,7 +4,8 @@ RUN echo hosts: dns files > /etc/nsswitch.conf
 RUN apk add --no-cache --update \
 		sudo tzdata zsh
 
-RUN adduser -s /bin/zsh -D ambrose \
+RUN deluser --remove-home node \
+	&& adduser -s /bin/zsh -D ambrose -u 1000 \
 	&& echo '' >> /etc/sudoers \
 	&& echo '## No password sudo' >> /etc/sudoers \
 	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
