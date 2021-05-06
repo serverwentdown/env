@@ -200,18 +200,18 @@ download_cutter_re() {
 	chmod +x $download_bin_path/cutter
 }
 
+# Install basics
+
+packages_add openssl wget upx
+case $PLATFORM in
+	linux) packages_add tar gzip;;
+esac
+case $PLATFORM in
+	macos|alpine|fedora) packages_add xz;;
+	debian|ubuntu) packages_add xz-utils;;
+esac
+
 if $base; then
-
-	# Install basics
-
-	packages_add openssl wget upx
-	case $PLATFORM in
-		linux) packages_add tar gzip;;
-	esac
-	case $PLATFORM in
-		macos|alpine|fedora) packages_add xz;;
-		debian|ubuntu) packages_add xz-utils;;
-	esac
 
 	# Install shell
 
