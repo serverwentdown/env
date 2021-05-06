@@ -1,6 +1,6 @@
 # user data
 *
-!.*
+#!.*
 .*_history
 .android
 .ansible
