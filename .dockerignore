@@ -54,12 +54,15 @@
 .mozilla
 .password-store
 .pki
+!.pwn
 .ssh/authorized_keys
 .ssh/known_hosts
 .var/app
 .wget-hsts
+!.xkb
 .zcompdump
 .zoom
+!.zshrc
 
 
 # vcs
