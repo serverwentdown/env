@@ -18,11 +18,22 @@ if [ ! -x "$(which $SHASUM)" ]; then
 	SHASUM="shasum"
 fi
 
-HOST_ALIAS=b
-BUCKET=serverwentdown
-BUCKET_URL=https://serverwentdown.s3.us-west-000.backblazeb2.com
-BUCKET_PUBLIC=serverwentdown-pub
-BUCKET_PUBLIC_URL=https://serverwentdown-pub.s3.us-west-000.backblazeb2.com
+case "$SHARE_PROFILE" in
+	minio1)
+		HOST_ALIAS=minio1
+		BUCKET=share
+		BUCKET_URL=https://minio1.makerforce.io/share
+		BUCKET_PUBLIC=pub
+		BUCKET_PUBLIC_URL=https://minio1.makerforce.io/pub
+	;;
+	b|*)
+		HOST_ALIAS=b
+		BUCKET=serverwentdown
+		BUCKET_URL=https://serverwentdown.s3.us-west-000.backblazeb2.com
+		BUCKET_PUBLIC=serverwentdown-pub
+		BUCKET_PUBLIC_URL=https://serverwentdown-pub.s3.us-west-000.backblazeb2.com
+	;;
+esac
 
 FILES=()
 NAMES=()
