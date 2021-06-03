@@ -48,4 +48,4 @@ set modeline
 
 " spellcheck
 
-set spell spelllang=en_gb
+"set spell spelllang=en_gb
