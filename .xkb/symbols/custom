@@ -1,22 +1,30 @@
 hidden partial modifier_keys
 xkb_symbols "lctrl_escape" {
-	key <LCTL> { [ Escape ] };
+    key <LCTL> { [ Escape ] };
+};
+
+hidden partial modifier_keys
+xkb_symbols "caps_lctrl" {
+    replace key <CAPS> { [ Control_L, Control_L ] };
+    modifier_map  Control { <CAPS>, <LCTL> };
 };
 
 partial alphanumeric_keys
 xkb_symbols "basic" {
 
     include "us(basic)"
-    name[Group1]= "English (US) (lctrl_escape)";
+    name[Group1]= "English (Qwerty)";
 
     include "custom(lctrl_escape)"
+    include "custom(caps_lctrl)"
 };
 
-partial alphanumeric_keys
+default partial alphanumeric_keys
 xkb_symbols "dvp" {
 
     include "us(dvp)"
-    name[Group1]= "English (Programmer Dvorak) (lctrl_escape)";
+    name[Group1]= "English (Programmer Dvorak)";
 
     include "custom(lctrl_escape)"
+    include "custom(caps_lctrl)"
 };
