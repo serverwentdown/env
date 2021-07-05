@@ -68,9 +68,9 @@ bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --imag
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input * {
-    xkb_layout "custom,custom"
-    xkb_variant "dvp,basic"
-    xkb_options "altwin:swap_lalt_lwin,ctrl:nocaps,lv3:ralt_switch"
+    xkb_layout "ambrose,us"
+    xkb_variant "dvp,"
+    xkb_options "lv3:ralt_switch"
     scroll_factor 3
 }
 # Switch keyboard layouts

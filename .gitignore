@@ -7,6 +7,8 @@
 .audacity*
 .bash*
 .cache
+.cargo/registry
+.cargo/.package-cache
 .config/*
 !.config/contain
 !.config/containers
@@ -28,6 +30,7 @@
 !.config/yabai
 !.config/yadm
 .dbus
+.esd_auth
 .gem
 .ghidra
 .gnupg/*
@@ -52,6 +55,7 @@
 !.local/share/yadm/archive
 .mc/share
 .mozilla
+.npm
 .password-store
 .pki
 !.pwn
