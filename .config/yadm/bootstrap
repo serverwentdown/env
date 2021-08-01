@@ -394,7 +394,8 @@ if $desktopbase; then
 			;;
 	esac
 	case $ID in
-		fedora|debian|ubuntu) packages_add adwaita-qt;;
+		debian|ubuntu) packages_add adwaita-qt;;
+		fedora) packages_add adwaita-qt5;;
 	esac
 
 	# desktopbase: Final packages installation
@@ -489,7 +490,7 @@ if $pwn; then
 		alpine|fedora|debian|ubuntu|macos) packages_add radare2 testdisk socat nasm john binutils;;
 	esac
 	case $ID in
-		alpine|fedora|debian|ubuntu) packages_add file squashfs-tools strace;;
+		alpine|fedora|debian|ubuntu) packages_add file squashfs-tools strace zip unzip p7zip;;
 		macos) packages_add squashfs;;
 	esac
 	case $ID in
