@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+BASE="$HOME/.pwn/stegseek"
+
+if [[ ! -d "$BASE/bin" ]]; then
+	if [[ ! -d "$BASE/src" ]]; then
+		git clone --depth 1 --recursive \
+			https://github.com/RickdeJager/stegseek.git \
+			"$BASE/src"
+	fi
+	pushd "$BASE/src"
+	mkdir -p build
+	cd build
+	cmake  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BASE" ..
+	make install
+	popd
+fi
+
+"$BASE/bin/stegseek" "$@"

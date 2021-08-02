@@ -469,12 +469,26 @@ if $pwn; then
 			;;
 	esac
 
+	# pwn: Build dependencies for most
+
+	case $ID in
+		alpine|fedora|debian|ubuntu) packages_add cmake make gcc g++;;
+	esac
+
+	# pwn: Build dependencies for stegseek
+
+	case $ID in
+		alpine) packages_add libmhash-dev libmcrypt-dev libjpeg-turbo-dev zlib-dev;;
+		fedora) packages_add mhash-devel libmcrypt-devel libjpeg-turbo-devel zlib-devel;;
+		debian|ubuntu) packages_add libmhash-dev libmcrypt-dev libjpeg-dev zlib1g-dev;;
+	esac
+
 	# pwn: Build dependencies for cryptography
 
 	case $ID in
 		alpine) packages_add libffi-dev openssl-dev;;
-		debian|ubuntu) packages_add libffi-dev libssl-dev;;
 		fedora) packages_add libffi-devel openssl-devel;;
+		debian|ubuntu) packages_add libffi-dev libssl-dev;;
 	esac
 
 	packages_install

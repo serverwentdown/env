@@ -7,6 +7,7 @@
 .audacity*
 .bash*
 .cache
+.cargo/bin
 .cargo/registry
 .cargo/.package-cache
 .config/*
@@ -59,6 +60,7 @@
 .password-store
 .pki
 !.pwn
+.rustup/toolchains
 .ssh/authorized_keys
 .ssh/known_hosts
 .var/app
