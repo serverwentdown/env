@@ -1,0 +1,27 @@
+name: mirror to dotfiles
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  mirror:
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+    - name: load ssh key
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        ssh-add - <<< "${{ secrets.MIRROR_SSH_PRIVATE_KEY }}"
+    - name: add remote and push
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+        git remote add mirror git@github.com:serverwentdown/dotfiles.git
+        git push -f mirror main
+
+# vim: set et ts=2 sw=2:
