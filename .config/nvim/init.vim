@@ -4,11 +4,13 @@
 " - :noh to clear highlighting
 " - g* to search for current word
 " - gq to reformat line into column
-" - y[motion] to yank, d[motion] to cut
+" - y[target] to yank, d[target] to cut
 " - "[reg] to yank/cut/paste to reg
-" - ys[motion][char] to add surrounding chars
+" - ys[target][char] to add surrounding chars
 " - gS, gJ to split and join multiline statements
-" - gd to go to Go definition
+" - iw targets full word, aw targets full word with space
+" - gd to go to definition
+" - CTRL-^ to go to previous file
 "
 
 call plug#begin()
@@ -20,21 +22,30 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+autocmd FileType * nmap gD <plug>(lsp-definition)
+autocmd FileType * nmap gd <plug>(lsp-peek-definition)
+autocmd FileType * nmap gY <plug>(lsp-type-definition)
+autocmd FileType * nmap gy <plug>(lsp-peek-type-definition)
+autocmd FileType * nmap gr <plug>(lsp-references)
+autocmd FileType * nmap gf <plug>(lsp-document-symbol-search)
+autocmd FileType * nmap gF <plug>(lsp-workspace-symbol-search)
+autocmd FileType * nmap gk <plug>(lsp-next-diagnostic)
+
+autocmd FileType * nmap <leader>f <plug>(lsp-document-format)
+autocmd FileType * nmap <leader>k <plug>(lsp-code-action)
+autocmd FileType * nmap <leader>x <plug>(lsp-code-lens)
+autocmd FileType * nmap <leader>n <plug>(lsp-rename)
+
 " rust
 
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-let g:rustfmt_autosave = 1
-autocmd FileType rust nmap <leader>t :Ctest<CR>
-autocmd FileType rust nmap <leader>b :Cbuild<CR>
-autocmd FileType rust nmap <leader>r :Crun<CR>
-autocmd FileType rust nmap K <Plug>(rust-def)
-" runthis: cargo +nightly install --git https://github.com/racer-rust/racer.git racer
+autocmd FileType rust nmap <leader>t :!cargo test<CR>
+autocmd FileType rust nmap <leader>b :!cargo build<CR>
+autocmd FileType rust nmap <leader>r :!cargo run<CR>
+autocmd FileType rust nmap K <plug>(lsp-hover)
 
 " go
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'AndrewRadev/splitjoin.vim'
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -46,12 +57,17 @@ let g:go_highlight_generate_tags = 1
 let g:go_metalinter_autosave = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
+let g:go_def_mapping_enabled = 0
+autocmd FileType go nmap gD <Plug>(go-def)
+autocmd FileType go nmap gd <Plug>(go-def-split)
+autocmd FileType go nmap gY <Plug>(go-def-type)
+autocmd FileType go nmap gy <Plug>(go-def-type-split)
 autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
-" K -> :GoDoc
+autocmd FileType go nmap K <Plug>(go-doc)
 
 " vue
 
@@ -66,6 +82,7 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'AndrewRadev/splitjoin.vim'
 
 call plug#end()
 
