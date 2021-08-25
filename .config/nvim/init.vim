@@ -36,11 +36,17 @@ autocmd FileType * nmap <leader>k <plug>(lsp-code-action)
 autocmd FileType * nmap <leader>x <plug>(lsp-code-lens)
 autocmd FileType * nmap <leader>n <plug>(lsp-rename)
 
+function! SplitTerm(height, cmd)
+	split
+	exe "resize " . a:height
+	exe "terminal " . a:cmd
+endfunction
+
 " rust
 
-autocmd FileType rust nmap <leader>t :!cargo test<CR>
-autocmd FileType rust nmap <leader>b :!cargo build<CR>
-autocmd FileType rust nmap <leader>r :!cargo run<CR>
+autocmd FileType rust nmap <leader>t :call SplitTerm(16, "cargo test")<CR>
+autocmd FileType rust nmap <leader>b :call SplitTerm(16, "cargo build")<CR>
+autocmd FileType rust nmap <leader>r :call SplitTerm(16, "cargo run")<CR>
 autocmd FileType rust nmap K <plug>(lsp-hover)
 
 " go
@@ -68,6 +74,13 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
 autocmd FileType go nmap K <Plug>(go-doc)
+
+" javascript & typescript
+
+autocmd FileType javascript,typescript nmap <leader>t :call SplitTerm(16, "npm test")<CR>
+autocmd FileType javascript,typescript nmap <leader>b :call SplitTerm(16, "npm run build")<CR>
+autocmd FileType javascript,typescript nmap <leader>r :call SplitTerm(16, "npm start")<CR>
+autocmd FileType javascript,typescript nmap K <plug>(lsp-hover)
 
 " vue
 
