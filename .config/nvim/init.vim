@@ -2,9 +2,13 @@
 " Tips:
 "
 " - :noh to clear highlighting
-" - gd to go to definition 
 " - g* to search for current word
 " - gq to reformat line into column
+" - y[motion] to yank, d[motion] to cut
+" - "[reg] to yank/cut/paste to reg
+" - ys[motion][char] to add surrounding chars
+" - gS, gJ to split and join multiline statements
+" - gd to go to Go definition
 "
 
 call plug#begin()
@@ -53,11 +57,12 @@ autocmd FileType go nmap <leader>r <Plug>(go-run)
 
 Plug 'posva/vim-vue'
 
-" gutter: git
+" git
 
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
-" quotes
+" extra motions
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
