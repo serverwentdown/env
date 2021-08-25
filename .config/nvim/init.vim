@@ -57,6 +57,11 @@ Plug 'posva/vim-vue'
 
 Plug 'airblade/vim-gitgutter'
 
+" quotes
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
 call plug#end()
 
 " theme
