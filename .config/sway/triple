@@ -43,8 +43,8 @@ bindsym Pause mode "monitor"
 # Display brightness controls:
 set $monitor_brightness_step 0x0a
 set $monitor_mini_brightness_step 0x03
-bindsym --locked $mod+F11 exec (ddcutil $monitor_global $monitor_left setvcp 0x10 - $monitor_brightness_step) & (ddcutil $monitor_global $monitor_right setvcp 0x10 - $monitor_brightness_step) & (ddcutil $monitor_global $monitor_mini setvcp 0x10 - $monitor_mini_brightness_step)
-bindsym --locked $mod+F12 exec (ddcutil $monitor_global $monitor_left setvcp 0x10 + $monitor_brightness_step) & (ddcutil $monitor_global $monitor_right setvcp 0x10 + $monitor_brightness_step) & (ddcutil $monitor_global $monitor_mini setvcp 0x10 + $monitor_mini_brightness_step)
+bindsym --locked $mod+F2 exec (ddcutil $monitor_global $monitor_left setvcp 0x10 - $monitor_brightness_step) & (ddcutil $monitor_global $monitor_right setvcp 0x10 - $monitor_brightness_step) & (ddcutil $monitor_global $monitor_mini setvcp 0x10 - $monitor_mini_brightness_step)
+bindsym --locked $mod+F3 exec (ddcutil $monitor_global $monitor_left setvcp 0x10 + $monitor_brightness_step) & (ddcutil $monitor_global $monitor_right setvcp 0x10 + $monitor_brightness_step) & (ddcutil $monitor_global $monitor_mini setvcp 0x10 + $monitor_mini_brightness_step)
 
 #
 # Media controls:

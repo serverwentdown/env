@@ -65,6 +65,7 @@
 .ssh/known_hosts
 .var/app
 .wget-hsts
+.Xilinx
 !.xkb
 .zcompdump
 .zoom

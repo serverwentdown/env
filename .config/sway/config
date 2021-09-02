@@ -74,9 +74,10 @@ input * {
     scroll_factor 3
 }
 # Switch keyboard layouts
-bindsym $mod+F1 input * xkb_switch_layout 0
-bindsym $mod+F2 input * xkb_switch_layout 1
-bindsym $mod+F3 input * xkb_switch_layout 2
+bindsym $mod+F9 input * xkb_switch_layout 0
+bindsym $mod+F10 input * xkb_switch_layout 1
+bindsym $mod+F11 input * xkb_switch_layout 2
+bindsym $mod+F12 input * xkb_switch_layout 2
 
 input type:touchpad {
     natural_scroll enabled

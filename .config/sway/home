@@ -9,8 +9,8 @@ set $output_laptop "Apple Computer Inc Color LCD 0x00000000"
 output $output_primary position 1600 0 transform 270
 output $output_secondary position 0 800 transform 0
 #output $output_laptop position 3760 1800 transform 0 scale 1.5
-bindsym $mod+Shift+F9 output $output_primary transform 0
-bindsym $mod+F9 output $output_primary transform 270
+bindsym $mod+Shift+F4 output $output_primary transform 180
+bindsym $mod+F4 output $output_primary transform 270
 
 #
 # Workspaces
@@ -25,14 +25,14 @@ set $monitor_global --noverify --sleep-multiplier 0.1
 set $monitor_primary --bus 8
 # Display brightness controls:
 set $monitor_brightness_step 0x0a
-bindsym --locked $mod+F11 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 - $monitor_brightness_step
-bindsym --locked $mod+F12 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 + $monitor_brightness_step
+bindsym --locked $mod+F2 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 - $monitor_brightness_step
+bindsym --locked $mod+F3 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 + $monitor_brightness_step
 
 #
 # Display output toggle:
 #
-bindsym --locked $mod+Shift+F10 output $output_primary disable
-bindsym --locked $mod+F10 output $output_primary enable
+bindsym --locked $mod+Shift+F1 output $output_primary disable
+bindsym --locked $mod+F1 output $output_primary enable
 # This is so crazy performant that I did not notice it worked. Was expecting my main display to go blank for a while but it didn't even flash
 bindswitch --reload --locked lid:on output $output_laptop disable
 bindswitch --reload --locked lid:off output $output_laptop enable
