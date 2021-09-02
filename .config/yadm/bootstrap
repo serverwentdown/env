@@ -8,6 +8,7 @@ base=true
 nicetohave=true
 go=false
 rust=false
+deno=false
 rootzsh=false
 desktopbase=false
 desktop=false
@@ -23,6 +24,8 @@ while [ $# != 0 ]; do
 		go) go=true;;
 		norust) rust=false;;
 		rust) rust=true;;
+		nodeno) deno=false;;
+		deno) deno=true;;
 		norootzsh) rootzsh=false;;
 		rootzsh) rootzsh=true;;
 		nodesktopbase) desktopbase=false;;
@@ -165,6 +168,9 @@ download_go() {
 }
 download_rust() {
 	wget --output-document - https://sh.rustup.rs | sh -s -- -y
+}
+download_deno() {
+	wget --output-document - https://deno.land/x/install/install.sh | sh -s
 }
 download_font_path="$HOME/.local/share/fonts"
 mkdir -p $download_font_path

@@ -61,7 +61,7 @@ precmd_functions+=( on_second_prompt )
 # executables
 
 export PATH="$HOME/.local/bin:$HOME/.pwn/bin:$PATH"
-if [[ -f "$HOME/.deno" ]]; then
+if [[ -d "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
 fi
@@ -71,7 +71,7 @@ fi
 if [[ -f "$(which go 2>/dev/null)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
 fi
-if [[ -f "$HOME/.cargo" ]]; then
+if [[ -d "$HOME/.cargo" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
