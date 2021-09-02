@@ -9,8 +9,8 @@ set $output_laptop "Apple Computer Inc Color LCD 0x00000000"
 output $output_primary position 1600 0 transform 270
 output $output_secondary position 0 800 transform 0
 #output $output_laptop position 3760 1800 transform 0 scale 1.5
-bindsym $mod+Shift+F4 output $output_primary transform 180
-bindsym $mod+F4 output $output_primary transform 270
+bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
+bindsym $mod+F4 output $output_primary transform 90 anticlockwise
 
 #
 # Workspaces
