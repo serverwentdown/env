@@ -360,20 +360,27 @@ function theme {
 			ITERM_PROFILE=Light
 			KITTY_THEME=${KITTY_VARIATION}light
 			export LIGHT=true
+			GNOME_THEME=Adwaita
 		;;
 		dark)
 			ITERM_PROFILE=Default
 			KITTY_THEME=${KITTY_VARIATION}dark
 			export LIGHT=false
+			GNOME_THEME=Adwaita-dark
 		;;
 	esac
 	if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 		echo -e "\033]50;SetProfile=$ITERM_PROFILE\a"
 	fi
 	if [[ "$TERM" == "xterm-kitty" ]]; then
-		kitty @ set-colors -a ~/.config/kitty/colorscheme.$KITTY_THEME.conf
+		kitty @ set-colors -c -a ~/.config/kitty/colorscheme.$KITTY_THEME.conf
+		kitty @ env LIGHT=$LIGHT
+		ln -sf colorscheme.$KITTY_THEME.conf ~/.config/kitty/colorscheme.conf
 	fi
 	setup_prompt
+	if [ -f "$(which gsettings)" ]; then
+		gsettings set org.gnome.desktop.interface gtk-theme $GNOME_THEME
+	fi
 }
 
 # gnupg
