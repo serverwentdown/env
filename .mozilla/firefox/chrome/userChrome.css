@@ -1,26 +1,45 @@
 html:not([inFullscreen]) body {
+	/* Put the toolbar after the content */
 	-moz-box-direction: reverse;
+	/* Cannot be done in fullscreen because only moving the cursor on top will trigger showing of toolbar */
 }
 
 .panel-viewstack {
+	/* Some computed max-height is styled on .panel-viewstack. block it */
 	max-height: none !important;
 }
 
-#urlbar[open] > .urlbarView > .urlbarView-body-outer > .urlbarView-body-inner {
-	border-top: 0 !important;
-}
-
 #navigator-toolbox {
+	/* Put the tabs under the URL bar */
 	-moz-box-direction: reverse;
 }
 
 html:not([inFullscreen]) #urlbar[breakout] {
+	/* Reverse the order of the URL bar contents */
 	display: flex !important;
 	flex-direction: column-reverse;
 }
 
 html:not([inFullscreen]) #urlbar[breakout-extend] {
+	/* Align the URL bar with the bottom instead of top */
 	top: auto !important;
 	bottom: 0 !important;
 }
 
+#urlbar[open] > .urlbarView > .urlbarView-body-outer > .urlbarView-body-inner {
+	/* Hide the border on top of the search results, previously used to separate the url and results */
+	border-top: 0 !important;
+	/* Put the bottom back at the bottom of the search results */
+	border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+	/* NOTE: Derived from var(--autocomplete-popup-color) */
+}
+
+.search-one-offs {
+	/* Hide the search engine icons */
+	display: none !important;
+}
+
+.urlbarView-url {
+	/* Significantly dim the URLs */
+	opacity: 0.5;
+}
