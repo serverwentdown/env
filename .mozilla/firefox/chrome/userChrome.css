@@ -1,0 +1,26 @@
+html:not([inFullscreen]) body {
+	-moz-box-direction: reverse;
+}
+
+.panel-viewstack {
+	max-height: none !important;
+}
+
+#urlbar[open] > .urlbarView > .urlbarView-body-outer > .urlbarView-body-inner {
+	border-top: 0 !important;
+}
+
+#navigator-toolbox {
+	-moz-box-direction: reverse;
+}
+
+html:not([inFullscreen]) #urlbar[breakout] {
+	display: flex !important;
+	flex-direction: column-reverse;
+}
+
+html:not([inFullscreen]) #urlbar[breakout-extend] {
+	top: auto !important;
+	bottom: 0 !important;
+}
+

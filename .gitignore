@@ -30,6 +30,7 @@
 !.config/wofi
 !.config/yabai
 !.config/yadm
+.deno/bin
 .dbus
 .esd_auth
 .gem
@@ -55,7 +56,10 @@
 .local/share/yadm/repo.git
 !.local/share/yadm/archive
 .mc/share
-.mozilla
+.mozilla/*
+!.mozilla/firefox
+.mozilla/firefox/*
+!.mozilla/firefox/chrome
 .npm
 .password-store
 .pki
