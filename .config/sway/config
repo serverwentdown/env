@@ -299,13 +299,17 @@ bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 16
 
 ### Fixes
 #
-# Force Xresources load:
+# Import systemd environments for GNOME Keyring
 #
-exec xrdb -merge .Xresources
+exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_DESKTOP XDG_SESSION_CLASS XDG_SESSION_ID XDG_RUNTIME_DIR
 #
 # Enable PolicyKit:
 #
 exec lxpolkit
+#
+# Enable GNOME Keyring:
+#
+exec gnome-keyring-daemon --start
 
 ### Setup-specific configuration
 #
