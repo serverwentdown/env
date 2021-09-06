@@ -2,7 +2,6 @@
 #
 # Output configuration:
 #
-default_orientation vertical
 set $output_mini "Philips Consumer Electronics Company Philips 19B4 UK51344100785"
 set $output_left "Dell Inc. DELL P2719H 974YPS2"
 set $output_right "Dell Inc. DELL P2719H DNJQPS2"

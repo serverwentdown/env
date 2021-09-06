@@ -2,7 +2,6 @@
 #
 # Output configuration:
 #
-default_orientation vertical
 set $output_primary "Unknown PL270 0000000000001"
 set $output_secondary "Samsung Electric Company SME2020 HMDZ800146"
 set $output_laptop "Apple Computer Inc Color LCD 0x00000000"
