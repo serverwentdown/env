@@ -12,14 +12,14 @@
 #
 
 # start a terminal
-alt - return : /Applications/Kitty.app/Contents/MacOS/kitty --single-instance -d ~
-alt + shift - return : ~/.local/bin/open-iterm
+alt - return : kitty --single-instance -d ~
+alt + shift - return : ~/.local/bin/iterm_open
 
 # kill focused window
-alt + shift - q : yabai -m window --close
+alt - q : yabai -m window --close
 
-# start your launcher
-#alt - d : skhd -k "cmd - space"
+# start launcher
+alt - d : skhd -k "cmd - space"
 # Alternatively, set inside System Preferences
 
 # vimac! awesome stuff
@@ -160,21 +160,21 @@ resize < return ; default
 resize < alt - r ; default
 resize < escape ; default
 
-resize < h : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
-resize < j : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
-resize < k : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
-resize < l : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
-resize < left : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
-resize < down : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
-resize < up : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
-resize < right : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
+resize < h : yabai -m window --resize left:-20:0; yabai -m window --resize right:-20:0
+resize < j : yabai -m window --resize top:0:-20; yabai -m window --resize bottom:0:-20
+resize < k : yabai -m window --resize top:0:20; yabai -m window --resize bottom:0:20
+resize < l : yabai -m window --resize left:20:0; yabai -m window --resize right:20:0
+resize < left : yabai -m window --resize left:-20:0; yabai -m window --resize right:-20:0
+resize < down : yabai -m window --resize top:0:-20; yabai -m window --resize bottom:0:-20
+resize < up : yabai -m window --resize top:0:20; yabai -m window --resize bottom:0:20
+resize < right : yabai -m window --resize left:20:0; yabai -m window --resize right:20:0
 
 #
 # Custom largegaps mode
 #
 
-alt - g : yabai -m space --gap abs:36; yabai -m space --padding abs:60:60:60:60
-alt + shift - g : yabai -m space --gap abs:12; yabai -m space --padding abs:20:20:20:20
+alt - g : yabai -m space --gap abs:36; yabai -m space --padding abs:32:32:32:32
+alt + shift - g : yabai -m space --gap abs:12; yabai -m space --padding abs:16:16:16:16
 
 #
 # Custom shadows
