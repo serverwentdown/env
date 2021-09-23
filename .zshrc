@@ -361,12 +361,14 @@ function theme {
 			KITTY_THEME=${KITTY_VARIATION}light
 			export LIGHT=true
 			GNOME_THEME=Adwaita
+			MACOS_THEME=false
 		;;
 		dark)
 			ITERM_PROFILE=Default
 			KITTY_THEME=${KITTY_VARIATION}dark
 			export LIGHT=false
 			GNOME_THEME=Adwaita-dark
+			MACOS_THEME=true
 		;;
 	esac
 	if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
@@ -378,8 +380,11 @@ function theme {
 		ln -sf colorscheme.$KITTY_THEME.conf ~/.config/kitty/colorscheme.conf
 	fi
 	setup_prompt
-	if [ -f "$(which gsettings)" ]; then
+	if [[ -f "$(which gsettings)" ]]; then
 		gsettings set org.gnome.desktop.interface gtk-theme $GNOME_THEME
+	fi
+	if [[ $PLATFORM == macos ]]; then
+		osascript -e "tell app \"System Events\" to tell appearance preferences to set dark mode to $MACOS_THEME"
 	fi
 }
 
