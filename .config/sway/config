@@ -286,8 +286,8 @@ bindsym $mod+Shift+Print exec grim-upload -s
 #
 # Gaps:
 #
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 4
+default_floating_border pixel 4
 hide_edge_borders smart
 #for_window [class="^.*"] border pixel 1
 smart_gaps on
