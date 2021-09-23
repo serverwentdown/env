@@ -4,8 +4,8 @@
 # See bottom
 #
 
-:: default : yabai -m config active_window_border_color 0xbbcb4b16
-:: resize @ : yabai -m config active_window_border_color 0xffdc322f
+:: default : yabai -m config active_window_border_color 0xddcb4b16
+:: resize @ : yabai -m config active_window_border_color 0xffd33682
 
 #
 # Basics:
@@ -36,7 +36,7 @@ alt - d : skhd -k "cmd - space"
 # Allows standard macOS alt keys
 #
 
-:: raw : yabai -m config active_window_border_color 0xffffffff
+:: raw : yabai -m config active_window_border_color 0xff2aa198
 alt - i ; raw
 raw < return ; default
 
@@ -123,7 +123,8 @@ alt + ctrl - k : yabai -m window --insert north
 alt + ctrl - l : yabai -m window --insert east
 
 # Switch the current container between different layout styles
-# alt - s : 
+# alt - n :
+# alt - s :
 # alt - w :
 # Below, we approximate the feature of Sway
 alt - e : yabai -m space --rotate 90
@@ -173,7 +174,7 @@ resize < right : yabai -m window --resize left:20:0; yabai -m window --resize ri
 # Custom largegaps mode
 #
 
-alt - g : yabai -m space --gap abs:36; yabai -m space --padding abs:32:32:32:32
+alt - g : yabai -m space --gap abs:42; yabai -m space --padding abs:56:56:56:56
 alt + shift - g : yabai -m space --gap abs:12; yabai -m space --padding abs:16:16:16:16
 
 #

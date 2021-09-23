@@ -236,13 +236,14 @@ bindsym $mod+r mode "resize"
 bar {
     position top
     colors {
-        statusline #93a1a1dd
-        background #202020dd
-        separator #839496dd
-        focused_workspace #cb4b16dd #cb4b16dd #eee8d5
-        active_workspace #586e75dd #586e75dd #999999
-        inactive_workspace #202020dd #202020dd #999999
-        urgent_workspace #dc322fdd #dc322fdd #eee8d5
+        background  #20202080
+        statusline  #93a1a1dd
+        separator   #839496dd
+        focused_workspace   #cb4b16ff #cb4b16ff #ffffffff
+        active_workspace    #b58900ff #b58900ff #ffffffff
+        inactive_workspace  #2d2d2dff #2d2d2dff #a3a3a3ff
+        urgent_workspace    #dc322fff #dc322fff #ffffffff
+        binding_mode        #d33682ff #d33682ff #ffffffff
     }
     swaybar_command waybar
 }
@@ -251,14 +252,14 @@ bar {
 #
 # Colors:
 #
-client.focused #202020 #202020 #999999 #268bd2 #cb4b16bb
-client.focused_inactive #202020 #202020 #999999 #cb4b16bb #cb4b16bb
-client.unfocused #202020dd #202020dd #999999 #00ff00 #cb4b1600
-client.urgent #202020 #dc322f #fdf6e3 #cb4b1699 #cb4b1600
+client.focused           #cb4b16ff #cb4b16ff #ffffffff #268bd2ff #cb4b16dd
+client.focused_inactive  #b58900ff #b58900ff #ffffffff #268bd200 #b5890000
+client.unfocused         #2d2d2d80 #2d2d2d80 #a3a3a3ff #268bd200 #2d2d2d00
+client.urgent            #dc322fff #dc322fff #ffffffff #268bd200 #dc322fff
 #
 # Fonts:
 #
-font pango:IBM Plex Sans bold 11
+font pango:Fira Code bold 10
 #
 # Media controls:
 #
@@ -289,13 +290,15 @@ bindsym $mod+Shift+Print exec grim-upload -s
 default_border pixel 4
 default_floating_border pixel 4
 hide_edge_borders smart
-#for_window [class="^.*"] border pixel 1
+#for_window [class="^.*"] border pixel 2
 smart_gaps on
-gaps inner 12
-gaps outer 16
+# 12 - border - border = 8
+gaps inner 4
+# 16 - inner - border = 8
+gaps outer 8
 # Toggle large gaps
-bindsym $mod+g gaps inner current set 36, gaps outer current set 32
-bindsym $mod+Shift+g gaps inner current set 12, gaps outer current set 16
+bindsym $mod+g gaps inner current set 34, gaps outer current set 10
+bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
 
 ### Fixes
 #

@@ -16,6 +16,7 @@
 !.config/fontconfig
 !.config/git
 !.config/kitty
+.config/kitty/colorscheme.conf
 !.config/mako
 !.config/nvim
 .config/nvim/*
