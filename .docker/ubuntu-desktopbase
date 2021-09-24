@@ -5,7 +5,7 @@ RUN apt-get update \
 		sudo zsh \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN useradd -s /bin/zsh ambrose \
+RUN useradd -s /bin/zsh ambrose -u 1000 -U \
 	&& echo '' >> /etc/sudoers \
 	&& echo '## No password sudo' >> /etc/sudoers \
 	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

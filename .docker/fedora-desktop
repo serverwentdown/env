@@ -5,7 +5,7 @@ RUN dnf install -y \
 	&& dnf clean all \
 	&& rm -rrf /var/cache/dnf
 
-RUN useradd -s /bin/zsh ambrose \
+RUN useradd -s /bin/zsh ambrose -u 1000 -U \
 	&& echo '' >> /etc/sudoers \
 	&& echo '## No password sudo' >> /etc/sudoers \
 	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

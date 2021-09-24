@@ -8,7 +8,7 @@ RUN apt-get update \
 # Requires contrib source
 RUN echo 'deb http://deb.debian.org/debian unstable contrib' >> /etc/apt/sources.list
 
-RUN useradd -s /bin/zsh ambrose \
+RUN useradd -s /bin/zsh ambrose -u 1000 -U \
 	&& echo '' >> /etc/sudoers \
 	&& echo '## No password sudo' >> /etc/sudoers \
 	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
