@@ -22,7 +22,7 @@
 .config/nvim/*
 !.config/nvim/colors
 !.config/nvim/skel
-!.config/nvim/init.nvim
+!.config/nvim/init.vim
 !.config/skhd
 !.config/sway
 .config/sway/enabled/*

@@ -29,6 +29,7 @@ jobs:
         - fedora-go
         - fedora-pwn
         - fedora-rust
+        - ubuntu
         - ubuntu-desktopbase
     steps:
     - uses: actions/checkout@v2
