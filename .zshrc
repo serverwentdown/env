@@ -268,7 +268,8 @@ setup_prompt_colors() {
 prompt_folder_count=2
 prompt_title_folder_count=1
 setup_prompt() {
-	local prompt_user_machine prompt_title_machine 
+	local prompt_user_machine
+	#global prompt_title_machine
 	local prompt_fmt_italic prompt_fmt_reset
 	#global prompt_fmt_title prompt_fmt_title_end prompt_fmt_window prompt_fmt_window_end
 	local prompt_title prompt_user prompt_history prompt_error_prev prompt_vcs prompt_directory prompt_vi
