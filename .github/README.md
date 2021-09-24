@@ -1,15 +1,15 @@
 
-# env [![Build Status](https://ci.makerforce.io/api/badges/ambrose/env/status.svg)](https://ci.makerforce.io/ambrose/env)
+# env [![publish docker images](https://github.com/serverwentdown/env/actions/workflows/docker-publish.yml/badge.svg?event=push)](https://github.com/serverwentdown/env/actions/workflows/docker-publish.yml)
 
 Just storing dotfiles in a repository isn't enough. This is almost all the tools I use, put into a Docker image that I can run anywhere
 
 ## Screenshots
 
-![](../.local/screenshots/iterm1.png)
-![](../.local/screenshots/iterm1-light.png)
-![](../.local/screenshots/iterm2.png)
-![](../.local/screenshots/iterm3.png)
-![](../.local/screenshots/iterm3-light.png)
+<img src="../.local/screenshots/iterm1.png" width="200">
+<img src="../.local/screenshots/iterm1-light.png" width="200">
+<img src="../.local/screenshots/iterm2.png" width="200">
+<img src="../.local/screenshots/iterm3.png" width="200">
+<img src="../.local/screenshots/iterm3-light.png" width="200">
 
 ## Usage
 
