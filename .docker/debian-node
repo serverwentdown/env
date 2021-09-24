@@ -1,4 +1,4 @@
-FROM node:current-buster
+FROM node:current-bullseye
 
 RUN apt-get update \
 	&& apt-get install -y \
