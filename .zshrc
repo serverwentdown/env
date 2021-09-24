@@ -148,23 +148,6 @@ if [[ -f "$(which exa 2>/dev/null)" ]]; then
 fi
 alias ll="ls -l"
 
-# window and tab title
-
-# https://github.com/trystan2k/zsh-tab-title/blob/85c64b64e38d1ec45c0201f00c061535bea67e8b/title.plugin.zsh#L10-L38
-function title {
-	title="$1"
-	window="${2:-$1}"
-	case "$TERM" in
-		cygwin|xterm*|putty*|rxvt*|ansi)
-			print -Pn "\e]2;$window:q\a" # set window name
-			print -Pn "\e]1;$title:q\a" # set tab name
-			;;
-		screen*|tmux*)
-			print -Pn "\ek$title:q\e\\" # set screen hardstatus
-			;;
-	esac
-}
-
 # prompt
 
 setopt prompt_subst
@@ -178,18 +161,19 @@ setup_prompt_vcs() {
 	zstyle ':vcs_info:git:*' actionformats $'%u%c%m %b (%a) %%b'
 	zstyle ':vcs_info:*' enable git
 	zstyle ':vcs_info:*' check-for-changes true
-	prompt_vcs_enabled=false
 	precmd_vcs_info() {
 		vcs_info
 	}
 }
 format_vcs_info() {
+	local text
 	text="$1"
 	echo "$text"
 }
 slower_functions+=( setup_prompt_vcs )
 # prompt: return code
 format_return_code() {
+	local return_code_
 	return_code_=$1
 	if [[ $1 -gt 128 ]]; then
 		return_code_=SIG$(kill -l $1)
@@ -202,6 +186,7 @@ format_return_code() {
 	echo -n $return_code_
 }
 format_return_code_prev() {
+	local text text_length width start
 	if [[ $1 == 0 ]]; then
 		return
 	fi
@@ -214,8 +199,8 @@ format_return_code_prev() {
 sc
 cuu1
 hpa $start
-setab $PROMPT_COLOR_RED
-setaf $PROMPT_COLOR_ALWAYS_BASE3
+setab $prompt_color_red
+setaf $prompt_color_always_base3
 EOF
 	echo -n "$text"
 	tput -S <<EOF
@@ -229,9 +214,16 @@ precmd_return_code() {
 # prompt: vi mode
 typeset -g zle_vi_mode_=
 zle-line-init zle-keymap-select() {
+	local normal_mode insert_mode
+	normal_mode=" N "
+	insert_mode=" I "
+	if [[ $propmt_compact == true ]]; then
+		normal_mode=" "
+		insert_mode=" "
+	fi
 	case "$KEYMAP" in
-		vicmd) zle_vi_mode_=$'%K{9} N %k';;
-		viins|main) zle_vi_mode_=$'%K{2} I %k';;
+		vicmd) zle_vi_mode_=$'%K{9}'$normal_mode'%k';;
+		viins|main) zle_vi_mode_=$'%K{2}'$insert_mode'%k';;
 		*) zle_vi_mode_=no;;
 	esac
 	zle reset-prompt
@@ -241,78 +233,123 @@ zle -N zle-keymap-select
 # prompt: parts
 precmd_functions+=( precmd_return_code precmd_vcs_info )
 setup_prompt_colors() {
-	PROMPT_COLOR_BASE03=8
-	PROMPT_COLOR_BASE02=0
-	PROMPT_COLOR_BASE01=10
-	PROMPT_COLOR_BASE00=11
-	PROMPT_COLOR_BASE0=12
-	PROMPT_COLOR_BASE1=14
-	PROMPT_COLOR_BASE2=7
-	PROMPT_COLOR_BASE3=15
-	PROMPT_COLOR_YELLOW=3
-	PROMPT_COLOR_ORANGE=9
-	PROMPT_COLOR_RED=1
-	PROMPT_COLOR_MAGENTA=5
-	PROMPT_COLOR_VIOLET=13
-	PROMPT_COLOR_BLUE=4
-	PROMPT_COLOR_CYAN=6
-	PROMPT_COLOR_GREEN=2
-	PROMPT_COLOR_ALWAYS_BASE3=$PROMPT_COLOR_BASE3
+	prompt_color_base03=8
+	prompt_color_base02=0
+	prompt_color_base01=10
+	prompt_color_base00=11
+	prompt_color_base0=12
+	prompt_color_base1=14
+	prompt_color_base2=7
+	prompt_color_base3=15
+	prompt_color_yellow=3
+	prompt_color_orange=9
+	prompt_color_red=1
+	prompt_color_magenta=5
+	prompt_color_violet=13
+	prompt_color_blue=4
+	prompt_color_cyan=6
+	prompt_color_green=2
+	prompt_color_always_base3=$prompt_color_base3
 	if [[ $LIGHT == true ]]; then
-		PROMPT_COLOR_TEMP03=$PROMPT_COLOR_TEMP03
-		PROMPT_COLOR_TEMP02=$PROMPT_COLOR_TEMP02
-		PROMPT_COLOR_TEMP01=$PROMPT_COLOR_TEMP01
-		PROMPT_COLOR_TEMP00=$PROMPT_COLOR_TEMP00
-		PROMPT_COLOR_BASE03=$PROMPT_COLOR_BASE3
-		PROMPT_COLOR_BASE02=$PROMPT_COLOR_BASE2
-		PROMPT_COLOR_BASE01=$PROMPT_COLOR_BASE1
-		PROMPT_COLOR_BASE00=$PROMPT_COLOR_BASE0
-		PROMPT_COLOR_BASE0=$PROMPT_COLOR_TEMP00
-		PROMPT_COLOR_BASE1=$PROMPT_COLOR_TEMP01
-		PROMPT_COLOR_BASE2=$PROMPT_COLOR_TEMP02
-		PROMPT_COLOR_BASE3=$PROMPT_COLOR_TEMP03
+		prompt_color_temp03=$prompt_color_temp03
+		prompt_color_temp02=$prompt_color_temp02
+		prompt_color_temp01=$prompt_color_temp01
+		prompt_color_temp00=$prompt_color_temp00
+		prompt_color_base03=$prompt_color_base3
+		prompt_color_base02=$prompt_color_base2
+		prompt_color_base01=$prompt_color_base1
+		prompt_color_base00=$prompt_color_base0
+		prompt_color_base0=$prompt_color_temp00
+		prompt_color_base1=$prompt_color_temp01
+		prompt_color_base2=$prompt_color_temp02
+		prompt_color_base3=$prompt_color_temp03
 	fi
 }
+prompt_folder_count=2
+prompt_title_folder_count=1
 setup_prompt() {
+	local prompt_user_machine prompt_title_machine 
+	local prompt_fmt_italic prompt_fmt_reset
+	#global prompt_fmt_title prompt_fmt_title_end prompt_fmt_window prompt_fmt_window_end
+	local prompt_title prompt_user prompt_history prompt_error_prev prompt_vcs prompt_directory prompt_vi
 	setup_prompt_colors
-	PROMPT_USER_MACHINE=$''
-	PROMPT_TITLE_MACHINE=$''
+	prompt_user_machine=$''
+	prompt_title_machine=$''
 	if [[ ! -z "$SSH_CLIENT" ]]; then
-		PROMPT_USER_MACHINE=$'@%m'
-		PROMPT_TITLE_MACHINE=$'%m:'
+		prompt_user_machine=$'@%m'
+		prompt_title_machine=$'%m:'
 	fi
 	if [[ "$CONTAIN" == true ]]; then
-		PROMPT_USER_MACHINE=$'#%m'
-		PROMPT_TITLE_MACHINE=$'%m#'
+		prompt_user_machine=$'#%m'
+		prompt_title_machine=$'%m#'
 	fi
 	if [[ $prompt_use_italic == true ]]; then
-		PROMPT_FMT_ITALIC=$(tput sitm)
-		PROMPT_FMT_RESET=$(tput sgr0)
+		prompt_fmt_italic=$(tput sitm)
+		prompt_fmt_reset=$(tput sgr0)
 	fi
 	case "$TERM" in
 		cygwin|xterm*|putty*|rxvt*|ansi)
-			PROMPT_FMT_TITLE=$'\e]1;'
-			PROMPT_FMT_TITLE_END=$'\a'
-			PROMPT_FMT_WINDOW=$'\e]2;'
-			PROMPT_FMT_WINDOW_END=$'\a'
+			prompt_fmt_title=$'\e]1;'
+			prompt_fmt_title_end=$'\a'
+			prompt_fmt_window=$'\e]2;'
+			prompt_fmt_window_end=$'\a'
 			;;
 		screen*|tmux*)
-			PROMPT_FMT_TITLE=$'\ek'
-			PROMPT_FMT_TITLE_END=$':q\e\\'
+			prompt_fmt_title=$'\ek'
+			prompt_fmt_title_end=$':q\e\\'
+			prompt_fmt_window=$'\ek'
+			prompt_fmt_window_end=$':q\e\\'
 			;;
 	esac
-	PROMPT_TITLE=$'%{'"$PROMPT_FMT_TITLE$PROMPT_TITLE_MACHINE"$'%2~'"$PROMPT_FMT_TITLE_END"$'%}'
-	PROMPT_USER=$'%{'"$PROMPT_FMT_ITALIC"$'%}%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%(!.%K{'"$PROMPT_COLOR_ORANGE"$'}.%K{'"$PROMPT_COLOR_BLUE"$'}) %n'"$PROMPT_USER_MACHINE"$' %k%f%{'"$PROMPT_FMT_RESET"$'%}'
-	PROMPT_HISTORY=$'%F{'"$PROMPT_COLOR_BASE01"$'} %h %f'
-	PROMPT_ERROR_PREV=$'$(format_return_code_prev $?)'
-	PROMPT_VCS=$'%K{'$PROMPT_COLOR_BASE03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
-	PROMPT_DIRECTORY=$'%K{'$PROMPT_COLOR_BASE02$'} %2~ %k'
-	PROMPT_VI=$'%F{'"$PROMPT_COLOR_ALWAYS_BASE3"$'}%{'"$PROMPT_FMT_ITALIC"$'%}$zle_vi_mode_%{'"$PROMPT_FMT_RESET"$'%}%f'
-	RPROMPT="$PROMPT_HISTORY$PROMPT_USER"
-	PROMPT="$PROMPT_TITLE$PROMPT_VI$PROMPT_VCS$PROMPT_DIRECTORY "
+	#prompt_title="%{$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_fmt_window_end%}"
+	prompt_title="$(format_prompt_title)"
+	prompt_user=$'%{'"$prompt_fmt_italic"$'%}%F{'"$prompt_color_always_base3"$'}%(!.%K{'"$prompt_color_orange"$'}.%K{'"$prompt_color_blue"$'}) %n'"$prompt_user_machine"$' %k%f%{'"$prompt_fmt_reset"$'%}'
+	prompt_history=$'%F{'"$prompt_color_base01"$'} %h %f'
+	prompt_error_prev=$'$(format_return_code_prev $?)'
+	prompt_vcs=$'%K{'$prompt_color_base03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
+	prompt_directory=$'%K{'$prompt_color_base02$'} %2~ %k'
+	prompt_vi=$'%F{'"$prompt_color_always_base3"$'}%{'"$prompt_fmt_italic"$'%}$zle_vi_mode_%{'"$prompt_fmt_reset"$'%}%f'
+	if [[ $propmt_compact == true ]]; then
+		prompt_vi=$'%F{'"$prompt_color_always_base3"$'}$zle_vi_mode_%f'
+	fi
+	RPROMPT="$prompt_history$prompt_user"
+	PROMPT="$prompt_title$prompt_vi$prompt_vcs$prompt_directory "
 }
-prompt_use_italic=false
+format_prompt_title() {
+	prompt_current_program='$command_title_fmt$command_last'
+	echo $'%{'"$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_window_end"$'%}'
+}
+propmt_compact=true
+prompt_use_italic=true
 setup_prompt
+
+setup_command_current() {
+	preexec_command_current() {
+		command_current=(${(z)1})
+		case $command_current[1] in
+			fg)	command_current="${(z)jobtexts[${(Q)command_current[2]:-%+}]}" ;;
+			%*)	command_current="${(z)jobtexts[${(Q)command_current[1]:-%+}]}" ;;
+		esac
+		command_current="${command_current:gs/%/%%}"
+		if [[ "${#command_current}" -gt $command_current_max_length ]]; then
+			command_current="${command_current[1, $(( $command_current_max_length - 1 ))]}"$'\U2026'
+		fi
+		if [[ ! -z "$command_current" ]]; then
+			command_last="$command_current"
+			command_title_fmt=": "
+		else
+			command_title_fmt="$ "
+			if [[ -z "$command_last" ]]; then
+				command_title_fmt=""
+			fi
+		fi
+		print -Pn "$(format_prompt_title)"
+	}
+}
+command_current_max_length=48
+setup_command_current
+preexec_functions+=( preexec_command_current )
+precmd_functions+=( preexec_command_current )
 
 # command entry plugins
 
@@ -347,44 +384,49 @@ slowest_functions+=( setup_nope )
 # helper scripts
 
 function theme {
+	local iterm_profile kitty_theme kitty_variation gnome_theme macos_theme
 	case "$2" in
 		g)
-			KITTY_VARIATION=greyscale-
+			kitty_variation=greyscale-
 		;;
 		*)
-			KITTY_VARIATION=
+			kitty_variation=
 		;;
 	esac
 	case "$1" in
 		light)
-			ITERM_PROFILE=Light
-			KITTY_THEME=${KITTY_VARIATION}light
+			iterm_profile=Light
+			kitty_theme=${kitty_variation}light
 			export LIGHT=true
-			GNOME_THEME=Adwaita
-			MACOS_THEME=false
+			gnome_theme=Adwaita
+			macos_theme=false
 		;;
 		dark)
-			ITERM_PROFILE=Default
-			KITTY_THEME=${KITTY_VARIATION}dark
+			iterm_profile=Default
+			kitty_theme=${kitty_variation}dark
 			export LIGHT=false
-			GNOME_THEME=Adwaita-dark
-			MACOS_THEME=true
+			gnome_theme=Adwaita-dark
+			macos_theme=true
 		;;
 	esac
 	if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 		echo -e "\033]50;SetProfile=$ITERM_PROFILE\a"
 	fi
 	if [[ "$TERM" == "xterm-kitty" ]]; then
-		kitty @ set-colors -c -a ~/.config/kitty/colorscheme.$KITTY_THEME.conf
+		kitty @ set-colors -c -a ~/.config/kitty/colorscheme.$kitty_theme.conf
 		kitty @ env LIGHT=$LIGHT
-		ln -sf colorscheme.$KITTY_THEME.conf ~/.config/kitty/colorscheme.conf
+		if [[ -z "$SSH_CLIENT" ]]; then
+			ln -sf colorscheme.$kitty_theme.conf ~/.config/kitty/colorscheme.conf
+		fi
 	fi
 	setup_prompt
-	if [[ -f "$(which gsettings)" ]]; then
-		gsettings set org.gnome.desktop.interface gtk-theme $GNOME_THEME
-	fi
-	if [[ $PLATFORM == macos ]]; then
-		osascript -e "tell app \"System Events\" to tell appearance preferences to set dark mode to $MACOS_THEME"
+	if [[ -z "$SSH_CLIENT" ]]; then
+		if [[ $PLATFORM == linux ]] && [[ -f "$(which gsettings)" ]]; then
+			gsettings set org.gnome.desktop.interface gtk-theme $gnome_theme
+		fi
+		if [[ $PLATFORM == macos ]]; then
+			osascript -e "tell app \"System Events\" to tell appearance preferences to set dark mode to $macos_theme"
+		fi
 	fi
 }
 
