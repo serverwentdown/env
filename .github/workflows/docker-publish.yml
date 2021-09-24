@@ -11,7 +11,6 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,6 +18,7 @@ jobs:
       contents: read
       packages: write
     strategy:
+      fail-fast: false
       matrix:
         tag:
         - alpine-desktopbase
