@@ -304,6 +304,7 @@ bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
 #
 # Firefox
 #
+for_window [title = "Firefox — Sharing Indicator"] floating enable
 for_window [title = "About Mozilla Firefox"] floating enable
 #
 # Tandem
