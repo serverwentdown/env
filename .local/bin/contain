@@ -60,13 +60,16 @@ _canonicalize_file_path() {
     (cd "$dir" 2>/dev/null && printf '%s/%s\n' "$(pwd -P)" "$file")
 }
 
+DEFAULT_IMAGE=ghcr.io/serverwentdown/env
+DEFAULT_TAG=fedora
+CONTAIN_HOME=/home/ambrose
 . ~/.config/contain
 
-if [[ -f "$(which docker 2>/dev/null)" ]]; then
-	runtime=docker
-elif [[ -f "$(which podman 2>/dev/null)" ]]; then
+if [[ -f "$(which podman 2>/dev/null)" ]]; then
 	runtime=podman
 	runtime_extra_opts="$runtime_extra_opts--userns=keep-id "
+elif [[ -f "$(which docker 2>/dev/null)" ]]; then
+	runtime=docker
 fi
 
 if $runtime info | grep -iq selinux; then
