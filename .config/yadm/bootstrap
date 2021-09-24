@@ -96,7 +96,13 @@ packages_install() {
 # Installation into user folder
 
 download_bin_path="$HOME/.local/bin"
-mkdir -p $download_bin_path
+mkdir -p "$download_bin_path"
+download_kitty_terminfo() {
+	version=master
+	wget \
+		--output-document "$HOME/.terminfo/x/xterm-kitty" \
+		"https://github.com/kovidgoyal/kitty/raw/$version/terminfo/x/xterm-kitty"
+}
 download_dust() {
 	version=v0.5.4
 	arch=x86_64
@@ -112,7 +118,7 @@ download_dust() {
 		--gunzip \
 		--file /tmp/dust.tar.gz \
 		--to-stdout \
-		dust-$version-$arch-$system/dust > $download_bin_path/dust
+		dust-$version-$arch-$system/dust > "$download_bin_path/dust"
 	rm /tmp/dust.tar.gz
 }
 download_kubectl() {
@@ -124,9 +130,9 @@ download_kubectl() {
 		*) return 1;;
 	esac
 	wget \
-		--output-document $download_bin_path/kubectl \
+		--output-document "$download_bin_path/kubectl" \
 		https://dl.k8s.io/release/$version/bin/$system/$arch/kubectl
-	chmod +x $download_bin_path/kubectl
+	chmod +x "$download_bin_path/kubectl"
 }
 download_minio_client() {
 	arch=amd64
@@ -136,15 +142,15 @@ download_minio_client() {
 		*) return 1;;
 	esac
 	wget \
-		--output-document $download_bin_path/mc \
+		--output-document "$download_bin_path/mc" \
 		https://minio.mirror.makerforce.io/client/mc/release/$system-$arch/mc
 		#https://dl.min.io/client/mc/release/$system-$arch/mc
-	chmod +x $download_bin_path/mc
+	chmod +x "$download_bin_path/mc"
 }
 download_nvim_plug() {
-	mkdir -p $HOME/.config/nvim/autoload
+	mkdir -p "$HOME/.config/nvim/autoload"
 	wget \
-		--output-document $HOME/.config/nvim/autoload/plug.vim \
+		--output-document "$HOME/.config/nvim/autoload/plug.vim" \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 download_go() {
@@ -162,8 +168,11 @@ download_go() {
 		--gunzip \
 		--directory /usr/local \
 		--file /tmp/go.tar.gz
-	sudo ln -s /usr/local/go/bin/go /usr/local/bin/go
-	sudo ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+	restore_cd="$(pwd)"
+	cd /usr/local/bin
+	sudo ln -s /usr/local/go/bin/go
+	sudo ln -s /usr/local/go/bin/gofmt
+	cd "$restore_cd"
 	rm /tmp/go.tar.gz
 }
 download_rust() {
@@ -173,14 +182,14 @@ download_deno() {
 	wget --output-document - https://deno.land/x/install/install.sh | sh -s
 }
 download_font_path="$HOME/.local/share/fonts"
-mkdir -p $download_font_path
+mkdir -p "$download_font_path"
 download_font_firacode() {
 	version=5.2
 	wget \
 		--output-document /tmp/firacode.zip \
 		https://github.com/tonsky/FiraCode/releases/download/$version/Fira_Code_v$version.zip
 	unzip -q /tmp/firacode.zip -d /tmp/firacode
-	mv /tmp/firacode/ttf/* $download_font_path/
+	mv /tmp/firacode/ttf/* "$download_font_path/"
 	rm -r /tmp/firacode.zip /tmp/firacode
 }
 download_font_ibmplex() {
@@ -190,7 +199,7 @@ download_font_ibmplex() {
 		https://github.com/IBM/plex/releases/download/v$version/TrueType.zip
 	unzip -q /tmp/ibmplex.zip -d /tmp/ibmplex
 	for family in Sans Serif Mono; do
-		mv /tmp/ibmplex/TrueType/IBM-Plex-$family/*.ttf $download_font_path/
+		mv /tmp/ibmplex/TrueType/IBM-Plex-$family/*.ttf "$download_font_path/"
 	done
 	rm -r /tmp/ibmplex.zip /tmp/ibmplex
 }
@@ -201,9 +210,9 @@ download_cutter_re() {
 		*) return 1;;
 	esac
 	wget \
-		--output-document $download_bin_path/cutter \
+		--output-document "$download_bin_path/cutter" \
 		https://github.com/rizinorg/cutter/releases/download/v$version/Cutter-v$version-x64.$system.AppImage
-	chmod +x $download_bin_path/cutter
+	chmod +x "$download_bin_path/cutter"
 }
 
 # Install basics
@@ -244,6 +253,12 @@ if $base; then
 	esac
 	packages_add exa jq
 
+	# Install kitty terminfo
+	case $ID in
+		macos|alpine) download_kitty_terminfo;;
+		fedora|debian|ubuntu) packages_add kitty-terminfo;;
+	esac
+
 	# Install C compilers
 
 	case $ID in
@@ -278,10 +293,6 @@ if $base; then
 		macos|fedora|debian|ubuntu) $nicetohave && packages_add thefuck;;
 		*) $nicetohave && pip3 install --no-cache-dir --user thefuck;;
 	esac
-	case $ID in
-		macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add black;;
-		*) $nicetohave && pip3 install --no-cache-dir --user black;;
-	esac
 
 	# Install Golang
 
@@ -295,7 +306,7 @@ if $base; then
 	# Install Rust
 
 	$rust && download_rust
-	$rust && source $HOME/.cargo/env && rustup component add rls rust-analysis rust-src
+	$rust && source "$HOME/.cargo/env" && rustup component add rls rust-analysis rust-src
 
 	# Install dust
 
@@ -328,7 +339,7 @@ if $base; then
 
 	# Give root a ZSH prompt
 
-	sudo cp $HOME/.zshrc /root/.zshrc
+	sudo cp "$HOME/.zshrc" /root/.zshrc
 
 fi
 

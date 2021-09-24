@@ -36,6 +36,7 @@
 .esd_auth
 .gem
 .ghidra
+.gnome/apps
 .gnupg/*
 !.gnupg/gpg-agent.conf
 !.gnupg/gpg.conf
@@ -43,11 +44,11 @@
 .kube/cache
 .lesshst
 .local/bin/cutter
-.local/bin/black*
 .local/bin/dust
 .local/bin/http*
 .local/bin/kube*
 .local/bin/mc
+.local/bin/poetry
 .local/lib
 .local/share/*
 !.local/share/MultiMC
@@ -56,6 +57,7 @@
 !.local/share/yadm
 .local/share/yadm/repo.git
 !.local/share/yadm/archive
+.local/state
 .mc/share
 .mozilla/*
 !.mozilla/firefox
@@ -66,11 +68,14 @@
 .pki
 !.pwn
 .rustup/toolchains
+.rustup/update-hashes
 .ssh/authorized_keys
 .ssh/known_hosts
 .var/app
+.vnc
 .wget-hsts
 .Xilinx
+.Xauthority
 !.xkb
 .zcompdump
 .zoom
