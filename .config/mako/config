@@ -8,7 +8,8 @@ margin=8
 padding=12
 border-size=0
 border-radius=0
-default-timeout=3600
+default-timeout=120000
 
 max-visible=10
+max-history=50
 anchor=top-right

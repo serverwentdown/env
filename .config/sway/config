@@ -300,6 +300,18 @@ gaps outer 8
 bindsym $mod+g gaps inner current set 34, gaps outer current set 10
 bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
 
+### Floating windows
+#
+# Firefox
+#
+for_window [title = "About Mozilla Firefox"] floating enable
+#
+# Tandem
+#
+for_window [class = "Tandem"] floating enable
+for_window [class = "Tandem" title = "Tandem"] floating disable, resize set width 400 px
+for_window [class = "Tandem" title = "Table"] floating enable, sticky enable
+
 ### Fixes
 #
 # Import systemd environments for GNOME Keyring
@@ -309,6 +321,10 @@ exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_D
 # Enable PolicyKit:
 #
 exec lxpolkit
+#
+# Enable mako:
+#
+exec mako
 #
 # Enable GNOME Keyring:
 #
