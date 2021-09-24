@@ -99,6 +99,7 @@ download_bin_path="$HOME/.local/bin"
 mkdir -p "$download_bin_path"
 download_kitty_terminfo() {
 	version=master
+	mkdir -p "$HOME/.terminfo/x"
 	wget \
 		--output-document "$HOME/.terminfo/x/xterm-kitty" \
 		"https://github.com/kovidgoyal/kitty/raw/$version/terminfo/x/xterm-kitty"
