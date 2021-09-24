@@ -149,10 +149,11 @@ download_minio_client() {
 	chmod +x "$download_bin_path/mc"
 }
 download_nvim_plug() {
+	version=master
 	mkdir -p "$HOME/.config/nvim/autoload"
 	wget \
 		--output-document "$HOME/.config/nvim/autoload/plug.vim" \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		https://github.com/junegunn/vim-plug/raw/$version/plug.vim
 }
 download_go() {
 	version=1.16.2

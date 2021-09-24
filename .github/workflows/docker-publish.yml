@@ -45,5 +45,5 @@ jobs:
         file: .docker/${{ matrix.tag }}
         context: .
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ matrix.tag }}
+        tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.tag }}
         labels: ${{ steps.meta.outputs.labels }}
