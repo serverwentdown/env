@@ -168,7 +168,7 @@ setup_prompt_vcs() {
 format_vcs_info() {
 	local text
 	text="$1"
-	echo "$text"
+	echo -n "$text"
 }
 slower_functions+=( setup_prompt_vcs )
 # prompt: return code
@@ -318,7 +318,7 @@ setup_prompt() {
 }
 format_prompt_title() {
 	prompt_current_program='$command_title_fmt$command_last'
-	echo $'%{'"$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_window_end"$'%}'
+	echo -n $'%{'"$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_window_end"$'%}'
 }
 propmt_compact=true
 prompt_use_italic=true
