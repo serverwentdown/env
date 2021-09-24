@@ -1,0 +1,49 @@
+name: Docker
+
+on:
+  push:
+    branches:
+    - main
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        tag:
+        - alpine-desktopbase
+        - alpine-slim
+        - debian-node
+        - fedora
+        - fedora-desktopbase
+        - fedora-go
+        - fedora-pwn
+        - fedora-rust
+        - ubuntu-desktopbase
+    steps:
+    - uses: actions/checkout@v2
+    - name: log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        file: .docker/${{ matrix.tag }}
+        context: .
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ matrix.tag }}
+        labels: ${{ steps.meta.outputs.labels }}
