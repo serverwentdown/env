@@ -5,11 +5,7 @@ Just storing dotfiles in a repository isn't enough. This is almost all the tools
 
 ## Screenshots
 
-<img src="../.local/screenshots/iterm1.png" width="200">
-<img src="../.local/screenshots/iterm1-light.png" width="200">
-<img src="../.local/screenshots/iterm2.png" width="200">
-<img src="../.local/screenshots/iterm3.png" width="200">
-<img src="../.local/screenshots/iterm3-light.png" width="200">
+<img src="../.local/screenshots/iterm1.png" width="200"><img src="../.local/screenshots/iterm1-light.png" width="200"><img src="../.local/screenshots/iterm2.png" width="200"><img src="../.local/screenshots/iterm3.png" width="200"><img src="../.local/screenshots/iterm3-light.png" width="200">
 
 ## Usage
 
