@@ -22,7 +22,7 @@ focus_follows_mouse no
 ### Output configuratjon
 #
 # Default wallpaper
-output * bg ~/.wallpaper/default.jpg fill
+output * bg ~/.local/wallpaper/default.jpg fill
 #
 # Example configuration:
 #
