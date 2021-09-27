@@ -259,7 +259,7 @@ client.urgent            #dc322fff #dc322fff #ffffffff #268bd200 #dc322fff
 #
 # Fonts:
 #
-font pango:Fira Code bold 10
+font pango:Fira Code normal 9.5
 #
 # Media controls:
 #
@@ -309,9 +309,8 @@ for_window [title = "About Mozilla Firefox"] floating enable
 #
 # Tandem
 #
-for_window [class = "Tandem"] floating enable
-for_window [class = "Tandem" title = "Tandem"] floating disable, resize set width 400 px
-for_window [class = "Tandem" title = "Table"] floating enable, sticky enable
+for_window [class = "Tandem"] floating enable, sticky enable, move position 0 px 0 px
+for_window [class = "Tandem" title = "Tandem"] floating disable, sticky disable, resize set width 400 px
 
 ### Fixes
 #

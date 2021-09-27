@@ -168,6 +168,7 @@ augroup END
 
 set foldcolumn=1
 set number
+set relativenumber
 set cursorline
 
 " indentation
