@@ -52,7 +52,7 @@ exec swayidle -w \
     timeout 1200 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
     before-sleep 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
     timeout 3600 'systemctl suspend'
-bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.wallpaper/default.jpg
+bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg
 
 ### Input configuration
 #

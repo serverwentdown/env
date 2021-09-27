@@ -121,7 +121,7 @@ download_ripgrep() {
 	case $ID in
 		macos) system=apple-darwin;;
 		alpine) system=unknown-linux-musl;;
-		fedora|debian|ubuntu) system=unknown-linux-gnu;;
+		*) return 1;;
 	esac
 	wget \
 		--output-document /tmp/ripgrep.tar.gz \
@@ -283,7 +283,7 @@ if $base; then
 	# Install ripgrep
 
 	case $ID in
-		macos|alpine|fedara|debian|ubuntu) $nicetohave && packages_add ripgrep;;
+		macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add ripgrep;;
 		*) $nicetohave && download_ripgrep;;
 	esac
 
