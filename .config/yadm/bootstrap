@@ -273,26 +273,6 @@ if $base; then
 	esac
 	packages_add exa jq
 
-	# Install dust
-
-	case $ID in
-		macos|alpine) $nicetohave && packages_add dust;;
-		*) $nicetohave && download_dust;;
-	esac
-
-	# Install ripgrep
-
-	case $ID in
-		macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add ripgrep;;
-		*) $nicetohave && download_ripgrep;;
-	esac
-
-	# Install kitty terminfo
-	case $ID in
-		macos|alpine) download_kitty_terminfo;;
-		fedora|debian|ubuntu) packages_add kitty-terminfo;;
-	esac
-
 	# Install C compilers
 
 	case $ID in
@@ -316,6 +296,26 @@ if $base; then
 		fedora|debian|ubuntu) $nicetohave && packages_add python3-pip;;
 	esac
 	packages_install
+
+	# Install dust
+
+	case $ID in
+		macos|alpine) $nicetohave && packages_add dust;;
+		*) $nicetohave && download_dust;;
+	esac
+
+	# Install ripgrep
+
+	case $ID in
+		macos|alpine|fedora|debian|ubuntu) $nicetohave && packages_add ripgrep;;
+		*) $nicetohave && download_ripgrep;;
+	esac
+
+	# Install kitty terminfo
+	case $ID in
+		macos|alpine) download_kitty_terminfo;;
+		fedora|debian|ubuntu) packages_add kitty-terminfo;;
+	esac
 
 	# Install Python 3 packages
 
@@ -535,6 +535,13 @@ if $pwn; then
 		debian|ubuntu) packages_add libffi-dev libssl-dev;;
 	esac
 
+	# pwn: Dependencies for Ruby
+
+	case $ID in
+		alpine|debian|ubuntu) packages_add ruby;;
+		fedora) packages_add ruby rubygems;;
+	esac
+
 	packages_install
 
 	case $ID in
@@ -562,13 +569,6 @@ if $pwn; then
 	esac
 
 	# pwn: Tools (Ruby)
-
-	case $ID in
-		alpine|debian|ubuntu) packages_add ruby;;
-		fedora) packages_add ruby rubygems;;
-	esac
-
-	packages_install
 
 	sudo gem install one_gadget
 

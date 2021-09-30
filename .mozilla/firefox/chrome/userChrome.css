@@ -4,9 +4,13 @@ html:not([inFullscreen]) body {
 	/* Cannot be done in fullscreen because only moving the cursor on top will trigger showing of toolbar */
 }
 
+#widget-overflow {
+	margin-top: calc(-50vh - 40px - 6px) !important;
+}
+
 .panel-viewstack {
 	/* Some computed max-height is styled on .panel-viewstack. block it */
-	max-height: none !important;
+	max-height: 50vh !important;
 }
 
 #navigator-toolbox {
