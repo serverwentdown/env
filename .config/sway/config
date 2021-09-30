@@ -94,7 +94,7 @@ input type:pointer {
     bindsym $mod+Return exec $term
 
     # kill focused window
-    bindsym $mod+q kill
+    bindsym $mod+Shift+q kill
 
     # start your launcher
     bindsym $mod+d exec $menu

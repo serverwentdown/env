@@ -16,7 +16,7 @@ alt - return : kitty --single-instance -d ~
 alt + shift - return : ~/.local/bin/iterm_open
 
 # kill focused window
-alt - q : yabai -m window --close
+alt + shift - q : yabai -m window --close
 
 # start launcher
 alt - d : skhd -k "cmd - space"
