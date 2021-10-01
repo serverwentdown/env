@@ -85,6 +85,8 @@ input type:touchpad {
 input type:pointer {
     natural_scroll enabled
 }
+# Disable pointer and touchpad
+bindsym $mod+p input type:pointer events toggle enabled disabled
 
 ### Key bindings
 #

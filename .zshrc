@@ -148,6 +148,19 @@ if [[ -f "$(which exa 2>/dev/null)" ]]; then
 fi
 alias ll="ls -l"
 
+# grep
+
+if [[ -f "$(which rg 2>/dev/null)" ]]; then
+	rgl() {
+		rg --line-number --heading --color always "$@" | less --RAW-CONTROL-CHARS
+	}
+else
+	alias rg="grep --recursive --line-number"
+	rgl() {
+		rg --color=always "$@" | less --RAW-CONTROL-CHARS
+	}
+fi
+
 # prompt
 
 setopt prompt_subst
@@ -422,7 +435,7 @@ function theme {
 	fi
 	setup_prompt
 	if [[ -z "$SSH_CLIENT" ]]; then
-		if [[ $PLATFORM == linux ]] && [[ -f "$(which gsettings)" ]]; then
+		if [[ $PLATFORM == linux ]] && [[ -f "$(which gsettings 2>/dev/null)" ]]; then
 			gsettings set org.gnome.desktop.interface gtk-theme $gnome_theme
 		fi
 		if [[ $PLATFORM == macos ]]; then
