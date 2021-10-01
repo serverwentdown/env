@@ -162,6 +162,9 @@ input type:pointer {
     bindcode $mod+Shift+19 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    # back and forth
+    bindsym $mod+period workspace back_and_forth
 #
 # Displays:
 #
@@ -228,6 +231,11 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+#
+# Sticky:
+#
+    # Toggle the current focus sticky
+    bindsym $mod+Shift+backslash floating enable, sticky toggle
 
 #
 # Status Bar:
@@ -300,6 +308,23 @@ gaps outer 8
 bindsym $mod+g gaps inner current set 34, gaps outer current set 10
 bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
 
+### Workspaces
+#
+# 10: Spotify
+#
+# Does not work: assign [instance = "spotify"] 10
+for_window [instance = "spotify"] move to workspace 10
+#
+# 9: Streaming
+#
+assign [title = "^OBS"] 9
+#
+# 2: Chat
+#
+bindsym $mod+F5 \
+    [instance = "(discord|element)"] move container to workspace 2; \
+    [title = "^Telegram$"] move container to workspace 2
+
 ### Floating windows
 #
 # Firefox
@@ -309,13 +334,15 @@ for_window [title = "About Mozilla Firefox"] floating enable
 #
 # Tandem
 #
-for_window [class = "Tandem"] floating enable, sticky enable, move position 0 px 0 px
+for_window [instance = "tandem"] floating enable, sticky enable
+for_window [instance = "tandem" title = "^Tandem$"] sticky disable
 
 ### Fixes
 #
 # Import systemd environments for GNOME Keyring
 #
-exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_DESKTOP XDG_SESSION_CLASS XDG_SESSION_ID XDG_RUNTIME_DIR
+exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_DESKTOP XDG_SESSION_CLASS XDG_SESSION_ID XDG_RUNTIME_DIR DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 #
 # Enable PolicyKit:
 #
