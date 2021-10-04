@@ -309,6 +309,10 @@ gaps outer 8
 # Toggle large gaps
 bindsym $mod+g gaps inner current set 34, gaps outer current set 10
 bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
+#
+# Special sizes
+#
+bindsym $mod+F8 resize set 1912 px 1072 px
 
 ### Workspaces
 #
@@ -316,10 +320,6 @@ bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
 #
 # Does not work: assign [instance = "spotify"] 10
 for_window [instance = "spotify"] move to workspace 10
-#
-# 9: Streaming
-#
-assign [title = "^OBS"] 9
 #
 # 2: Chat
 #
@@ -333,6 +333,7 @@ bindsym $mod+F5 \
 #
 for_window [title = "Firefox — Sharing Indicator"] floating enable
 for_window [title = "About Mozilla Firefox"] floating enable
+for_window [title = "Picture-in-Picture"] floating enable, sticky enable
 #
 # Tandem
 #
@@ -341,10 +342,10 @@ for_window [instance = "tandem" title = "^Tandem$"] sticky disable
 
 ### Fixes
 #
-# Import systemd environments for GNOME Keyring
+# Import systemd environments for GNOME Keyring:
 #
 exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_DESKTOP XDG_SESSION_CLASS XDG_SESSION_ID XDG_RUNTIME_DIR DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
 #
 # Enable PolicyKit:
 #

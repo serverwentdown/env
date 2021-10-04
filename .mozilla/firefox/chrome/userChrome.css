@@ -8,6 +8,10 @@ html:not([inFullscreen]) body {
 	margin-top: calc(-50vh - 40px - 6px) !important;
 }
 
+#notification-popup {
+	margin-top: calc(-50vh - 40px - 6px) !important;
+}
+
 .panel-viewstack {
 	/* Some computed max-height is styled on .panel-viewstack. block it */
 	max-height: 50vh !important;

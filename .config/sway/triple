@@ -39,6 +39,6 @@ bindsym --locked $mod+F3 exec (ddcutil $monitor_global $monitor_left setvcp 0x10
 #
 # Media controls:
 #
-bindsym $mod+p exec "playerctl play-pause"
+bindsym $mod+m exec "playerctl play-pause"
 
 # vim: ai ts=4 sw=4 et
