@@ -47,11 +47,11 @@ output * bg ~/.local/wallpaper/default.jpg fill
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 exec swayidle -w \
-    timeout 1140 'swaymsg "output * dpms off"' \
+    timeout 300 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' \
-    timeout 1200 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
+    timeout 310 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
     before-sleep 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
-    timeout 3600 'systemctl suspend'
+    timeout 1200 'systemctl suspend'
 bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg
 
 ### Input configuration
@@ -71,7 +71,7 @@ input * {
     xkb_layout "ambrose,us"
     xkb_variant "dvp,"
     xkb_options "lv3:ralt_switch"
-    scroll_factor 3
+    scroll_factor 1
 }
 # Switch keyboard layouts
 bindsym $mod+F9 input * xkb_switch_layout 0
