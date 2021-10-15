@@ -313,6 +313,7 @@ bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
 # Special sizes
 #
 bindsym $mod+F8 resize set 1912 px 1072 px
+bindsym $mod+Shift+F8 resize set 1928 px 1088 px
 
 ### Workspaces
 #
