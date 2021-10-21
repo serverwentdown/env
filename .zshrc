@@ -49,7 +49,6 @@ prompt_run_count=0
 on_second_prompt() {
 	if [[ "$prompt_run_count" == 1 ]] && [[ "$USER" != "root" ]]; then
 		#zmodload zsh/zprof
-		prompt_use_italic=true
 		load_slower
 		#load_slowest
 		#zprof
@@ -237,7 +236,7 @@ zle-line-init zle-keymap-select() {
 	local normal_mode insert_mode
 	normal_mode=" N "
 	insert_mode=" I "
-	if [[ $propmt_compact == true ]]; then
+	if [[ $prompt_compact == true ]]; then
 		normal_mode=" "
 		insert_mode=" "
 	fi
@@ -304,33 +303,35 @@ setup_prompt() {
 		prompt_user_machine=$'#%m'
 		prompt_title_machine=$'%m#'
 	fi
-	if [[ $prompt_use_italic == true ]]; then
-		prompt_fmt_italic=$(tput sitm)
-		prompt_fmt_reset=$(tput sgr0)
-	fi
 	case "$TERM" in
-		cygwin|xterm*|putty*|rxvt*|ansi)
+		screen*)
+			;;
+		*)
+			prompt_fmt_italic=$(tput sitm)
+			prompt_fmt_reset=$(tput sgr0)
+			;;
+	esac
+	case "$TERM" in
+		cygwin|xterm*|putty*|rxvt*|ansi|tmux*)
 			prompt_fmt_title=$'\e]1;'
 			prompt_fmt_title_end=$'\a'
 			prompt_fmt_window=$'\e]2;'
 			prompt_fmt_window_end=$'\a'
 			;;
-		screen*|tmux*)
+		screen*)
 			prompt_fmt_title=$'\ek'
-			prompt_fmt_title_end=$':q\e\\'
-			prompt_fmt_window=$'\ek'
-			prompt_fmt_window_end=$':q\e\\'
+			prompt_fmt_title_end=$'\e\\'
 			;;
 	esac
 	#prompt_title="%{$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_fmt_window_end%}"
-	prompt_title="$(format_prompt_title)"
+	prompt_title=$'%{'"$(format_prompt_title)"$'%}'
 	prompt_user=$'%{'"$prompt_fmt_italic"$'%}%F{'"$prompt_color_always_base3"$'}%(!.%K{'"$prompt_color_orange"$'}.%K{'"$prompt_color_blue"$'}) %n'"$prompt_user_machine"$' %k%f%{'"$prompt_fmt_reset"$'%}'
 	prompt_history=$'%F{'"$prompt_color_base01"$'} %h %f'
 	prompt_error_prev=$'$(format_return_code_prev $?)'
 	prompt_vcs=$'%K{'$prompt_color_base03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
 	prompt_directory=$'%K{'$prompt_color_base02$'} %2~ %k'
 	prompt_vi=$'%F{'"$prompt_color_always_base3"$'}%{'"$prompt_fmt_italic"$'%}$zle_vi_mode_%{'"$prompt_fmt_reset"$'%}%f'
-	if [[ $propmt_compact == true ]]; then
+	if [[ $prompt_compact == true ]]; then
 		prompt_vi=$'%F{'"$prompt_color_always_base3"$'}$zle_vi_mode_%f'
 	fi
 	RPROMPT="$prompt_history$prompt_user"
@@ -338,10 +339,14 @@ setup_prompt() {
 }
 format_prompt_title() {
 	prompt_current_program='$command_title_fmt$command_last'
-	echo -n $'%{'"$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_window_end"$'%}'
+	if [[ ! -z "$prompt_fmt_title" ]]; then
+		echo -n "$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_title_end"
+	fi
+	if [[ ! -z "$prompt_fmt_window" ]]; then
+		echo -n "$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_window_end"
+	fi
 }
-propmt_compact=true
-prompt_use_italic=true
+prompt_compact=true
 setup_prompt
 
 setup_command_current() {
