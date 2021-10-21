@@ -304,13 +304,12 @@ setup_prompt() {
 		prompt_title_machine=$'%m#'
 	fi
 	case "$TERM" in
-		screen*)
-			;;
-		*)
-			prompt_fmt_italic=$(tput sitm)
-			prompt_fmt_reset=$(tput sgr0)
+		screen*|tmux*)
+			prompt_title_machine=
 			;;
 	esac
+	prompt_fmt_italic=$(tput sitm)
+	prompt_fmt_reset=$(tput sgr0)
 	case "$TERM" in
 		cygwin|xterm*|putty*|rxvt*|ansi|tmux*)
 			prompt_fmt_title=$'\e]1;'
