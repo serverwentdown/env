@@ -19,12 +19,12 @@ if [ ! -x "$(which $SHASUM)" ]; then
 fi
 
 case "$SHARE_PROFILE" in
-	minio1)
-		HOST_ALIAS=minio1
+	minio)
+		HOST_ALIAS=minio
 		BUCKET=share
-		BUCKET_URL=https://minio1.makerforce.io/share
+		BUCKET_URL=https://minio.makerforce.io/share
 		BUCKET_PUBLIC=pub
-		BUCKET_PUBLIC_URL=https://minio1.makerforce.io/pub
+		BUCKET_PUBLIC_URL=https://minio.makerforce.io/pub
 	;;
 	b|*)
 		HOST_ALIAS=b
