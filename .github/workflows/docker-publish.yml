@@ -24,6 +24,7 @@ jobs:
         - alpine-desktopbase
         - alpine-slim
         - debian-node
+        - fm
         - fedora
         - fedora-desktopbase
         - fedora-go

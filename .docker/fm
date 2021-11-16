@@ -1,0 +1,28 @@
+FROM docker.io/serverwentdown/file-manager:latest
+
+RUN apt-get update \
+	&& apt-get install -y \
+		sudo zsh \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN userdel --remove node \
+	&& useradd -s /bin/zsh ambrose -u 1000 -U \
+	&& echo '' >> /etc/sudoers \
+	&& echo '## No password sudo' >> /etc/sudoers \
+	&& echo 'ambrose ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+WORKDIR /home/ambrose
+COPY --chown=ambrose:ambrose . .
+RUN chown ambrose:ambrose /home/ambrose \
+	&& chmod go-rwx .gnupg
+
+USER ambrose
+
+RUN ./.config/yadm/bootstrap rootzsh
+
+LABEL org.opencontainers.image.title="environment"
+LABEL org.opencontainers.image.url="https://github.com/serverwentdown/env"
+LABEL org.opencontainers.image.source="https://github.com/serverwentdown/env.git"
+LABEL org.opencontainers.image.authors="Ambrose Chua"
+
+# vim: set ft=dockerfile:
