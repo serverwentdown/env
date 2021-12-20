@@ -64,6 +64,11 @@ if [[ -d "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
 fi
+if [[ -d "$HOME/.nvm" ]]; then
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 if [[ -f "$(which ruby 2>/dev/null)" ]]; then
 	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 fi
@@ -488,3 +493,4 @@ if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 	}
 fi
+
