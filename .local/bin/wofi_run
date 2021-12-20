@@ -1,7 +1,10 @@
 #!/bin/zsh
 
 export PATH="$PATH:$HOME/.local/bin"
+# Force Firefox to run using Wayland
 export MOZ_ENABLE_WAYLAND=1
+# Tell JetBrains & other AWT that Sway is non-reparenting
+export _JAVA_AWT_WM_NONREPARENTING=1
 cd ~
 
 wofi \
