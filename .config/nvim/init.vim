@@ -97,6 +97,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'AndrewRadev/splitjoin.vim'
 
+" extra completion
+
+"Plug 'github/copilot.vim'
+
 call plug#end()
 
 " theme
@@ -117,15 +121,15 @@ function! GitDirty()
 	return system("git status --porcelain --ignore-submodules -unormal 2>/dev/null") != ""
 endfunction
 
-let w:git_branch = GitBranch()
-let w:git_dirty = GitDirty()
+let g:git_branch = GitBranch()
+let g:git_dirty = GitDirty()
 function! StatuslineUpdateLazy()
-	let w:git_branch = GitBranch()
-	let w:git_dirty = GitDirty()
+	let g:git_branch = GitBranch()
+	let g:git_dirty = GitDirty()
 endfunction
 
 function! StatuslineGit()
-	return strlen(w:git_branch) > 0?'  '.w:git_branch.' ':''
+	return strlen(g:git_branch) > 0?'  '.g:git_branch.' ':''
 endfunction
 
 " assembly
@@ -142,8 +146,8 @@ set statusline+=%#StatuslineModeOther#%{(mode()=='s')?'\ \ SELECT\ \ ':''}
 set statusline+=%#StatuslineModeOther#%{(mode()=='S')?'\ \ S-LINE\ \ ':''}
 set statusline+=%#StatuslineModeOther#%{(mode()==\"\\\<C-S>\")?'\ \ S-BLOCK\ ':''}
 set statusline+=%#StatuslineModeOther#%{(mode()=='t')?'\ \ TERMINAL\ ':''}
-set statusline+=%#StatuslineGit#%{(w:git_dirty)?'':StatuslineGit()}
-set statusline+=%#StatuslineGitDirty#%{(w:git_dirty)?StatuslineGit():''}
+set statusline+=%#StatuslineGit#%{(g:git_dirty)?'':StatuslineGit()}
+set statusline+=%#StatuslineGitDirty#%{(g:git_dirty)?StatuslineGit():''}
 set statusline+=%*
 set statusline+=\ %f
 set statusline+=\ %m
