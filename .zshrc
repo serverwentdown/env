@@ -102,7 +102,7 @@ if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 	alias icat="imgcat"
 	alias ssh="TERM=xterm-256color ssh"
 fi
-if [[ "$TERM" == "xterm-kitty" ]]; then
+if [[ "$TERM" == "xterm-kitty" ]] && [[ -f "$(which kitty 2>/dev/null)" ]]; then
 	alias icat="kitty +kitten icat"
 	alias ssh="kitty +kitten ssh"
 fi
