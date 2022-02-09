@@ -75,6 +75,9 @@ fi
 if [[ -f "$(which go 2>/dev/null)" ]]; then
 	export PATH="$(go env GOPATH)/bin:$PATH"
 fi
+if [[ -f "$HOME/go/bin/g" ]]; then
+	export PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" GOROOT="$HOME/.go" # g-install: do NOT edit, see https://github.com/stefanmaric/g
+fi
 if [[ -d "$HOME/.cargo" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 fi
@@ -493,4 +496,3 @@ if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 	}
 fi
-

@@ -4,6 +4,8 @@
 .*_history
 .android
 .ansible
+.arduino*/*
+!.arduino*/preferences.txt
 .audacity*
 .bash*
 .cache
@@ -40,6 +42,7 @@
 .gnupg/*
 !.gnupg/gpg-agent.conf
 !.gnupg/gpg.conf
+.go
 .java
 .kube/cache
 .lesshst
@@ -58,6 +61,7 @@
 .local/share/yadm/repo.git
 !.local/share/yadm/archive
 .local/state
+.local/zephyr*
 .mc/share
 .mozilla/*
 !.mozilla/firefox
@@ -66,6 +70,7 @@
 .npm
 .password-store
 .pki
+.pm2
 !.pwn
 .rustup/toolchains
 .rustup/update-hashes

@@ -68,16 +68,14 @@ bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --imag
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input * {
-    xkb_layout "ambrose,us"
+    xkb_layout "us,us"
     xkb_variant "dvp,"
-    xkb_options "lv3:ralt_switch"
+    xkb_options "lv3:menu_switch,ctrl:nocaps,altwin:swap_lalt_lwin,compose:ralt"
     scroll_factor 1
 }
 # Switch keyboard layouts
-bindsym $mod+F9 input * xkb_switch_layout 0
-bindsym $mod+F10 input * xkb_switch_layout 1
-bindsym $mod+F11 input * xkb_switch_layout 2
-bindsym $mod+F12 input * xkb_switch_layout 2
+bindsym $mod+F9 input * xkb_switch_layout 0, input * xkb_options "lv3:menu_switch,ctrl:nocaps,altwin:swap_lalt_lwin,compose:ralt"
+bindsym $mod+F10 input * xkb_switch_layout 1, input * xkb_options "lv3:menu_switch,compose:ralt"
 
 input type:touchpad {
     natural_scroll enabled
