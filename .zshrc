@@ -79,7 +79,7 @@ if [[ -f "$HOME/go/bin/g" ]]; then
 	export PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" GOROOT="$HOME/.go" # g-install: do NOT edit, see https://github.com/stefanmaric/g
 fi
 if [[ -d "$HOME/flutter/bin" ]]; then
-	export PATH="$HOME/flutter/bin:$PATH"
+	export PATH="$HOME/flutter/bin:$HOME/.pub-cache/bin:$PATH"
 fi
 if [[ -d "$HOME/.cargo" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
