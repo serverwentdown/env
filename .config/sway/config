@@ -215,16 +215,16 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 12 px or 12 ppt
-    bindsym $down resize grow height 12 px or 12 ppt
-    bindsym $up resize shrink height 12 px or 12 ppt
-    bindsym $right resize grow width 12 px or 12 ppt
+    bindsym $left resize shrink width 12 px
+    bindsym $down resize grow height 12 px
+    bindsym $up resize shrink height 12 px
+    bindsym $right resize grow width 12 px
 
     # ditto, with arrow keys
-    bindsym Left resize shrink width 12 px or 12 ppt
-    bindsym Down resize grow height 12 px or 12 ppt
-    bindsym Up resize shrink height 12 px or 12 ppt
-    bindsym Right resize grow width 12 px or 12 ppt
+    bindsym Left resize shrink width 12 px
+    bindsym Down resize grow height 12 px
+    bindsym Up resize shrink height 12 px
+    bindsym Right resize grow width 12 px
 
     # return to default mode
     bindsym Return mode "default"

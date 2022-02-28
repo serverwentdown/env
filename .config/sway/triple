@@ -13,8 +13,8 @@ output $output_right position 2160 0 transform 90
 #
 # Workspaces
 #
-workspace 1 output $output_left
-workspace 2 output $output_right
+#workspace 1 output $output_left
+#workspace 2 output $output_right
 
 #
 # Display controls:
