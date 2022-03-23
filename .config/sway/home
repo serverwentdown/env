@@ -5,7 +5,7 @@
 set $output_primary "Unknown PL270 0000000000001"
 set $output_secondary "Samsung Electric Company SME2020 HMDZ800146"
 set $output_laptop "Apple Computer Inc Color LCD 0x00000000"
-output $output_primary position 1600 0 transform 270
+output $output_primary position 1600 0 transform 90
 output $output_secondary position 0 800 transform 0
 #output $output_laptop position 3760 1800 transform 0 scale 1.5
 bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
