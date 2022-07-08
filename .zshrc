@@ -84,6 +84,9 @@ fi
 if [[ -d "$HOME/.cargo" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 fi
+if [[ -d "$HOME/.rbenv" ]]; then
+	export PATH="$HOME/.rbenv/bin:$PATH"
+fi
 
 # platform specific
 

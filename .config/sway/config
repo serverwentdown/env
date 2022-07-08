@@ -46,13 +46,21 @@ output * bg ~/.local/wallpaper/default.jpg fill
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+set $swaylock 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg'
+set $dpms_on 'swaymsg "output * dpms on"'
+set $dpms_off 'swaymsg "output * dpms off"'
 exec swayidle -w \
-    timeout 300 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-    timeout 310 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
-    before-sleep 'swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg' \
-    timeout 1200 'systemctl suspend'
-bindsym $mod+Pause exec swaylock -f --color 000000 --font "IBM Plex Sans" --image ~/.local/wallpaper/default.jpg
+    lock $swaylock \
+    timeout 10 '' \
+        resume $dpms_on \
+    timeout 300 $dpms_off \
+        resume $dpms_off \
+    timeout 360 $swaylock \
+    timeout 1200 'systemctl suspend' \
+    after-resume $dpms_on
+bindsym $mod+Pause exec $swaylock
+bindsym XF86ScreenSaver exec $swaylock; exec $dpms_off
+bindsym $mod+Shift+Ctrl+p exec $swaylock; exec $dpms_off
 
 ### Input configuration
 #
@@ -84,7 +92,7 @@ input type:pointer {
     natural_scroll enabled
 }
 # Disable pointer and touchpad
-bindsym $mod+p input type:pointer events toggle enabled disabled
+bindsym $mod+p input type:pointer events toggle enabled disabled; input type:keyboard events enabled
 
 ### Key bindings
 #

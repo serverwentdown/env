@@ -1,0 +1,59 @@
+from typing import Optional, Iterable
+from pathlib import Path
+from argparse import ArgumentParser
+
+
+def resolve(parent: Path, line: str) -> Iterable[str]:
+    if line.startswith("#") or len(line.strip()) == 0:
+        return
+    negate = line.startswith("!")
+    path = line.removeprefix("!").strip()
+    absolute = "/" in line.removesuffix("/")
+
+    prefix = ""
+    if negate:
+        prefix += "!"
+    else:
+        if (
+            "target" in path
+            or "generated" in path
+            or "output" in path
+            or "build" in path
+            or "node_modules" in path
+        ):
+            prefix += "(?d)"
+
+    yield "// " + str(parent) + ": " + line.strip()
+    if absolute:
+        yield prefix + str(parent) + "/" + path.removeprefix("/")
+    else:
+        yield prefix + str(parent) + "/" + path.removeprefix("/")
+        yield prefix + str(parent) + "/**/" + path.removeprefix("/")
+
+
+def scan(directory: Path) -> Iterable[str]:
+    for path in directory.rglob(".gitignore"):
+        parent = path.parent
+        if not path.is_file():
+            continue
+        with open(path, "r") as f:
+            for line in f:
+                yield from resolve(parent, line)
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument(
+        "-w", "--write", action="store_const", const=True, default=False
+    )
+    args = parser.parse_args()
+
+    if args.write:
+        with open(".stignore.gen", "w") as f:
+            for line in scan(Path(".")):
+                f.write(line)
+    else:
+        for line in scan(Path(".")):
+            print(line)
+
+# vim: set et ts=4 sw=4:
