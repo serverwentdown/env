@@ -3,6 +3,27 @@
 from typing import Optional, Iterable
 from pathlib import Path
 from argparse import ArgumentParser
+from os import SEEK_END
+
+
+def check_line(path: Path, line: str) -> bool:
+    if not path.exists():
+        return False
+    elif path.is_file():
+        with open(path, "r") as f:
+            return line in f.read()
+    return True
+
+
+def write_line(path: Path, line: str):
+    with open(path, "w+") as f:
+        f.seek(0, SEEK_END)
+        if f.tell() > 0:
+            f.seek(f.tell() - 1, 0)
+            last_char = f.read()
+            if last_char != "\n":
+                f.write("\n")
+        f.write(line + "\n")
 
 
 def resolve(parent: Path, line: str) -> Iterable[str]:
@@ -20,6 +41,7 @@ def resolve(parent: Path, line: str) -> Iterable[str]:
             "target" in path
             or "generated" in path
             or "output" in path
+            or "cache" in path
             or "build" in path
             or "node_modules" in path
         ):
@@ -34,6 +56,10 @@ def resolve(parent: Path, line: str) -> Iterable[str]:
 
 
 def scan(directory: Path) -> Iterable[str]:
+    # Useful defaults
+    yield "// Always included"
+    yield "(?d)node_modules"
+    # Scan .gitignore
     for path in directory.rglob(".gitignore"):
         parent = path.parent
         if not path.is_file():
@@ -51,9 +77,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.write:
-        with open(".stignore.gen", "w") as f:
+        ignore = Path(".stignore")
+        ignore_gen = Path(".stignore.gen")
+        with open(ignore_gen, "w") as f:
             for line in scan(Path(".")):
-                f.write(line)
+                f.write(line + "\n")
+        ignore_line = "#include " + str(ignore_gen)
+        if not check_line(ignore, ignore_line):
+            print("WARNING: .stignore does not exist or is missing the include line")
+            response = input("append an include line for the generated file? (y/n) ")
+            if response.lower() == "y":
+                write_line(ignore, ignore_line)
     else:
         for line in scan(Path(".")):
             print(line)
