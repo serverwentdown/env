@@ -1,0 +1,6 @@
+
+#
+# Output configuration:
+#
+set $output_laptop "Unknown 0x095F 0x00000000"
+output $output_laptop position 0 0 transform 0 scale 1.5

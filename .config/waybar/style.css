@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-	font-family: "Fira Code";
+	font-family: "Fira Code", "Font Awesome 5 Free", "FontAwesome";
     font-size: 13px;
     min-height: 0;
 }
