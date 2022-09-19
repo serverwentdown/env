@@ -21,6 +21,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'neovim/nvim-lspconfig'
 
 autocmd FileType * nmap gD <plug>(lsp-definition)
 autocmd FileType * nmap gd <plug>(lsp-peek-definition)
@@ -85,6 +86,13 @@ autocmd FileType javascript,typescript nmap K <plug>(lsp-hover)
 " vue
 
 Plug 'posva/vim-vue'
+
+" more language servers
+
+if executable('astro-ls')
+	" npm install --global @astrojs/language-server
+	au User lsp_setup call lsp#register_server({'name': 'astro-ls', 'cmd': {server_info->['astro-ls']}, 'allowlist': ['astro']})
+endif
 
 " git
 
