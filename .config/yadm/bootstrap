@@ -431,7 +431,11 @@ if $desktopbase; then
 	# desktopbase: Desktop theme
 
 	case $ID in
-		alpine|fedora|debian|ubuntu) packages_add \
+		alpine) packages_add \
+			gsettings-desktop-schemas \
+			adwaita-icon-theme \
+			;;
+		fedora|debian|ubuntu) packages_add \
 			gsettings-desktop-schemas \
 			gnome-themes-extra \
 			adwaita-icon-theme \
