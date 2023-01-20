@@ -25,6 +25,7 @@
 !.config/nvim/colors
 !.config/nvim/skel
 !.config/nvim/init.vim
+!.config/nvim/lua
 !.config/skhd
 !.config/sway
 .config/sway/enabled/*

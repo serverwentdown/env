@@ -64,10 +64,16 @@ if [[ -d "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
 fi
-if [[ -d "$HOME/.nvm" ]]; then
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PYENV_ROOT="$HOME/.pyenv"
+if [[ -d "$PYENV_ROOT" ]]; then
+	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
+fi
+export NVM_DIR="$HOME/.nvm"
+if [[ -d "$NVM_DIR" ]]; then
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 if [[ -f "$(which ruby 2>/dev/null)" ]]; then
 	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
@@ -502,3 +508,6 @@ if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 	}
 fi
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin

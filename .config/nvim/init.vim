@@ -17,82 +17,94 @@ call plug#begin()
 
 " language server protocol
 
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'neovim/nvim-lspconfig'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
-autocmd FileType * nmap gD <plug>(lsp-definition)
-autocmd FileType * nmap gd <plug>(lsp-peek-definition)
-autocmd FileType * nmap gY <plug>(lsp-type-definition)
-autocmd FileType * nmap gy <plug>(lsp-peek-type-definition)
-autocmd FileType * nmap gr <plug>(lsp-references)
-autocmd FileType * nmap gf <plug>(lsp-document-symbol-search)
-autocmd FileType * nmap gF <plug>(lsp-workspace-symbol-search)
-autocmd FileType * nmap gk <plug>(lsp-next-diagnostic)
+" snippets
 
-autocmd FileType * nmap <leader>f <plug>(lsp-document-format)
-autocmd FileType * nmap <leader>k <plug>(lsp-code-action)
-autocmd FileType * nmap <leader>x <plug>(lsp-code-lens)
-autocmd FileType * nmap <leader>n <plug>(lsp-rename)
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
-function! SplitTerm(height, cmd)
-	split
-	exe "resize " . a:height
-	exe "terminal " . a:cmd
-endfunction
+"autocmd FileType * nmap gD <plug>(lsp-definition)
+"autocmd FileType * nmap gd <plug>(lsp-peek-definition)
+"autocmd FileType * nmap gY <plug>(lsp-type-definition)
+"autocmd FileType * nmap gy <plug>(lsp-peek-type-definition)
+"autocmd FileType * nmap gr <plug>(lsp-references)
+"autocmd FileType * nmap gf <plug>(lsp-document-symbol-search)
+"autocmd FileType * nmap gF <plug>(lsp-workspace-symbol-search)
+"autocmd FileType * nmap gk <plug>(lsp-next-diagnostic)
+"
+"autocmd FileType * nmap <leader>f <plug>(lsp-document-format)
+"autocmd FileType * nmap <leader>k <plug>(lsp-code-action)
+"autocmd FileType * nmap <leader>x <plug>(lsp-code-lens)
+"autocmd FileType * nmap <leader>n <plug>(lsp-rename)
+"
+"function! SplitTerm(height, cmd)
+"	split
+"	exe "resize " . a:height
+"	exe "terminal " . a:cmd
+"endfunction
 
 " rust
 
-autocmd FileType rust nmap <leader>t :call SplitTerm(16, "cargo test")<CR>
-autocmd FileType rust nmap <leader>b :call SplitTerm(16, "cargo build")<CR>
-autocmd FileType rust nmap <leader>r :call SplitTerm(16, "cargo run")<CR>
-autocmd FileType rust nmap K <plug>(lsp-hover)
+"autocmd FileType rust nmap <leader>t :call SplitTerm(16, "cargo test")<CR>
+"autocmd FileType rust nmap <leader>b :call SplitTerm(16, "cargo build")<CR>
+"autocmd FileType rust nmap <leader>r :call SplitTerm(16, "cargo run")<CR>
+"autocmd FileType rust nmap K <plug>(lsp-hover)
 
 " go
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-let g:go_metalinter_autosave = 1
-let g:go_fmt_command = "goimports"
-let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
-let g:go_def_mapping_enabled = 0
-autocmd FileType go nmap gD <Plug>(go-def)
-autocmd FileType go nmap gd <Plug>(go-def-split)
-autocmd FileType go nmap gY <Plug>(go-def-type)
-autocmd FileType go nmap gy <Plug>(go-def-type-split)
-autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap K <Plug>(go-doc)
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"let g:go_highlight_types = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_function_calls = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_extra_types = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_highlight_generate_tags = 1
+"let g:go_metalinter_autosave = 1
+"let g:go_fmt_command = "goimports"
+"let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
+"let g:go_def_mapping_enabled = 0
+"autocmd FileType go nmap gD <Plug>(go-def)
+"autocmd FileType go nmap gd <Plug>(go-def-split)
+"autocmd FileType go nmap gY <Plug>(go-def-type)
+"autocmd FileType go nmap gy <Plug>(go-def-type-split)
+"autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
+"autocmd FileType go nmap <leader>t <Plug>(go-test)
+"autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+"autocmd FileType go nmap <leader>b <Plug>(go-build)
+"autocmd FileType go nmap <leader>r <Plug>(go-run)
+"autocmd FileType go nmap K <Plug>(go-doc)
 
 " javascript & typescript
 
-autocmd FileType javascript,typescript nmap <leader>t :call SplitTerm(16, "npm test")<CR>
-autocmd FileType javascript,typescript nmap <leader>b :call SplitTerm(16, "npm run build")<CR>
-autocmd FileType javascript,typescript nmap <leader>r :call SplitTerm(16, "npm start")<CR>
-autocmd FileType javascript,typescript nmap K <plug>(lsp-hover)
+"autocmd FileType javascript,typescript nmap <leader>t :call SplitTerm(16, "npm test")<CR>
+"autocmd FileType javascript,typescript nmap <leader>b :call SplitTerm(16, "npm run build")<CR>
+"autocmd FileType javascript,typescript nmap <leader>r :call SplitTerm(16, "npm start")<CR>
+"autocmd FileType javascript,typescript nmap K <plug>(lsp-hover)
 
 " vue
 
-Plug 'posva/vim-vue'
+"Plug 'posva/vim-vue'
 
 " more language servers
 
-if executable('astro-ls')
-	" npm install --global @astrojs/language-server
-	au User lsp_setup call lsp#register_server({'name': 'astro-ls', 'cmd': {server_info->['astro-ls']}, 'allowlist': ['astro']})
-endif
+"if executable('astro-ls')
+"	" npm install --global @astrojs/language-server
+"	au User lsp_setup call lsp#register_server({'name': 'astro-ls', 'cmd': {server_info->['astro-ls']}, 'allowlist': ['astro']})
+"endif
 
 " git
 
@@ -241,3 +253,7 @@ let g:netrw_winsize=25
 " spellcheck
 
 set spell spelllang=en_gb
+
+" code completion using language server protocol
+
+lua require("lsp")
