@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for socket in /run/user/$(id -u)/sway-ipc.*.sock; do
+	export SWAYSOCK="$socket"
+	if [ "$1" = "unlock" ]; then
+		killall -USR1 swaylock
+	else
+		swaymsg exec '$swaylock'
+	fi
+done
