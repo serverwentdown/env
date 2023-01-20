@@ -237,11 +237,15 @@ download_cutter_re() {
 
 # Install basics
 
-packages_add openssl wget upx
+packages_add openssl wget
+case $ID in
+	macos|alpine|fedora) packages_add upx;;
+	debian|ubuntu) packages_add upx-ucl;;
+esac
 case $PLATFORM in
 	linux) packages_add tar gzip;;
 esac
-case $PLATFORM in
+case $ID in
 	macos|alpine|fedora) packages_add xz;;
 	debian|ubuntu) packages_add xz-utils;;
 esac
