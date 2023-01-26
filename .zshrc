@@ -40,10 +40,8 @@ load_slowest() {
 	done
 }
 sup() {
-	echo "What's up? I am a machine, and you're trying to treat me like a human :(."
-	echo "You might feel better if I load some autocompletion scripts for you."
+	echo "Good morning!"
 	load_slowest
-	echo "I have more power now!"
 }
 prompt_run_count=0
 on_second_prompt() {
@@ -60,6 +58,9 @@ precmd_functions+=( on_second_prompt )
 # executables
 
 export PATH="$HOME/.local/bin:$HOME/.pwn/bin:$PATH"
+if [[ -d "$HOME/.pulumi/bin" ]]; then
+	export PATH="$HOME/.pulumi/bin:$PATH"
+fi
 if [[ -d "$HOME/.deno" ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
@@ -149,9 +150,16 @@ setup_completion_more() {
 		complete -o nospace -C mc mc
 		echo "Loaded minio completion"
 	fi
+	if [[ -f "$(which earthly 2>/dev/null)" ]]; then
+		complete -o nospace -C earthly earthly
+		echo "Loaded earthly completion"
+	fi
 	if [[ -f "$(which kubectl 2>/dev/null)" ]]; then
 		source <(kubectl completion zsh)
 		echo "Loaded kubectl completion"
+	fi
+	if [[ -d "$NVM_DIR" ]]; then
+		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 	fi
 }
 #slower_functions+=( setup_completion_more )
@@ -508,6 +516,3 @@ if [[ -f "$(which gpgconf 2>/dev/null)" ]]; then
 		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 	}
 fi
-
-# add Pulumi to the PATH
-export PATH=$PATH:$HOME/.pulumi/bin
