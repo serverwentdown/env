@@ -35,6 +35,7 @@
 !.config/yabai
 !.config/yadm
 .deno/bin
+.docker/config.json
 .dbus
 .esd_auth
 .gem
