@@ -365,6 +365,10 @@ exec lxpolkit
 # Enable mako:
 #
 exec mako
+#
+# Enable blueman tray icon:
+#
+exec blueman-tray
 
 ### Setup-specific configuration
 #

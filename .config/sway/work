@@ -1,0 +1,51 @@
+#
+# Output configuration:
+#
+set $output_primary "Dell Inc. DELL P2317H F4VYG7561H1S"
+set $output_laptop "Unknown 0x573D 0x00000000"
+set $output_tv "Unknown Beyond TV 0x00000100"
+output $output_primary position 0 0 transform 270
+output $output_laptop position 1080 840 transform 0 scale 1
+output $output_tv mode --custom 2560x1440@60Hz
+bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
+bindsym $mod+F4 output $output_primary transform 90 anticlockwise
+
+#
+# Workspaces
+#
+workspace 1 output $output_primary
+workspace 10 output $output_laptop
+
+#
+# Windows
+#
+assign [title = "apps"] 10
+
+#
+# Display controls:
+#
+# Remember to configure udev. See https://blog.tcharles.fr/ddc-ci-screen-control-on-linux/
+set $monitor_global --noverify --sleep-multiplier 0.1
+set $monitor_primary --bus 8
+# Display brightness controls:
+set $monitor_brightness_step 0x0a
+bindsym --locked $mod+F2 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 - $monitor_brightness_step
+bindsym --locked $mod+F3 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 + $monitor_brightness_step
+
+#
+# Display output toggle:
+#
+bindsym --locked $mod+Shift+F1 output $output_primary disable
+bindsym --locked $mod+F1 output $output_primary enable
+# This is so crazy performant that I did not notice it worked. Was expecting my main display to go blank for a while but it didn't even flash
+bindswitch --reload --locked lid:on output $output_laptop disable
+bindswitch --reload --locked lid:off output $output_laptop enable
+
+#
+# Apps
+#
+set $term kitty
+#set $term gnome-terminal
+bindsym --no-warn $mod+Return exec $term
+
+# vim: ai ts=4 sw=4 et
