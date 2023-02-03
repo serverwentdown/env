@@ -1,4 +1,5 @@
 [yadm]
 	gpg-recipient = 4995FE8D
 [user]
+	name = "Ambrose Chua"
 	email = ambrose@hey.com
