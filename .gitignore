@@ -36,8 +36,6 @@
 !.config/waybar
 !.config/wofi
 !.config/yabai
-!.config/yadm/config
-.config/yadm/repo.git
 .deno/bin
 .docker/.buildNodeID
 .docker/.token_seed*
