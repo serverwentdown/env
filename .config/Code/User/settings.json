@@ -1,5 +1,19 @@
 {
     "workbench.colorTheme": "Solarized Dark",
+    "workbench.startupEditor": "none",
     "files.autoSave": "afterDelay",
-    "workbench.startupEditor": "none"
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["K"],
+            "commands": ["editor.action.showHover"],
+        },
+        {
+            "before": ["<space>", "r", "f"],
+            "commands": ["fileutils.renameFile"],
+        },
+        {
+            "before": ["<space>", "f"],
+            "commands": ["editor.action.formatDocument"],
+        },
+    ],
 }
