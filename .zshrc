@@ -151,12 +151,6 @@ setup_rbenv_on_demand() {
 			setup_rbenv && rbenv_loaded=1
 		fi
 	}
-	setup_rbenv_when_python_version() {
-		if [[ -f .python-version ]]; then
-			setup_rbenv_once
-		fi
-	}
-	precmd_functions+=( setup_rbenv_when_python_version )
 	rbenv() { setup_rbenv_once && rbenv "$@" }
 	ruby() { setup_rbenv_once && ruby "$@" }
 	gem() { setup_rbenv_once && gem "$@" }
@@ -281,6 +275,10 @@ else
 		rg --color=always "$@" | lesscolor
 	}
 fi
+
+# theme
+
+[[ -f ~/.zshrc-theme ]] && eval "$(cat ~/.zshrc-theme)"
 
 # prompt
 
@@ -538,6 +536,7 @@ function theme {
 			iterm_profile=Light
 			kitty_theme=${kitty_variation}light
 			export LIGHT=true
+			echo "LIGHT=true" > ~/.zshrc-theme
 			gnome_theme=Adwaita
 			macos_theme=false
 		;;
@@ -545,6 +544,7 @@ function theme {
 			iterm_profile=Default
 			kitty_theme=${kitty_variation}dark
 			export LIGHT=false
+			echo "LIGHT=false" > ~/.zshrc-theme
 			gnome_theme=Adwaita-dark
 			macos_theme=true
 		;;

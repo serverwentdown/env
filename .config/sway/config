@@ -173,9 +173,15 @@ bindsym $mod+p input type:pointer events toggle enabled disabled; input type:key
 
     # back and forth
     bindsym $mod+period workspace back_and_forth
+
 #
 # Displays:
 #
+    # move workspace to output
+    bindsym $mod+Control+Shift+$left move workspace to output left
+    bindsym $mod+Control+Shift+$down move workspace to output down
+    bindsym $mod+Control+Shift+$up move workspace to output up
+    bindsym $mod+Control+Shift+$right move workspace to output right
     # TODO
 #
 # Layout stuff:

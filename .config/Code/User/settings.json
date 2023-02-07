@@ -1,19 +1,38 @@
 {
-    "workbench.colorTheme": "Solarized Dark",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredDarkColorTheme": "Solarized Dark",
+    "workbench.preferredLightColorTheme": "Solarized Light",
     "workbench.startupEditor": "none",
     "files.autoSave": "afterDelay",
+    "gitlens.statusBar.enabled": false,
     "vim.normalModeKeyBindings": [
         {
-            "before": ["K"],
-            "commands": ["editor.action.showHover"],
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ],
         },
         {
-            "before": ["<space>", "r", "f"],
-            "commands": ["fileutils.renameFile"],
+            "before": [
+                "<space>",
+                "r",
+                "f"
+            ],
+            "commands": [
+                "fileutils.renameFile"
+            ],
         },
         {
-            "before": ["<space>", "f"],
-            "commands": ["editor.action.formatDocument"],
+            "before": [
+                "<space>",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ],
         },
     ],
+    "workbench.colorTheme": "Solarized Dark",
 }
