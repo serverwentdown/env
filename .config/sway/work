@@ -24,6 +24,7 @@ workspace 10 output $output_laptop
 # Windows
 #
 assign [app_id="org.telegram.desktop.*"] workspace 9
+for_window [instance="spotify"] move to workspace 9
 assign [instance="mattermost"] workspace 10
 assign [instance="google-chrome"] workspace 1
 for_window [instance="google-chrome" title="Meet – ...-....-..."] move container to workspace 7
@@ -31,8 +32,8 @@ for_window [instance="google-chrome" title="apps"] move container to workspace 1
 #
 # Shortcuts
 #
-bindsym XF86Favorites exec google-chrome --new-window $DAILY
-bindsym $mod+Shift+Control+a exec google-chrome --new-window $PAGES
+bindsym XF86Favorites exec google-chrome --new-window $MICROSEC_DAILY
+bindsym $mod+Shift+Control+a exec google-chrome --new-window $MICROSEC_PAGES
 
 #
 # Display controls:
