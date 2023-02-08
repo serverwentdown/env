@@ -375,7 +375,7 @@ exec mako
 #
 # Enable blueman tray icon:
 #
-exec blueman-tray
+exec blueman-applet
 
 ### Setup-specific configuration
 #

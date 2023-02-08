@@ -29,6 +29,7 @@
 !.config/kitty
 .config/kitty/colorscheme.conf
 !.config/mako
+!.config/networkmanager-dmenu
 !.config/nvim
 .config/nvim/*
 !.config/nvim/colors

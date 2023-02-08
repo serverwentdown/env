@@ -127,11 +127,12 @@
     },
     "network": {
         "format-wifi": " {signalStrength}%",
-        "format-ethernet": "",
-        "format-linked": " (No IP)",
+        "format-ethernet": " <small>{ipaddr}</small>",
+        "format-linked": " <small>(No IP)</small>",
         "format-disconnected": "",
         "format-alt": "<small>{ipaddr}/{cidr}</small> {bandwidthUpBits} {bandwidthDownBits}",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr} via {gwaddr}"
+        "tooltip-format": "Wireless: {essid} ({signalStrength}%)\nInterface: {ifname}\nNetwork: {ipaddr}/{cidr} via {gwaddr}",
+		"on-click-right": "networkmanager_dmenu"
     },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
