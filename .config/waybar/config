@@ -132,7 +132,7 @@
         "format-disconnected": "",
         "format-alt": "<small>{ipaddr}/{cidr}</small> {bandwidthUpBits} {bandwidthDownBits}",
         "tooltip-format": "Wireless: {essid} ({signalStrength}%)\nInterface: {ifname}\nNetwork: {ipaddr}/{cidr} via {gwaddr}",
-		"on-click-right": "networkmanager_dmenu"
+		"on-click-right": "$HOME/.local/bin/networkmanager_dmenu"
     },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
