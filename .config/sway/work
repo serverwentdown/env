@@ -32,8 +32,8 @@ for_window [instance="google-chrome" title="apps"] move container to workspace 1
 #
 # Shortcuts
 #
-bindsym XF86Favorites exec google-chrome --new-window $MICROSEC_DAILY
-bindsym $mod+Shift+Control+a exec google-chrome --new-window $MICROSEC_PAGES
+bindsym XF86Favorites exec google-chrome --password-store=gnome --new-window $MICROSEC_DAILY
+bindsym $mod+Shift+Control+a exec google-chrome --password-store=gnome --new-window $MICROSEC_PAGES
 
 #
 # Display controls:

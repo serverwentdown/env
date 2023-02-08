@@ -22,7 +22,7 @@ for icon, data in obj.items():
     points.append(ufmt)
 
 pointsfmt = ",".join(points)
-configline = "symbol_map {} Font Awesome 5 Pro".format(pointsfmt)
+configline = "symbol_map {} Font Awesome 5 Free".format(pointsfmt)
 
 pointsfmt_brands = ",".join(points_brands)
 configline_brands = "symbol_map {} Font Awesome 5 Brands".format(pointsfmt_brands)

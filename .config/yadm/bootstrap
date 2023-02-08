@@ -473,7 +473,7 @@ if $desktopbase && $desktop; then
 
 	case $ID in
 		alpine|fedora) packages_add mako;;
-		debian|ubuntu) packages_add mako-notifier;;
+		debian|ubuntu) packages_add mako-notifier libappindicator3-1 gir1.2-playerctl-2.0;;
 	esac
 
 	case $ID in

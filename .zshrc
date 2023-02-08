@@ -536,7 +536,7 @@ function theme {
 			iterm_profile=Light
 			kitty_theme=${kitty_variation}light
 			export LIGHT=true
-			echo "LIGHT=true" > ~/.zshrc-theme
+			echo "export LIGHT=true" > ~/.zshrc-theme
 			gnome_theme=Adwaita
 			macos_theme=false
 		;;
@@ -544,7 +544,7 @@ function theme {
 			iterm_profile=Default
 			kitty_theme=${kitty_variation}dark
 			export LIGHT=false
-			echo "LIGHT=false" > ~/.zshrc-theme
+			echo "export LIGHT=false" > ~/.zshrc-theme
 			gnome_theme=Adwaita-dark
 			macos_theme=true
 		;;
