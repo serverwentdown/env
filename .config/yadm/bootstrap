@@ -260,6 +260,9 @@ if $base; then
 		fedora) packages_add ncurses;;
 		debian|ubuntu) packages_add ncurses-bin;;
 	esac
+	pushd $HOME/.config/zsh-completions
+	./download.sh
+	popd
 
 	# Install editor, management and security tools
 
