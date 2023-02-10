@@ -46,10 +46,10 @@ sup() {
 prompt_run_count=0
 on_second_prompt() {
 	if [[ "$prompt_run_count" == 1 ]] && [[ "$USER" != "root" ]]; then
-		zmodload zsh/zprof
+		#zmodload zsh/zprof
 		load_slower
 		load_slowest
-		zprof
+		#zprof
 	fi
 	(( prompt_run_count = prompt_run_count + 1 ))
 }
