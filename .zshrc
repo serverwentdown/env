@@ -46,10 +46,10 @@ sup() {
 prompt_run_count=0
 on_second_prompt() {
 	if [[ "$prompt_run_count" == 1 ]] && [[ "$USER" != "root" ]]; then
-		#zmodload zsh/zprof
+		zmodload zsh/zprof
 		load_slower
 		load_slowest
-		#zprof
+		zprof
 	fi
 	(( prompt_run_count = prompt_run_count + 1 ))
 }
@@ -187,7 +187,6 @@ if [[ "$TERM" == "xterm-kitty" ]] && which kitty 2>&1 >/dev/null; then
 	alias ssh="kitty +kitten ssh"
 fi
 setup_term_integration
-#slower_functions+=( setup_term_integration )
 
 # term fixes
 
@@ -209,6 +208,9 @@ setup_completion() {
 		autoload -Uz bashcompinit
 		bashcompinit
 	fi
+	# Add default completions
+	fpath+="$HOME/.config/zsh-completions"
+	# Style completions
 	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 	zstyle ':completion:*' auto-description 'specify: %d'
 	zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -224,18 +226,19 @@ setup_completion() {
 	zstyle ':completion:*' verbose true
 	zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 	zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-}
-slower_functions+=( setup_completion )
-setup_completion_more() {
-	# Depends:
-	setup_completion
-
+	# Setup fast apps
 	if which mc 2>&1 >/dev/null; then
 		complete -o nospace -C mc mc
 	fi
 	if which earthly 2>&1 >/dev/null; then
 		complete -o nospace -C earthly earthly
 	fi
+}
+slower_functions+=( setup_completion )
+setup_completion_more() {
+	# Depends:
+	setup_completion
+
 	if which kubectl 2>&1 >/dev/null; then
 		source <(kubectl completion zsh)
 	fi
@@ -243,7 +246,6 @@ setup_completion_more() {
 		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 	fi
 }
-#slower_functions+=( setup_completion_more )
 slowest_functions+=( setup_completion_more )
 
 # color pagination

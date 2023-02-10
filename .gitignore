@@ -44,6 +44,9 @@
 !.config/wofi
 !.config/yabai
 !.config/yadm
+!.config/zsh-completions
+.config/zsh-completions/*
+!.config/zsh-completions/download.sh
 .deno/bin
 .docker/.buildNodeID
 .docker/.token_seed*
@@ -119,4 +122,5 @@
 !.xkb
 .zcompdump
 .zoom
+.zshrc-theme
 !.zshrc
