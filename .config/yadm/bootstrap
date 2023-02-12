@@ -98,7 +98,7 @@ packages_install() {
 download_bin_path="$HOME/.local/bin"
 mkdir -p "$download_bin_path"
 download_dust() {
-	version=v0.7.5
+	version=v0.8.4
 	arch=x86_64
 	case $ID in
 		macos) system=apple-darwin;;
@@ -174,7 +174,7 @@ download_nvim_plug() {
 		https://github.com/junegunn/vim-plug/raw/$version/plug.vim
 }
 download_go() {
-	version=1.17.1
+	version=1.20
 	arch=amd64
 	case $PLATFORM in
 		macos) system=darwin;;
@@ -183,7 +183,7 @@ download_go() {
 	esac
 	wget \
 		--output-document /tmp/go.tar.gz \
-		https://golang.org/dl/go$version.$system-$arch.tar.gz
+		https://go.dev/dl/go$version.$system-$arch.tar.gz
 	sudo tar -x \
 		--gunzip \
 		--directory /usr/local \
@@ -204,7 +204,7 @@ download_deno() {
 download_font_path="$HOME/.local/share/fonts"
 mkdir -p "$download_font_path"
 download_font_firacode() {
-	version=5.2
+	version=6.2
 	wget \
 		--output-document /tmp/firacode.zip \
 		https://github.com/tonsky/FiraCode/releases/download/$version/Fira_Code_v$version.zip
@@ -213,7 +213,7 @@ download_font_firacode() {
 	rm -r /tmp/firacode.zip /tmp/firacode
 }
 download_font_ibmplex() {
-	version=5.2.1
+	version=6.1.1
 	wget \
 		--output-document /tmp/ibmplex.zip \
 		https://github.com/IBM/plex/releases/download/v$version/TrueType.zip
@@ -224,7 +224,7 @@ download_font_ibmplex() {
 	rm -r /tmp/ibmplex.zip /tmp/ibmplex
 }
 download_cutter_re() {
-	version=2.0.3
+	version=2.1.2
 	case $PLATFORM in
 		linux) system=Linux;;
 		*) return 1;;
@@ -233,6 +233,12 @@ download_cutter_re() {
 		--output-document "$download_bin_path/cutter" \
 		https://github.com/rizinorg/cutter/releases/download/v$version/Cutter-v$version-x64.$system.AppImage
 	chmod +x "$download_bin_path/cutter"
+}
+download_autocompletions() {
+	restore_cd="$(pwd)"
+	cd $HOME/.config/zsh-completions
+	./download.sh
+	cd "$restore_cd"
 }
 
 # Install basics
@@ -260,10 +266,6 @@ if $base; then
 		fedora) packages_add ncurses;;
 		debian|ubuntu) packages_add ncurses-bin;;
 	esac
-	restore_cd="$(pwd)"
-	cd $HOME/.config/zsh-completions
-	./download.sh
-	cd "$restore_cd"
 
 	# Install editor, management and security tools
 
@@ -320,10 +322,15 @@ if $base; then
 	esac
 
 	# Install kitty terminfo
+	
 	case $ID in
 		macos|alpine) download_kitty_terminfo;;
 		fedora|debian|ubuntu) packages_add kitty-terminfo;;
 	esac
+
+	# Install autocompletions
+	
+	download_autocompletions
 
 	# Install Python 3 packages
 
