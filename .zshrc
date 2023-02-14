@@ -540,6 +540,7 @@ function theme {
 			export LIGHT=true
 			echo "export LIGHT=true" > ~/.zshrc-theme
 			gnome_theme=Adwaita
+			gnome_color_scheme=prefer-light
 			macos_theme=false
 		;;
 		dark)
@@ -548,6 +549,7 @@ function theme {
 			export LIGHT=false
 			echo "export LIGHT=false" > ~/.zshrc-theme
 			gnome_theme=Adwaita-dark
+			gnome_color_scheme=prefer-dark
 			macos_theme=true
 		;;
 	esac
@@ -565,6 +567,7 @@ function theme {
 	if [[ -z "$SSH_CLIENT" ]]; then
 		if [[ $PLATFORM == linux ]] && which gsettings 2>&1 >/dev/null; then
 			gsettings set org.gnome.desktop.interface gtk-theme $gnome_theme
+			gsettings set org.gnome.desktop.interface color-scheme $gnome_color_scheme
 		fi
 		if [[ $PLATFORM == macos ]]; then
 			osascript -e "tell app \"System Events\" to tell appearance preferences to set dark mode to $macos_theme"

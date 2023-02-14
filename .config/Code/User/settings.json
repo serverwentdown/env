@@ -2,37 +2,59 @@
     "window.autoDetectColorScheme": true,
     "workbench.preferredDarkColorTheme": "Solarized Dark",
     "workbench.preferredLightColorTheme": "Solarized Light",
+    "workbench.colorTheme": "Solarized Dark",
     "workbench.startupEditor": "none",
+    "editor.minimap.showSlider": "always",
+    "editor.minimap.enabled": false,
+    "editor.rulers": [
+        80,
+    ],
     "files.autoSave": "afterDelay",
-    "gitlens.statusBar.enabled": false,
     "vim.normalModeKeyBindings": [
         {
             "before": [
-                "K"
+                "K",
             ],
             "commands": [
-                "editor.action.showHover"
+                "editor.action.showHover",
             ],
         },
         {
             "before": [
                 "<space>",
                 "r",
-                "f"
+                "f",
             ],
             "commands": [
-                "fileutils.renameFile"
+                "fileutils.renameFile",
             ],
         },
         {
             "before": [
                 "<space>",
-                "f"
+                "f",
             ],
             "commands": [
-                "editor.action.formatDocument"
+                "editor.action.formatDocument",
+            ],
+        },
+        {
+            "before": [
+                "<space>",
+                "b",
+            ],
+            "commands": [
+                "workbench.action.maximizeEditor",
             ],
         },
     ],
-    "workbench.colorTheme": "Solarized Dark",
+    "redhat.telemetry.enabled": false,
+    "git.autofetch": true,
+    "gitlens.statusBar.enabled": false,
+    "gitlab.aiAssistedCodeSuggestions.enabled": true,
+    "docker.containers.label": "ContainerName",
+    "docker.containers.description": [
+        "Image",
+        "Status",
+    ],
 }
