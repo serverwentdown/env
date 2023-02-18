@@ -190,7 +190,7 @@ augroup END
 
 " browser
 
-autocmd FileType * nmap <space>b :Lexplore 26<CR>
+nmap <space>b :Lexplore 26<CR>
 
 " folding, numbering, cursorline
 
