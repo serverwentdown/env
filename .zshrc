@@ -191,7 +191,7 @@ setup_term_integration
 # term fixes
 
 if [[ "$TERM" == "xterm-kitty" ]] || [[ "$TERM" == "xterm-iterm" ]]; then
-	alias sudo="sudo TERM=xterm-256color"
+	#alias sudo="sudo TERM=xterm-256color"
 	term_color() {
 		export TERM=xterm-256color
 	}

@@ -4,6 +4,8 @@
     "workbench.preferredLightColorTheme": "Solarized Light",
     "workbench.colorTheme": "Solarized Dark",
     "workbench.startupEditor": "none",
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.lineHeight": 1.3,
     "editor.minimap.showSlider": "always",
     "editor.minimap.enabled": false,
     "editor.rulers": [
@@ -44,7 +46,7 @@
                 "b",
             ],
             "commands": [
-                "workbench.action.maximizeEditor",
+                "workbench.action.toggleSidebarVisibility",
             ],
         },
     ],
