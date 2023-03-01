@@ -27,8 +27,8 @@ assign [app_id="org.telegram.desktop.*"] workspace 9
 for_window [instance="spotify"] move to workspace 9
 assign [instance="mattermost"] workspace 10
 assign [instance="google-chrome"] workspace 1
-for_window [instance="google-chrome" title="Meet – ...-....-..."] move container to workspace 7
-for_window [instance="google-chrome" title="apps"] move container to workspace 10
+for_window [instance="google-chrome" title="^Meet – ...-....-..."] move container to workspace 7
+for_window [instance="google-chrome" title="^apps$"] move container to workspace 10
 #
 # Shortcuts
 #
