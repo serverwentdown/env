@@ -1,5 +1,6 @@
 {
     "window.autoDetectColorScheme": true,
+    "workbench.sideBar.location": "right",
     "workbench.preferredDarkColorTheme": "Solarized Dark",
     "workbench.preferredLightColorTheme": "Solarized Light",
     "workbench.colorTheme": "Solarized Dark",
