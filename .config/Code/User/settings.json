@@ -1,5 +1,6 @@
 {
     "window.autoDetectColorScheme": true,
+    "window.titleBarStyle": "custom",
     "workbench.sideBar.location": "right",
     "workbench.preferredDarkColorTheme": "Solarized Dark",
     "workbench.preferredLightColorTheme": "Solarized Light",
@@ -59,6 +60,15 @@
             ],
             "commands": [
                 "workbench.action.toggleSidebarVisibility",
+            ],
+        },
+        {
+            "before": [
+                "<space>",
+                "$",
+            ],
+            "commands": [
+                "workbench.action.terminal.focusTabs",
             ],
         },
     ],
