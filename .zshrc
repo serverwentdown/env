@@ -448,8 +448,9 @@ setup_prompt() {
 	if [[ $prompt_compact == true ]]; then
 		prompt_vi=$'%F{'"$prompt_color_always_base3"$'}$zle_vi_mode_%f'
 	fi
+	prompt_trunc=$'%50<..<'
 	RPROMPT="$prompt_history$prompt_user"
-	PROMPT="$prompt_title$prompt_vi$prompt_vcs$prompt_directory "
+	PROMPT="$prompt_title$prompt_vi$prompt_trunc$prompt_vcs$prompt_directory "
 }
 format_prompt_title() {
 	prompt_current_program='$command_title_fmt$command_last'

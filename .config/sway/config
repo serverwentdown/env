@@ -54,7 +54,7 @@ exec swayidle -w \
     timeout 10 '' \
         resume $dpms_on \
     timeout 300 $dpms_off \
-        resume $dpms_off \
+        resume $dpms_on \
     timeout 360 $swaylock \
     timeout 1200 'systemctl suspend' \
     after-resume $dpms_on
@@ -348,6 +348,7 @@ bindsym $mod+F5 \
 for_window [title="Firefox — Sharing Indicator"] floating enable
 for_window [title="About Mozilla Firefox"] floating enable
 for_window [title="Picture-in-Picture"] floating enable, sticky enable
+for_window [title="Picture-in-picture"] floating enable, sticky enable
 #
 # Tandem
 #
@@ -362,8 +363,9 @@ exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
 #
 # Import systemd environments for GNOME Keyring:
 #
-exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_DESKTOP XDG_SESSION_CLASS XDG_SESSION_ID XDG_RUNTIME_DIR DISPLAY WAYLAND_DISPLAY SWAYSOCK SSH_AUTH_SOCK
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
+exec systemctl --user import-environment XDG_SESSION_TYPE XDG_SEAT XDG_SESSION_DESKTOP XDG_SESSION_CLASS XDG_SESSION_ID XDG_RUNTIME_DIR DISPLAY WAYLAND_DISPLAY SWAYSOCK SSH_AUTH_SOCK XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway SWAYSOCK
+
 #
 # Enable PolicyKit:
 #

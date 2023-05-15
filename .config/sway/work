@@ -13,6 +13,11 @@ bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
 bindsym $mod+F4 output $output_primary transform 90 anticlockwise
 
 #
+# Output render configuration:
+#
+output * max_render_time 5
+
+#
 # Workspaces
 #
 workspace 1 output $output_secondary
