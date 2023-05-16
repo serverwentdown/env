@@ -1,6 +1,7 @@
 {
     "window.autoDetectColorScheme": true,
     "window.titleBarStyle": "custom",
+    "window.menuBarVisibility": "classic",
     "workbench.sideBar.location": "right",
     "workbench.preferredDarkColorTheme": "Solarized Dark",
     "workbench.preferredLightColorTheme": "Solarized Light",
