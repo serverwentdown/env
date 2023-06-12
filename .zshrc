@@ -448,6 +448,11 @@ setup_prompt() {
 	if [[ $prompt_compact == true ]]; then
 		prompt_vi=$'%F{'"$prompt_color_always_base3"$'}$zle_vi_mode_%f'
 	fi
+	case "$TERM_PROGRAM" in
+		vscode)
+			prompt_vcs=
+			;;
+	esac
 	prompt_trunc=$'%50<..<'
 	RPROMPT="$prompt_history$prompt_user"
 	PROMPT="$prompt_title$prompt_vi$prompt_trunc$prompt_vcs$prompt_directory "

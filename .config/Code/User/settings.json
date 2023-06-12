@@ -12,6 +12,7 @@
     },
     "workbench.startupEditor": "none",
     "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.smoothScrolling": true,
     "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace",
     "editor.inlayHints.fontSize": 12,
     "editor.lineHeight": 1.3,
@@ -20,6 +21,8 @@
     "editor.rulers": [
         80,
     ],
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": "on",
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 10000,
     "files.exclude": {
@@ -60,7 +63,8 @@
                 "b",
             ],
             "commands": [
-                "workbench.action.toggleSidebarVisibility",
+				"workbench.action.toggleSidebarVisibility",
+                //"workbench.files.action.focusFilesExplorer",
             ],
         },
         {
@@ -69,7 +73,7 @@
                 "$",
             ],
             "commands": [
-                "workbench.action.terminal.focusTabs",
+                "terminal.focus",
             ],
         },
     ],
@@ -93,7 +97,6 @@
     "go.inlayHints.constantValues": true,
     "go.inlayHints.rangeVariableTypes": true,
     "go.coverageDecorator": {
-        "type": "gutter",
         "coveredHighlightColor": "rgba(64,128,64,0.1)",
         "uncoveredHighlightColor": "rgba(128,64,64,0.1)",
         "coveredBorderColor": "rgba(64,128,64,0.1)",
@@ -102,4 +105,13 @@
         "uncoveredGutterStyle": "slashred"
     },
     "go.coverOnSave": true,
+    "powermode.enabled": true,
+    "powermode.shake.enabled": false,
+    "powermode.explosions.customExplosions": [
+        "/home/ambrose/Documents/sparkles.gif",
+    ],
+    "powermode.explosions.maxExplosions": 1,
+    "powermode.explosions.frequency": 1,
+    "powermode.explosions.backgroundMode": "mask",
+    "powermode.combo.location": "off",
 }
