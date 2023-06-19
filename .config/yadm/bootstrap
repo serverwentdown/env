@@ -281,7 +281,7 @@ if $base; then
 		fedora) packages_add openssh-clients;;
 		debian|ubuntu) packages_add openssh-client;;
 	esac
-	packages_add exa jq
+	packages_add exa jq graphviz
 
 	# Install C compilers
 
