@@ -1,0 +1,56 @@
+#!/bin/sh
+
+set -eu
+
+android_sdk_path="$HOME/.android/sdk"
+jdk_path="$HOME/.android/jdk"
+
+install_jdk() {
+	version=20.0.2
+	major_version=20
+	build=9
+	case "$(uname -s)" in
+		Darwin) os=mac;;
+		*) os=linux;;
+	esac
+	wget \
+		--output-document /tmp/openjdk.tar.gz \
+		https://github.com/adoptium/temurin${major_version}-binaries/releases/download/jdk-${version}%2B${build}/OpenJDK${major_version}U-jdk_x64_${os}_hotspot_${version}_${build}.tar.gz
+	mkdir -p /tmp/openjdk
+	tar -x \
+		--gunzip \
+		--directory /tmp/openjdk \
+		--file /tmp/openjdk.tar.gz
+	rm -rf "$jdk_path"
+	mv /tmp/openjdk/jdk-${version}+${build} "$jdk_path"
+	rm -r /tmp/openjdk.tar.gz /tmp/openjdk
+}
+
+install_android_sdk() {
+	sdkmanager_version=7.0
+	version=9477386
+	case "$(uname -s)" in
+		Darwin) os=mac;;
+		*) os=linux;;
+	esac
+	mkdir -p "$android_sdk_path/cmdline-tools"
+	wget \
+		--output-document /tmp/commandlinetools.zip \
+		https://dl.google.com/android/repository/commandlinetools-${os}-${version}_latest.zip
+	unzip -q /tmp/commandlinetools.zip -d /tmp/commandlinetools
+	rm -rf "$android_sdk_path/cmdline-tools/$sdkmanager_version"
+	mv /tmp/commandlinetools/cmdline-tools "$android_sdk_path/cmdline-tools/$sdkmanager_version"
+	rm -r /tmp/commandlinetools.zip /tmp/commandlinetools
+
+	ln -s "$android_sdk_path/cmdline-tools/$sdkmanager_version" "$android_sdk_path/cmdline-tools/latest"
+	"$android_sdk_path/cmdline-tools/latest/bin/sdkmanager" --licenses
+	"$android_sdk_path/cmdline-tools/latest/bin/sdkmanager" tools
+	"$android_sdk_path/cmdline-tools/latest/bin/sdkmanager" platform-tools
+}
+
+install_jdk
+export PATH="$jdk_path/bin:$PATH"
+install_android_sdk
+
+echo "To install platforms, run:"
+echo '    sdkmanager "build-tools;33.0.2" "platforms;android-33"'

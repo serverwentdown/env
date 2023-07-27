@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -eu
+
+flutter_path="$HOME/flutter"
+
+install_flutter_sdk() {
+	version=3.10.6
+	channel=stable
+	case "$(uname -s)" in
+		Darwin) os=macos;;
+		*) os=linux;;
+	esac
+	wget \
+		--output-document /tmp/flutter.tar.xz \
+		https://storage.googleapis.com/flutter_infra_release/releases/${channel}/${os}/flutter_${os}_${version}-${channel}.tar.xz
+	mkdir -p /tmp/flutter
+	tar -x \
+		--xz \
+		--directory /tmp/flutter \
+		--file /tmp/flutter.tar.xz
+	rm -rf "$flutter_path"
+	mv /tmp/flutter/flutter "$flutter_path"
+	rm -r /tmp/flutter.tar.xz /tmp/flutter
+
+	"$flutter_path/bin/flutter" precache
+}
+
+install_flutter_sdk

@@ -127,8 +127,25 @@ setup_g() {
 	export PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" GOROOT="$HOME/.go" # g-install: do NOT edit, see https://github.com/stefanmaric/g
 }
 [[ -f "$HOME/go/bin/g" ]] && setup_g
+setup_android_sdk() {
+	# See ~/.local/bin/install_android_sdk
+	export ANDROID_SDK_ROOT="$HOME/.android/sdk"
+	export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
+	if [[ -d "$HOME/.android/jdk" ]]; then
+		export JAVA_HOME="$HOME/.android/jdk"
+		export PATH="$JAVA_HOME/bin:$PATH"
+	fi
+}
+[[ -d "$HOME/.android/sdk" ]] && setup_android_sdk
 setup_flutter() {
+	# See ~/.local/bin/install_android_sdk
 	export PATH="$HOME/flutter/bin:$HOME/.pub-cache/bin:$PATH"
+	if ! which google-chrome >/dev/null 2>/dev/null; then
+		if which flatpak >/dev/null 2>/dev/null; then
+			flatpak_exports="$(flatpak --installations)/exports"
+			export CHROME_EXECUTABLE="$flatpak_exports/bin/com.google.Chrome"
+		fi
+	fi
 }
 [[ -d "$HOME/flutter/bin" ]] && setup_flutter
 setup_cargo() {
