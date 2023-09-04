@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from typing import Optional, Iterable
 from pathlib import Path
@@ -29,6 +29,7 @@ def write_line(path: Path, line: str):
 def resolve(parent: Path, line: str) -> Iterable[str]:
     if line.startswith("#") or len(line.strip()) == 0:
         return
+
     negate = line.startswith("!")
     path = line.removeprefix("!").strip()
     absolute = "/" in line.removesuffix("/")
@@ -37,6 +38,7 @@ def resolve(parent: Path, line: str) -> Iterable[str]:
     if negate:
         prefix += "!"
     else:
+        # gitignore lines to recursively delete
         if (
             "target" in path
             or "generated" in path
@@ -46,6 +48,9 @@ def resolve(parent: Path, line: str) -> Iterable[str]:
             or "node_modules" in path
         ):
             prefix += "(?d)"
+        # gitignore lines to exclude
+        if "[._]" in path:
+            return
 
     yield "// " + str(parent) + ": " + line.strip()
     if absolute:
@@ -74,14 +79,18 @@ if __name__ == "__main__":
     parser.add_argument(
         "-w", "--write", action="store_const", const=True, default=False
     )
+    parser.add_argument(
+        "path", type=Path, nargs="*", default=[Path(".")]
+    )
     args = parser.parse_args()
 
     if args.write:
         ignore = Path(".stignore")
         ignore_gen = Path(".stignore.gen")
         with open(ignore_gen, "w") as f:
-            for line in scan(Path(".")):
-                f.write(line + "\n")
+            for path in args.path:
+                for line in scan(Path(path)):
+                    f.write(line + "\n")
         ignore_line = "#include " + str(ignore_gen)
         if not check_line(ignore, ignore_line):
             print("WARNING: .stignore does not exist or is missing the include line")
@@ -89,7 +98,8 @@ if __name__ == "__main__":
             if response.lower() == "y":
                 write_line(ignore, ignore_line)
     else:
-        for line in scan(Path(".")):
-            print(line)
+        for path in args.path:
+            for line in scan(Path(path)):
+                print(line)
 
 # vim: set et ts=4 sw=4:

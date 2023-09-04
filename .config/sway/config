@@ -345,7 +345,7 @@ bindsym $mod+F5 \
 #
 # Firefox
 #
-for_window [title="Firefox — Sharing Indicator"] floating enable
+for_window [title="Firefox — Sharing Indicator"] floating enable, move position 50 ppt 0 px
 for_window [title="About Mozilla Firefox"] floating enable
 for_window [title="Picture-in-Picture"] floating enable, sticky enable
 for_window [title="Picture-in-picture"] floating enable, sticky enable

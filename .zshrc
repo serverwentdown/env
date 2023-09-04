@@ -216,33 +216,31 @@ fi
 
 # completion
 
+# Add default completions
+fpath+="$HOME/.config/zsh-completions"
+# Style completions
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format '%F{blue}-- %d --%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 setup_completion() {
-	if ! command -v compinit >/dev/null; then
-		autoload -Uz compinit
-		compinit
-	fi
-	if ! command -v bashcompinit >/dev/null; then
-		autoload -Uz bashcompinit
-		bashcompinit
-	fi
-	# Add default completions
-	fpath+="$HOME/.config/zsh-completions"
-	# Style completions
-	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-	zstyle ':completion:*' auto-description 'specify: %d'
-	zstyle ':completion:*' completer _expand _complete _correct _approximate
-	zstyle ':completion:*' format '%F{blue}-- %d --%f'
-	zstyle ':completion:*' group-name ''
-	zstyle ':completion:*' menu select=2
-	zstyle ':completion:*' list-colors ''
-	zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-	zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-	zstyle ':completion:*' menu select=long
-	zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-	zstyle ':completion:*' use-compctl false
-	zstyle ':completion:*' verbose true
-	zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-	zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+	# Load completions
+	autoload -Uz compinit
+	compinit
+	autoload -Uz bashcompinit
+	bashcompinit
+
 	# Setup fast apps
 	if which mc >/dev/null 2>/dev/null; then
 		complete -o nospace -C mc mc
@@ -254,7 +252,7 @@ setup_completion() {
 slower_functions+=( setup_completion )
 setup_completion_more() {
 	# Depends:
-	setup_completion
+	#setup_completion
 
 	if which kubectl >/dev/null 2>/dev/null; then
 		source <(kubectl completion zsh)
