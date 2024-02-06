@@ -10,7 +10,8 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty --single-instance -d ~
+#set $term kitty --single-instance -d ~
+set $term footclient
 # Your preferred application launcher
 set $menu ~/.local/bin/wofi_run
 
@@ -370,6 +371,10 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CU
 # Enable PolicyKit:
 #
 exec lxpolkit
+#
+# Start foot server:
+#
+exec foot --server
 #
 # Enable mako:
 #

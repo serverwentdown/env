@@ -1,3 +1,4 @@
+#zmodload zsh/zprof
 
 # basic settings
 
@@ -99,7 +100,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 #[[ -d "$PYENV_ROOT" ]] && setup_pyenv_on_demand
 setup_pyenv_on_demand
 setup_nvm() {
-	unfunction nvm node
+	unfunction nvm npm npx node
 	source "$NVM_DIR/nvm.sh"
 }
 nvm_loaded=0
@@ -111,10 +112,13 @@ setup_nvm_on_demand() {
 		fi
 	}
 	nvm() { setup_nvm_once && nvm "$@" }
+	npm() { setup_nvm_once && npm "$@" }
+	npx() { setup_nvm_once && npx "$@" }
 	node() { setup_nvm_once && node "$@" }
 }
 export NVM_DIR="$HOME/.nvm"
 [[ -d "$NVM_DIR" ]] && setup_nvm_on_demand
+[[ -f "$HOME/.nvm-setup-now" ]] && setup_nvm
 setup_bun() {
 	[ -s "/var/home/ambrose/.bun/_bun" ] && source "/var/home/ambrose/.bun/_bun"
 	export PATH="$BUN_INSTALL/bin:$PATH"
@@ -132,6 +136,7 @@ which go >/dev/null 2>/dev/null && setup_go
 setup_g() {
 	export PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" GOROOT="$HOME/.go" # g-install: do NOT edit, see https://github.com/stefanmaric/g
 }
+export PATH="$HOME/.rd/bin:$PATH"
 [[ -f "$HOME/go/bin/g" ]] && setup_g
 setup_rancher_desktop() {
 	export PATH="$HOME/.rd/bin:$PATH"
@@ -207,6 +212,10 @@ if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
 		fi
 	}
 	alias icat="imgcat"
+	alias ssh="TERM=xterm-256color ssh"
+fi
+if [[ "$TERM" == "foot" ]] && which foot >/dev/null 2>/dev/null; then
+	alias icat="img2sixel"
 	alias ssh="TERM=xterm-256color ssh"
 fi
 if [[ "$TERM" == "xterm-kitty" ]] && which kitty >/dev/null 2>/dev/null; then
@@ -448,10 +457,13 @@ setup_prompt() {
 			prompt_title_machine=
 			;;
 	esac
-	prompt_fmt_italic=$(tput sitm)
-	prompt_fmt_reset=$(tput sgr0)
+	#prompt_fmt_italic=$(tput sitm)
+	#prompt_fmt_reset=$(tput sgr0)
+	# For performance, use xterm escape codes
+	prompt_fmt_italic=$'\E[3m'
+	prompt_fmt_reset=$'\E[23m'
 	case "$TERM" in
-		cygwin|xterm*|putty*|rxvt*|ansi|tmux*)
+		cygwin|xterm*|putty*|rxvt*|ansi|tmux*|foot)
 			prompt_fmt_title=$'\e]1;'
 			prompt_fmt_title_end=$'\a'
 			prompt_fmt_window=$'\e]2;'
@@ -478,7 +490,7 @@ setup_prompt() {
 			prompt_vcs=
 			;;
 	esac
-	prompt_trunc=$'%50<..<'
+	prompt_trunc=$'%K{'$prompt_color_base02$'}%50<..<%k'
 	RPROMPT="$prompt_history$prompt_user"
 	PROMPT="$prompt_title$prompt_vi$prompt_trunc$prompt_vcs$prompt_directory "
 }
@@ -639,3 +651,5 @@ if which gpgconf >/dev/null 2>/dev/null; then
 		echo UPDATESTARTUPTTY | gpg-connect-agent >/dev/null 2>&1
 	}
 fi
+
+#zprof
