@@ -25,6 +25,7 @@
 !.config/contain
 !.config/containers
 !.config/fontconfig
+!.config/foot
 !.config/git
 !.config/kitty
 .config/kitty/colorscheme.conf
