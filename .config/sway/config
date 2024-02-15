@@ -88,6 +88,9 @@ bindsym $mod+F10 input * xkb_switch_layout 1, input * xkb_options "lv3:menu_swit
 
 input type:touchpad {
     natural_scroll enabled
+    scroll_method two_finger
+    click_method clickfinger
+    pointer_accel 0.15
 }
 input type:pointer {
     natural_scroll enabled

@@ -33,6 +33,7 @@
 !.config/containers
 !.config/fontconfig
 !.config/foot
+.config/foot/foot.ini
 !.config/git
 !.config/kitty
 .config/kitty/colorscheme.conf

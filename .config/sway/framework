@@ -2,7 +2,7 @@
 #
 # Output configuration:
 #
-set $output_laptop "Unknown 0x095F 0x00000000"
+set $output_laptop "BOE 0x095F Unknown"
 output $output_laptop position 0 0 transform 0 scale 1.25
 bindsym $mod+XF86MonBrightnessDown output $output_laptop scale 1.25
 bindsym $mod+XF86MonBrightnessUp output $output_laptop scale 1.5

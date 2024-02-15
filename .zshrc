@@ -567,19 +567,19 @@ slowest_functions+=( setup_nope )
 # helper scripts
 
 function theme {
-	local iterm_profile kitty_theme kitty_variation gnome_theme macos_theme
+	local iterm_profile term_theme term_variation gnome_theme macos_theme
 	case "$2" in
 		g)
-			kitty_variation=greyscale-
+			term_variation=greyscale-
 		;;
 		*)
-			kitty_variation=
+			term_variation=
 		;;
 	esac
 	case "$1" in
 		light)
 			iterm_profile=Light
-			kitty_theme=${kitty_variation}light
+			term_theme=${term_variation}light
 			export LIGHT=true
 			echo "export LIGHT=true" > ~/.zshrc-theme
 			gnome_theme=Adwaita
@@ -588,7 +588,7 @@ function theme {
 		;;
 		dark)
 			iterm_profile=Default
-			kitty_theme=${kitty_variation}dark
+			term_theme=${term_variation}dark
 			export LIGHT=false
 			echo "export LIGHT=false" > ~/.zshrc-theme
 			gnome_theme=Adwaita-dark
@@ -600,11 +600,15 @@ function theme {
 		echo -e "\033]50;SetProfile=$ITERM_PROFILE\a"
 	fi
 	if [[ "$TERM" == "xterm-kitty" ]]; then
-		kitty @ set-colors -c -a ~/.config/kitty/colorscheme.$kitty_theme.conf
+		kitty @ set-colors -c -a ~/.config/kitty/colorscheme.$term_theme.conf
 		kitty @ env LIGHT=$LIGHT
-		if [[ -z "$SSH_CLIENT" ]]; then
-			ln -sf colorscheme.$kitty_theme.conf ~/.config/kitty/colorscheme.conf
-		fi
+	fi
+	if [[ "$TERM" == "foot-extra" ]]; then
+
+	fi
+	if [[ -z "$SSH_CLIENT" ]]; then
+		ln -sf foot.$term_theme.ini ~/.config/foot/foot.ini
+		ln -sf colorscheme.$term_theme.conf ~/.config/kitty/colorscheme.conf
 	fi
 	setup_prompt
 	if [[ -z "$SSH_CLIENT" ]]; then
