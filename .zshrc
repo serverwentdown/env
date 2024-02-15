@@ -115,6 +115,12 @@ setup_nvm_on_demand() {
 }
 export NVM_DIR="$HOME/.nvm"
 [[ -d "$NVM_DIR" ]] && setup_nvm_on_demand
+setup_bun() {
+	[ -s "/var/home/ambrose/.bun/_bun" ] && source "/var/home/ambrose/.bun/_bun"
+	export PATH="$BUN_INSTALL/bin:$PATH"
+}
+export BUN_INSTALL="$HOME/.bun"
+[[ -d "$BUN_INSTALL" ]] && setup_bun
 setup_ruby() {
 	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 }
@@ -127,6 +133,10 @@ setup_g() {
 	export PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" GOROOT="$HOME/.go" # g-install: do NOT edit, see https://github.com/stefanmaric/g
 }
 [[ -f "$HOME/go/bin/g" ]] && setup_g
+setup_rancher_desktop() {
+	export PATH="$HOME/.rd/bin:$PATH"
+}
+[[ -d "$HOME/.rd/bin" ]] && setup_rancher_desktop
 setup_android_sdk() {
 	# See ~/.local/bin/install_android_sdk
 	export ANDROID_SDK_ROOT="$HOME/.android/sdk"

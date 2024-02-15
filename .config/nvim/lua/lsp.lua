@@ -8,7 +8,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -32,6 +32,14 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(ev)
+		on_attach(ev.buf)
+	end,
+})
+local on_attach_mason = function(client, bufnr)
+	on_attach(bufnr)
+end
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -43,11 +51,14 @@ require('mason-lspconfig').setup()
 require('mason-lspconfig').setup_handlers {
 	function (server_name)
 		lspconfig[server_name].setup {
-			on_attach = on_attach,
+			on_attach = on_attach_mason,
 			capabilities = capabilities,
 		}
 	end
 }
+
+-- Configure dart/flutter
+require("flutter-tools").setup {}
 
 -- Configure nvim-cmp
 local cmp = require('cmp')

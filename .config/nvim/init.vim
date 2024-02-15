@@ -30,6 +30,11 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
+" languages: dart/flutter
+Plug 'nvim-lua/plenary.nvim'
+Plug 'stevearc/dressing.nvim'
+Plug 'akinsho/flutter-tools.nvim'
+
 " snippets
 
 Plug 'hrsh7th/cmp-vsnip'
