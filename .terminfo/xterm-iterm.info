@@ -1,3 +1,0 @@
-xterm-iterm|xterm with 256 colors for iTerm2,
-	sitm=\E[3m, ritm=\E[23m,
-	use=xterm-256color,
