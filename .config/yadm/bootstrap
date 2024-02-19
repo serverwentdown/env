@@ -162,8 +162,7 @@ download_minio_client() {
 	esac
 	wget \
 		--output-document "$download_bin_path/mc" \
-		https://minio.mirror.makerforce.io/client/mc/release/$system-$arch/mc
-		#https://dl.min.io/client/mc/release/$system-$arch/mc
+		https://dl.min.io/client/mc/release/$system-$arch/mc
 	chmod +x "$download_bin_path/mc"
 }
 download_nvim_plug() {
