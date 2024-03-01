@@ -6,11 +6,11 @@ set $output_secondary "Dell Inc. DELL P2317H F4VYG7561H1S"
 set $output_laptop "Unknown 0x573D 0x00000000"
 set $output_tv "Unknown Beyond TV 0x00000100"
 set $output_home "Unknown W280 Ultra 0000000000000"
-output $output_primary position 1080 0 transform 90
-output $output_secondary position 0 0 transform 270
-output $output_laptop position 2160 420 transform 0 scale 1
-output $output_tv position 4080 320 mode --custom 2560x1440@60Hz
-output $output_home position -1680 -512 mode 3840x2160@60Hz scale 1
+output $output_primary position 2760 120 transform 90
+output $output_secondary position 1680 120 transform 270
+output $output_laptop position 3840 540 transform 0 scale 1
+output $output_tv position 5760 360 mode --custom 2560x1440@60Hz
+output $output_home position 0 0 mode 3840x2160@60Hz scale 1
 bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
 bindsym $mod+F4 output $output_primary transform 90 anticlockwise
 

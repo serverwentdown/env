@@ -52,16 +52,18 @@ set $dpms_on 'swaymsg "output * dpms on"'
 set $dpms_off 'swaymsg "output * dpms off"'
 exec swayidle -w \
     lock $swaylock \
-    timeout 10 '' \
-        resume $dpms_on \
     timeout 300 $dpms_off \
         resume $dpms_on \
     timeout 360 $swaylock \
+        resume $dpms_on \
     timeout 1200 'systemctl suspend' \
-    after-resume $dpms_on
-bindsym $mod+Pause exec $swaylock
-bindsym XF86ScreenSaver exec $swaylock; exec $dpms_off
-bindsym $mod+Shift+Ctrl+p exec $swaylock; exec $dpms_off
+        after-resume $dpms_on
+set $cmd_lock exec $swaylock
+set $cmd_sleep exec $swaylock; exec sh -c 'sleep 1 && killall -USR1 swayidle'
+bindsym $mod+Shift+o $cmd_lock
+bindsym XF86ScreenSaver $cmd_lock
+bindsym $mod+Shift+p $cmd_sleep
+bindsym XF86Sleep $cmd_sleep
 
 ### Input configuration
 #
