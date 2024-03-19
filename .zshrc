@@ -1,4 +1,4 @@
-#zmodload zsh/zprof
+# zmodload zsh/zprof
 
 # basic settings
 
@@ -47,10 +47,10 @@ sup() {
 prompt_run_count=0
 on_second_prompt() {
 	if [[ "$prompt_run_count" == 1 ]] && [[ "$USER" != "root" ]]; then
-		#zmodload zsh/zprof
+		# zmodload zsh/zprof
 		load_slower
 		load_slowest
-		#zprof
+		# zprof
 	fi
 	(( prompt_run_count = prompt_run_count + 1 ))
 }
@@ -59,26 +59,31 @@ precmd_functions+=( on_second_prompt )
 # executables
 
 export PATH="$HOME/.local/bin:$HOME/.pwn/bin:$PATH"
+
 setup_pulumi() {
 	export PATH="$HOME/.pulumi/bin:$PATH"
 }
 [[ -d "$HOME/.pulumi/bin" ]] && setup_pulumi
+
 setup_deno() {
 	export PATH="$DENO_INSTALL/bin:$PATH"
 }
 export DENO_INSTALL="$HOME/.deno"
 [[ -d "$DENO_INSTALL" ]] && setup_deno
+
 setup_pyenv() {
-	unfunction pyenv python3 pip python
+	unfunction -m pyenv python python3 pip pip3
 	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 	eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
+	eval "$(pip completion --zsh)"
 }
 pyenv_loaded=0
 setup_pyenv_on_demand() {
 	setup_pyenv_once() {
 		if [[ ! -d "$PYENV_ROOT" ]] && ! which pip >/dev/null 2>/dev/null; then
 			git clone https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
+			git clone https://github.com/pyenv/pyenv-virtualenv.git "$PYENV_ROOT/plugins/pyenv-virtualenv"
 		fi
 		if [[ "$pyenv_loaded" != 1 ]]; then
 			echo "-- Loading pyenv --"
@@ -92,15 +97,16 @@ setup_pyenv_on_demand() {
 	}
 	precmd_functions+=( setup_pyenv_when_python_version )
 	pyenv() { setup_pyenv_once && pyenv "$@" }
+	python() { setup_pyenv_once && python "$@" }
 	python3() { setup_pyenv_once && python3 "$@" }
 	pip() { setup_pyenv_once && pip "$@" }
-	python() { setup_pyenv_once && python "$@" }
+	pip3() { setup_pyenv_once && pip3 "$@" }
 }
 export PYENV_ROOT="$HOME/.pyenv"
-#[[ -d "$PYENV_ROOT" ]] && setup_pyenv_on_demand
 setup_pyenv_on_demand
+
 setup_nvm() {
-	unfunction nvm npm npx node
+	unfunction -m nvm npm npx node
 	source "$NVM_DIR/nvm.sh"
 }
 nvm_loaded=0
@@ -119,29 +125,34 @@ setup_nvm_on_demand() {
 export NVM_DIR="$HOME/.nvm"
 [[ -d "$NVM_DIR" ]] && setup_nvm_on_demand
 [[ -f "$HOME/.nvm-setup-now" ]] && setup_nvm
+
 setup_bun() {
 	[ -s "/var/home/ambrose/.bun/_bun" ] && source "/var/home/ambrose/.bun/_bun"
 	export PATH="$BUN_INSTALL/bin:$PATH"
 }
 export BUN_INSTALL="$HOME/.bun"
 [[ -d "$BUN_INSTALL" ]] && setup_bun
+
 setup_ruby() {
 	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 }
 which ruby >/dev/null 2>/dev/null && setup_ruby
+
 setup_go() {
 	export PATH="$(go env GOPATH)/bin:$PATH"
 }
 which go >/dev/null 2>/dev/null && setup_go
+
 setup_g() {
 	export PATH="$HOME/go/bin:$PATH" GOPATH="$HOME/go" GOROOT="$HOME/.go" # g-install: do NOT edit, see https://github.com/stefanmaric/g
 }
-export PATH="$HOME/.rd/bin:$PATH"
 [[ -f "$HOME/go/bin/g" ]] && setup_g
+
 setup_rancher_desktop() {
 	export PATH="$HOME/.rd/bin:$PATH"
 }
 [[ -d "$HOME/.rd/bin" ]] && setup_rancher_desktop
+
 setup_android_sdk() {
 	# See ~/.local/bin/install_android_sdk
 	export ANDROID_SDK_ROOT="$HOME/.android/sdk"
@@ -152,6 +163,7 @@ setup_android_sdk() {
 	fi
 }
 [[ -d "$HOME/.android/sdk" ]] && setup_android_sdk
+
 setup_flutter() {
 	# See ~/.local/bin/install_android_sdk
 	export PATH="$HOME/flutter/bin:$HOME/.pub-cache/bin:$PATH"
@@ -163,12 +175,14 @@ setup_flutter() {
 	fi
 }
 [[ -d "$HOME/flutter/bin" ]] && setup_flutter
+
 setup_cargo() {
 	export PATH="$HOME/.cargo/bin:$PATH"
 }
 [[ -d "$HOME/.cargo" ]] && setup_cargo
+
 setup_rbenv() {
-	unfunction rbenv ruby gem
+	unfunction -m rbenv ruby gem
 	command -v rbenv >/dev/null || export PATH="$RBENV_ROOT/bin:$PATH"
 	eval "$(rbenv init -)"
 }
@@ -188,7 +202,6 @@ setup_rbenv_on_demand() {
 	gem() { setup_rbenv_once && gem "$@" }
 }
 export RBENV_ROOT="$HOME/.rbenv"
-#[[ -d "$RBENV_ROOT" ]] && setup_rbenv_on_demand
 setup_rbenv_on_demand
 
 # platform specific
@@ -273,12 +286,33 @@ setup_completion_more() {
 	# Depends:
 	#setup_completion
 
-	if which kubectl >/dev/null 2>/dev/null; then
-		source <(kubectl completion zsh)
-	fi
-	if [[ -d "$NVM_DIR" ]]; then
-		[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-	fi
+	setup_completion_kubectl() {
+		if which kubectl >/dev/null 2>/dev/null; then
+			source <(kubectl completion zsh)
+		fi
+	}
+	setup_completion_kubectl
+
+	setup_completion_pipenv() {
+		if which pipenv >/dev/null 2>/dev/null; then
+			eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+		fi
+	}
+	setup_completion_pipenv
+
+	setup_completion_nvm() {
+		if [[ -d "$NVM_DIR" ]]; then
+			[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+		fi
+	}
+	setup_completion_nvm
+
+	setup_completion_docker() {
+		if which docker >/dev/null 2>/dev/null; then
+			eval "$(docker completion zsh)"
+		fi
+	}
+	setup_completion_docker
 }
 slowest_functions+=( setup_completion_more )
 
@@ -656,4 +690,4 @@ if which gpgconf >/dev/null 2>/dev/null; then
 	}
 fi
 
-#zprof
+# zprof

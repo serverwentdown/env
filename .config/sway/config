@@ -327,6 +327,7 @@ gaps outer 8
 # Toggle large gaps
 bindsym $mod+g gaps inner current set 34, gaps outer current set 10
 bindsym $mod+Shift+g gaps inner current set 4, gaps outer current set 8
+bindsym $mod+Shift+Ctrl+g gaps inner current set 0, gaps outer current set 0
 #
 # Special sizes
 #

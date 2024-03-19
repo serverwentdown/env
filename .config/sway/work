@@ -24,8 +24,8 @@ output * max_render_time 5
 #
 workspace 1 output $output_secondary
 workspace 2 output $output_primary
-workspace 7 output $output_tv $output_laptop
 workspace 10 output $output_laptop
+workspace 7 output $output_tv $output_laptop
 
 #
 # Windows
