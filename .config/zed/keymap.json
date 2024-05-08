@@ -1,0 +1,15 @@
+[
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "space b": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "space b": "workspace::ToggleLeftDock",
+      "ctrl-w l": "project_panel::ToggleFocus"
+    }
+  }
+]

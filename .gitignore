@@ -53,6 +53,8 @@
 !.config/wofi
 !.config/yabai
 !.config/yadm
+!.config/zed
+.config/zed/.tmp*
 !.config/zsh-completions
 .config/zsh-completions/*
 !.config/zsh-completions/download.sh
