@@ -12,11 +12,12 @@
 #
 
 # start a terminal
-alt - return : kitty --single-instance -d ~
-alt + shift - return : ~/.local/bin/iterm_open
+alt - return : SHELL=/bin/zsh ~/.local/bin/rio_open
+#alt - return : kitty --single-instance -d ~
+#alt + shift - return : ~/.local/bin/iterm_open
 
 # kill focused window
-alt + shift - q : yabai -m window --close
+alt - q : yabai -m window --close
 
 # start launcher
 alt - d : skhd -k "cmd - space"
@@ -71,16 +72,26 @@ alt + shift - right : yabai -m window --warp east
 #
 
 # switch to workspace
-alt - 0x12 : yabai -m space --focus 1
-alt - 0x13 : yabai -m space --focus 2
-alt - 0x14 : yabai -m space --focus 3
-alt - 0x15 : yabai -m space --focus 4
-alt - 0x17 : yabai -m space --focus 5
-alt - 0x16 : yabai -m space --focus 6
-alt - 0x1A : yabai -m space --focus 7
-alt - 0x1C : yabai -m space --focus 8
-alt - 0x19 : yabai -m space --focus 9
-alt - 0x1D : yabai -m space --focus 10
+#alt - 0x12 : yabai -m space --focus 1
+#alt - 0x13 : yabai -m space --focus 2
+#alt - 0x14 : yabai -m space --focus 3
+#alt - 0x15 : yabai -m space --focus 4
+#alt - 0x17 : yabai -m space --focus 5
+#alt - 0x16 : yabai -m space --focus 6
+#alt - 0x1A : yabai -m space --focus 7
+#alt - 0x1C : yabai -m space --focus 8
+#alt - 0x19 : yabai -m space --focus 9
+#alt - 0x1D : yabai -m space --focus 10
+alt - 0x12 : skhd -k "ctrl - 0x12"
+alt - 0x13 : skhd -k "ctrl - 0x13"
+alt - 0x14 : skhd -k "ctrl - 0x14"
+alt - 0x15 : skhd -k "ctrl - 0x15"
+alt - 0x17 : skhd -k "ctrl - 0x17"
+alt - 0x16 : skhd -k "ctrl - 0x16"
+alt - 0x1A : skhd -k "ctrl - 0x1A"
+alt - 0x1C : skhd -k "ctrl - 0x1C"
+alt - 0x19 : skhd -k "ctrl - 0x19"
+alt - 0x1D : skhd -k "ctrl - 0x1D"
 # move focused container to workspace
 alt + shift - 0x12 : yabai -m window --space 1
 alt + shift - 0x13 : yabai -m window --space 2
@@ -198,4 +209,4 @@ alt - p : yabai -m window --toggle float; yabai -m window --toggle topmost; yaba
 #
 # Custom focus Google Meet and mute/unmute
 #
-alt - m : yabai -m window --focus $(yabai -m query --windows | jq 'map(select(.title | contains("Meet"))) | .[0]?.id') && skhd -k 'cmd - d'
+#alt - m : yabai -m window --focus $(yabai -m query --windows | jq 'map(select(.title | contains("Meet"))) | .[0]?.id') && skhd -k 'cmd - d'

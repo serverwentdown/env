@@ -7,7 +7,37 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  // Disable collaboration and chat features
+  "collaboration_panel": {
+    "button": false
+  },
+  "chat_panel": {
+    "button": false
+  },
+  "assistant": {
+    "version": "2",
+    "button": false
+  },
+  "features": {
+    "inline_completion_provider": "none"
+  },
+  // Layout
+  "project_panel": {
+    "dock": "right"
+  },
+  // Appearance
+  "theme": {
+    "mode": "system",
+    "dark": "Solarized Dark",
+    "light": "Solarized Light"
+  },
+  "ui_font_size": 14,
+  "buffer_font_size": 14,
+  "buffer_font_family": "Fira Code",
+  // Editor
   "vim_mode": true,
-  "ui_font_size": 15,
-  "buffer_font_size": 15
+  "relative_line_numbers": true,
+  "wrap_guides": [80, 110],
+  // Security
+  "redact_private_values": true
 }

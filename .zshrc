@@ -1,4 +1,4 @@
-# zmodload zsh/zprof
+#zmodload zsh/zprof
 
 # basic settings
 
@@ -46,15 +46,20 @@ sup() {
 }
 prompt_run_count=0
 on_second_prompt() {
-	if [[ "$prompt_run_count" == 1 ]] && [[ "$USER" != "root" ]]; then
+	if [[ "$prompt_run_count" != 1 ]]; then
+		(( prompt_run_count = prompt_run_count + 1 ))
+	else
 		# zmodload zsh/zprof
 		load_slower
 		load_slowest
 		# zprof
+		precmd_functions_remove=( on_second_prompt )
+		precmd_functions=( ${precmd_functions:|precmd_functions_remove} )
 	fi
-	(( prompt_run_count = prompt_run_count + 1 ))
 }
-precmd_functions+=( on_second_prompt )
+if [[ "$USER" != "root" ]]; then
+	precmd_functions+=( on_second_prompt )
+fi
 
 # executables
 
@@ -72,27 +77,30 @@ export DENO_INSTALL="$HOME/.deno"
 [[ -d "$DENO_INSTALL" ]] && setup_deno
 
 setup_pyenv() {
+	autoload -Uz compinit
+	compinit
 	unfunction -m pyenv python python3 pip pip3
 	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 	eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
 	eval "$(pip completion --zsh)"
 }
-pyenv_loaded=0
 setup_pyenv_on_demand() {
 	setup_pyenv_once() {
 		if [[ ! -d "$PYENV_ROOT" ]] && ! which pip >/dev/null 2>/dev/null; then
 			git clone https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
 			git clone https://github.com/pyenv/pyenv-virtualenv.git "$PYENV_ROOT/plugins/pyenv-virtualenv"
 		fi
-		if [[ "$pyenv_loaded" != 1 ]]; then
-			echo "-- Loading pyenv --"
-			setup_pyenv && pyenv_loaded=1
-		fi
+		echo -n "loading pyenv... "
+		setup_pyenv
 	}
 	setup_pyenv_when_python_version() {
-		if [[ -f .python-version ]]; then
-			setup_pyenv_once
+		if [[ "$pwd_last" != "$PWD" ]]; then
+			if [[ -f .python-version ]]; then
+				setup_pyenv_once
+				precmd_functions_remove=( setup_pyenv_when_python_version )
+				precmd_functions=( ${precmd_functions:|precmd_functions_remove} )
+			fi
 		fi
 	}
 	precmd_functions+=( setup_pyenv_when_python_version )
@@ -103,7 +111,25 @@ setup_pyenv_on_demand() {
 	pip3() { setup_pyenv_once && pip3 "$@" }
 }
 export PYENV_ROOT="$HOME/.pyenv"
-setup_pyenv_on_demand
+if [[ -z "$VIRTUAL_ENV" ]]; then
+	setup_pyenv_on_demand
+fi
+
+detect_venv() {
+	directories=( .env env .venv venv )
+	if [[ "$pwd_last" != "$PWD" ]]; then
+		for directory in $directories; do
+			if [[ -f "$directory/bin/activate" ]]; then
+				echo -n "activating venv... "
+				source "$directory/bin/activate"
+				break
+			fi
+		done
+	fi
+}
+if [[ -z "$VIRTUAL_ENV" ]]; then
+	precmd_functions+=( detect_venv )
+fi
 
 setup_nvm() {
 	unfunction -m nvm npm npx node
@@ -133,10 +159,10 @@ setup_bun() {
 export BUN_INSTALL="$HOME/.bun"
 [[ -d "$BUN_INSTALL" ]] && setup_bun
 
-setup_ruby() {
-	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
-}
-which ruby >/dev/null 2>/dev/null && setup_ruby
+#setup_ruby() {
+#	export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+#}
+#which ruby >/dev/null 2>/dev/null && setup_ruby
 
 setup_go() {
 	export PATH="$(go env GOPATH)/bin:$PATH"
@@ -452,6 +478,10 @@ setup_prompt_colors() {
 	prompt_color_cyan=6
 	prompt_color_green=2
 	prompt_color_always_base3=$prompt_color_base3
+	if [[ "$ZED_TERM" == true ]]; then
+		# TODO: Customization
+		return
+	fi
 	if [[ $LIGHT == true ]]; then
 		prompt_color_temp03=$prompt_color_temp03
 		prompt_color_temp02=$prompt_color_temp02
@@ -598,6 +628,14 @@ setup_nope() {
 }
 slowest_functions+=( setup_nope )
 
+# pwd tracking
+
+pwd_last=
+pwd_last_update() {
+	pwd_last="$PWD"
+}
+precmd_functions+=( pwd_last_update )
+
 # helper scripts
 
 function theme {
@@ -690,4 +728,4 @@ if which gpgconf >/dev/null 2>/dev/null; then
 	}
 fi
 
-# zprof
+#zprof

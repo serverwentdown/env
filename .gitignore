@@ -54,7 +54,8 @@
 !.config/yabai
 !.config/yadm
 !.config/zed
-.config/zed/.tmp*
+.config/zed/*
+!.config/zed/*.json
 !.config/zsh-completions
 .config/zsh-completions/*
 !.config/zsh-completions/download.sh

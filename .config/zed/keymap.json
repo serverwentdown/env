@@ -1,15 +1,23 @@
 [
   {
+    "context": "EmptyPane",
+    "bindings": {
+      "space b": "workspace::ToggleRightDock"
+    }
+  },
+  {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
-      "space b": "workspace::ToggleLeftDock"
+      "space b": "workspace::ToggleRightDock",
+      "space f": "editor::Format"
     }
   },
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
-      "space b": "workspace::ToggleLeftDock",
-      "ctrl-w l": "project_panel::ToggleFocus"
+      "space b": "workspace::ToggleRightDock",
+      "ctrl-w l": "project_panel::ToggleFocus",
+      "ctrl-w r": "project_panel::ToggleFocus"
     }
   }
 ]
