@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export LIMA_HOME='/Users/ambrose/Library/Application Support/rancher-desktop/lima' 
+exec '/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin/limactl.ventura' "$@"

@@ -12,7 +12,7 @@
 #
 
 # start a terminal
-alt - return : SHELL=/bin/zsh ~/.local/bin/rio_open
+alt - return : unset SHELL PATH && ~/.local/bin/rio_open
 #alt - return : kitty --single-instance -d ~
 #alt + shift - return : ~/.local/bin/iterm_open
 

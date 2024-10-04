@@ -5,11 +5,11 @@ set -e
 BASE="$HOME/.pwn/hashpump"
 
 if [[ ! -d "$BASE/bin" ]]; then
-	if [[ ! -d "$BASE/src" ]]; then
-		git clone --depth 1 --recursive \
-			https://github.com/bwall/HashPump.git \
-			"$BASE/src"
-	fi
+	rm -rf "$BASE/src"
+	git clone --depth 1 --recursive \
+		https://github.com/bwall/HashPump.git \
+		"$BASE/src"
+
 	if ! ldconfig -p | grep libssl > /dev/null; then
 		echo "Please install openssl-devel"
 		exit 1
@@ -19,4 +19,4 @@ if [[ ! -d "$BASE/bin" ]]; then
 	make --directory "$BASE/src" INSTALLLOCATION="$BASE/bin/" install
 fi
 
-"$BASE/bin/hashpump" "$@"
+exec "$BASE/bin/hashpump" "$@"

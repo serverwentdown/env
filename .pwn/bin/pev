@@ -5,11 +5,11 @@ set -e
 BASE="$HOME/.pwn/pev"
 
 if [[ ! -d "$BASE/bin" ]]; then
-	if [[ ! -d "$BASE/src" ]]; then
-		git clone --depth 1 --recursive \
-			https://github.com/merces/pev.git \
-			"$BASE/src"
-	fi
+	rm -rf "$BASE/src"
+	git clone --depth 1 --recursive \
+		https://github.com/merces/pev.git \
+		"$BASE/src"
+
 	if ! ldconfig -p | grep libssl > /dev/null; then
 		echo "Please install openssl-devel"
 		exit 1
@@ -29,4 +29,4 @@ if [[ -z "$PROG" ]]; then
 fi
 
 shift
-"$BASE/bin/$PROG" "$@"
+exec "$BASE/bin/$PROG" "$@"

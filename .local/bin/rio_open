@@ -1,0 +1,11 @@
+#!/usr/bin/osascript
+
+if application "Rio" is running then
+	tell application "Rio" to activate
+	tell application "System Events"
+		keystroke "n" using command down
+	end tell
+else
+	tell application "Rio" to activate
+end if
+

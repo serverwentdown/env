@@ -4,16 +4,18 @@ set -e
 
 BASE="$HOME/.pwn/jwt_tool"
 
-if [[ ! -d "$BASE/bin" ]]; then
-	if [[ ! -d "$BASE/src" ]]; then
-		git clone --depth 1 --recursive \
-			https://github.com/ticarpi/jwt_tool.git \
-			"$BASE/src"
-	fi
-	pip3 install --no-cache-dir --user \
+if [[ ! -f "$BASE/installed" ]]; then
+	rm -rf "$BASE/src"
+	git clone --depth 1 --recursive \
+		https://github.com/ticarpi/jwt_tool.git \
+		"$BASE/src"
+
+	python3 -m venv "$BASE/venv"
+	source "$BASE/venv/bin/activate"
+	pip install --no-cache-dir --require-virtualenv \
 		--requirement "$BASE/src/requirements.txt"
-	ln -s "$BASE/src/jwt_tool.py" "$BASE/bin/jwt_tool.py"
-	chmod +x "$BASE/bin/jwt_tool.py"
+
+	touch "$BASE/installed"
 fi
 
-"$BASE/bin/jwt_tool.py" "$@"
+exec "$BASE/venv/bin/python" "$BASE/src/jwt_tool.py" "$@"

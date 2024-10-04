@@ -5,11 +5,11 @@ set -e
 BASE="$HOME/.pwn/stegseek"
 
 if [[ ! -d "$BASE/bin" ]]; then
-	if [[ ! -d "$BASE/src" ]]; then
-		git clone --depth 1 --recursive \
-			https://github.com/RickdeJager/stegseek.git \
-			"$BASE/src"
-	fi
+	rm -rf "$BASE/src"
+	git clone --depth 1 --recursive \
+		https://github.com/RickdeJager/stegseek.git \
+		"$BASE/src"
+
 	pushd "$BASE/src"
 	mkdir -p build
 	cd build
@@ -18,4 +18,4 @@ if [[ ! -d "$BASE/bin" ]]; then
 	popd
 fi
 
-"$BASE/bin/stegseek" "$@"
+exec "$BASE/bin/stegseek" "$@"

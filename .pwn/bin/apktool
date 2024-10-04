@@ -14,4 +14,4 @@ if [[ ! -d "$BASE/bin" ]]; then
 	chmod +x "$BASE/bin/apktool.jar"
 fi
 
-"$BASE/bin/apktool" "$@"
+exec "$BASE/bin/apktool" "$@"

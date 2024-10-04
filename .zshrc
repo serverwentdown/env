@@ -1,5 +1,7 @@
 #zmodload zsh/zprof
 
+echo PATH: $PATH
+
 # basic settings
 
 HISTSIZE=5000
@@ -63,6 +65,14 @@ fi
 
 # executables
 
+install_homebrew() {
+	git clone https://github.com/Homebrew/brew "$HOME/.homebrew"
+}
+setup_local_homebrew() {
+	export PATH="$HOME/.homebrew/bin:$PATH"
+}
+[[ -d "$HOME/.homebrew/bin" ]] && setup_local_homebrew
+
 export PATH="$HOME/.local/bin:$HOME/.pwn/bin:$PATH"
 
 setup_pulumi() {
@@ -80,7 +90,12 @@ setup_pyenv() {
 	autoload -Uz compinit
 	compinit
 	unfunction -m pyenv python python3 pip pip3
-	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+	if ! command -v pyenv >/dev/null; then
+		export PATH="$PYENV_ROOT/bin:$PATH" 
+		if [[ -n "$_OLD_VIRTUAL_PATH" ]]; then
+			export _OLD_VIRTUAL_PATH="$PYENV_ROOT/bin:$_OLD_VIRTUAL_PATH"
+		fi
+	fi
 	eval "$(pyenv init -)"
 	eval "$(pyenv virtualenv-init -)"
 	eval "$(pip completion --zsh)"
@@ -153,7 +168,7 @@ export NVM_DIR="$HOME/.nvm"
 [[ -f "$HOME/.nvm-setup-now" ]] && setup_nvm
 
 setup_bun() {
-	[ -s "/var/home/ambrose/.bun/_bun" ] && source "/var/home/ambrose/.bun/_bun"
+	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 	export PATH="$BUN_INSTALL/bin:$PATH"
 }
 export BUN_INSTALL="$HOME/.bun"
@@ -236,12 +251,6 @@ case "$(uname -s)" in
 	Darwin) PLATFORM=macos;;
 	*) PLATFORM=linux;;
 esac
-
-if [[ $PLATFORM == macos ]]; then
-	export PATH="$HOME/Library/Python/3.9/bin:$PATH"
-	export PATH="$HOME/Library/Python/3.10/bin:$PATH" # LOL
-	# On Linux, scripts are installed into $HOME/.local/bin
-fi
 
 setup_term_integration() {}
 if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then

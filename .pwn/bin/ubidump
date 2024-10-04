@@ -4,16 +4,18 @@ set -e
 
 BASE="$HOME/.pwn/ubidump"
 
-if [[ ! -d "$BASE/bin" ]]; then
-	if [[ ! -d "$BASE/src" ]]; then
-		git clone --depth 1 --recursive \
-			https://github.com/ticarpi/ubidump.git \
-			"$BASE/src"
-	fi
-	pip3 install --no-cache-dir --user \
-		--requirement "$BASE/src/requirements.txt"
-	ln -s "$BASE/src/ubidump.py" "$BASE/bin/ubidump.py"
-	chmod +x "$BASE/bin/ubidump.py"
+if [[ ! -f "$BASE/installed" ]]; then
+	rm -rf "$BASE/src"
+	git clone --depth 1 --recursive \
+		https://github.com/nlitsme/ubidump.git \
+		"$BASE/src"
+
+	python3 -m venv "$BASE/venv"
+	source "$BASE/venv/bin/activate"
+	pip install --no-cache-dir --require-virtualenv \
+		"$BASE/src"
+
+	touch "$BASE/installed"
 fi
 
-python3 "$BASE/bin/ubidump.py" "$@"
+exec "$BASE/venv/bin/ubidump" "$@"
