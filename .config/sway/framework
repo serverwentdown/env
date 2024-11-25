@@ -3,6 +3,29 @@
 # Output configuration:
 #
 set $output_laptop "BOE 0x095F Unknown"
-output $output_laptop position 0 0 transform 0 scale 1.25
+output $output_laptop position 1080 0 transform 0 scale 1.25
 bindsym $mod+XF86MonBrightnessDown output $output_laptop scale 1.25
 bindsym $mod+XF86MonBrightnessUp output $output_laptop scale 1.5
+
+set $output_primary "Hewlett Packard HP E240 6CM73329XK"
+output $output_primary position 0 0 transform 270
+bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
+bindsym $mod+F4 output $output_primary transform 90 anticlockwise
+
+#
+# Display controls:
+#
+# Remember to configure udev. See https://blog.tcharles.fr/ddc-ci-screen-control-on-linux/
+set $monitor_global --noverify --sleep-multiplier 0.1
+set $monitor_primary --bus 8
+# Display brightness controls:
+set $monitor_brightness_step 0x0a
+bindsym --locked $mod+F2 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 - $monitor_brightness_step
+bindsym --locked $mod+F3 exec ddcutil $monitor_global $monitor_primary setvcp 0x10 + $monitor_brightness_step
+
+#
+# Display output toggle:
+#
+# This is so crazy performant that I did not notice it worked. Was expecting my main display to go blank for a while but it didn't even flash
+bindswitch --reload --locked lid:on output $output_laptop disable
+bindswitch --reload --locked lid:off output $output_laptop enable

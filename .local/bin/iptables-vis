@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -euo pipefail
+
+install=/tmp/iptables-vis
+
+mkdir -p $install
+if ! [ -f $install/iptables-vis.awk ]; then
+	wget -O $install/iptables-vis.awk https://github.com/Nudin/iptable_vis/raw/b89e0ca5e30679c8b350b44879637eff9562cdf6/iptables-vis.awk >&2
+fi
+if ! [ -f $install/venv/bin/pip ]; then
+	python -m virtualenv $install/venv >&2
+	$install/venv/bin/pip install Pillow==9.5.0 blockdiag==3.0.0 >&2
+fi
+
+awk -f $install/iptables-vis.awk | $install/venv/bin/blockdiag /dev/stdin -T svg -o /dev/stdout

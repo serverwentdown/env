@@ -18,6 +18,7 @@
 .cargo/registry
 .cargo/.crates.toml
 .cargo/.crates2.json
+.cargo/.global-cache
 .cargo/.package-cache
 .cargo/.package-cache-mutate
 .cert/nm-openvpn
@@ -112,10 +113,13 @@
 .local/bin/poetry
 .local/bin/pygmentize
 .local/bin/step
+.local/bin/tilt
 .local/bin/turn_usb
+.local/bin/vagrant
 .local/bin/virtualenv
 .local/bin/yadm
 .local/bin/yq
+.local/bin/zed
 .local/lib
 .local/share/*
 !.local/share/MultiMC
@@ -126,6 +130,7 @@
 !.local/share/yadm/archive
 .local/state
 .local/zephyr*
+.local/zed-preview.app
 .mc/share
 .mozilla/*
 !.mozilla/firefox
@@ -159,6 +164,8 @@
 .terraform.d
 .tflint.d
 .thunderbird
+.tilt-dev
+.vagrant.d
 .var/app
 .viminfo
 .vscode
