@@ -100,6 +100,10 @@ input type:pointer {
 # Disable pointer and touchpad
 bindsym $mod+p input type:pointer events toggle enabled disabled; input type:keyboard events enabled
 
+# Swipe gestures
+bindgesture swipe:3:right workspace prev
+bindgesture swipe:3:left workspace next
+
 ### Key bindings
 #
 # Basics:
