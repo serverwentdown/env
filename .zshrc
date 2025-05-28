@@ -4,7 +4,7 @@
 
 HISTSIZE=5000
 SAVEHIST=5000
-HISTFILE=~/.zsh_history
+HISTFILE=$HOME/.zsh_history
 setopt append_history
 setopt extended_history
 setopt share_history
@@ -49,10 +49,10 @@ on_second_prompt() {
 	if [[ "$prompt_run_count" != 1 ]]; then
 		(( prompt_run_count = prompt_run_count + 1 ))
 	else
-		# zmodload zsh/zprof
+		#zmodload zsh/zprof
 		load_slower
 		load_slowest
-		# zprof
+		#zprof
 		precmd_functions_remove=( on_second_prompt )
 		precmd_functions=( ${precmd_functions:|precmd_functions_remove} )
 	fi
@@ -89,7 +89,7 @@ setup_pyenv() {
 	compinit
 	unfunction -m pyenv python python3 pip pip3
 	if ! command -v pyenv >/dev/null; then
-		export PATH="$PYENV_ROOT/bin:$PATH" 
+		export PATH="$PYENV_ROOT/bin:$PATH"
 		if [[ -n "$_OLD_VIRTUAL_PATH" ]]; then
 			export _OLD_VIRTUAL_PATH="$PYENV_ROOT/bin:$_OLD_VIRTUAL_PATH"
 		fi
@@ -207,7 +207,7 @@ setup_flutter() {
 	export PATH="$HOME/flutter/bin:$HOME/.pub-cache/bin:$PATH"
 	if [[ -f /usr/sbin/flatpak ]]; then
 		if ! which google-chrome >/dev/null 2>/dev/null; then
-			flatpak_exports="/var/lib/flatpak/exports"  # "$(flatpak --installations)/exports"
+			flatpak_exports="/var/lib/flatpak/exports" # "$(flatpak --installations)/exports"
 			export CHROME_EXECUTABLE="$flatpak_exports/bin/com.google.Chrome"
 		fi
 	fi
@@ -320,14 +320,20 @@ setup_completion_more() {
 
 	setup_completion_kubectl() {
 		if which kubectl >/dev/null 2>/dev/null; then
-			source <(kubectl completion zsh)
+			if ! [[ -f "$HOME/.cache/_kubectl" ]]; then
+				kubectl completion zsh > "$HOME/.cache/_kubectl"
+			fi
+			source "$HOME/.cache/_kubectl"
 		fi
 	}
 	setup_completion_kubectl
 
 	setup_completion_pipenv() {
 		if which pipenv >/dev/null 2>/dev/null; then
-			eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+			if ! [[ -f "$HOME/.cache/pipenv/_pipenv" ]]; then
+				_PIPENV_COMPLETE=zsh_source pipenv > "$HOME/.cache/pipenv/_pipenv"
+			fi
+			source "$HOME/.cache/pipenv/_pipenv"
 		fi
 	}
 	setup_completion_pipenv
@@ -394,7 +400,7 @@ fi
 
 # theme
 
-[[ -f ~/.zshrc-theme ]] && eval "$(cat ~/.zshrc-theme)"
+[[ -f "$HOME/.zshrc-theme" ]] && eval "$(cat "$HOME/.zshrc-theme")"
 
 # prompt
 
@@ -673,7 +679,7 @@ function theme {
 			iterm_profile=Light
 			term_theme=${term_variation}light
 			export LIGHT=true
-			echo "export LIGHT=true" > ~/.zshrc-theme
+			echo "export LIGHT=true" > "$HOME/.zshrc-theme"
 			gnome_theme=Adwaita
 			gnome_color_scheme=prefer-light
 			macos_theme=false
@@ -682,7 +688,7 @@ function theme {
 			iterm_profile=Default
 			term_theme=${term_variation}dark
 			export LIGHT=false
-			echo "export LIGHT=false" > ~/.zshrc-theme
+			echo "export LIGHT=false" > "$HOME/.zshrc-theme"
 			gnome_theme=Adwaita-dark
 			gnome_color_scheme=prefer-dark
 			macos_theme=true
@@ -692,15 +698,15 @@ function theme {
 		echo -e "\033]50;SetProfile=$ITERM_PROFILE\a"
 	fi
 	if [[ "$TERM" == "xterm-kitty" ]]; then
-		kitty @ set-colors -c -a ~/.config/kitty/colorscheme.$term_theme.conf
+		kitty @ set-colors -c -a "$HOME/.config/kitty/colorscheme.$term_theme.conf"
 		kitty @ env LIGHT=$LIGHT
 	fi
 	if [[ "$TERM" == "foot-extra" ]]; then
 
 	fi
 	if [[ -z "$SSH_CLIENT" ]]; then
-		ln -sf foot.$term_theme.ini ~/.config/foot/foot.ini
-		ln -sf colorscheme.$term_theme.conf ~/.config/kitty/colorscheme.conf
+		ln -sf foot.$term_theme.ini "$HOME/.config/foot/foot.ini"
+		ln -sf colorscheme.$term_theme.conf "$HOME/.config/kitty/colorscheme.conf"
 	fi
 	setup_prompt
 	if [[ -z "$SSH_CLIENT" ]]; then
