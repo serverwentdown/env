@@ -14,7 +14,7 @@
   "chat_panel": {
     "button": "never"
   },
-  "assistant": {
+  "agent": {
     "default_profile": "minimal",
     "single_file_review": false,
     "version": "2",
