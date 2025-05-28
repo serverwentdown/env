@@ -166,7 +166,6 @@ export NVM_DIR="$HOME/.nvm"
 [[ -f "$HOME/.nvm-setup-now" ]] && setup_nvm
 
 setup_bun() {
-	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 	export PATH="$BUN_INSTALL/bin:$PATH"
 }
 export BUN_INSTALL="$HOME/.bun"
@@ -206,9 +205,9 @@ setup_android_sdk() {
 setup_flutter() {
 	# See ~/.local/bin/install_android_sdk
 	export PATH="$HOME/flutter/bin:$HOME/.pub-cache/bin:$PATH"
-	if ! which google-chrome >/dev/null 2>/dev/null; then
-		if which flatpak >/dev/null 2>/dev/null; then
-			flatpak_exports="$(flatpak --installations)/exports"
+	if [[ -f /usr/sbin/flatpak ]]; then
+		if ! which google-chrome >/dev/null 2>/dev/null; then
+			flatpak_exports="/var/lib/flatpak/exports"  # "$(flatpak --installations)/exports"
 			export CHROME_EXECUTABLE="$flatpak_exports/bin/com.google.Chrome"
 		fi
 	fi
@@ -353,6 +352,13 @@ setup_completion_more() {
 		fi
 	}
 	setup_completion_aws
+
+	setup_completion_bun() {
+		if [[ -d "$HOME/.bun" ]]; then
+			[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+		fi
+	}
+	setup_completion_bun
 }
 slowest_functions+=( setup_completion_more )
 
