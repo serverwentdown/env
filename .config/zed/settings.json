@@ -74,6 +74,7 @@
   "redact_private_values": true,
   // Extensions
   "auto_install_extensions": {
+    "zed-legacy-themes": true,
     "docker-compose": true,
     "dockerfile": true,
     "env": true,
