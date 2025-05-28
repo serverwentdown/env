@@ -6,7 +6,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -52,22 +52,34 @@ require("lazy").setup({
 	spec = {
 		-- add your plugins here
 		{
-			'maxmx03/solarized.nvim',
+			"maxmx03/solarized.nvim",
 			lazy = false,
 			priority = 1000,
 			config = function()
-				if vim.env.LIGHT == 'true' then
-					vim.o.background = 'light'
+				if vim.env.LIGHT == "true" then
+					vim.o.background = "light"
 				else
-					vim.o.background = 'dark'
+					vim.o.background = "dark"
 				end
-				vim.cmd.colorscheme 'solarized'
+				vim.cmd.colorscheme "solarized"
 			end,
 		},
 		"nvim-treesitter/nvim-treesitter",
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
+		{
+			"williamboman/mason.nvim",
+			opts = {},
+		},
+		{
+			"williamboman/mason-lspconfig.nvim",
+			opts = {
+				automatic_enable = true,
+			},
+			dependencies = {
+				"mason-org/mason.nvim",
+				"neovim/nvim-lspconfig",
+			},
+		},
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
@@ -101,16 +113,3 @@ local on_attach = function(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
 end
-
--- Configure LSP servers
-require('mason').setup()
-require('mason-lspconfig').setup()
-require('mason-lspconfig').setup_handlers {
-	function(server_name)
-		local lspconfig =
-			require('lspconfig')[server_name].setup {
-				on_attach = on_attach,
-				capabilities = capabilities,
-			}
-	end
-}
