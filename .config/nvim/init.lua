@@ -64,20 +64,34 @@ require("lazy").setup({
 				vim.cmd.colorscheme "solarized"
 			end,
 		},
-		"nvim-treesitter/nvim-treesitter",
-		"neovim/nvim-lspconfig",
+		{
+			"nvim-treesitter/nvim-treesitter",
+		},
 		{
 			"williamboman/mason.nvim",
 			opts = {},
 		},
 		{
 			"williamboman/mason-lspconfig.nvim",
-			opts = {
-				automatic_enable = true,
-			},
 			dependencies = {
 				"mason-org/mason.nvim",
 				"neovim/nvim-lspconfig",
+			},
+			opts = {
+				automatic_enable = true,
+			},
+		},
+		{
+			'beauwilliams/statusline.lua',
+			disabled = true,
+			dependencies = {
+				'nvim-lua/lsp-status.nvim',
+			},
+			opts = {
+				match_colorscheme = false, -- Enable colorscheme inheritance (Default: false)
+				tabline = true, -- Enable the tabline (Default: true)
+				lsp_diagnostics = true, -- Enable Native LSP diagnostics (Default: true)
+				ale_diagnostics = false, -- Enable ALE diagnostics (Default: false)
 			},
 		},
 	},
