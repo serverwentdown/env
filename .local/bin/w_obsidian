@@ -1,0 +1,2 @@
+#!/bin/sh
+flatpak run md.obsidian.Obsidian --ozone-platform=wayland

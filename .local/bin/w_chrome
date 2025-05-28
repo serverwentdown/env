@@ -1,0 +1,2 @@
+#!/bin/sh
+flatpak run --nosocket=x11 com.google.Chrome --ozone-platform=wayland

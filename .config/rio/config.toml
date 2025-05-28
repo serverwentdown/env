@@ -19,9 +19,7 @@
 #
 # Example:
 # theme = "dracula"
-[adaptive-theme]
-light = "solarized-light"
-dark = "solarized-dark"
+theme = "solarized-dark"
 
 # Padding-x
 #
@@ -29,6 +27,7 @@ dark = "solarized-dark"
 #
 # Example:
 # padding-x = 10
+padding-x = 16
 
 # Padding-y
 #
@@ -37,6 +36,7 @@ dark = "solarized-dark"
 #
 # Example:
 # padding-y = [30, 10]
+padding-y = [16, 8]
 
 # Option as Alt
 #
@@ -53,7 +53,7 @@ dark = "solarized-dark"
 #
 # Example:
 # line-height = 1.2
-line-height = 1.4
+line-height = 1.25
 
 # Startup directory
 #
@@ -98,6 +98,13 @@ use-fork = false
 # shape = 'block'
 # blinking = false
 # blinking-interval = 800
+
+# Theme
+#
+# Adaptive theme override
+[adaptive-theme]
+light = "solarized-light"
+dark = "solarized-dark"
 
 # Editor
 #

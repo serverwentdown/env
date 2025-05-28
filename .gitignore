@@ -42,6 +42,7 @@
 !.config/Yubico/u2f_keys
 !.config/contain
 !.config/containers
+.config/containers/registries.conf
 !.config/fontconfig
 !.config/foot
 .config/foot/foot.ini
@@ -87,6 +88,7 @@
 .dotnet
 .dvdcss
 .earthly
+.emulator_console_auth_token
 .esd_auth
 .flutter
 .galileo
@@ -170,6 +172,7 @@
 .local/zephyr*
 .local/zed-preview.app
 .mc/share
+.mc/config.json
 .mozilla/*
 !.mozilla/firefox
 .mozilla/firefox/*

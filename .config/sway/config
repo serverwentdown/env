@@ -11,7 +11,8 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 #set $term kitty --single-instance -d ~
-set $term footclient
+#set $term footclient
+set $term rio
 # Your preferred application launcher
 set $menu ~/.local/bin/wofi_run
 
@@ -384,7 +385,7 @@ exec lxpolkit
 #
 # Start foot server:
 #
-exec foot --server
+#exec foot --server
 #
 # Enable mako:
 #
