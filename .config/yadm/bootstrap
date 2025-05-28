@@ -347,7 +347,7 @@ if $base; then
 	# Install Rust
 
 	$rust && download_rust
-	$rust && source "$HOME/.cargo/env" && rustup component add rls rust-analysis rust-src
+	$rust && source "$HOME/.cargo/env" && rustup component add rust-docs rust-src rust-analyzer rustfmt
 
 	# Install deployment utilities
 

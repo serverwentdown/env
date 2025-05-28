@@ -1,4 +1,4 @@
-FROM node:current-alpine3.17
+FROM node:current-alpine3.21
 
 RUN echo hosts: dns files > /etc/nsswitch.conf
 RUN apk add --no-cache --update \

@@ -1,4 +1,4 @@
-FROM node:current-bullseye
+FROM node:current-bookworm
 
 RUN apt-get update \
 	&& apt-get install -y \
