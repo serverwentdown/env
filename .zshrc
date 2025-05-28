@@ -1,7 +1,5 @@
 #zmodload zsh/zprof
 
-echo PATH: $PATH
-
 # basic settings
 
 HISTSIZE=5000
@@ -97,14 +95,14 @@ setup_pyenv() {
 		fi
 	fi
 	eval "$(pyenv init -)"
-	eval "$(pyenv virtualenv-init -)"
+	[[ -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ]] && eval "$(pyenv virtualenv-init -)"
 	eval "$(pip completion --zsh)"
 }
 setup_pyenv_on_demand() {
 	setup_pyenv_once() {
 		if [[ ! -d "$PYENV_ROOT" ]] && ! which pip >/dev/null 2>/dev/null; then
 			git clone https://github.com/pyenv/pyenv.git "$PYENV_ROOT"
-			git clone https://github.com/pyenv/pyenv-virtualenv.git "$PYENV_ROOT/plugins/pyenv-virtualenv"
+			#git clone https://github.com/pyenv/pyenv-virtualenv.git "$PYENV_ROOT/plugins/pyenv-virtualenv"
 		fi
 		echo -n "loading pyenv... "
 		setup_pyenv
@@ -348,6 +346,13 @@ setup_completion_more() {
 		fi
 	}
 	setup_completion_docker
+
+	setup_completion_aws() {
+		if which aws >/dev/null 2>/dev/null; then
+			complete -C aws_completer aws
+		fi
+	}
+	setup_completion_aws
 }
 slowest_functions+=( setup_completion_more )
 

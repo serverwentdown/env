@@ -27,6 +27,11 @@
 .cargo/.package-cache
 .cargo/.package-cache-mutate
 .cert/nm-openvpn
+.colima/_lima
+.colima/_templates
+.colima/ssh_config
+.colima/*/*
+!.colima/*/colima.yaml
 .config/*
 !.config/Code
 .config/Code/*
@@ -52,6 +57,7 @@
 !.config/nvim/init.vim
 !.config/nvim/lua
 !.config/nvim/init.lua
+!.config/rio
 !.config/skhd
 !.config/sway
 .config/sway/enabled/*
@@ -104,7 +110,7 @@
 .kuberlr
 .lesshst
 .local/aws-cli
-.local/bin/aws
+.local/bin/aws*
 .local/bin/borders
 .local/bin/cmark
 .local/bin/cutter
@@ -122,6 +128,8 @@
 .local/bin/kind
 .local/bin/kompose
 .local/bin/kube*
+.local/bin/lima*
+.local/bin/*lima
 .local/bin/mc
 .local/bin/nats
 .local/bin/nvim
@@ -148,6 +156,7 @@
 .local/bin/yadm
 .local/bin/yq
 .local/bin/zed
+.local/completions
 .local/lib
 .local/man
 .local/share/*

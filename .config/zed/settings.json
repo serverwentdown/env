@@ -12,14 +12,45 @@
     "button": false
   },
   "chat_panel": {
-    "button": false
+    "button": "never"
   },
   "assistant": {
+    "default_profile": "minimal",
+    "single_file_review": false,
     "version": "2",
-    "button": false
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-3.7-sonnet"
+    },
+    "editor_model": {
+      "provider": "disabled",
+      "model": "disabled"
+    }
+  },
+  "language_models": {
+    "anthropic": {
+      "version": "1",
+      "api_url": "https://localhost"
+    },
+    "google": {
+      "api_url": "https://localhost"
+    },
+    "openai": {
+      "version": "1",
+      "api_url": "https://localhost"
+    },
+    "lmstudio": {
+      "api_url": "https://localhost"
+    },
+    "deepseek": {
+      "api_url": "https://localhost"
+    },
+    "mistral": {
+      "api_url": "https://localhost"
+    }
   },
   "features": {
-    "inline_completion_provider": "none"
+    "edit_prediction_provider": "none"
   },
   // Layout
   "project_panel": {
@@ -28,16 +59,33 @@
   // Appearance
   "theme": {
     "mode": "system",
-    "dark": "Solarized Dark",
-    "light": "Solarized Light"
+    "dark": "Zed Legacy: Solarized Dark",
+    "light": "Zed Legacy: Solarized Light"
   },
   "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "buffer_font_size": 13,
   "buffer_font_family": "Fira Code",
   // Editor
   "vim_mode": true,
   "relative_line_numbers": true,
   "wrap_guides": [80, 110],
+  "show_completions_on_input": true,
   // Security
-  "redact_private_values": true
+  "redact_private_values": true,
+  // Extensions
+  "auto_install_extensions": {
+    "docker-compose": true,
+    "dockerfile": true,
+    "env": true,
+    "git-firefly": true,
+    "golangci-lint": true,
+    "html": true,
+    "log": true,
+    "make": true,
+    "proto": true,
+    "rainbow-csv": true,
+    "sql": true,
+    "terraform": true,
+    "toml": true
+  }
 }
