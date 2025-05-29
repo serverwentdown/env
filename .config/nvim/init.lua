@@ -1,13 +1,13 @@
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+	local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
-			{ "\nPress any key to exit..." },
+			{ 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+			{ out, 'WarningMsg' },
+			{ '\nPress any key to exit...' },
 		}, true, {})
 		vim.fn.getchar()
 		os.exit(1)
@@ -18,8 +18,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 
 --- Options
 
@@ -27,14 +27,14 @@ vim.g.maplocalleader = "\\"
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
-vim.o.foldcolumn = "1"
+vim.o.foldcolumn = '1'
 --- Read modelines
 vim.o.modeline = true
 --- Default indentation
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
-vim.o.colorcolumn = "80"
+vim.o.colorcolumn = '80'
 --- File browser
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
@@ -48,56 +48,62 @@ vim.keymap.set('n', '<space>b', ':Lexplore!\n')
 --- Plugins
 
 -- Setup lazy.nvim
-require("lazy").setup({
+require('lazy').setup({
 	spec = {
 		-- add your plugins here
 		{
-			"maxmx03/solarized.nvim",
+			'maxmx03/solarized.nvim',
 			lazy = false,
 			priority = 1000,
 			config = function()
-				if vim.env.LIGHT == "true" then
-					vim.o.background = "light"
+				if vim.env.LIGHT == 'true' then
+					vim.o.background = 'light'
 				else
-					vim.o.background = "dark"
+					vim.o.background = 'dark'
 				end
-				vim.cmd.colorscheme "solarized"
+				vim.cmd.colorscheme 'solarized'
 			end,
 		},
 		{
-			"nvim-treesitter/nvim-treesitter",
+			'nvim-treesitter/nvim-treesitter',
+			lazy = false,
+			branch = 'main',
+			build = ':TSUpdate',
 		},
 		{
-			"williamboman/mason.nvim",
+			'neovim/nvim-lspconfig',
+		},
+		{
+			'mason-org/mason.nvim',
 			opts = {},
 		},
 		{
-			"williamboman/mason-lspconfig.nvim",
+			'mason-org/mason-lspconfig.nvim',
 			dependencies = {
-				"mason-org/mason.nvim",
-				"neovim/nvim-lspconfig",
+				'mason-org/mason.nvim',
+				'neovim/nvim-lspconfig',
 			},
 			opts = {
 				automatic_enable = true,
 			},
 		},
 		{
-			'beauwilliams/statusline.lua',
-			disabled = true,
+			'nvim-lualine/lualine.nvim',
 			dependencies = {
-				'nvim-lua/lsp-status.nvim',
+				'nvim-tree/nvim-web-devicons',
 			},
 			opts = {
-				match_colorscheme = false, -- Enable colorscheme inheritance (Default: false)
-				tabline = true, -- Enable the tabline (Default: true)
-				lsp_diagnostics = true, -- Enable Native LSP diagnostics (Default: true)
-				ale_diagnostics = false, -- Enable ALE diagnostics (Default: false)
+				options = {
+					theme = 'auto',
+					section_separators = '',
+					component_separators = '',
+				},
 			},
 		},
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { "solarized" } },
+	install = { colorscheme = { 'solarized' } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })

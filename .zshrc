@@ -15,6 +15,7 @@ setopt notify
 setopt completeinword
 setopt interactivecomments
 setopt extended_glob
+setopt transient_rprompt
 
 # keybindings
 
@@ -427,34 +428,35 @@ format_vcs_info() {
 slower_functions+=( setup_prompt_vcs )
 # prompt: return code
 format_return_code() {
-	local return_code_
-	return_code_=$1
-	if [[ $1 -gt 128 ]]; then
-		return_code_=SIG$(kill -l $1)
+	local return_code
+	return_code=$1
+	if [[ $return_code -gt 128 ]]; then
+		return_code_=SIG$(kill -l $return_code)
 	fi
-	case $1 in
+	case $return_code in
 		127) return_code_="not found";;
 		126) return_code_="not exec";;
 		1) return_code_="err";;
 	esac
-	echo -n $return_code_
+	echo -n " $return_code "
 }
 format_return_code_prev() {
 	local text text_length width start
 	if [[ $1 == 0 ]]; then
 		return
 	fi
-	text=" $(format_return_code $1) "
+	text="$(format_return_code $1)"
 	text_length=${#text}
 	width=$(tput cols)
 	start=$(( $width - $text_length - 1 ))
 
 	tput -S <<EOF
+sgr0
 sc
 cuu1
 hpa $start
-setab $prompt_color_red
-setaf $prompt_color_always_base3
+setab $prompt_color_magenta
+setaf $prompt_color_base02
 EOF
 	echo -n "$text"
 	tput -S <<EOF
@@ -463,7 +465,10 @@ rc
 EOF
 }
 precmd_return_code() {
-	format_return_code_prev $?
+	last_status=$status
+	if [[ -n "${command_current//[[:space:]]/}" ]]; then
+		format_return_code_prev $last_status
+	fi
 }
 # prompt: vi mode
 typeset -g zle_vi_mode_=
@@ -476,7 +481,7 @@ zle-line-init zle-keymap-select() {
 		insert_mode=" "
 	fi
 	case "$KEYMAP" in
-		vicmd) zle_vi_mode_=$'%K{9}'$normal_mode'%k';;
+		vicmd) zle_vi_mode_=$'%K{4}'$normal_mode'%k';;
 		viins|main) zle_vi_mode_=$'%K{2}'$insert_mode'%k';;
 		*) zle_vi_mode_=no;;
 	esac
@@ -534,7 +539,7 @@ setup_prompt() {
 	setup_prompt_colors
 	prompt_user_machine=$''
 	prompt_title_machine=$''
-	if [[ ! -z "$SSH_CLIENT" ]]; then
+	if [[ -n "$SSH_CLIENT" ]]; then
 		prompt_user_machine=$'@%m'
 		prompt_title_machine=$'%m:'
 	fi
@@ -547,11 +552,13 @@ setup_prompt() {
 			prompt_title_machine=
 			;;
 	esac
+	#prompt_fmt_bold=$(tput bold)
 	#prompt_fmt_italic=$(tput sitm)
 	#prompt_fmt_reset=$(tput sgr0)
 	# For performance, use xterm escape codes
+	prompt_fmt_bold=$'\E[1m'
 	prompt_fmt_italic=$'\E[3m'
-	prompt_fmt_reset=$'\E[23m'
+	prompt_fmt_reset=$'\E(b\E[m'
 	case "$TERM" in
 		cygwin|xterm*|putty*|rxvt*|ansi|tmux*|foot)
 			prompt_fmt_title=$'\e]1;'
@@ -566,14 +573,14 @@ setup_prompt() {
 	esac
 	#prompt_title="%{$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_fmt_title_end$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_fmt_window_end%}"
 	prompt_title=$'%{'"$(format_prompt_title)"$'%}'
-	prompt_user=$'%{'"$prompt_fmt_italic"$'%}%F{'"$prompt_color_always_base3"$'}%(!.%K{'"$prompt_color_orange"$'}.%K{'"$prompt_color_blue"$'}) %n'"$prompt_user_machine"$' %k%f%{'"$prompt_fmt_reset"$'%}'
-	prompt_history=$'%F{'"$prompt_color_base01"$'} %h %f'
-	prompt_error_prev=$'$(format_return_code_prev $?)'
-	prompt_vcs=$'%K{'$prompt_color_base03$'}$(format_vcs_info $vcs_info_msg_0_)%k'
+	prompt_user=$'%{'"$prompt_fmt_italic"$'%}%F{'"$prompt_color_base02"$'}%(!.%K{'"$prompt_color_orange"$'}.%K{'"$prompt_color_blue"$'}) %n'"$prompt_user_machine"$' %k%f%{'"$prompt_fmt_reset"$'%}'
+	#prompt_history=$'%{'"$prompt_fmt_reset"$'%}%F{'"$prompt_color_base03"$'} %h %f'
+	#prompt_return_code=$'%K{'"$prompt_color_magenta"$'}%F{'"$prompt_color_base3"$'}%{'"$(format_return_code $?)"$'%}'
+	prompt_vcs=$'%F{'$prompt_color_base02$'}%K{'$prompt_color_base1$'}$(format_vcs_info $vcs_info_msg_0_)%k%f'
 	prompt_directory=$'%K{'$prompt_color_base02$'} %2~ %k'
-	prompt_vi=$'%F{'"$prompt_color_always_base3"$'}%{'"$prompt_fmt_italic"$'%}$zle_vi_mode_%{'"$prompt_fmt_reset"$'%}%f'
+	prompt_vi=$'%F{'"$prompt_color_base02"$'}%{'"$prompt_fmt_bold"$'%}$zle_vi_mode_%{'"$prompt_fmt_reset"$'%}%f'
 	if [[ $prompt_compact == true ]]; then
-		prompt_vi=$'%F{'"$prompt_color_always_base3"$'}$zle_vi_mode_%f'
+		prompt_vi=$'%F{'"$prompt_color_base02"$'}$zle_vi_mode_%f'
 	fi
 	case "$TERM_PROGRAM" in
 		vscode)
@@ -581,15 +588,15 @@ setup_prompt() {
 			;;
 	esac
 	prompt_trunc=$'%K{'$prompt_color_base02$'}%50<..<%k'
-	RPROMPT="$prompt_history$prompt_user"
+	RPROMPT="$prompt_history$prompt_return_code$prompt_user"
 	PROMPT="$prompt_title$prompt_vi$prompt_trunc$prompt_vcs$prompt_directory "
 }
 format_prompt_title() {
 	prompt_current_program='$command_title_fmt$command_last'
-	if [[ ! -z "$prompt_fmt_title" ]]; then
+	if [[ -n "$prompt_fmt_title" ]]; then
 		echo -n "$prompt_fmt_title$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_title_end"
 	fi
-	if [[ ! -z "$prompt_fmt_window" ]]; then
+	if [[ -n "$prompt_fmt_window" ]]; then
 		echo -n "$prompt_fmt_window$prompt_title_machine%$prompt_title_folder_count~$prompt_current_program$prompt_fmt_window_end"
 	fi
 }
@@ -607,7 +614,7 @@ setup_command_current() {
 		if [[ "${#command_current}" -gt $command_current_max_length ]]; then
 			command_current="${command_current[1, $(( $command_current_max_length - 1 ))]}"$'\U2026'
 		fi
-		if [[ ! -z "$command_current" ]]; then
+		if [[ -n "$command_current" ]]; then
 			command_last="$command_current"
 			command_title_fmt=": "
 		else
