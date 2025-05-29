@@ -514,10 +514,10 @@ setup_prompt_colors() {
 		return
 	fi
 	if [[ $LIGHT == true ]]; then
-		prompt_color_temp03=$prompt_color_temp03
-		prompt_color_temp02=$prompt_color_temp02
-		prompt_color_temp01=$prompt_color_temp01
-		prompt_color_temp00=$prompt_color_temp00
+		prompt_color_temp03=$prompt_color_base03
+		prompt_color_temp02=$prompt_color_base02
+		prompt_color_temp01=$prompt_color_base01
+		prompt_color_temp00=$prompt_color_base00
 		prompt_color_base03=$prompt_color_base3
 		prompt_color_base02=$prompt_color_base2
 		prompt_color_base01=$prompt_color_base1
