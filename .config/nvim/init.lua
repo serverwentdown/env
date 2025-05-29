@@ -20,6 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
+vim.opt.completeopt = {"menuone", "noinsert", "popup"}
 
 --- Options
 
@@ -111,8 +112,10 @@ require('lazy').setup({
 -- Configure LSP keymapping
 local on_attach = function(client, bufnr)
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	--- Enable completion triggered by <c-x><c-o>
+	--- Enale completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+	--- Alternative completion trigger
+	vim.lsp.completion.enable(true, client.id, bufnr, {autotrigger = true})
 	--- Zed
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 	vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
@@ -133,3 +136,6 @@ local on_attach = function(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
 end
+vim.lsp.config("*", {
+	on_attach = on_attach,
+})

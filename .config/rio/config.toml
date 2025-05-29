@@ -27,7 +27,7 @@ theme = "solarized-dark"
 #
 # Example:
 # padding-x = 10
-padding-x = 16
+padding-x = 8
 
 # Padding-y
 #
@@ -36,7 +36,7 @@ padding-x = 16
 #
 # Example:
 # padding-y = [30, 10]
-padding-y = [16, 8]
+padding-y = [8, 4]
 
 # Option as Alt
 #
@@ -53,7 +53,7 @@ padding-y = [16, 8]
 #
 # Example:
 # line-height = 1.2
-line-height = 1.25
+line-height = 1.2
 
 # Startup directory
 #
