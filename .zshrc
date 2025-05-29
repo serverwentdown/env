@@ -481,8 +481,8 @@ zle-line-init zle-keymap-select() {
 		insert_mode=" "
 	fi
 	case "$KEYMAP" in
-		vicmd) zle_vi_mode_=$'%K{4}'$normal_mode'%k';;
-		viins|main) zle_vi_mode_=$'%K{2}'$insert_mode'%k';;
+		vicmd) zle_vi_mode_=$'%K{'$prompt_color_blue'}'$normal_mode'%k';;
+		viins|main) zle_vi_mode_=$'%K{'$prompt_color_green'}'$insert_mode'%k';;
 		*) zle_vi_mode_=no;;
 	esac
 	zle reset-prompt
