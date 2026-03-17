@@ -145,6 +145,13 @@ if [[ -z "$VIRTUAL_ENV" ]]; then
 	precmd_functions+=( detect_venv )
 fi
 
+# pnpm
+export PNPM_HOME="$HOME/.pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 setup_nvm() {
 	unfunction -m nvm npm npx node
 	source "$NVM_DIR/nvm.sh"
@@ -762,3 +769,4 @@ if which gpgconf >/dev/null 2>/dev/null; then
 fi
 
 #zprof
+

@@ -176,7 +176,7 @@ provision:
     script: |
       set -ex
       apt-get update
-      apt-get install -y htop strace iotop
+      apt-get install -y htop strace iotop iputils-ping
   - mode: system
     script: |
       set -ex
