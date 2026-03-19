@@ -1,8 +1,10 @@
 # user data
 /*
 !/.*
+.BurpSuite
 .CFUserTextEncoding
 .DS_Store
+.Trash
 .Xauthority
 .Xilinx
 .*_history
@@ -27,11 +29,8 @@
 .cargo/.package-cache
 .cargo/.package-cache-mutate
 .cert/nm-openvpn
-.colima/_lima
-.colima/_templates
-.colima/ssh_config
-.colima/*/*
-!.colima/*/colima.yaml
+.colima/*
+!.colima/_templates
 .config/*
 !.config/Code
 .config/Code/*
@@ -47,6 +46,7 @@
 !.config/foot
 .config/foot/foot.ini
 !.config/git
+!.config/home-manager
 !.config/kitty
 .config/kitty/colorscheme.conf
 !.config/mako
@@ -59,6 +59,7 @@
 !.config/nvim/lua
 !.config/nvim/init.lua
 !.config/rio
+!.config/sketchybar
 !.config/skhd
 !.config/sway
 .config/sway/enabled/*
@@ -74,11 +75,13 @@
 .config/zsh-completions/*
 !.config/zsh-completions/download.sh
 .cortex-debug
+.cursor
 .dart
 .dart-tool
 .dartServer
 .dbus
 .deno/bin
+.dlv
 .docker/.buildNodeID
 .docker/.token_seed*
 .docker/buildx
@@ -88,6 +91,7 @@
 .dotnet
 .dvdcss
 .earthly
+.ecr
 .emulator_console_auth_token
 .esd_auth
 .flutter
@@ -178,16 +182,20 @@
 .mozilla/firefox/*
 !.mozilla/firefox/chrome
 .neverball*
+.nix-*
 .npm
 .nvm
 .opendrop/keys
+.opensearch-cli
 .orbstack
+.ovftool*
 .pam_environment
 .parsec
 .particle
 .password-store
 .pki
 .pm2
+.pnpm
 .prefect
 .profile
 .pub-cache
@@ -200,7 +208,7 @@
 .rustup/settings.toml
 .rustup/toolchains
 .rustup/update-hashes
-.ssh/1password-config
+.ssh/1Password
 .ssh/authorized_keys*
 .ssh/id_*
 .ssh/known_hosts*
@@ -215,6 +223,7 @@
 .tilt-dev
 .vagrant.d
 .var/app
+.vector
 .viminfo
 .vnc
 .vscode

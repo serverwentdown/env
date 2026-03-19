@@ -1,0 +1,128 @@
+# This is a demo config to showcase some of the most important commands.
+# It is meant to be changed and configured, as it is intentionally kept sparse.
+# For a (much) more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar.
+# These are only some of the options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+
+bar=(
+	position=top
+	height=26
+	blur_radius=30
+	color=0x80202020
+	corner_radius=13
+	margin=16
+	y_offset=16
+	padding_left=0
+	padding_right=0
+)
+sketchybar --bar "${bar[@]}"
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+default=(
+	icon.font="Font Awesome 5 Free:Solid:13.0"
+	label.font="Fira Code:Regular:13:0"
+	icon.color=0xffffffff
+	label.color=0xffffffff
+	icon.padding_left=10
+	icon.padding_right=2
+	label.padding_left=2
+	label.padding_right=10
+	background.padding_left=4
+	background.padding_right=4
+	background.height=26
+	background.corner_radius=13
+
+)
+sketchybar --default "${default[@]}"
+
+##### Adding Mission Control Space Indicators #####
+# Let's add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces.
+sketchybar --add event aerospace_workspace_change
+for mid in $(aerospace list-monitors | cut -f 1 -d ' '); do
+	for sid in $(aerospace list-workspaces --monitor $mid); do
+		display=$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}" | cut -c1)
+		space=(
+			#space="$sid"
+			display="${display:-1}"
+			label.drawing=off
+			icon="$sid"
+			icon.font="Fira Code:Regular:13:0"
+			icon.padding_left=0
+			icon.padding_right=0
+			label.padding_left=0
+			label.padding_right=0
+			background.padding_left=0
+			background.padding_right=0
+			width=26
+			align=center
+			background.color=0xffcb4b16
+			script="$PLUGIN_DIR/aerospace.sh"
+			click_script="aerospace workspace $sid"
+		)
+		sketchybar --add item space."$sid" left --subscribe space.$sid aerospace_workspace_change --set space."$sid" "${space[@]}"
+	done
+done
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar, where
+# only the properties deviating from the current defaults need to be set
+
+sketchybar --add item front_app left \
+					--set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+					--subscribe front_app front_app_switched
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+alias=(
+	alias.update_freq=3
+	icon.padding_left=0
+	icon.padding_right=0
+	label.padding_left=0
+	label.padding_right=0
+)
+
+sketchybar --add item clock right \
+					--set clock update_freq=10 icon=	icon.drawing=off script="$PLUGIN_DIR/clock.sh" \
+					--add item battery right \
+					--set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+					--subscribe battery system_woke power_source_change \
+					--add alias "Control Centre,com.apple.TextInputMenuAgent" right \
+					--set "Control Centre,com.apple.TextInputMenuAgent" "${alias[@]}" background.padding_left=0 background.padding_right=0 \
+					--add alias "Control Centre,WiFi" right \
+					--set "Control Centre,WiFi" "${alias[@]}" background.color=0xff2980b9 \
+					--add item volume right \
+					--set volume background.color=0xfff1c40f script="$PLUGIN_DIR/volume.sh" \
+					--subscribe volume volume_change \
+					--add alias "Control Centre,com.apple.menuextra.TimeMachine" right \
+					--set "Control Centre,com.apple.menuextra.TimeMachine" "${alias[@]}" background.padding_left=0 background.padding_right=0 \
+#					--add alias "Control Centre,net.tunnelblick.tunnelblick" right \
+#					--set "Control Centre,net.tunnelblick.tunnelblick" "${alias[@]}" background.padding_left=0 background.padding_right=0 \
+#					--add alias "Control Centre,com.objective-see.lulu.app" right \
+#					--set "Control Centre,com.objective-see.lulu.app" "${alias[@]}" background.padding_left=0 background.padding_right=0 \
+
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update
