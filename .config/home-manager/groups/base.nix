@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "ambrose";
-  #home.homeDirectory = "/home/ambrose";
+  home.homeDirectory = lib.mkDefault "/home/ambrose";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -14,10 +14,6 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
-
-  # Unfree packages:
-  #   terraform
-  nixpkgs.config.allowUnfree = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -93,7 +89,11 @@
   # programs.zsh.enable = true;
 
   # Editors
-  programs.neovim.enable = true;
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+    withPython3 = false;
+  };
 
   # Utilities
   programs.eza = {

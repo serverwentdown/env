@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -9,6 +9,10 @@
   ];
 
   home.packages = [
+    pkgs._1password-cli
+    pkgs._1password-gui
+    # pkgs.cloudflare-warp
+    # (pkgs.callPackage ../pkgs/tunnelblick.nix { })
   ];
 
   home.file = {
@@ -17,5 +21,9 @@
   home.sessionVariables = {
   };
 
-  services.colima.enable = true;
+  nixpkgs.config.allowUnfreePackages = [
+    "1password"
+    "1password-cli"
+    "cloudflare-warp"
+  ];
 }

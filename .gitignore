@@ -29,8 +29,7 @@
 .cargo/.package-cache
 .cargo/.package-cache-mutate
 .cert/nm-openvpn
-.colima/*
-!.colima/_templates
+.colima
 .config/*
 !.config/Code
 .config/Code/*

@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.homeDirectory = "/Users/ambrose";
 
   home.packages = [
+    pkgs.firefox-bin-unwrapped
   ];
 
   home.file = {
@@ -12,9 +13,9 @@
   home.sessionVariables = {
   };
 
+  # Desktop
   programs.aerospace.enable = true;
 
-  services.colima.profiles.default.settings.vmType = "vz";
-  services.colima.profiles.default.settings.rosetta = true;
-  services.colima.profiles.default.settings.mountType = "virtiofs";
+  # Browser
+  programs.firefox.package = null;
 }

@@ -8,28 +8,42 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+    };
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
+    {
+      nixpkgs,
+      home-manager,
+      nur,
+      mac-app-util,
+      ...
+    }:
     {
       homeConfigurations."ambrose@framework" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./machines/framework.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+        };
+        modules = [
+          nur.modules.homeManager.default
+          ./machines/framework.nix
+        ];
       };
       homeConfigurations."ambrose@ambrose-workmacbookpro" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./machines/workmacbookpro.nix ];
+        pkgs = import nixpkgs {
+          system = "aarch64-darwin";
+        };
+        modules = [
+          nur.modules.homeManager.default
+          mac-app-util.homeManagerModules.default
+          ./machines/workmacbookpro.nix
+        ];
       };
     };
 }

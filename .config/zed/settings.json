@@ -30,6 +30,8 @@
     "provider": "none",
   },
   "agent": {
+    "notify_when_agent_waiting": "all_screens",
+    "dock": "left",
     "play_sound_when_agent_done": true,
     "default_profile": "write",
     "single_file_review": false,
@@ -111,6 +113,11 @@
   "relative_line_numbers": "enabled",
   "wrap_guides": [80, 110],
   "show_completions_on_input": true,
+  "languages": {
+    "Nix": {
+      "language_servers": ["nixd"],
+    },
+  },
   // Security
   "redact_private_values": true,
   // Extensions
@@ -123,7 +130,9 @@
     "golangci-lint": true,
     "html": true,
     "log": true,
+    "lua": true,
     "make": true,
+    "nix": true,
     "proto": true,
     "rainbow-csv": true,
     "sql": true,
