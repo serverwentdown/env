@@ -23,8 +23,23 @@ in
     pkgs.go
 
     # Language servers
+	pkgs.yaml-language-server
+	pkgs.vscode-json-languageserver
+	pkgs.jq-lsp
     pkgs.nixd
     pkgs.nixfmt
+	pkgs.lua-language-server
+	pkgs.bash-language-server
+	pkgs.docker-language-server
+	pkgs.terraform-ls
+    pkgs.tflint
+	pkgs.gopls
+	pkgs.golangci-lint
+	pkgs.golangci-lint-langserver
+	pkgs.basedpyright
+	pkgs.vue-language-server
+	pkgs.vtsls
+	pkgs.openscad-lsp
 
     # Formatters
     pkgs.shfmt
@@ -47,7 +62,6 @@ in
     pkgs.google-cloud-sdk
     pkgs.ssm-session-manager-plugin
     pkgs.terraform
-    pkgs.tflint
   ];
 
   home.file = {

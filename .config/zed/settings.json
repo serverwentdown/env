@@ -17,9 +17,25 @@
       "type": "registry",
     },
   },
+  "agent": {
+    "favorite_models": [],
+    "notify_when_agent_waiting": "all_screens",
+    "play_sound_when_agent_done": true,
+    "default_profile": "write",
+    "single_file_review": false,
+    "default_model": {
+      "enable_thinking": false,
+      "provider": "ollama",
+      "model": "qwen3.5:4b",
+    },
+    "dock": "left",
+  },
   "edit_predictions": {
     "sweep": {
       "privacy_mode": true,
+    },
+    "copilot": {
+      "enterprise_uri": "https://localhost",
     },
     "open_ai_compatible_api": {
       "api_url": "https://localhost",
@@ -27,18 +43,11 @@
     "codestral": {
       "api_url": "https://localhost",
     },
-    "provider": "none",
-  },
-  "agent": {
-    "notify_when_agent_waiting": "all_screens",
-    "dock": "left",
-    "play_sound_when_agent_done": true,
-    "default_profile": "write",
-    "single_file_review": false,
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5-mini",
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "model": "qwen3.5:4b",
     },
+    "provider": "ollama",
   },
   "language_models": {
     "anthropic": {
@@ -53,6 +62,7 @@
       "api_url": "https://localhost",
       "available_models": [],
     },
+    "openai_compatible": {},
     "lmstudio": {
       "api_url": "https://localhost",
       "available_models": [],
@@ -70,8 +80,17 @@
       "available_models": [],
     },
     "ollama": {
-      "api_url": "https://localhost",
-      "available_models": [],
+      "api_url": "http://localhost:11434",
+      "available_models": [
+        {
+          "name": "qwen3.5:9b",
+          "max_tokens": 262144,
+        },
+        {
+          "name": "qwen3.5:4b",
+          "max_tokens": 262144,
+        },
+      ],
     },
     "open_router": {
       "api_url": "https://localhost",

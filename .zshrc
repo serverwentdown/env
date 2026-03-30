@@ -315,6 +315,11 @@ setup_completion() {
 	autoload -Uz bashcompinit
 	bashcompinit
 
+	# Setup pay-respects
+	if which pay-respects >/dev/null 2>/dev/null; then
+		eval "$(pay-respects zsh --alias)"
+	fi
+
 	# Setup fast apps
 	if which mc >/dev/null 2>/dev/null; then
 		complete -o nospace -C mc mc

@@ -4,6 +4,7 @@
   imports = [
     ../groups/base.nix
     ../groups/development.nix
+    ../groups/development-ai.nix
     ../groups/graphical.nix
     ../groups/graphical-darwin.nix
   ];

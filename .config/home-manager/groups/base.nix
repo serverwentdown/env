@@ -40,6 +40,7 @@
 
     # Shells
     pkgs.zsh
+    pkgs.nix-index # for pay-respects
 
     # Utilities
     pkgs.dust
@@ -102,6 +103,10 @@
     git = true;
   };
   programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.pay-respects = {
     enable = true;
     enableZshIntegration = true;
   };

@@ -41,6 +41,8 @@ vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
 vim.g.netrw_altv = 1
+--- Diagnostic
+vim.diagnostic.enable()
 
 --- Keybindings
 
@@ -75,20 +77,6 @@ require('lazy').setup({
 			'neovim/nvim-lspconfig',
 		},
 		{
-			'mason-org/mason.nvim',
-			opts = {},
-		},
-		{
-			'mason-org/mason-lspconfig.nvim',
-			dependencies = {
-				'mason-org/mason.nvim',
-				'neovim/nvim-lspconfig',
-			},
-			opts = {
-				automatic_enable = true,
-			},
-		},
-		{
 			'nvim-lualine/lualine.nvim',
 			dependencies = {
 				'nvim-tree/nvim-web-devicons',
@@ -118,6 +106,7 @@ local on_attach = function(client, bufnr)
 	vim.lsp.completion.enable(true, client.id, bufnr, {autotrigger = true})
 	--- Zed
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+	vim.keymap.set('n', '<space>k', vim.lsp.buf.hover, bufopts)
 	vim.keymap.set('n', 'gh', vim.lsp.buf.hover, bufopts)
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 	vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, bufopts)
@@ -129,6 +118,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', 'cd', vim.lsp.buf.rename, bufopts)
 	--- Custom
 	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+	vim.keymap.set('n', '<space>K', vim.diagnostic.open_float, bufopts)
 	--- Workspace
 	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
 	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -139,3 +129,20 @@ end
 vim.lsp.config("*", {
 	on_attach = on_attach,
 })
+vim.lsp.enable("yamlls")
+vim.lsp.enable("jsonls")
+vim.lsp.enable("jqls")
+vim.lsp.enable("nixd")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("bashls")
+vim.lsp.enable("docker_language_server")
+vim.lsp.enable("terraformls")
+vim.lsp.enable("tflint")
+vim.lsp.enable("gopls")
+vim.lsp.enable("golangci_lint_ls")
+vim.lsp.enable("basedpyright")
+vim.lsp.enable("vue_ls")
+vim.lsp.enable("vtsls")
+vim.lsp.enable("openscad_lsp")
+
+
