@@ -8,12 +8,12 @@ bindsym $mod+XF86MonBrightnessDown output $output_laptop scale 1.25
 bindsym $mod+XF86MonBrightnessUp output $output_laptop scale 1.5
 
 set $output_primary "Dell Inc. DELL S2722QC FZG1J24"
-output $output_primary position 0 0 transform 270 scale 1.25
+output $output_primary position 0 0 transform 90 scale 1.25
 bindsym $mod+Shift+F4 output $output_primary transform 90 clockwise
 bindsym $mod+F4 output $output_primary transform 90 anticlockwise
 
-set $output_secondary "Hewlett Packard HP E240 6CM73329XK"
-output $output_secondary position -1080 576 transform 270 scale 1
+set $output_secondary "Beihai Century Joint Innovation Technology Co.,Ltd W280 Ultra 0000000000000"
+output $output_secondary position -1728 0 transform 270 scale 1.25
 
 #
 # Display controls:
