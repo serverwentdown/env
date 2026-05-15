@@ -104,11 +104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778444552,
-        "narHash": "sha256-f18pIiR9q/p1vHY93gmAum7aHhQOG49oGvAB9+lptRo=",
+        "lastModified": 1778805320,
+        "narHash": "sha256-nGFJ01m2CTBKD4ABtcY4vLhHrRN91LKr/pn41PcU78A=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "dcebe66f958673729896eec2de4abfd86ef22d21",
+        "rev": "9846abe15e7d0d36b8acbd4d05f2b87461744c92",
         "type": "github"
       },
       "original": {
@@ -171,6 +171,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1778810474,
+        "narHash": "sha256-TZ6rDouwV+NWkoLyuNfoWugV8zKDvVwz0UGleWK598g=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5dd7754e9f2956e6e9f56de70a01900c690c13de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1761236834,
@@ -221,11 +237,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1777954456,
-        "narHash": "sha256-hGdgeU2Nk87RAuZyYjyDjFL6LK7dAZN5RE9+hrDTkDU=",
+        "lastModified": 1778443072,
+        "narHash": "sha256-zi7/fsqM/kFdNuED//4WOCUtezGtKKqRNORjMvfwjnA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "549bd84d6279f9852cae6225e372cc67fb91a4c1",
+        "rev": "da5ad661ba4e5ef59ba743f0d112cbc30e474f32",
         "type": "github"
       },
       "original": {
@@ -243,11 +259,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778481319,
-        "narHash": "sha256-JfAZkhpOxqCKUkW7o6DjNem2OEuq4cIl3/galNmVhAA=",
+        "lastModified": 1778808336,
+        "narHash": "sha256-Q2dJWrl+3u4IGnVRzAHUDCIGQjdepRE+wQgfLTwUL9I=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "01586e24f512d0bbec84414ffcc5fa4e284156cd",
+        "rev": "30e1ec36cbf5ed0ddaa35c0113775d7dee9df8a7",
         "type": "github"
       },
       "original": {
@@ -261,6 +277,7 @@
         "home-manager": "home-manager",
         "mac-app-util": "mac-app-util",
         "nixpkgs": "nixpkgs_5",
+        "nixpkgs-master": "nixpkgs-master",
         "nur": "nur"
       }
     },

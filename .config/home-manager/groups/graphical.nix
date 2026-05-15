@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  pkgs-master,
+  lib,
+  ...
+}:
 
 {
   home.packages = [
@@ -16,12 +21,15 @@
   programs.rio.enable = true;
 
   # Editor
-  programs.zed-editor.enable = true;
+  programs.zed-editor = {
+    enable = true;
+    package = pkgs-master.zed-editor;
+  };
 
   # Browser
   programs.firefox = {
     enable = true;
-    package = lib.mkDefault pkgs.firefox-bin;
+    package = lib.mkDefault pkgs-master.firefox-bin;
     policies = {
       ExtensionSettings =
         let
