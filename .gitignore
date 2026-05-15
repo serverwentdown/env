@@ -201,7 +201,7 @@
 .particle
 .password-store
 .pi/agent/*
-!.pi/agent/settings.json
+#!.pi/agent/settings.json
 .pki
 .pm2
 .pnpm
