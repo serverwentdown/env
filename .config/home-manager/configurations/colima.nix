@@ -249,7 +249,7 @@
       script = ''
         set -ex
         apt-get update
-        apt-get install -y htop iotop iputils-ping strace
+        apt-get install -y htop btop iotop iputils-ping strace
       '';
     }
     {

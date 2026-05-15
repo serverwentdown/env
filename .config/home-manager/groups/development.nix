@@ -21,25 +21,28 @@ in
 
     # Bootstrap toolchains
     pkgs.go
+    pkgs.rustup
 
     # Language servers
-	pkgs.yaml-language-server
-	pkgs.vscode-json-languageserver
-	pkgs.jq-lsp
+    pkgs.yaml-language-server
+    pkgs.vscode-json-languageserver
+    pkgs.jq-lsp
     pkgs.nixd
     pkgs.nixfmt
-	pkgs.lua-language-server
-	pkgs.bash-language-server
-	pkgs.docker-language-server
-	pkgs.terraform-ls
+    pkgs.lua-language-server
+    pkgs.bash-language-server
+    pkgs.docker-language-server
+	pkgs.hadolint
+    pkgs.terraform-ls
     pkgs.tflint
-	pkgs.gopls
-	pkgs.golangci-lint
-	pkgs.golangci-lint-langserver
-	pkgs.basedpyright
-	pkgs.vue-language-server
-	pkgs.vtsls
-	pkgs.openscad-lsp
+    pkgs.gopls
+    pkgs.golangci-lint
+    pkgs.golangci-lint-langserver
+    pkgs.basedpyright
+    pkgs.vue-language-server
+    pkgs.vtsls
+    pkgs.openscad-lsp
+	pkgs.nginx-language-server
 
     # Formatters
     pkgs.shfmt
@@ -57,6 +60,7 @@ in
     pkgs.kubectl-ktop
     pkgs.kubectl-tree
     pkgs.kubernetes-helm
+	pkgs.dive
 
     # Infrastructure
     pkgs.google-cloud-sdk

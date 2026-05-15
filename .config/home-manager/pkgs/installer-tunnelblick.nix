@@ -1,11 +1,11 @@
 {
-  stdenv,
   lib,
+  stdenvNoCC,
   undmg,
   fetchurl,
 }:
-stdenv.mkDerivation rec {
-  pname = "TunnelblickInstaller";
+stdenvNoCC.mkDerivation rec {
+  pname = "installer-tunnelblick";
   version = "8.0";
   build = "6300";
 
@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/Applications
-    cp -R Tunnelblick.app $out/Applications/TunnelblickInstaller.app
+    mkdir -p $out
+    cp -R Tunnelblick.app $out/Tunnelblick.app
     runHook postInstall
   '';
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tunnelblick.net/";
     license = licenses.gpl2Only;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    mainProgram = "TunnelblickInstaller.app";
+    mainProgram = "Tunnelblick.app";
     maintainers = with maintainers; [ Ambrose ];
     platforms = platforms.darwin;
   };

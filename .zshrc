@@ -148,7 +148,7 @@ export PATH="$HOME/.local/bin:$HOME/.pwn/bin:$PATH"
 #fi
 
 # pnpm
-#export PNPM_HOME="$HOME/.pnpm"
+#export PNPM_HOME="$HOME/.local/share/pnpm"
 #case ":$PATH:" in
 #  *":$PNPM_HOME:"*) ;;
 #  *) export PATH="$PNPM_HOME:$PATH" ;;

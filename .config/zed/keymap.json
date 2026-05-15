@@ -2,22 +2,34 @@
   {
     "context": "EmptyPane",
     "bindings": {
-      "space b": "workspace::ToggleRightDock"
-    }
+      "space b": "project_panel::ToggleFocus",
+      "space g": "git_panel::ToggleFocus",
+    },
   },
   {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
-      "space b": "workspace::ToggleRightDock",
-      "space f": "editor::Format"
-    }
+      "space b": "project_panel::ToggleFocus",
+      "space g": "git_panel::ToggleFocus",
+      "space f": "editor::Format",
+    },
   },
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
       "space b": "workspace::ToggleRightDock",
+      "space g": "git_panel::ToggleFocus",
       "ctrl-w l": "project_panel::ToggleFocus",
-      "ctrl-w r": "project_panel::ToggleFocus"
-    }
-  }
+      "ctrl-w r": "project_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "GitPanel && vim_mode == normal",
+    "bindings": {
+      "space b": "project_panel::ToggleFocus",
+      "space g": "workspace::ToggleRightDock",
+      "ctrl-w l": "git_panel::ToggleFocus",
+      "ctrl-w r": "git_panel::ToggleFocus",
+    },
+  },
 ]

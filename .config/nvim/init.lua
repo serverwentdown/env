@@ -94,7 +94,7 @@ require('lazy').setup({
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { 'solarized' } },
 	-- automatically check for plugin updates
-	checker = { enabled = true },
+	checker = { enabled = false },
 })
 
 -- Configure LSP keymapping
@@ -144,5 +144,3 @@ vim.lsp.enable("basedpyright")
 vim.lsp.enable("vue_ls")
 vim.lsp.enable("vtsls")
 vim.lsp.enable("openscad_lsp")
-
-

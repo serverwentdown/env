@@ -2,6 +2,8 @@
 
 {
   home.packages = [
+    pkgs.fira-code
+    pkgs.ibm-plex
   ];
 
   home.file = {

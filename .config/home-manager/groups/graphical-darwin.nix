@@ -14,7 +14,10 @@
   };
 
   # Desktop
-  programs.aerospace.enable = true;
+  programs.aerospace = {
+    enable = true;
+    launchd.enable = true;
+  };
 
   # Browser
   programs.firefox.package = null;

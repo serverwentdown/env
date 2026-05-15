@@ -13,7 +13,7 @@
     pkgs._1password-cli
     pkgs._1password-gui
     # pkgs.cloudflare-warp
-    # (pkgs.callPackage ../pkgs/tunnelblick.nix { })
+    (pkgs.callPackage ../pkgs/installer-tunnelblick.nix { })
   ];
 
   home.file = {

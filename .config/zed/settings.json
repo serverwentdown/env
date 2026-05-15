@@ -20,7 +20,7 @@
   "agent": {
     "favorite_models": [],
     "notify_when_agent_waiting": "all_screens",
-    "play_sound_when_agent_done": true,
+    "play_sound_when_agent_done": "always",
     "default_profile": "write",
     "single_file_review": false,
     "default_model": {
@@ -31,9 +31,6 @@
     "dock": "left",
   },
   "edit_predictions": {
-    "sweep": {
-      "privacy_mode": true,
-    },
     "copilot": {
       "enterprise_uri": "https://localhost",
     },
@@ -132,30 +129,89 @@
   "relative_line_numbers": "enabled",
   "wrap_guides": [80, 110],
   "show_completions_on_input": true,
+  "format_on_save": "off", // Turn off format on save except for select languages
+  "semantic_tokens": "combined", // Use token highlighting from both LSP and tree-sitter
   "languages": {
     "Nix": {
       "language_servers": ["nixd"],
+      "format_on_save": "on",
     },
+    "Dockerfile": {
+      "format_on_save": "on",
+    },
+    "Python": {
+      "format_on_save": "on",
+    },
+    "Go": {
+      "format_on_save": "on",
+    },
+    "YAML": {
+      "format_on_save": "on",
+    },
+    "TOML": {
+      "format_on_save": "on",
+    },
+    "JavaScript": {
+      "format_on_save": "on",
+    },
+    "TypeScript": {
+      "format_on_save": "on",
+    },
+    "CSS": {
+      "format_on_save": "on",
+    },
+    "HTML": {
+      "format_on_save": "on",
+    },
+    "Ansible": {
+      "format_on_save": "on",
+    },
+  },
+  "file_types": {
+    "Ansible": [
+      "**.ansible.yml",
+      "**.ansible.yaml",
+      "**/defaults/*.yml",
+      "**/defaults/*.yaml",
+      "**/meta/*.yml",
+      "**/meta/*.yaml",
+      "**/tasks/*.yml",
+      "**/tasks/*.yaml",
+      "**/handlers/*.yml",
+      "**/handlers/*.yaml",
+      "**/group_vars/*.yml",
+      "**/group_vars/*.yaml",
+      "**/playbooks/*.yaml",
+      "**/playbooks/*.yml",
+      "**playbook*.yaml",
+      "**playbook*.yml",
+    ],
   },
   // Security
   "redact_private_values": true,
   // Extensions
   "auto_install_extensions": {
     "zed-legacy-themes": true,
+    "ansible": true,
+    "comment": true,
     "docker-compose": true,
     "dockerfile": true,
     "env": true,
     "git-firefly": true,
     "golangci-lint": true,
     "html": true,
+    "ini": true,
     "log": true,
     "lua": true,
     "make": true,
+    "nginx": true,
     "nix": true,
     "proto": true,
     "rainbow-csv": true,
     "sql": true,
     "terraform": true,
     "toml": true,
+    "vue": true,
+    "xml": true,
   },
 }
