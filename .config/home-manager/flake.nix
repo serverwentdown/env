@@ -21,7 +21,7 @@
   outputs =
     {
       nixpkgs,
-	  nixpkgs-master,
+      nixpkgs-master,
       home-manager,
       nur,
       mac-app-util,
@@ -32,8 +32,10 @@
         pkgs = import nixpkgs {
           system = "x86_64-linux";
         };
-		pkgs-master = import nixpkgs-master {
-          system = "x86_64-linux";
+        extraSpecialArgs = {
+          pkgs-master = import nixpkgs-master {
+            system = "x86_64-linux";
+          };
         };
         modules = [
           nur.modules.homeManager.default
@@ -44,8 +46,10 @@
         pkgs = import nixpkgs {
           system = "x86_64-linux";
         };
-		pkgs-master = import nixpkgs-master {
-          system = "x86_64-linux";
+        extraSpecialArgs = {
+          pkgs-master = import nixpkgs-master {
+            system = "x86_64-linux";
+          };
         };
         modules = [
           nur.modules.homeManager.default
@@ -56,8 +60,10 @@
         pkgs = import nixpkgs {
           system = "aarch64-darwin";
         };
-		pkgs-master = import nixpkgs-master {
-          system = "x86_64-linux";
+        extraSpecialArgs = {
+          pkgs-master = import nixpkgs-master {
+            system = "aarch64-darwin";
+          };
         };
         modules = [
           nur.modules.homeManager.default
