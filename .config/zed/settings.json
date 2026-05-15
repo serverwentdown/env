@@ -20,7 +20,7 @@
   "agent": {
     "favorite_models": [],
     "notify_when_agent_waiting": "all_screens",
-    "play_sound_when_agent_done": "always",
+    "play_sound_when_agent_done": true,
     "default_profile": "write",
     "single_file_review": false,
     "default_model": {
