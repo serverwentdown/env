@@ -1,6 +1,7 @@
 # user data
 /*
 !/.*
+/*.old
 .BurpSuite
 .CFUserTextEncoding
 .DS_Store
@@ -106,6 +107,7 @@
 .go
 .gradle
 .homebrew
+.old
 .httpie
 .java
 .jssc
@@ -115,9 +117,13 @@
 .kuberlr
 .lesshst
 .local/aws-cli
+.local/bin/agent
 .local/bin/aws*
 .local/bin/borders
+.local/bin/camo-studio
 .local/bin/cmark
+.local/bin/cursor
+.local/bin/cursor-agent
 .local/bin/cutter
 .local/bin/docker*
 .local/bin/dust
@@ -157,6 +163,7 @@
 .local/bin/turn_usb
 .local/bin/vagrant
 .local/bin/virtualenv
+.local/bin/wt-*
 .local/bin/yabai
 .local/bin/yadm
 .local/bin/yq
@@ -184,6 +191,7 @@
 .nix-*
 .npm
 .nvm
+.ollama
 .opendrop/keys
 .opensearch-cli
 .orbstack
@@ -192,6 +200,8 @@
 .parsec
 .particle
 .password-store
+.pi/agent/*
+!.pi/agent/settings.json
 .pki
 .pm2
 .pnpm
@@ -217,6 +227,7 @@
 .sudo_as_admin_successful
 .talon
 .terraform.d
+.terraformrc
 .tflint.d
 .thunderbird
 .tilt-dev
@@ -228,7 +239,7 @@
 .vscode
 .wget-hsts
 !.xkb
-.zcompdump
+.zcompdump*
 .zoom
 .zprofile
 .zshrc-theme
