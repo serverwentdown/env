@@ -1,0 +1,3 @@
+#!/bin/bash
+
+open "$HOME/Applications/Home Manager Apps/Firefox.app"

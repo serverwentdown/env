@@ -16,7 +16,7 @@ in
     pkgs.git-lfs
 
     # Package managers
-    pkgs.pnpm
+    pkgs.corepack
     pkgs.uv
 
     # Bootstrap toolchains
@@ -32,7 +32,7 @@ in
     pkgs.lua-language-server
     pkgs.bash-language-server
     pkgs.docker-language-server
-	pkgs.hadolint
+    pkgs.hadolint
     pkgs.terraform-ls
     pkgs.tflint
     pkgs.gopls
@@ -42,7 +42,7 @@ in
     pkgs.vue-language-server
     pkgs.vtsls
     pkgs.openscad-lsp
-	pkgs.nginx-language-server
+    pkgs.nginx-language-server
 
     # Formatters
     pkgs.shfmt
@@ -60,7 +60,7 @@ in
     pkgs.kubectl-ktop
     pkgs.kubectl-tree
     pkgs.kubernetes-helm
-	pkgs.dive
+    pkgs.dive
 
     # Infrastructure
     pkgs.google-cloud-sdk
@@ -81,23 +81,22 @@ in
   };
 
   # Utilities
-  programs.difftastic.enable = true;
+  programs.difftastic = {
+    enable = true;
+    package = pkgs.difftastic;
+  };
 
   # Networking
-  programs.aria2.enable = true;
-
-  # Source control
-  # programs.gh.enable = true;
-  # programs.git = {
-  #   enable = true;
-  #   lfs.enable = true;
-  # };
-
-  # Package managers
-  # programs.uv.enable = true;
+  programs.aria2 = {
+    enable = true;
+    package = pkgs.aria2;
+  };
 
   # Containers
-  programs.k9s.enable = true;
+  programs.k9s = {
+    enable = true;
+    package = pkgs.k9s;
+  };
   services.colima = {
     enable = true;
     dockerPackage = pkgs.docker-client;
@@ -112,7 +111,10 @@ in
   };
 
   # Infrastructure
-  programs.awscli.enable = true;
+  programs.awscli = {
+    enable = true;
+    package = pkgs.awscli2;
+  };
 
   nixpkgs.config.allowUnfreePackages = [ "terraform" ];
 }

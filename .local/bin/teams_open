@@ -1,0 +1,15 @@
+#!/bin/bash
+
+open "/Applications/Microsoft Teams.app"
+sleep 1
+aerospace workspace 6
+aerospace move-node-to-workspace 5 || true
+aerospace workspace 5
+sleep 0.5
+aerospace move left
+aerospace resize width 500
+osascript <<'EOF'
+tell application "System Events"
+	keystroke "1" using command down
+end tell
+EOF

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = [
-	pkgs.pi-coding-agent
+    pkgs.pi-coding-agent
   ];
 
   home.file = {
@@ -12,5 +12,6 @@
 
   services.ollama = {
     enable = true;
+    package = pkgs.ollama;
   };
 }

@@ -1,0 +1,1 @@
+../.config/zed/AGENTS.md

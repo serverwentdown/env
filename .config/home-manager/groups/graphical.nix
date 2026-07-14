@@ -18,12 +18,19 @@
   };
 
   # Desktop
-  programs.rio.enable = true;
+  programs.rio = {
+    enable = true;
+    package = pkgs.rio.overrideAttrs (oldAttrs: {
+      cargoBuildFlags = [ "--features=wgpu" ];
+    });
+  };
 
   # Editor
   programs.zed-editor = {
     enable = true;
-    package = pkgs-master.zed-editor;
+    package = pkgs.zed-editor.overrideAttrs (oldAttrs: {
+      env.NODE_OPTIONS = "--max-old-space-size=4096";
+    });
   };
 
   # Browser

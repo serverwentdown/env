@@ -92,27 +92,40 @@
   # Editors
   programs.neovim = {
     enable = true;
+    package = pkgs.neovim-unwrapped;
     vimAlias = true;
     withPython3 = false;
-	defaultEditor = true;
-	sideloadInitLua = true;
+    defaultEditor = true;
+    sideloadInitLua = true;
   };
 
   # Utilities
   programs.eza = {
     enable = true;
+    package = pkgs.eza;
     enableZshIntegration = true;
     git = true;
   };
   programs.fzf = {
     enable = true;
+    package = pkgs.fzf;
     enableZshIntegration = true;
   };
   programs.pay-respects = {
     enable = true;
+    package = pkgs.pay-respects;
     enableZshIntegration = true;
   };
-  programs.jq.enable = true;
-  programs.ripgrep.enable = true;
-  programs.ripgrep-all.enable = true;
+  programs.jq = {
+    enable = true;
+    package = pkgs.jq;
+  };
+  programs.ripgrep = {
+    enable = true;
+    package = pkgs.ripgrep;
+  };
+  programs.ripgrep-all = {
+    enable = true;
+    package = pkgs.ripgrep-all;
+  };
 }

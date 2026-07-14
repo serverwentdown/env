@@ -8,19 +8,35 @@
 // from the command palette or from `Zed` application menu.
 {
   // Disable collaboration and chat features
+  "cli_default_open_behavior": "existing_window",
+  "outline_panel": {
+    "dock": "left",
+  },
   "collaboration_panel": {
+    "dock": "left",
     "button": false,
   },
   // Configure AI features
   "agent_servers": {
+    "claude-acp": {
+      "default_config_options": {
+        "mode": "auto"
+      },
+      "type": "registry"
+    },
     "cursor": {
+      "default_config_options": {
+        "context": "1m",
+        "mode": "agent",
+        "model": "claude-opus-4-8"
+      },
       "type": "registry",
     },
   },
   "agent": {
     "favorite_models": [],
     "notify_when_agent_waiting": "all_screens",
-    "play_sound_when_agent_done": true,
+    "play_sound_when_agent_done": "always",
     "default_profile": "write",
     "single_file_review": false,
     "default_model": {
@@ -31,6 +47,8 @@
     "dock": "left",
   },
   "edit_predictions": {
+    "allow_data_collection": "no",
+    "mode": "subtle",
     "copilot": {
       "enterprise_uri": "https://localhost",
     },
@@ -93,7 +111,11 @@
       "api_url": "https://localhost",
       "available_models": [],
     },
-    "vercel": {
+    "opencode": {
+      "api_url": "https://localhost",
+      "available_models": [],
+    },
+    "vercel_ai_gateway": {
       "api_url": "https://localhost",
       "available_models": [],
     },
