@@ -29,6 +29,7 @@ in
     pkgs.jq-lsp
     pkgs.nixd
     pkgs.nixfmt
+	pkgs.nixfmt-tree
     pkgs.lua-language-server
     pkgs.bash-language-server
     pkgs.docker-language-server

@@ -26,7 +26,7 @@
     },
     "cursor": {
       "default_config_options": {
-        "context": "1m",
+        "context": "300k",
         "mode": "agent",
         "model": "claude-opus-4-8"
       },

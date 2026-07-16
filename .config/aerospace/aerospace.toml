@@ -1,0 +1,265 @@
+# Reference: https://github.com/i3/i3/blob/next/etc/config
+
+# You can use it to add commands that run after AeroSpace startup.
+# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+after-startup-command = [
+    'exec-and-forget borders active_color=0xddcb4b16 inactive_color=0x00cb4b16 width=6.0'
+]
+
+# Start AeroSpace at login
+start-at-login = false
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+#
+# i3 doesn't have "normalizations" feature that why we disable them here.
+# But the feature is very helpful.
+# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
+# Give normalizations a chance and enable them back.
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+# The 'accordion-padding' specifies the size of accordion padding
+# You can set 0 to disable the padding feature
+accordion-padding = 30
+
+# Possible values: tiles|accordion
+default-root-container-layout = 'tiles'
+
+# Possible values: horizontal|vertical|auto
+# 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
+#               tall monitor (anything higher than wide) gets vertical orientation
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when focused monitor changes
+# Drop it from your config, if you don't like this behavior
+# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
+# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
+# Fallback value (if you omit the key): on-focused-monitor-changed = []
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
+# Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
+# Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
+automatically-unhide-macos-hidden-apps = true
+
+# Notify Sketchybar about workspace change
+#exec-on-workspace-change = ['/bin/bash', '-c',
+#    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+#]
+
+[exec.env-vars]
+PATH = '${HOME}/.local/bin:${PATH}'
+
+# Possible values: (qwerty|dvorak|colemak)
+# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
+[key-mapping]
+    preset = 'dvorak'
+
+# Gaps between windows (inner-*) and between monitor edges (outer-*).
+# Possible values:
+# - Constant:     gaps.outer.top = 8
+# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
+#                 In this example, 24 is a default value when there is no match.
+#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
+#                 See:
+#                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[gaps]
+    inner.horizontal = 12
+    inner.vertical =   12
+    outer.left =       16
+    outer.bottom =     16
+    outer.top =        16
+    outer.right =      16
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+# Fallback value (if you omit the key): mode.main.binding = {}
+[mode.main.binding]
+
+    # All possible keys:
+    # - Letters.        a, b, c, ..., z
+    # - Numbers.        0, 1, 2, ..., 9
+    # - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
+    # - F-keys.         f1, f2, ..., f20
+    # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon,
+    #                   backtick, leftSquareBracket, rightSquareBracket, space, enter, esc,
+    #                   backspace, tab, pageUp, pageDown, home, end, forwardDelete,
+    #                   sectionSign (ISO keyboards only, european keyboards only)
+    # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
+    #                   keypadMinus, keypadMultiply, keypadPlus
+    # - Arrows.         left, down, up, right
+
+    # All possible modifiers: cmd, alt, ctrl, shift
+
+    # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
+
+### Key bindings
+#
+# Basics:
+#
+    # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
+    # start a terminal
+    alt-enter = 'exec-and-forget ~/.local/bin/rio_open'
+
+    # kill focused window
+    alt-shift-q = 'close --quit-if-last-window'
+
+    # start your launcher
+    #alt-d = 'trigger-binding cmd-space --mode main'
+
+    # reload the configuration file
+    alt-shift-c = 'reload-config'
+#
+# Moving around:
+#
+    # i3 wraps focus by default
+    # Move your focus around
+    alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+    alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+    alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+    alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+    # or use $mod+[up|down|left|right]
+    alt-left = 'focus --boundaries-action wrap-around-the-workspace left'
+    alt-down = 'focus --boundaries-action wrap-around-the-workspace down'
+    alt-up = 'focus --boundaries-action wrap-around-the-workspace up'
+    alt-right = 'focus --boundaries-action wrap-around-the-workspace right'
+
+    # _move_ the focused window with the same, but add Shift
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+    # ditto, with arrow keys
+    alt-shift-left = 'move left'
+    alt-shift-down = 'move down'
+    alt-shift-up = 'move up'
+    alt-shift-right = 'move right'
+#
+# Workspaces:
+#
+    # switch to workspace
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+    alt-0 = 'workspace 10'
+    # move focused container to workspace
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-7 = 'move-node-to-workspace 7'
+    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-0 = 'move-node-to-workspace 10'
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+
+    # back and forth
+    alt-period = 'workspace-back-and-forth'   
+#
+# Displays:
+#
+    # move workspace to output
+    alt-ctrl-shift-h = 'move-workspace-to-monitor left'
+    alt-ctrl-shift-j = 'move-workspace-to-monitor down'
+    alt-ctrl-shift-k = 'move-workspace-to-monitor up'
+    alt-ctrl-shift-l = 'move-workspace-to-monitor right'
+#
+# Layout stuff:
+#
+    # Consider using 'join-with' command as a 'split' replacement if you want to enable
+    # normalizations
+    #alt-b = 'split horizontal'
+    #alt-v = 'split vertical'
+    alt-b = 'join-with down'
+    alt-v = 'join-with right'
+    
+    # Switch the current container between different layout styles
+    alt-n = 'layout h_tiles'
+    alt-s = 'layout v_accordion' # 'layout stacking' in i3
+    alt-w = 'layout h_accordion' # 'layout tabbed' in i3
+    alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+
+    # Make the current focus fullscreen
+    alt-f = 'fullscreen'
+
+    # Toggle the current focus between tiling and floating mode
+    alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+
+    # Not supported, because this command is redundant in AeroSpace mental model.
+    # See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
+    #alt-space = 'focus toggle_tiling_floating'
+
+    # `focus parent`/`focus child` are not yet supported, and it's not clear whether they
+    # should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
+    # alt-a = 'focus parent'
+#
+# Resizing containers:
+#
+
+    alt-r = 'mode resize'
+
+[mode.resize.binding]
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    h = 'resize width -50'
+    j = 'resize height +50'
+    k = 'resize height -50'
+    l = 'resize width +50'
+
+    # ditto, with arrow keys
+    left = 'resize width -50'
+    down = 'resize height +50'
+    up = 'resize height -50'
+    right = 'resize width +50'
+
+    # return to default mode
+    enter = 'mode main'
+    esc = 'mode main'
+
+
+[workspace-to-monitor-force-assignment]
+    1 = 1
+    2 = 2
+    5 = 3
+    6 = 3
+    9 = 3
+    10 = 3
+
+[[on-window-detected]]
+    if.app-id = 'com.microsoft.teams2'
+    if.window-title-regex-substring = '^(Calendar \| |Chat \| .* \| )Microsoft Teams$'
+    run = ['move-node-to-workspace 5', 'move left', 'resize width 1240']
+
+[[on-window-detected]]
+    if.app-id = 'com.microsoft.teams2'
+    run = ['move-node-to-workspace 6']
+
+[[on-window-detected]]
+    if.app-id = 'com.objective-see.lulu.app'
+    if.window-title-regex-substring = 'LuLu Alert'
+    run = ['layout floating']
+
+[[on-window-detected]]
+    if.app-id = 'com.objective-see.lulu.app'
+    if.window-title-regex-substring = 'LuLu Rules'
+    run = ['move-node-to-workspace 9']
+
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
+    run = ['move-node-to-workspace 10']
+
+
+# vim: ai ts=4 sw=4 et

@@ -35,6 +35,7 @@
 !.claude/CLAUDE.md
 .colima
 .config/*
+!.config/aerospace
 !.config/Code
 .config/Code/*
 !.config/Code/User
